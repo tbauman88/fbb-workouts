@@ -1,40 +1,16 @@
-import './App.css'
-import { useWorkouts } from './hooks/useWorkouts'
+import React from "react";
+import { useAuth } from "./hooks/useAuth";
+import { Login } from "./pages/Login";
+import { Workout } from "./pages/Workout";
 
 function App() {
-  const { items, loading, error } = useWorkouts()
+  const { isAuthenticated } = useAuth();
 
-  if (loading) return <div>Loading...</div>
-  if (error) return <div>Error: {error.message}</div>
+  if (import.meta.env.PROD && !isAuthenticated) {
+    return <Login />;
+  }
 
-  console.log(items);
-  
-
-  return (
-    <div className="App">
-      <h1>Workouts</h1>
-      <div className="workouts-list">
-        {items.map(workout => (
-          <div key={workout.date} className="workout-card">
-            <div className="workout-header">
-              <h2>{workout.title}</h2>
-              <span className="cycle">Cycle {workout.cycle}</span>
-            </div>
-            <h3>{workout.subtitle}</h3>
-
-            <p className="date">
-              {new Date(workout.date).toLocaleDateString('en-US', {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-              })}
-            </p>
-          </div>
-        ))}
-      </div>
-    </div>
-  )
+  return <Workout />;
 }
 
-export default App
+export default App;
