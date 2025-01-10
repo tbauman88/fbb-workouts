@@ -8,22 +8,44 @@ const AuthContext = createContext<{
   login: () => false
 });
 
-export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+const FOUR_HOURS = 4 * 60 * 60 * 1000; // 4 hours in milliseconds
 
-  const login = (password: string) => {
-    if (
-      password === import.meta.env.VITE_GUEST_PASSWORD ||
-      password === import.meta.env.VITE_AUTH_PASSWORD
-    ) {
+export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+  const getStoredAuth = () => {
+    const stored = localStorage.getItem("auth");
+    if (!stored) return null;
+
+    const { expiry } = JSON.parse(stored);
+    if (Date.now() > expiry) {
+      localStorage.removeItem("auth");
+      return null;
+    }
+    return true;
+  };
+
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(
+    !!getStoredAuth()
+  );
+
+  const login = async (password: string) => {
+    if (password === import.meta.env.VITE_AUTH_PASSWORD) {
+      const authData = {
+        expiry: Date.now() + FOUR_HOURS
+      };
+      localStorage.setItem("auth", JSON.stringify(authData));
       setIsAuthenticated(true);
       return true;
     }
-    return false;
+    throw new Error("Invalid password");
+  };
+
+  const logout = () => {
+    localStorage.removeItem("auth");
+    setIsAuthenticated(false);
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login }}>
+    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

@@ -15,7 +15,7 @@ import { NotFound } from "./pages/NotFound";
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { isAuthenticated } = useAuth();
 
-  if (import.meta.env.PROD && !isAuthenticated) {
+  if (!isAuthenticated) {
     return <Navigate to="/login" />;
   }
 

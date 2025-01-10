@@ -11,15 +11,11 @@ export const Login = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await login(password);
+      await login(password);
 
-      console.log(response);
-
-      if (response) {
-        navigate("/");
-      }
+      navigate("/");
     } catch (err) {
-      setError("Invalid credentials");
+      setError("Invalid password");
       console.error("Login error:", err);
     }
   };
