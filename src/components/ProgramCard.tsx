@@ -13,7 +13,7 @@ export const ProgramCard = ({
   onClick,
   children
 }: ProgramCardProps) => (
-  <li className="overflow-hidden rounded-lg bg-white shadow">
+  <article className="overflow-hidden rounded-lg bg-white shadow">
     <section
       onClick={onClick}
       className="group cursor-pointer block w-full aspect-w-16 aspect-h-9 overflow-hidden bg-gray-100 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100"
@@ -35,5 +35,5 @@ export const ProgramCard = ({
       <p className="my-2 text-sm text-gray-500">{description}</p>
       {children}
     </div>
-  </li>
+  </article>
 );

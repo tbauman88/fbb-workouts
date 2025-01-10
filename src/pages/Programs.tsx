@@ -1,11 +1,36 @@
 import React from "react";
-// import { Link } from "react-router-dom";
+import { usePrograms } from "../hooks/usePrograms";
+import { ProgramCard, CardWrapper } from "../components";
 
 export const Programs = () => {
+  const { programs, loading, error } = usePrograms();
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+
   return (
-    <div className="mx-auto max-w-7xl px-4">
-      <h1 className="text-2xl font-semibold text-gray-900">Programs</h1>
-      <p className="mt-4 text-gray-500">Coming soon...</p>
-    </div>
+    <CardWrapper desktopCols={3}>
+      {programs.map((program) => (
+        <ProgramCard
+          key={program.name}
+          handleClick={() => handleClick(program)}
+          title={program.name}
+          includeFooter={true}
+          {...program}
+        >
+          {/* {program.newCycles.map((cycle, index: number) => (
+            <span
+              key={program.name + cycle.id}
+              className={`cursor-pointer inline-flex items-center rounded-full px-2 py-1 mr-1 text-xs font-medium ring-1 ring-inset ${getCycleClasses(
+                cycle.id
+              )}`}
+              onClick={() => viewProgramCycle(program, cycle)}
+            >
+              {index + 1}
+            </span>
+          ))} */}
+        </ProgramCard>
+      ))}
+    </CardWrapper>
   );
 };

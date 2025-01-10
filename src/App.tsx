@@ -36,7 +36,7 @@ function App() {
             </ProtectedRoute>
           }
         >
-          <Route index element={<Dashboard />} />
+          <Route index path="/" element={<Dashboard />} />
           <Route path="programs" element={<Programs />} />
           <Route path="programs/:id" element={<Program />} />
           <Route path="workouts" element={<Workouts />} />
