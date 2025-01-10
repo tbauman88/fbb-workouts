@@ -9,7 +9,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const login = (password: string) => {
-    if (password === import.meta.env.VITE_AUTH_PASSWORD) {
+    if (
+      password === import.meta.env.VITE_GUEST_PASSWORD ||
+      password === import.meta.env.VITE_AUTH_PASSWORD
+    ) {
       setIsAuthenticated(true);
       return true;
     }

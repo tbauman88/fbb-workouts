@@ -1,26 +1,51 @@
 import React from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useAuth } from "./hooks/useAuth";
+
 import { Login } from "./pages/Login";
 import { Workout } from "./pages/Workout";
 import { Layout } from "./pages/Layout";
+import { Dashboard } from "./pages/Dashboard";
+import { Programs } from "./pages/Programs";
+import { Program } from "./pages/Program";
+import { Workouts } from "./pages/Workouts";
+import { Exercises } from "./pages/Exercises";
+import { NotFound } from "./pages/NotFound";
 
-function App() {
+const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { isAuthenticated } = useAuth();
 
   if (import.meta.env.PROD && !isAuthenticated) {
-    return <Login />;
+    return <Navigate to="/login" />;
   }
 
-  const handleClick = (direction: "next" | "prev") => {
-    const id =
-      direction === "next" ? selectedWorkout.id + 1 : selectedWorkout.id - 1;
-    navigate(`/workouts/${id}`);
-  };
+  return <>{children}</>;
+};
 
+function App() {
   return (
-    <Layout name="Bauman Lift" handleClick={handleClick}>
-      <Workout />
-    </Layout>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <Layout />
+            </ProtectedRoute>
+          }
+        >
+          <Route index element={<Dashboard />} />
+          <Route path="programs" element={<Programs />} />
+          <Route path="programs/:id" element={<Program />} />
+          <Route path="workouts" element={<Workouts />} />
+          <Route path="workouts/:id" element={<Workout />} />
+          <Route path="exercises" element={<Exercises />} />
+          <Route path="*" element={<NotFound />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 

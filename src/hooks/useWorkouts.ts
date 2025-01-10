@@ -2,10 +2,14 @@ import { useQuery } from "@apollo/client";
 import { GET_WORKOUTS } from "../graphql/queries";
 
 interface Workout {
-  id: string;
+  id: number;
   title: string;
-  date: string;
   subtitle: string;
+  poster: string;
+  isRestDay: boolean;
+  isActiveRecovery: boolean;
+  description: string;
+  date: string;
   cycle: number;
 }
 
@@ -17,7 +21,7 @@ export const useWorkouts = () => {
   const { loading, error, data } = useQuery<WorkoutsData>(GET_WORKOUTS);
 
   return {
-    items: data?.workouts || [],
+    workouts: data?.workouts || [],
     loading,
     error
   };

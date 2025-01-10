@@ -1,11 +1,11 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
+import { Outlet } from "react-router-dom";
 
 export const Layout: React.FC<{
-  children: ReactNode;
   name: string;
   handleClick?: (direction: "next" | "prev") => void;
-}> = ({ children, name, handleClick = () => {} }) => {
+}> = ({ name, handleClick = () => {} }) => {
   return (
     <div className="min-h-full">
       <div className="bg-gray-800 pb-32">
@@ -45,7 +45,9 @@ export const Layout: React.FC<{
 
       <main className="-mt-32">
         <div className="mx-auto max-w-full lg:px-16">
-          <div className="rounded-lg bg-white lg:py-6 sm:px-6">{children}</div>
+          <div className="rounded-lg bg-white lg:py-6 sm:px-6">
+            <Outlet />
+          </div>
         </div>
       </main>
     </div>
