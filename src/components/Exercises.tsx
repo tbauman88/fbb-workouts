@@ -1,30 +1,13 @@
 import React, { FC, useState } from "react";
 import { marked } from "marked";
-import {
-  ChevronDownIcon,
-  ChevronRightIcon,
-  PlayCircleIcon
-} from "@heroicons/react/16/solid";
+import { PlayCircleIcon } from "@heroicons/react/16/solid";
+import { Exercise } from "../types";
 
-// interface Exercise {
-//   levels: string[];
-//   hidden: boolean;
-//   scaleOptions: boolean;
-//   subtitle?: string;
-//   title: string;
-//   exercise?: {
-//     demo_video_poster?: string;
-//     demo_video_url?: string;
-//     demo_video_thumb?: string;
-//     demo_video_title?: string;
-//   };
-// }
-
-export const Exercises: FC<{ exercise_details: unknown[] }> = ({
+export const Exercises: FC<{ exercise_details: Exercise[] }> = ({
   exercise_details
 }) => {
   const [exercises, setExercises] = useState(() =>
-    exercise_details.map((exercise: unknown) => {
+    exercise_details.map((exercise: Exercise) => {
       const isMain = exercise?.levels?.includes("l1");
       const isLast = exercise?.levels?.includes("l4");
       return { ...exercise };

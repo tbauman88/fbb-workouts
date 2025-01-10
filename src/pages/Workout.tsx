@@ -1,10 +1,11 @@
-import React, { useMemo } from "react";
+import React, { useMemo, FC, ReactNode } from "react";
 import { useWindowSize } from "react-use";
 import { useWorkout } from "../hooks/useWorkout";
 import { WorkoutItem } from "../components/WorkoutItem";
+import { Workout as WorkoutType } from "../types";
 
 interface WorkoutColumnProps {
-  workoutItems: unknown[];
+  workoutItems: WorkoutType[];
 }
 
 const WorkoutColumn: FC<WorkoutColumnProps> = ({ workoutItems }) => (

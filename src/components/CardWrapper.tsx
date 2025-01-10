@@ -1,11 +1,12 @@
 import { ReactNode } from "react";
 
-interface CardWrapperProps {
+export const CardWrapper = ({
+  children,
+  desktopCols
+}: {
   children: ReactNode;
   desktopCols?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
-}
-
-export const CardWrapper = ({ children, desktopCols }: CardWrapperProps) => {
+}) => {
   const colsMap = {
     1: "md:grid-cols-1",
     2: "md:grid-cols-2",

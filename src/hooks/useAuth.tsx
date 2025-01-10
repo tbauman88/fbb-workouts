@@ -3,7 +3,10 @@ import { createContext, useState, useContext } from "react";
 const AuthContext = createContext<{
   isAuthenticated: boolean;
   login: (password: string) => boolean;
-}>({ isAuthenticated: false, login: () => false });
+}>({
+  isAuthenticated: false,
+  login: () => false
+});
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);

@@ -1,10 +1,4 @@
-interface ProgramCardProps {
-  image?: string;
-  title?: string;
-  description?: string;
-  onClick?: () => void;
-  children?: React.ReactNode;
-}
+import { ProgramCardProps } from "../types";
 
 export const ProgramCard = ({
   image,

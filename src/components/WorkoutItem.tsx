@@ -7,7 +7,7 @@ interface WorkoutItemProps {
   item: {
     header?: string;
     title?: string;
-    exercise_details: unknown[];
+    exercise_details: ExerciseDetails[];
     notes?: string;
     score?: string;
     id: string | number;
