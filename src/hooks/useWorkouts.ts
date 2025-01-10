@@ -1,6 +1,10 @@
 import { useQuery } from "@apollo/client";
 import { GET_WORKOUTS } from "../graphql/queries";
 
+interface WorkoutItem {
+  notes: string | null;
+}
+
 interface Workout {
   id: number;
   title: string;
@@ -11,17 +15,27 @@ interface Workout {
   description: string;
   date: string;
   cycle: number;
+  workout_items: WorkoutItem[];
+  notes?: string | null;
 }
 
 interface WorkoutsData {
   workouts: Workout[];
 }
 
-export const useWorkouts = () => {
-  const { loading, error, data } = useQuery<WorkoutsData>(GET_WORKOUTS);
+export const useWorkouts = (cycleId: number) => {
+  const { data, loading, error } = useQuery<WorkoutsData>(GET_WORKOUTS, {
+    variables: { cycleId }
+  });
+
+  const transformedWorkouts =
+    data?.workouts.map(({ workout_items, ...workout }) => ({
+      ...workout,
+      notes: workout_items[0]?.notes || null
+    })) || [];
 
   return {
-    workouts: data?.workouts || [],
+    workouts: transformedWorkouts,
     loading,
     error
   };
