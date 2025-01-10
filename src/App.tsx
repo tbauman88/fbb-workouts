@@ -40,10 +40,18 @@ function App() {
           <Route path="programs" element={<Programs />} />
           <Route path="programs/:id" element={<Program />} />
           <Route path="workouts" element={<Workouts />} />
-          <Route path="workouts/:id" element={<Workout />} />
           <Route path="exercises" element={<Exercises />} />
           <Route path="*" element={<NotFound />} />
         </Route>
+
+        <Route
+          path="/workouts/:id"
+          element={
+            <ProtectedRoute>
+              <Workout />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );
