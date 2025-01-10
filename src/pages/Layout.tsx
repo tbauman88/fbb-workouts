@@ -44,8 +44,8 @@ const Navigation = () => {
 
 const Header = ({ user }: { user: User }) => {
   return (
-    <header className="absolute inset-x-0 top-0 z-50 flex h-16">
-      <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+    <header className="py-10">
+      <div className="mx-auto max-w-7xl px-4 flex justify-between">
         <div className="flex flex-1 items-center gap-x-6">
           <button
             type="button"
@@ -78,7 +78,7 @@ const Header = ({ user }: { user: User }) => {
               className="h-8 w-8 rounded-full bg-gray-800"
             />
           </a>
-        </div>
+        </div>{" "}
       </div>
     </header>
   );

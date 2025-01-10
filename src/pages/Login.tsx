@@ -1,15 +1,26 @@
 import { useState } from "react";
 import { useAuth } from "../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
   const { login } = useAuth();
+  const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!login(password)) {
-      setError(true);
+    try {
+      const response = await login(password);
+
+      console.log(response);
+
+      if (response) {
+        navigate("/");
+      }
+    } catch (err) {
+      setError("Invalid credentials");
+      console.error("Login error:", err);
     }
   };
 
