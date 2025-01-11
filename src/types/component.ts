@@ -1,3 +1,11 @@
+export interface QueryWrapperProps {
+  loading?: boolean;
+  error?: Error | null;
+  data: any; // Add data prop
+  emptyMessage?: string; // Optional custom message for empty data
+  children: React.ReactNode;
+}
+
 export interface CardWrapperProps {
   children: React.ReactNode;
   desktopCols?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;

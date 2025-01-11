@@ -6,6 +6,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { WorkoutColumnProps, MainColumnProps } from "../types";
+import { QueryWrapper } from "../components/QueryWrapper";
 
 const WorkoutColumn: React.FC<WorkoutColumnProps> = ({ workoutItems }) => (
   <div className="w-full lg:max-w-2xl lg:flex-auto lg:mt-24">
@@ -82,36 +83,27 @@ const Header: React.FC<{
   );
 };
 
-export const Workout = () => {
-  const { id } = useParams<{ id: string }>();
-
-  const { workout: selectedWorkout, loading, error } = useWorkout(id);
-  const { height } = useWindowSize();
+const WorkoutContent = ({ workout }: { workout: Workout }) => {
+  const { width } = useWindowSize();
   const navigate = useNavigate();
 
-  const isLargeScreen = useMemo(() => height > 1700, [height]);
+  const isLargeScreen = useMemo(() => width > 1280, [width]);
 
   const [coachingItems, workoutItems] = useMemo(() => {
-    if (!selectedWorkout) {
+    if (!workout || !workout.workout_items) {
       return [[], []];
     }
 
-    const items = selectedWorkout.workout_items ?? [];
+    const items = workout.workout_items;
     const firstTwo = items.slice(0, 2);
     const remaining = items.slice(2);
-
     return [firstTwo, remaining];
-  }, [selectedWorkout]);
+  }, [workout]);
 
   const handleClick = (direction: "next" | "prev") => {
-    const id =
-      direction === "next" ? selectedWorkout.id + 1 : selectedWorkout.id - 1;
+    const id = direction === "next" ? workout.id + 1 : workout.id - 1;
     navigate(`/workouts/${id}`);
   };
-
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
-  if (!selectedWorkout) return <div>No workout found</div>;
 
   return (
     <div className="min-h-full">
@@ -120,9 +112,9 @@ export const Workout = () => {
       <div className="mx-auto max-w-7xl px-4">
         <main className="mx-auto flex max-w-3xl flex-col items-start justify-between gap-8 lg:gap-4 lg:mx-0 lg:max-w-none lg:flex-row min-h-screen">
           <MainColumn
-            title={selectedWorkout.title}
-            subtitle={selectedWorkout.subtitle}
-            poster={selectedWorkout.poster}
+            title={workout.title}
+            subtitle={workout.subtitle}
+            poster={workout.poster}
           >
             {isLargeScreen &&
               coachingItems.map((item) => (
@@ -131,12 +123,26 @@ export const Workout = () => {
           </MainColumn>
 
           <WorkoutColumn
-            workoutItems={
-              isLargeScreen ? workoutItems : selectedWorkout.workout_items
-            }
+            workoutItems={isLargeScreen ? workoutItems : workout.workout_items}
           />
         </main>
       </div>
     </div>
+  );
+};
+
+export const Workout = () => {
+  const { id } = useParams<{ id: string }>();
+  const { workout, loading, error } = useWorkout(id);
+
+  return (
+    <QueryWrapper
+      loading={loading}
+      error={error}
+      data={workout}
+      emptyMessage="No workout found"
+    >
+      <WorkoutContent workout={workout} />
+    </QueryWrapper>
   );
 };
