@@ -4,7 +4,7 @@ import { Bars3Icon } from "@heroicons/react/20/solid";
 import { BellIcon } from "@heroicons/react/24/outline";
 import { useUser } from "../hooks/useUser";
 import { Link, useLocation } from "react-router-dom";
-import { NavigationProps } from "../types/component";
+import { NavigationProps } from "../types";
 
 const navigation: NavigationProps[] = [
   { name: "Home", href: "/", current: false },

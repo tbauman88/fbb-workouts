@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ScoreProps } from "../types/component";
+import { ScoreProps } from "../types";
 
 export const Score: React.FC<ScoreProps> = ({ value }) => {
   const [newValue, setScore] = useState(value);

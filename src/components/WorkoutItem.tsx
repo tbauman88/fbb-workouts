@@ -1,7 +1,7 @@
 import { marked } from "marked";
 import { Exercises } from "./Exercises";
 import { Score } from "./Score";
-import { WorkoutItemProps } from "../types/component";
+import { WorkoutItemProps } from "../types";
 
 const Header = ({ header }: { header: string }) => (
   <h2 className="w-full text-xl text-gray-900 font-bold tracking-tight">

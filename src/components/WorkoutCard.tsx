@@ -1,6 +1,6 @@
 import React from "react";
 import { marked } from "marked";
-import { WorkoutCardProps } from "../types/component";
+import { WorkoutCardProps } from "../types";
 
 export const WorkoutCard: React.FC<WorkoutCardProps> = ({ workout }) => {
   const description = workout.description || workout.notes;

@@ -1,4 +1,4 @@
-import { CardWrapperProps } from "../types/component";
+import { CardWrapperProps } from "../types";
 
 export const CardWrapper = ({
   children,
