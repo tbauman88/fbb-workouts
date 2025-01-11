@@ -4,8 +4,9 @@ import { Bars3Icon } from "@heroicons/react/20/solid";
 import { BellIcon } from "@heroicons/react/24/outline";
 import { useUser } from "../hooks/useUser";
 import { Link, useLocation } from "react-router-dom";
+import { NavigationProps } from "../types/component";
 
-const navigation: { name: string; href: string; current: boolean }[] = [
+const navigation: NavigationProps[] = [
   { name: "Home", href: "/", current: false },
   { name: "Programs", href: "/programs", current: false },
   { name: "Workouts", href: "/workouts", current: false },
@@ -84,7 +85,7 @@ const Header = ({ user }: { user: User }) => {
   );
 };
 
-export const Layout: FC = () => {
+export const Layout: React.FC = () => {
   const { user, loading, error } = useUser(1);
 
   if (loading) return <div>Loading...</div>;

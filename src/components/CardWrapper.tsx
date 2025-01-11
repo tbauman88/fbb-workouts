@@ -1,12 +1,9 @@
-import { ReactNode } from "react";
+import { CardWrapperProps } from "../types/component";
 
 export const CardWrapper = ({
   children,
-  desktopCols
-}: {
-  children: ReactNode;
-  desktopCols?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
-}) => {
+  desktopCols = 1
+}: CardWrapperProps) => {
   const colsMap = {
     1: "md:grid-cols-1",
     2: "md:grid-cols-2",

@@ -70,11 +70,17 @@ export const GET_EXERCISES = gql`
 
 export const GET_PROGRAMS = gql`
   query GetPrograms {
-    programs(order_by: [{ name: asc }]) {
+    programs(order_by: [{ id: asc }]) {
       id
       name
       description
       image
+      cycles {
+        workouts(limit: 1) {
+          id
+          cycle
+        }
+      }
     }
   }
 `;

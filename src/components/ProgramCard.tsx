@@ -1,12 +1,12 @@
 import { ProgramCardProps } from "../types";
 
-export const ProgramCard = ({
+export const ProgramCard: React.FC<ProgramCardProps> = ({
   image,
   title,
   description,
   onClick,
   children
-}: ProgramCardProps) => (
+}) => (
   <article className="overflow-hidden rounded-lg bg-white shadow">
     <section
       onClick={onClick}

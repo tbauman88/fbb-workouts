@@ -1,8 +1,8 @@
 import React from "react";
-import { Workout } from "../types";
 import { marked } from "marked";
+import { WorkoutCardProps } from "../types/component";
 
-export const WorkoutCard = ({ workout }: { workout: Workout }) => {
+export const WorkoutCard: React.FC<WorkoutCardProps> = ({ workout }) => {
   const description = workout.description || workout.notes;
   const truncatedDescription = description && description.slice(0, 375);
 

@@ -1,6 +1,7 @@
-import React, { FC, useState } from "react";
+import { useState } from "react";
+import { ScoreProps } from "../types/component";
 
-export const Score: FC<{ value: string }> = ({ value }) => {
+export const Score: React.FC<ScoreProps> = ({ value }) => {
   const [newValue, setScore] = useState(value);
 
   return (

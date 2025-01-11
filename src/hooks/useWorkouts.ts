@@ -1,8 +1,9 @@
 import { useQuery } from "@apollo/client";
 import { GET_WORKOUTS } from "../graphql/queries";
+import { WorkoutEntity } from "../types";
 
 export const useWorkouts = (cycleId: number) => {
-  const { data, loading, error } = useQuery<{ workouts: Workout[] }>(
+  const { data, loading, error } = useQuery<{ workouts: WorkoutEntity[] }>(
     GET_WORKOUTS,
     {
       variables: { cycleId }

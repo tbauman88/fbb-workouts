@@ -1,14 +1,13 @@
 import { createContext, useState, useContext } from "react";
+import { AuthContextType } from "../types";
 
-const AuthContext = createContext<{
-  isAuthenticated: boolean;
-  login: (password: string) => boolean;
-}>({
+const AuthContext = createContext<AuthContextType>({
   isAuthenticated: false,
-  login: () => false
+  login: () => false,
+  logout: () => {}
 });
 
-const FOUR_HOURS = 4 * 60 * 60 * 1000; // 4 hours in milliseconds
+const TWELVE_HOURS = 12 * 60 * 60 * 1000;
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const getStoredAuth = () => {
@@ -16,10 +15,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     if (!stored) return null;
 
     const { expiry } = JSON.parse(stored);
+
     if (Date.now() > expiry) {
       localStorage.removeItem("auth");
       return null;
     }
+
     return true;
   };
 
@@ -29,9 +30,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const login = async (password: string) => {
     if (password === import.meta.env.VITE_AUTH_PASSWORD) {
-      const authData = {
-        expiry: Date.now() + FOUR_HOURS
-      };
+      const authData = { expiry: Date.now() + TWELVE_HOURS };
+
       localStorage.setItem("auth", JSON.stringify(authData));
       setIsAuthenticated(true);
       return true;
