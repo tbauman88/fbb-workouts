@@ -9,7 +9,6 @@ export const Programs = () => {
 
   const handleClick = useCallback(
     (program: Program) => {
-      console.log("Navigating to program: ", program.name);
       navigate(`/programs/${program.id}`);
     },
     [navigate]

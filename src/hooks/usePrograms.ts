@@ -2,7 +2,7 @@ import { useQuery } from "@apollo/client";
 import { GET_PROGRAMS } from "../graphql/queries";
 import { ProgramEntity } from "../types";
 
-const PROGRAM_NAME_MAP: Record<string, string> = {
+export const PROGRAM_NAME_MAP: Record<string, string> = {
   PERSIST_PUMP_HYPERTROPHY: "Full Body Pump Lift",
   PERSIST_PUMP_HYPERTROPHY_3DAY: "Full Body Pump Lift (3x/wk)",
   PERSIST_PUMP: "Full Body Pump Condition",

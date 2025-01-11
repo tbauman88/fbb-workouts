@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import { useAuth } from "./hooks/useAuth";
 import { Layout } from "./components/Layout";
+import { UserProvider } from "./context/UserProvider";
 
 import { Login } from "./pages/Login";
 import { Workout } from "./pages/Workout";
@@ -32,7 +33,9 @@ function App() {
           path="/"
           element={
             <ProtectedRoute>
-              <Layout />
+              <UserProvider>
+                <Layout />
+              </UserProvider>
             </ProtectedRoute>
           }
         >
@@ -48,7 +51,9 @@ function App() {
           path="/workouts/:id"
           element={
             <ProtectedRoute>
-              <Workout />
+              <UserProvider>
+                <Workout />
+              </UserProvider>
             </ProtectedRoute>
           }
         />

@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { WorkoutColumnProps, MainColumnProps } from "../types";
 import { QueryWrapper } from "../components/QueryWrapper";
-
+import { useUserContext } from "../context/UserProvider";
 const WorkoutColumn: React.FC<WorkoutColumnProps> = ({ workoutItems }) => (
   <div className="w-full lg:max-w-2xl lg:flex-auto lg:mt-24">
     <ul className="-my-6 divide-y divide-gray-100">
@@ -41,51 +41,47 @@ const MainColumn: React.FC<MainColumnProps> = ({
 );
 
 const Header: React.FC<{
+  name: string;
   handleClick: () => void;
-}> = ({ handleClick = () => {} }) => {
-  const name = "Workout";
+}> = ({ name, handleClick = () => {} }) => (
+  <div className="bg-gray-800 md:pb-32">
+    <header className="py-10">
+      <div className="mx-auto max-w-7xl px-4 flex justify-between">
+        <h1 className="text-3xl font-bold tracking-tight text-white">{name}</h1>
 
-  return (
-    <div className="bg-gray-800 md:mb-32">
-      <header className="py-10">
-        <div className="mx-auto max-w-7xl px-4 flex justify-between">
-          <h1 className="text-3xl font-bold tracking-tight text-white">
-            {name}
-          </h1>
-
-          <div className="flex items-center text-gray-400">
-            <button
-              type="button"
-              className="-my-1.5 flex flex-none items-center justify-center p-1.5 hover:text-white"
-            >
-              <span className="sr-only">Previous month</span>
-              <ChevronLeftIcon
-                className="h-5 w-5"
-                aria-hidden="true"
-                onClick={() => handleClick("prev")}
-              />
-            </button>
-            <button
-              type="button"
-              className="-my-1.5 -mr-1.5 ml-2 flex flex-none items-center justify-center p-1.5 hover:text-white"
-            >
-              <span className="sr-only">Next month</span>
-              <ChevronRightIcon
-                className="h-5 w-5"
-                aria-hidden="true"
-                onClick={() => handleClick("next")}
-              />
-            </button>
-          </div>
+        <div className="flex items-center text-gray-400">
+          <button
+            type="button"
+            className="-my-1.5 flex flex-none items-center justify-center p-1.5 hover:text-white"
+          >
+            <span className="sr-only">Previous month</span>
+            <ChevronLeftIcon
+              className="h-5 w-5"
+              aria-hidden="true"
+              onClick={() => handleClick("prev")}
+            />
+          </button>
+          <button
+            type="button"
+            className="-my-1.5 -mr-1.5 ml-2 flex flex-none items-center justify-center p-1.5 hover:text-white"
+          >
+            <span className="sr-only">Next month</span>
+            <ChevronRightIcon
+              className="h-5 w-5"
+              aria-hidden="true"
+              onClick={() => handleClick("next")}
+            />
+          </button>
         </div>
-      </header>
-    </div>
-  );
-};
+      </div>
+    </header>
+  </div>
+);
 
 const WorkoutContent = ({ workout }: { workout: Workout }) => {
   const { width } = useWindowSize();
   const navigate = useNavigate();
+  const { currentProgram } = useUserContext();
 
   const isLargeScreen = useMemo(() => width > 1280, [width]);
 
@@ -107,26 +103,34 @@ const WorkoutContent = ({ workout }: { workout: Workout }) => {
 
   return (
     <div className="min-h-full">
-      <Header handleClick={handleClick} />
+      <Header name={currentProgram.name} handleClick={handleClick} />
 
-      <div className="mx-auto max-w-7xl px-4">
-        <main className="mx-auto flex max-w-3xl flex-col items-start justify-between gap-8 lg:gap-4 lg:mx-0 lg:max-w-none lg:flex-row min-h-screen">
-          <MainColumn
-            title={workout.title}
-            subtitle={workout.subtitle}
-            poster={workout.poster}
-          >
-            {isLargeScreen &&
-              coachingItems.map((item) => (
-                <WorkoutItem key={item.id} item={item} />
-              ))}
-          </MainColumn>
+      <main className="-mt-32">
+        <div className="mx-auto max-w-full lg:px-16">
+          <div className="rounded-lg bg-white lg:py-6 sm:px-6">
+            <div className="mx-auto max-w-7xl px-4">
+              <section className="mx-auto flex max-w-3xl flex-col items-start justify-between gap-8 lg:gap-4 lg:mx-0 lg:max-w-none lg:flex-row min-h-screen">
+                <MainColumn
+                  title={workout.title}
+                  subtitle={workout.subtitle}
+                  poster={workout.poster}
+                >
+                  {isLargeScreen &&
+                    coachingItems.map((item) => (
+                      <WorkoutItem key={item.id} item={item} />
+                    ))}
+                </MainColumn>
 
-          <WorkoutColumn
-            workoutItems={isLargeScreen ? workoutItems : workout.workout_items}
-          />
-        </main>
-      </div>
+                <WorkoutColumn
+                  workoutItems={
+                    isLargeScreen ? workoutItems : workout.workout_items
+                  }
+                />
+              </section>
+            </div>
+          </div>
+        </div>
+      </main>
     </div>
   );
 };
