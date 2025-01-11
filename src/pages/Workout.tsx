@@ -1,17 +1,13 @@
-import React, { useMemo, FC, ReactNode } from "react";
+import React, { useMemo } from "react";
 import { useWindowSize } from "react-use";
 import { useWorkout } from "../hooks/useWorkout";
 import { WorkoutItem } from "../components/WorkoutItem";
-import { Workout as WorkoutType } from "../types";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import { WorkoutColumnProps, MainColumnProps } from "../types";
 
-interface WorkoutColumnProps {
-  workoutItems: WorkoutType[];
-}
-
-const WorkoutColumn: FC<WorkoutColumnProps> = ({ workoutItems }) => (
+const WorkoutColumn: React.FC<WorkoutColumnProps> = ({ workoutItems }) => (
   <div className="w-full lg:max-w-2xl lg:flex-auto lg:mt-24">
     <ul className="-my-6 divide-y divide-gray-100">
       {workoutItems.map((item) => (
@@ -21,14 +17,7 @@ const WorkoutColumn: FC<WorkoutColumnProps> = ({ workoutItems }) => (
   </div>
 );
 
-interface MainColumnProps {
-  title: string;
-  subtitle: string;
-  poster: string;
-  children: ReactNode;
-}
-
-const MainColumn: FC<MainColumnProps> = ({
+const MainColumn: React.FC<MainColumnProps> = ({
   title,
   subtitle,
   poster,
@@ -50,9 +39,9 @@ const MainColumn: FC<MainColumnProps> = ({
   </div>
 );
 
-const Header: FC<{ handleClick: (direction: "next" | "prev") => void }> = ({
-  handleClick = () => {}
-}) => {
+const Header: React.FC<{
+  handleClick: () => void;
+}> = ({ handleClick = () => {} }) => {
   const name = "Workout";
 
   return (
