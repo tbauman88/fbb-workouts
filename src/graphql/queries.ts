@@ -1,4 +1,4 @@
-import { gql } from "@apollo/client";
+import { gql } from '@apollo/client'
 
 export const GET_WORKOUTS = gql`
   query GetWorkouts($cycleId: Int!) {
@@ -17,7 +17,7 @@ export const GET_WORKOUTS = gql`
       }
     }
   }
-`;
+`
 
 export const GET_WORKOUT_BY_ID = gql`
   query WorkoutById($id: bigint!) {
@@ -41,6 +41,7 @@ export const GET_WORKOUT_BY_ID = gql`
           id
           title
           subtitle
+          levels
           exercise {
             id
             demo_video_url
@@ -53,7 +54,7 @@ export const GET_WORKOUT_BY_ID = gql`
       }
     }
   }
-`;
+`
 
 export const GET_EXERCISES = gql`
   query GetExercises {
@@ -66,7 +67,7 @@ export const GET_EXERCISES = gql`
       demo_video_id
     }
   }
-`;
+`
 
 export const GET_PROGRAMS = gql`
   query GetPrograms {
@@ -83,7 +84,7 @@ export const GET_PROGRAMS = gql`
       }
     }
   }
-`;
+`
 
 export const GET_USER = gql`
   query GetUser($id: bigint!) {
@@ -127,4 +128,4 @@ export const GET_USER = gql`
       }
     }
   }
-`;
+`

@@ -1,15 +1,15 @@
-import React, { useMemo } from 'react';
-import { useWindowSize } from 'react-use';
-import { useWorkout } from '../hooks/useWorkout';
-import { Button, QueryWrapper, WorkoutItem } from '../components';
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
-import { useNavigate } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
-import { useUserContext } from '../context/UserProvider';
+import React, { useMemo } from 'react'
+import { useWindowSize } from 'react-use'
+import { useWorkout } from '../hooks/useWorkout'
+import { Button, QueryWrapper, WorkoutItem } from '../components'
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid'
+import { useNavigate } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
+import { useUserContext } from '../context/UserProvider'
 
 const Header: React.FC<{
-  name: string;
-  handleClick: () => void;
+  name: string
+  handleClick: () => void
 }> = ({ name, handleClick = () => {} }) => (
   <div className="bg-gray-800 md:pb-32">
     <header className="py-10">
@@ -33,14 +33,14 @@ const Header: React.FC<{
       </div>
     </header>
   </div>
-);
+)
 
 const Main: React.FC<{
-  workout: Workout;
-  coachingItems: WorkoutItem[];
-  workoutItems: WorkoutItem[];
-  handleComplete: () => void;
-  completed: boolean;
+  workout: Workout
+  coachingItems: WorkoutItem[]
+  workoutItems: WorkoutItem[]
+  handleComplete: () => void
+  completed: boolean
 }> = ({ workout, coachingItems, workoutItems, handleComplete, completed }) => (
   <main className="-mt-32">
     <div className="mx-auto max-w-full lg:px-16">
@@ -80,58 +80,58 @@ const Main: React.FC<{
       </div>
     </div>
   </main>
-);
+)
 
 const WorkoutContent = ({ workout }: { workout: Workout }) => {
-  const { width } = useWindowSize();
-  const navigate = useNavigate();
-  const { currentProgram } = useUserContext();
+  const { width } = useWindowSize()
+  const navigate = useNavigate()
+  const { currentProgram } = useUserContext()
 
-  const isLargeScreen = useMemo(() => width > 1280, [width]);
+  const isLargeScreen = useMemo(() => width > 1280, [width])
 
   const [coachingItems, workoutItems] = useMemo(() => {
     if (!workout || !workout.workout_items) {
-      return [[], []];
+      return [[], []]
     }
 
-    const items = workout.workout_items;
+    const items = workout.workout_items
 
-    const firstTwo = isLargeScreen ? items.slice(0, 2) : [];
-    const remaining = isLargeScreen ? items.slice(2) : items;
+    const firstTwo = isLargeScreen ? items.slice(0, 2) : []
+    const remaining = isLargeScreen ? items.slice(2) : items
 
-    return [firstTwo, remaining];
-  }, [workout, isLargeScreen]);
+    return [firstTwo, remaining]
+  }, [workout, isLargeScreen])
 
   const handleClick = (direction: 'next' | 'prev') => {
-    const id = direction === 'next' ? workout.id + 1 : workout.id - 1;
-    navigate(`/workouts/${id}`);
-  };
+    const id = direction === 'next' ? workout.id + 1 : workout.id - 1
+    navigate(`/workouts/${id}`)
+  }
 
   const handleComplete = async () => {
     try {
-      console.log('completing workout');
+      console.log('completing workout')
     } catch (err) {
-      console.error('Error completing workout:', err);
+      console.error('Error completing workout:', err)
     }
-  };
+  }
 
-  const completed = false;
+  const completed = false
 
   return (
     <div className="min-h-full">
       <Header name={currentProgram.name} handleClick={handleClick} />
       <Main {...{ workout, coachingItems, workoutItems, handleComplete, completed }} />
     </div>
-  );
-};
+  )
+}
 
 export const Workout = () => {
-  const { id } = useParams<{ id: string }>();
-  const { workout, loading, error } = useWorkout(id);
+  const { id } = useParams<{ id: string }>()
+  const { workout, loading, error } = useWorkout(id)
 
   return (
     <QueryWrapper loading={loading} error={error} data={workout} emptyMessage="No workout found">
       <WorkoutContent workout={workout} />
     </QueryWrapper>
-  );
-};
+  )
+}
