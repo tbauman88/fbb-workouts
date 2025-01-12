@@ -1,8 +1,8 @@
 export interface QueryWrapperProps {
   loading?: boolean;
   error?: Error | null;
-  data: any; // Add data prop
-  emptyMessage?: string; // Optional custom message for empty data
+  data: unknown;
+  emptyMessage?: string;
   children: React.ReactNode;
 }
 
@@ -35,15 +35,4 @@ export interface NavigationProps {
   name: string;
   href: string;
   current: boolean;
-}
-
-export interface MainColumnProps {
-  title: string;
-  subtitle: string;
-  poster: string;
-  children: ReactNode;
-}
-
-export interface WorkoutColumnProps {
-  workoutItems: WorkoutEntity[];
 }
