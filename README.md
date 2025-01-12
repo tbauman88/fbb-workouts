@@ -1,50 +1,49 @@
-# React + TypeScript + Vite
+# FBB Workouts
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Description
 
-Currently, two official plugins are available:
+This application is a workouts app that allows users to choose from different fitness programs and track their progression throughout their training cycles. It provides features such as program selection, progress tracking, and performance analytics to help users achieve their fitness goals.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Technology Stack
 
-## Expanding the ESLint configuration
+This app is built using the following:
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+| Technology  | Description                                      |
+|-------------|--------------------------------------------------|
+| **React**   | A JavaScript library for building user interfaces. |
+| **GraphQL** | A query language for APIs.                       |
+| **Hasura**  | Instant GraphQL APIs over Postgres databases.   |
+| **TypeScript** | A typed superset of JavaScript that compiles to plain JavaScript. |
+| **Vite**    | A fast build tool and development server.       |
 
-- Configure the top-level `parserOptions` property like this:
+## Getting Started
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+### Running the Application
+
+To start the development server, use:
+
+```
+npm run dev
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+This will start the application on `http://localhost:3000` (or another port if specified).
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+### Building for Production
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+To create a production build, run:
+
 ```
+npm run build
+```
+
+This will generate the optimized files in the `dist` directory.
+
+### Deployment
+
+You can deploy the application using **Vercel**.
+
+```
+vercel deploy --prod
+```
+
+Your app will be live on a Vercel URL, and you can set up custom domains if needed.
