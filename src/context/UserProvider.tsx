@@ -1,42 +1,21 @@
-import React, { createContext, useContext } from "react";
-import { useUser } from "../hooks/useUser";
-import { useWorkout } from "../hooks/useWorkout";
-import { UserEntity, ProgramEntity, WorkoutEntity } from "../types";
-import { PROGRAM_NAME_MAP } from "../hooks/usePrograms";
-
+import React, { createContext, useContext } from 'react'
+import { UserEntity, ProgramEntity, WorkoutEntity } from '../types'
+import { useDashboard } from '../hooks/useDashboard'
 interface UserContextType {
-  user: UserEntity | null;
-  currentProgram: ProgramEntity | null;
-  currentWorkout: WorkoutEntity | null;
-  loading: boolean;
-  error: Error | null;
+  user: UserEntity | null
+  currentProgram: ProgramEntity | null
+  currentWorkout: WorkoutEntity | null
+  loading: boolean
+  error: Error | null
 }
 
-const UserContext = createContext<UserContextType | undefined>(undefined);
+const UserContext = createContext<UserContextType | undefined>(undefined)
 
-export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
-  children
-}) => {
-  const { user, loading, error } = useUser(1);
+export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const { currentUser, currentProgram, currentWorkout, loading, error } = useDashboard(1)
 
-  const program = user?.user_cycles[0]?.cycle?.program;
-
-  const { workout } = useWorkout(user?.user_cycles[0]?.current_workout);
-
-  const currentUser = {
-    ...user,
-    workouts: user?.user_cycles[0]?.cycle.workouts
-  };
-
-  const currentWorkout = {
-    ...workout,
-    workout_items: workout?.workout_items?.slice(0, 2)
-  };
-
-  const currentProgram = {
-    ...program,
-    name: program ? PROGRAM_NAME_MAP[program.name] || program.name : null
-  };
+  if (loading) return <div>Loading...</div>
+  if (error) return <div>Error: {error.message}</div>
 
   return (
     <UserContext.Provider
@@ -50,13 +29,13 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
     >
       {children}
     </UserContext.Provider>
-  );
-};
+  )
+}
 
 export const useUserContext = () => {
-  const context = useContext(UserContext);
+  const context = useContext(UserContext)
   if (!context) {
-    throw new Error("useUserContext must be used within a UserProvider");
+    throw new Error('useUserContext must be used within a UserProvider')
   }
-  return context;
-};
+  return context
+}

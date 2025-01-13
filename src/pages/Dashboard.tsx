@@ -1,21 +1,21 @@
-import { marked } from "marked";
-import { useNavigate } from "react-router-dom";
-import { usePrograms } from "../hooks/usePrograms";
-import { useUserContext } from "../context/UserProvider";
+import { marked } from 'marked'
+import { useNavigate } from 'react-router-dom'
+import { usePrograms } from '../hooks/usePrograms'
+import { useUserContext } from '../context/UserProvider'
 
 export const Dashboard = () => {
-  const { user, currentProgram, currentWorkout } = useUserContext();
-  const { programs, loading, error } = usePrograms();
+  const { user, currentProgram, currentWorkout } = useUserContext()
+  const { programs, loading, error } = usePrograms()
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
+  if (loading) return <div>Loading...</div>
+  if (error) return <div>Error: {error.message}</div>
 
   const navigateToWorkout = (id: number | undefined) => {
-    if (!id) return;
-    navigate(`/workouts/${id}`);
-  };
+    if (!id) return
+    navigate(`/workouts/${id}`)
+  }
 
   return (
     <main>
@@ -27,12 +27,8 @@ export const Dashboard = () => {
               <img src={currentProgram?.image} alt="" />
               <dl className="flex flex-wrap pb-6">
                 <div className="flex-auto pl-6 pt-6">
-                  <dt className="text-sm font-semibold leading-6 text-gray-900 uppercase">
-                    Current Program:
-                  </dt>
-                  <dd className="mt-1 text-base font-semibold leading-6 text-gray-900">
-                    {currentProgram?.name}
-                  </dd>
+                  <dt className="text-sm font-semibold leading-6 text-gray-900 uppercase">Current Program:</dt>
+                  <dd className="mt-1 text-base font-semibold leading-6 text-gray-900">{currentProgram?.name}</dd>
                 </div>
                 <div className="flex-none self-end px-6 pt-4">
                   <dt className="sr-only">Status</dt>
@@ -49,12 +45,9 @@ export const Dashboard = () => {
               <dl className="flex flex-wrap">
                 <div className="flex-auto pl-6 pb-6 mt-6 border-b border-gray-900/5">
                   <dt className="text-sm font-semibold leading-6 text-gray-900 uppercase">
-                    Daily Training (Day {currentWorkout?.id} of{" "}
-                    {user?.workouts.length})
+                    Daily Training (Day {currentWorkout?.id} of {user?.workouts})
                   </dt>
-                  <dd className="mt-1 text-base font-semibold leading-6 text-gray-900 ">
-                    {currentWorkout?.title}
-                  </dd>
+                  <dd className="mt-1 text-base font-semibold leading-6 text-gray-900 ">{currentWorkout?.title}</dd>
                 </div>
                 <div className="flex-none self-end px-6 pt-4 pb-6 mt-6 border-b border-gray-900/5">
                   <dt className="sr-only">Is Rest Day?</dt>
@@ -85,9 +78,7 @@ export const Dashboard = () => {
                           <dt className="flex-none">
                             <span className="sr-only">Client</span>
                           </dt>
-                          <dd className="text-sm font-semibold leading-6 text-gray-900 uppercase">
-                            {item.header}
-                          </dd>
+                          <dd className="text-sm font-semibold leading-6 text-gray-900 uppercase">{item.header}</dd>
                         </div>
                         <div className="mt-2 flex w-full flex-none gap-x-4 px-6">
                           <dt className="flex-none">
@@ -120,27 +111,17 @@ export const Dashboard = () => {
         </section>
 
         <div className="relative py-10">
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 flex items-center"
-          >
+          <div aria-hidden="true" className="absolute inset-0 flex items-center">
             <div className="w-full border-t border-gray-300" />
           </div>
         </div>
 
         <section className="flex flex-col bg-white m-auto p-auto">
-          <h2 className="flex pb-5 font-medium text-2xl text-gray-900 uppercase">
-            Programs
-          </h2>
+          <h2 className="flex pb-5 font-medium text-2xl text-gray-900 uppercase">Programs</h2>
           <div className="flex overflow-x-scroll pb-10 hide-scroll-bar">
             <div className="flex flex-nowrap">
               {programs.map((program, index) => (
-                <div
-                  key={program.name}
-                  className={`inline-block ${
-                    index === programs.length - 1 ? "pr-0" : "pr-6"
-                  }`}
-                >
+                <div key={program.name} className={`inline-block ${index === programs.length - 1 ? 'pr-0' : 'pr-6'}`}>
                   <div className="min-w-[300px] max-w-xs overflow-hidden rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out">
                     <img src={program.image} alt="" />
                   </div>
@@ -151,5 +132,5 @@ export const Dashboard = () => {
         </section>
       </div>
     </main>
-  );
-};
+  )
+}
