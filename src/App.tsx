@@ -1,27 +1,27 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 
-import { useAuth } from "./hooks/useAuth";
-import { Layout } from "./components/Layout";
-import { UserProvider } from "./context/UserProvider";
+import { useAuth } from './hooks/useAuth'
+import { Layout } from './components/Layout'
+import { UserProvider } from './context/UserProvider'
 
-import { Login } from "./pages/Login";
-import { Workout } from "./pages/Workout";
-import { Dashboard } from "./pages/Dashboard";
-import { Programs } from "./pages/Programs";
-import { Program } from "./pages/Program";
-import { Workouts } from "./pages/Workouts";
-import { Exercises } from "./pages/Exercises";
-import { NotFound } from "./pages/NotFound";
+import { Login } from './pages/Login'
+import { Workout } from './pages/Workout'
+import { Dashboard } from './pages/Dashboard'
+import { Programs } from './pages/Programs'
+import { Program } from './pages/Program'
+import { Workouts } from './pages/Workouts'
+import { Exercises } from './pages/Exercises'
+import { NotFound } from './pages/NotFound'
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated } = useAuth()
 
   if (!isAuthenticated) {
-    return <Navigate to="/login" />;
+    return <Navigate to="/login" />
   }
 
-  return <>{children}</>;
-};
+  return <>{children}</>
+}
 
 function App() {
   return (
@@ -41,6 +41,7 @@ function App() {
         >
           <Route index path="/" element={<Dashboard />} />
           <Route path="programs" element={<Programs />} />
+          <Route path="program" element={<Program />} />
           <Route path="programs/:id" element={<Program />} />
           <Route path="workouts" element={<Workouts />} />
           <Route path="exercises" element={<Exercises />} />
@@ -59,7 +60,7 @@ function App() {
         />
       </Routes>
     </BrowserRouter>
-  );
+  )
 }
 
-export default App;
+export default App
