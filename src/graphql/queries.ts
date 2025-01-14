@@ -189,3 +189,16 @@ export const GET_DASHBOARD_DATA = gql`
     }
   }
 `
+
+export const CHECK_USER_CREDENTIALS = gql`
+  query CheckUserCredentials($email: String!, $password: String!) {
+    users(where: { email: { _eq: $email }, password: { _eq: $password } }) {
+      id
+      email
+      name
+      image_url
+      created_at
+      updated_at
+    }
+  }
+`

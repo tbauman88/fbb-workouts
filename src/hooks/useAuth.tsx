@@ -1,54 +1,76 @@
-import { createContext, useState, useContext } from "react";
-import { AuthContextType } from "../types";
+import { createContext, useState, useContext } from 'react'
+import { useLazyQuery } from '@apollo/client'
+import { AuthContextType, User } from '../types'
+import { CHECK_USER_CREDENTIALS } from '../graphql/queries'
 
 const AuthContext = createContext<AuthContextType>({
   isAuthenticated: false,
-  login: () => false,
+  user: null,
+  login: async () => false,
   logout: () => {}
-});
+})
 
-const TWELVE_HOURS = 12 * 60 * 60 * 1000;
+const TWELVE_HOURS = 12 * 60 * 60 * 1000
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const getStoredAuth = () => {
-    const stored = localStorage.getItem("auth");
-    if (!stored) return null;
+    if (typeof window === 'undefined') return null
 
-    const { expiry } = JSON.parse(stored);
+    const stored = localStorage.getItem('auth')
+    if (!stored) return null
+
+    const { expiry, user } = JSON.parse(stored)
 
     if (Date.now() > expiry) {
-      localStorage.removeItem("auth");
-      return null;
+      localStorage.removeItem('auth')
+      return null
     }
 
-    return true;
-  };
+    return user
+  }
 
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(
-    !!getStoredAuth()
-  );
+  const [user, setUser] = useState<User | null>(getStoredAuth())
+  const isAuthenticated = !!user
 
-  const login = async (password: string) => {
-    if (password === import.meta.env.VITE_AUTH_PASSWORD) {
-      const authData = { expiry: Date.now() + TWELVE_HOURS };
+  const [checkCredentials] = useLazyQuery(CHECK_USER_CREDENTIALS, {
+    onCompleted: (data) => {
+      if (data.users.length > 0) {
+        const user = data.users[0]
+        const authData = { expiry: Date.now() + TWELVE_HOURS, user }
 
-      localStorage.setItem("auth", JSON.stringify(authData));
-      setIsAuthenticated(true);
-      return true;
+        localStorage.setItem('auth', JSON.stringify(authData))
+        setUser(user)
+      } else {
+        throw new Error('Invalid credentials')
+      }
+    },
+    onError: (error) => {
+      console.error('Login error:', error)
+      throw new Error('An error occurred during login')
     }
-    throw new Error("Invalid password");
-  };
+  })
+
+  const login = async (email: string, password: string) => {
+    try {
+      await checkCredentials({
+        variables: {
+          email,
+          password
+        }
+      })
+      return true
+    } catch (error) {
+      console.error('Login error:', error)
+      return false
+    }
+  }
 
   const logout = () => {
-    localStorage.removeItem("auth");
-    setIsAuthenticated(false);
-  };
+    localStorage.removeItem('auth')
+    setUser(null)
+  }
 
-  return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
-      {children}
-    </AuthContext.Provider>
-  );
-};
+  return <AuthContext.Provider value={{ isAuthenticated, user, login, logout }}>{children}</AuthContext.Provider>
+}
 
-export const useAuth = () => useContext(AuthContext);
+export const useAuth = () => useContext(AuthContext)
