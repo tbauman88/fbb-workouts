@@ -10,7 +10,7 @@ const AuthContext = createContext<AuthContextType>({
   logout: () => {}
 })
 
-const TWELVE_HOURS = 12 * 60 * 60 * 1000
+const ONE_WEEK = 7 * 24 * 60 * 60 * 1000 // 7 days in milliseconds
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const getStoredAuth = () => {
@@ -36,7 +36,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     onCompleted: (data) => {
       if (data.users.length > 0) {
         const user = data.users[0]
-        const authData = { expiry: Date.now() + TWELVE_HOURS, user }
+        const authData = { expiry: Date.now() + ONE_WEEK, user }
 
         localStorage.setItem('auth', JSON.stringify(authData))
         setUser(user)

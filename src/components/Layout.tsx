@@ -6,6 +6,7 @@ import { useUser } from '../hooks/useUser'
 import { Link, useLocation } from 'react-router-dom'
 import { NavigationProps } from '../types'
 import { useAuth } from '../hooks/useAuth'
+
 const navigation: NavigationProps[] = [
   { name: 'Home', href: '/', current: false },
   { name: 'Programs', href: '/programs', current: false },
@@ -24,13 +25,19 @@ const Navigation = () => {
   }, [location.pathname])
 
   return (
-    <nav className="flex overflow-x-auto border-b border-white/10 py-4">
+    <nav className="flex overflow-x-auto py-4">
       <ul
         role="list"
         className="flex min-w-full flex-none gap-x-6 px-4 text-sm font-semibold leading-6 text-gray-400 sm:px-6 lg:px-8"
       >
         {updatedNavigation.map((item) => (
-          <Link key={item.name} to={item.href} className={item.current ? 'text-indigo-400' : ''}>
+          <Link
+            key={item.name}
+            to={item.href}
+            className={`transition-colors duration-200 ease-in-out ${
+              item.current ? 'text-indigo-400 border-b-2 border-indigo-400' : 'hover:text-indigo-400'
+            }`}
+          >
             {item.name}
           </Link>
         ))}
@@ -38,6 +45,20 @@ const Navigation = () => {
     </nav>
   )
 }
+
+const Logo = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 350 34">
+    <rect x="0" y="0" width="25" height="10" fill="white" />
+    <rect x="0" y="12" width="18.75" height="10" fill="white" />
+    <rect x="0" y="24" width="6.25" height="10" fill="white" />
+
+    <rect x="28" y="0" width="18.75" height="10" fill="white" />
+    <rect x="28" y="12" width="25" height="22" fill="white" />
+
+    <rect x="56" y="0" width="18.75" height="10" fill="white" />
+    <rect x="56" y="12" width="25" height="22" fill="white" />
+  </svg>
+)
 
 const Header = ({ user, onClick }: { user: User; onClick: () => void }) => {
   return (
@@ -48,11 +69,7 @@ const Header = ({ user, onClick }: { user: User; onClick: () => void }) => {
             <span className="sr-only">Open main menu</span>
             <Bars3Icon aria-hidden="true" className="h-5 w-5 text-gray-900" />
           </button>
-          <img
-            alt="Your Company"
-            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-            className="h-8 w-auto"
-          />
+          <Logo />
         </div>
         <Navigation />
         <div className="flex flex-1 items-center justify-end gap-x-8">

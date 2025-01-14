@@ -1,18 +1,10 @@
 import { usePrograms } from '../hooks/usePrograms'
 import { useNavigate } from 'react-router-dom'
-import { useCallback, useState, useMemo } from 'react'
-import { useWindowSize } from 'react-use'
+import { useCallback } from 'react'
 
 export const Program = () => {
   const { programs, loading, error } = usePrograms()
   const navigate = useNavigate()
-  const { width } = useWindowSize()
-
-  const [gridCols, setGridCols] = useState('1')
-
-  useMemo(() => {
-    setGridCols(width >= 2420 ? 'grid-cols-3' : width >= 1440 ? 'grid-cols-2' : 'grid-cols-1')
-  }, [width])
 
   const handleClick = useCallback(
     (program: Program) => {
@@ -35,7 +27,7 @@ export const Program = () => {
   if (error) return <div>Error: {error.message}</div>
 
   return (
-    <section role="list" className={`grid ${gridCols} gap-x-16 gap-y-8`}>
+    <section role="list" className={`grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-x-16 gap-y-8`}>
       {programs.map((program) => (
         <section key={program.id} className="bg-white py-8">
           <div className="mx-auto flex max-w-7xl flex-col items-center gap-x-8 gap-y-8 sm:gap-y-8 xl:flex-row xl:items-stretch group">
