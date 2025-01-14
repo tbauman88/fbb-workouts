@@ -1,9 +1,13 @@
-export * from './CardWrapper';
-export * from './ProgramCard';
-export * from './WorkoutCard';
-export * from './WorkoutItem';
-export * from './Score';
-export * from './Exercises';
-export * from './Button';
-export * from './Layout';
-export * from './QueryWrapper';
+// High Order Components
+export * from './CardWrapper'
+export * from './Layout'
+export * from './QueryWrapper'
+
+// Components
+export * from './Button'
+export * from './Exercises'
+export * from './ProgramCard'
+export * from './ProgressBar'
+export * from './Score'
+export * from './WorkoutCard'
+export * from './WorkoutItem'

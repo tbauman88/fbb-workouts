@@ -2,6 +2,7 @@ import { marked } from 'marked'
 import { useNavigate } from 'react-router-dom'
 import { usePrograms } from '../hooks/usePrograms'
 import { useUserContext } from '../context/UserProvider'
+import { ProgressBar } from '../components'
 
 export const Dashboard = () => {
   const { user, currentProgram, currentWorkout, currentWorkoutIndex, cycleProgression } = useUserContext()
@@ -23,20 +24,23 @@ export const Dashboard = () => {
         <section className="mx-auto grid max-w-2xl grid-cols-1 grid-rows-1 items-start gap-x-8 gap-y-8 lg:mx-0 lg:max-w-none lg:grid-cols-3">
           <div className="lg:col-start-3 lg:row-end-1 pb-6">
             <h2 className="sr-only">Current Program</h2>
-            <div className="rounded-lg bg-gray-50 shadow-sm ring-1 ring-gray-900/5">
+            <div className="rounded-lg bg-gray-50 shadow-sm ring-1 ring-gray-900/5 space-y-6 pb-6">
               <img src={currentProgram?.image} alt="" />
-              <dl className="flex flex-wrap pb-6">
-                <div className="flex-auto pl-6 pt-6">
+
+              <dl className="flex flex-wrap px-6">
+                <div className="flex-auto">
                   <dt className="text-sm font-semibold leading-6 text-gray-900 uppercase">Current Program:</dt>
                   <dd className="mt-1 text-base font-semibold leading-6 text-gray-900">{currentProgram?.name}</dd>
                 </div>
-                <div className="flex-none self-end px-6 pt-4">
+                <div className="flex-none self-end">
                   <dt className="sr-only">Status</dt>
                   <dd className="rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-600 ring-1 ring-inset ring-green-600/20">
                     Active
                   </dd>
                 </div>
               </dl>
+
+              <ProgressBar progress={cycleProgression} />
             </div>
           </div>
 
