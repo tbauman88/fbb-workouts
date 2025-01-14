@@ -2,7 +2,7 @@ import React, { useMemo } from 'react'
 import { useWindowSize } from 'react-use'
 import { useWorkout } from '../hooks/useWorkout'
 import { Button, QueryWrapper, WorkoutItem } from '../components'
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid'
+import { ChevronLeftIcon, ChevronRightIcon, HomeIcon } from '@heroicons/react/24/solid'
 import { useNavigate } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import { useUserContext } from '../context/UserProvider'
@@ -17,6 +17,15 @@ const Header: React.FC<{
         <h1 className="text-3xl font-bold tracking-tight text-white">{name}</h1>
 
         <div className="flex items-center text-gray-400">
+          <button
+            type="button"
+            className="-my-1.5 flex flex-none items-center justify-center p-1.5 hover:text-white"
+            onClick={() => handleClick('home')}
+          >
+            <span className="sr-only">Home</span>
+            <HomeIcon className="h-5 w-5" aria-hidden="true" />
+          </button>
+
           <button type="button" className="-my-1.5 flex flex-none items-center justify-center p-1.5 hover:text-white">
             <span className="sr-only">Previous month</span>
             <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" onClick={() => handleClick('prev')} />
@@ -102,7 +111,12 @@ const WorkoutContent = ({ workout }: { workout: Workout }) => {
     return [firstTwo, remaining]
   }, [workout, isLargeScreen])
 
-  const handleClick = (direction: 'next' | 'prev') => {
+  const handleClick = (direction: 'next' | 'prev' | 'home') => {
+    if (direction === 'home') {
+      navigate(`/`)
+      return
+    }
+
     const id = direction === 'next' ? workout.id + 1 : workout.id - 1
     navigate(`/workouts/${id}`)
   }
