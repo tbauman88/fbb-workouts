@@ -1,9 +1,18 @@
 import { usePrograms } from '../hooks/usePrograms'
 import { useNavigate } from 'react-router-dom'
-import { useCallback } from 'react'
+import { useCallback, useState, useMemo } from 'react'
+import { useWindowSize } from 'react-use'
+
 export const Program = () => {
   const { programs, loading, error } = usePrograms()
   const navigate = useNavigate()
+  const { width } = useWindowSize()
+
+  const [gridCols, setGridCols] = useState('1')
+
+  useMemo(() => {
+    setGridCols(width >= 2420 ? 'grid-cols-3' : width >= 1440 ? 'grid-cols-2' : 'grid-cols-1')
+  }, [width])
 
   const handleClick = useCallback(
     (program: Program) => {
@@ -26,10 +35,10 @@ export const Program = () => {
   if (error) return <div>Error: {error.message}</div>
 
   return (
-    <>
+    <section role="list" className={`grid ${gridCols} gap-x-16 gap-y-8`}>
       {programs.map((program) => (
-        <section key={program.id} className="bg-white py-16">
-          <div className="mx-auto flex max-w-7xl flex-col items-center gap-x-8 gap-y-10 px-6 sm:gap-y-8 lg:px-8 xl:flex-row xl:items-stretch">
+        <section key={program.id} className="bg-white py-8">
+          <div className="mx-auto flex max-w-7xl flex-col items-center gap-x-8 gap-y-8 sm:gap-y-8 xl:flex-row xl:items-stretch group">
             <div className="-mt-8 w-full max-w-2xl xl:-mb-8 xl:w-96 xl:flex-none">
               <div
                 className="relative aspect-[2/1] h-full md:-mx-8 xl:mx-0 xl:aspect-auto overflow-hidden"
@@ -38,11 +47,12 @@ export const Program = () => {
                 <img
                   alt=""
                   src={program.image}
-                  className="absolute inset-0 size-full rounded-2xl bg-gray-800 object-cover shadow-2xl transition-transform hover:scale-125 hover:opacity-80 cursor-pointer"
+                  className="absolute inset-0 size-full rounded-2xl bg-gray-800 object-cover shadow-2xl transition-transform group-hover:scale-125 group-hover:opacity-80 cursor-pointer"
                 />
               </div>
             </div>
-            <div className="w-full max-w-2xl xl:max-w-none xl:flex-auto xl:px-16 xl:min-h-[450px] flex flex-col justify-center">
+
+            <div className="w-full max-w-2xl xl:max-w-none xl:flex-auto xl:min-h-[450px] flex flex-col justify-center">
               <figure className="relative isolate">
                 <svg
                   fill="none"
@@ -57,9 +67,11 @@ export const Program = () => {
                   <use x={86} href="#b56e9dab-6ccb-4d32-ad02-6b4bb5d9bbeb" />
                 </svg>
                 <blockquote className="text-xl/8 font-semibold sm:text-2xl/9">
-                  <p>{program.name}</p>
+                  <p className="group-hover:underline group-hover:text-indigo-500 transition-colors duration-300 ease-in-out">
+                    {program.name}
+                  </p>
                 </blockquote>
-                <figcaption className="mt-8 text-base">
+                <figcaption className="mt-8 text-base pr-8">
                   <div>{program.description}</div>
                   {program.cycles.map((cycle, index: number) => (
                     <span
@@ -78,6 +90,6 @@ export const Program = () => {
           </div>
         </section>
       ))}
-    </>
+    </section>
   )
 }

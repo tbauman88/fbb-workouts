@@ -38,9 +38,8 @@ function App() {
           }
         >
           <Route index path="/" element={<Dashboard />} />
-          <Route path="programs" element={<Programs />} />
-          <Route path="program" element={<Program />} />
-          <Route path="programs/:id" element={<Program />} />
+          <Route path="programs" element={<Program />} />
+          <Route path="programs/:id" element={<Programs />} />
           <Route path="workouts" element={<Workouts />} />
           <Route path="exercises" element={<Exercises />} />
           <Route path="*" element={<NotFound />} />
