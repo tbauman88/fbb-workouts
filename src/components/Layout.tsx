@@ -6,6 +6,7 @@ import { useUser } from '../hooks/useUser'
 import { Link, useLocation } from 'react-router-dom'
 import { NavigationProps } from '../types'
 import { useAuth } from '../hooks/useAuth'
+import { Logo } from './'
 
 const navigation: NavigationProps[] = [
   { name: 'Home', href: '/', current: false },
@@ -45,20 +46,6 @@ const Navigation = () => {
     </nav>
   )
 }
-
-const Logo = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 350 34">
-    <rect x="0" y="0" width="25" height="10" fill="white" />
-    <rect x="0" y="12" width="18.75" height="10" fill="white" />
-    <rect x="0" y="24" width="6.25" height="10" fill="white" />
-
-    <rect x="28" y="0" width="18.75" height="10" fill="white" />
-    <rect x="28" y="12" width="25" height="22" fill="white" />
-
-    <rect x="56" y="0" width="18.75" height="10" fill="white" />
-    <rect x="56" y="12" width="25" height="22" fill="white" />
-  </svg>
-)
 
 const Header = ({ user, onClick }: { user: User; onClick: () => void }) => {
   return (

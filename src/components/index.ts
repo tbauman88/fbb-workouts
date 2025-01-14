@@ -6,6 +6,7 @@ export * from './QueryWrapper'
 // Components
 export * from './Button'
 export * from './Exercises'
+export * from './Logo'
 export * from './ProgramCard'
 export * from './ProgressBar'
 export * from './Score'

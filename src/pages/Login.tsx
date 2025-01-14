@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useAuth } from '../hooks/useAuth'
 import { useNavigate } from 'react-router-dom'
+import { Logo } from '../components'
 
 export const Login = () => {
   const [email, setEmail] = useState('')
@@ -32,9 +33,11 @@ export const Login = () => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <div className="max-w-md w-full space-y-8 p-8 bg-white rounded-lg shadow-lg">
-        <h2 className="text-center text-3xl font-extrabold text-gray-900">Sign In</h2>
+    <div className="min-h-screen flex items-center justify-center bg-gray-900">
+      <div className="max-w-md w-full space-y-8 p-8 bg-gray-800 rounded-lg shadow-lg">
+        <div className="flex justify-center">
+          <Logo />
+        </div>
         <form onSubmit={handleSubmit} className="mt-8 space-y-6">
           <div className="space-y-4">
             <div>
@@ -42,7 +45,7 @@ export const Login = () => {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-600 placeholder-gray-500 text-gray-300 bg-gray-700 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                 placeholder="Email address"
                 required
               />
@@ -52,14 +55,14 @@ export const Login = () => {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-600 placeholder-gray-500 text-gray-300 bg-gray-700 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                 placeholder="Password"
                 required
               />
             </div>
           </div>
 
-          {error && <div className="text-red-500 text-sm text-center">{error}</div>}
+          {error && <div className="text-red-400 text-sm text-center">{error}</div>}
 
           <button
             type="submit"
