@@ -5,14 +5,17 @@ interface UserContextType {
   user: UserEntity | null
   currentProgram: ProgramEntity | null
   currentWorkout: WorkoutEntity | null
+  currentWorkoutIndex: number
+  cycleProgression: number
   loading: boolean
   error: Error | null
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined)
 
-export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { currentUser, currentProgram, currentWorkout, loading, error } = useDashboard(1)
+export const UserProvider: React.FC<{ user: UserEntity; children: React.ReactNode }> = ({ user, children }) => {
+  const { currentUser, currentProgram, currentWorkout, currentWorkoutIndex, cycleProgression, loading, error } =
+    useDashboard(user.id)
 
   if (loading) return <div>Loading...</div>
   if (error) return <div>Error: {error.message}</div>
@@ -23,6 +26,8 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
         user: currentUser,
         currentProgram,
         currentWorkout,
+        currentWorkoutIndex,
+        cycleProgression,
         loading,
         error
       }}

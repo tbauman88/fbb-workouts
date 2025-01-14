@@ -184,6 +184,9 @@ export const GET_DASHBOARD_DATA = gql`
           name
           image
         }
+        workouts(order_by: { id: asc }) {
+          id
+        }
         workout_count
       }
     }

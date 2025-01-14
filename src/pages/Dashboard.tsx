@@ -4,7 +4,7 @@ import { usePrograms } from '../hooks/usePrograms'
 import { useUserContext } from '../context/UserProvider'
 
 export const Dashboard = () => {
-  const { user, currentProgram, currentWorkout } = useUserContext()
+  const { user, currentProgram, currentWorkout, currentWorkoutIndex, cycleProgression } = useUserContext()
   const { programs, loading, error } = usePrograms()
 
   const navigate = useNavigate()
@@ -45,7 +45,7 @@ export const Dashboard = () => {
               <dl className="flex flex-wrap">
                 <div className="flex-auto pl-6 pb-6 mt-6 border-b border-gray-900/5">
                   <dt className="text-sm font-semibold leading-6 text-gray-900 uppercase">
-                    Daily Training (Day {currentWorkout?.id} of {user?.workouts})
+                    Daily Training (Day {currentWorkoutIndex} of {user.totalWorkouts})
                   </dt>
                   <dd className="mt-1 text-base font-semibold leading-6 text-gray-900 ">{currentWorkout?.title}</dd>
                 </div>

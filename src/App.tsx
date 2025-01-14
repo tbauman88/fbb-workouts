@@ -14,13 +14,13 @@ import { Exercises } from './pages/Exercises'
 import { NotFound } from './pages/NotFound'
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-  const { isAuthenticated } = useAuth()
+  const { isAuthenticated, user } = useAuth()
 
   if (!isAuthenticated) {
     return <Navigate to="/login" />
   }
 
-  return <>{children}</>
+  return <UserProvider user={user}>{children}</UserProvider>
 }
 
 function App() {
@@ -33,9 +33,7 @@ function App() {
           path="/"
           element={
             <ProtectedRoute>
-              <UserProvider>
-                <Layout />
-              </UserProvider>
+              <Layout />
             </ProtectedRoute>
           }
         >
@@ -52,9 +50,7 @@ function App() {
           path="/workouts/:id"
           element={
             <ProtectedRoute>
-              <UserProvider>
-                <Workout />
-              </UserProvider>
+              <Workout />
             </ProtectedRoute>
           }
         />
