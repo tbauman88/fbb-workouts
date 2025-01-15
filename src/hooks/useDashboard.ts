@@ -8,12 +8,17 @@ interface DashboardData {
     id: string
     start_date: string
     current_workout: string
-    user: Partial<UserEntity>
-    workout: Partial<WorkoutEntity>
-    cycle: Partial<CycleEntity> & {
-      workouts: { id: string }[]
+    user: Pick<UserEntity, 'id' | 'name' | 'email' | 'image_url'>
+    workout: Pick<WorkoutEntity, 'id' | 'title'> & {
+      first: Pick<WorkoutItemEntity, 'id' | 'header', 'notes'>[]
+      rest: Pick<WorkoutItemEntity, 'id' | 'header'>[]
+    }
+    cycle: Pick<CycleEntity, 'id' | 'name' | 'image'> & {
+      workouts: Pick<WorkoutEntity, 'id'>[]
+      total: number
     }
   }[]
+  programs: Pick<ProgramEntity, 'id' | 'name' | 'image'>[]
 }
 
 export const useDashboard = (id: number) => {
@@ -48,6 +53,7 @@ export const useDashboard = (id: number) => {
     currentWorkout,
     currentWorkoutIndex,
     cycleProgression,
+    programs: data.programs,
     loading,
     error
   }

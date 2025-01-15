@@ -14,8 +14,16 @@ interface UserContextType {
 const UserContext = createContext<UserContextType | undefined>(undefined)
 
 export const UserProvider: React.FC<{ user: UserEntity; children: React.ReactNode }> = ({ user, children }) => {
-  const { currentUser, currentProgram, currentWorkout, currentWorkoutIndex, cycleProgression, loading, error } =
-    useDashboard(user.id)
+  const {
+    currentUser,
+    programs,
+    currentProgram,
+    currentWorkout,
+    currentWorkoutIndex,
+    cycleProgression,
+    loading,
+    error
+  } = useDashboard(user.id)
 
   if (loading) return <div>Loading...</div>
   if (error) return <div>Error: {error.message}</div>
@@ -24,6 +32,7 @@ export const UserProvider: React.FC<{ user: UserEntity; children: React.ReactNod
     <UserContext.Provider
       value={{
         user: currentUser,
+        programs,
         currentProgram,
         currentWorkout,
         currentWorkoutIndex,

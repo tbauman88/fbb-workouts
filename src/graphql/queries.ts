@@ -1,4 +1,11 @@
 import { gql } from '@apollo/client'
+import {
+  GET_USER_FRAGMENT,
+  GET_WORKOUT_FRAGMENT,
+  GET_PROGRAM_DETAILS_FRAGMENT,
+  GET_WORKOUT_IDS_FRAGMENT,
+  GET_PROGRAMS_FRAGMENT
+} from './fragments'
 
 export const GET_WORKOUTS = gql`
   query GetWorkouts($cycleId: Int!) {
@@ -207,48 +214,16 @@ export const GET_DASHBOARD_DATA_FOR_USER = gql`
         total: workout_count
       }
     }
-  }
-
-  fragment User on user_cycles {
-    user {
-      id
-      name
-      email
-      image_url
+    programs {
+      ...Programs
     }
   }
 
-  fragment Workout on user_cycles {
-    workout {
-      id
-      title
-      first: workout_items(limit: 1, where: {}) {
-        header
-        id
-        title
-        notes
-      }
-      rest: workout_items(offset: 1) {
-        id
-        header
-        title
-      }
-    }
-  }
-
-  fragment ProgramDetails on cycles {
-    program {
-      id
-      name
-      image
-    }
-  }
-
-  fragment WorkoutIds on cycles {
-    workouts(order_by: { id: asc }) {
-      id
-    }
-  }
+  ${GET_USER_FRAGMENT}
+  ${GET_WORKOUT_FRAGMENT}
+  ${GET_PROGRAM_DETAILS_FRAGMENT}
+  ${GET_WORKOUT_IDS_FRAGMENT}
+  ${GET_PROGRAMS_FRAGMENT}
 `
 
 export const CHECK_USER_CREDENTIALS = gql`

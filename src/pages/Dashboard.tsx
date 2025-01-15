@@ -145,12 +145,8 @@ const Divider = () => (
 
 // Main Dashboard Component
 export const Dashboard = () => {
-  const { user, currentProgram, currentWorkout, currentWorkoutIndex, cycleProgression } = useUserContext()
-  const { programs, loading, error } = usePrograms()
+  const { user, programs, currentProgram, currentWorkout, currentWorkoutIndex, cycleProgression } = useUserContext()
   const navigate = useNavigate()
-
-  if (loading) return <div>Loading...</div>
-  if (error) return <div>Error: {error.message}</div>
 
   const navigateToWorkout = (id: number | undefined) => {
     if (!id) return
