@@ -81,14 +81,12 @@ const TimelineItem = ({ item }) => {
 }
 
 // Current Workout Card Component
-const CurrentWorkoutCard = ({ currentWorkout, currentWorkoutIndex, user, navigateToWorkout }) => (
+const CurrentWorkoutCard = ({ currentWorkout, trainingDay, onClick }) => (
   <div className="-mx-4 shadow-sm ring-1 ring-gray-900/5 sm:mx-0 sm:rounded-lg lg:col-span-2 lg:row-span-2 lg:row-end-2">
     <div className="rounded-lg bg-gray-50 shadow-sm ring-1 ring-gray-900/5">
       <dl className="flex flex-wrap">
         <div className="flex-auto pl-6 pb-6 mt-6 border-b border-gray-900/5">
-          <dt className="text-sm font-semibold leading-6 text-gray-900 uppercase">
-            Daily Training (Day {currentWorkoutIndex} of {user?.total})
-          </dt>
+          <dt className="text-sm font-semibold leading-6 text-gray-900 uppercase">{trainingDay}</dt>
           <dd className="mt-1 text-base font-semibold leading-6 text-gray-900">{currentWorkout?.title}</dd>
         </div>
 
@@ -109,7 +107,7 @@ const CurrentWorkoutCard = ({ currentWorkout, currentWorkoutIndex, user, navigat
 
       <div className="mt-6 border-t border-gray-900/5 px-6 py-6">
         <a
-          onClick={() => navigateToWorkout(currentWorkout?.id)}
+          onClick={() => onClick(currentWorkout?.id)}
           className="text-sm font-semibold leading-6 text-gray-900 cursor-pointer"
         >
           Proceed to workout <span aria-hidden="true">&rarr;</span>
@@ -163,19 +161,18 @@ export const Dashboard = () => {
     <main>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <section className="mx-auto grid max-w-2xl grid-cols-1 grid-rows-1 items-start gap-x-8 gap-y-8 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-          <CurrentProgramCard currentProgram={currentProgram} cycleProgression={cycleProgression} />
+          <CurrentProgramCard {...{ currentProgram, cycleProgression }} />
 
           <CurrentWorkoutCard
-            currentWorkout={currentWorkout}
-            currentWorkoutIndex={currentWorkoutIndex}
-            user={user}
-            navigateToWorkout={navigateToWorkout}
+            {...{ currentWorkout }}
+            onClick={navigateToWorkout}
+            trainingDay={`Daily Training (Day ${currentWorkoutIndex} of ${user?.total})`}
           />
         </section>
 
         <Divider />
 
-        <ProgramsList programs={programs} />
+        <ProgramsList {...{ programs }} />
       </div>
     </main>
   )

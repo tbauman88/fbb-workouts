@@ -43,7 +43,7 @@ export const useDashboard = (id: number) => {
   }
 
   return {
-    user: currentUser,
+    currentUser,
     currentProgram,
     currentWorkout,
     currentWorkoutIndex,
