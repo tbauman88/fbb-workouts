@@ -1,36 +1,45 @@
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import { useAuth } from '../hooks/useAuth'
 import { useNavigate } from 'react-router-dom'
 import { Logo } from '../components'
 
+const defaultAuth = {
+  email: import.meta.env.VITE_AUTH_EMAIL || '',
+  password: import.meta.env.VITE_AUTH_PASSWORD || ''
+}
+
 export const Login = () => {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState(defaultAuth.email)
+  const [password, setPassword] = useState(defaultAuth.password)
   const [error, setError] = useState<string | null>(null)
   const { login } = useAuth()
   const navigate = useNavigate()
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    setError(null)
+  const handleSubmit = useCallback(
+    async (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault()
+      setError(null)
 
-    if (!email || !password) {
-      setError('Email and password are required')
-      return
-    }
-
-    try {
-      const success = await login(email, password)
-      if (success) {
-        navigate('/')
-      } else {
-        setError('Invalid credentials')
+      if (!email || !password) {
+        setError('Email and password are required')
+        return
       }
-    } catch (err) {
-      setError('Something went wrong. Please try again.')
-      console.error('Login error:', err)
-    }
-  }
+
+      try {
+        const success = await login(email, password)
+
+        if (success) {
+          navigate('/')
+        } else {
+          setError('Invalid credentials')
+        }
+      } catch (err) {
+        setError('Something went wrong. Please try again.')
+        console.error('Login error:', err)
+      }
+    },
+    [email, password, login, navigate]
+  )
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-900">
