@@ -193,6 +193,64 @@ export const GET_DASHBOARD_DATA = gql`
   }
 `
 
+export const GET_DASHBOARD_DATA_FOR_USER = gql`
+  query GetUserCycleProgress($userId: bigint!) {
+    userCycle: user_cycles_by_pk(id: $userId) {
+      id
+      start_date
+      current_workout
+      ...User
+      ...Workout
+      cycle {
+        ...ProgramDetails
+        ...WorkoutIds
+        total: workout_count
+      }
+    }
+  }
+
+  fragment User on user_cycles {
+    user {
+      id
+      name
+      email
+      image_url
+    }
+  }
+
+  fragment Workout on user_cycles {
+    workout {
+      id
+      title
+      first: workout_items(limit: 1, where: {}) {
+        header
+        id
+        title
+        notes
+      }
+      rest: workout_items(offset: 1) {
+        id
+        header
+        title
+      }
+    }
+  }
+
+  fragment ProgramDetails on cycles {
+    program {
+      id
+      name
+      image
+    }
+  }
+
+  fragment WorkoutIds on cycles {
+    workouts(order_by: { id: asc }) {
+      id
+    }
+  }
+`
+
 export const CHECK_USER_CREDENTIALS = gql`
   query CheckUserCredentials($email: String!, $password: String!) {
     users(where: { email: { _eq: $email }, password: { _eq: $password } }) {

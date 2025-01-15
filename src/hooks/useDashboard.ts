@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client'
-import { GET_DASHBOARD_DATA } from '../graphql/queries'
+import { GET_DASHBOARD_DATA_FOR_USER } from '../graphql/queries'
 import { PROGRAM_NAME_MAP } from '../hooks/usePrograms'
 import { UserEntity, WorkoutEntity, CycleEntity } from '../graphql/types'
 
@@ -17,31 +17,35 @@ interface DashboardData {
 }
 
 export const useDashboard = (id: number) => {
-  const { data, loading, error } = useQuery<DashboardData>(GET_DASHBOARD_DATA, {
+  const { data, loading, error } = useQuery<DashboardData>(GET_DASHBOARD_DATA_FOR_USER, {
     variables: { userId: String(id) }
   })
 
   if (loading) return { loading: true }
   if (error) return { error: error.message }
 
-  const userCycle = { ...data.user_cycles[0] }
-  const { workouts, program, workout_count: totalWorkouts } = userCycle.cycle
+  const { workouts, program, total } = data.userCycle.cycle
 
-  const currentUser = { ...userCycle, totalWorkouts }
+  const currentUser = { ...data.userCycle, total }
 
   const currentProgram = {
     ...program,
     name: program ? PROGRAM_NAME_MAP[program.name] || program.name : null
   }
 
-  const currentWorkoutIndex = workouts.findIndex((w) => w.id === userCycle.current_workout)
+  const currentWorkoutIndex = workouts.findIndex((w) => w.id === data.userCycle.current_workout)
 
   const cycleProgression = workouts.length ? (currentWorkoutIndex / workouts.length) * 100 : 0
 
+  const currentWorkout = {
+    ...data.userCycle.workout,
+    items: [...data.userCycle.workout.first, ...data.userCycle.workout.rest]
+  }
+
   return {
-    currentUser: currentUser,
-    currentProgram: currentProgram,
-    currentWorkout: userCycle?.workout,
+    user: currentUser,
+    currentProgram,
+    currentWorkout,
     currentWorkoutIndex,
     cycleProgression,
     loading,
