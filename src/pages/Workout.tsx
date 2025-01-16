@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useState } from 'react'
 import { useWindowSize } from 'react-use'
 import { useWorkout } from '../hooks/useWorkout'
 import { Button, QueryWrapper, WorkoutItem } from '../components'
@@ -91,10 +91,17 @@ const Main: React.FC<{
   </main>
 )
 
-const WorkoutContent = ({ workout }: { workout: Workout }) => {
+const WorkoutContent = ({
+  workout,
+  onComplete
+}: {
+  workout: Workout
+  onComplete: (userCycleId: number, currentWorkoutId: number) => void
+}) => {
   const { width } = useWindowSize()
   const navigate = useNavigate()
   const { currentProgram } = useUserContext()
+  const [completed, setCompleted] = useState(false)
 
   const isLargeScreen = useMemo(() => width > 1280, [width])
 
@@ -123,13 +130,12 @@ const WorkoutContent = ({ workout }: { workout: Workout }) => {
 
   const handleComplete = async () => {
     try {
-      console.log('completing workout')
+      await onComplete({ variables: { id: 1, currentWorkout: workout.id + 1 } })
+      setCompleted(true)
     } catch (err) {
       console.error('Error completing workout:', err)
     }
   }
-
-  const completed = false
 
   return (
     <div className="min-h-full">
@@ -141,11 +147,11 @@ const WorkoutContent = ({ workout }: { workout: Workout }) => {
 
 export const Workout = () => {
   const { id } = useParams<{ id: string }>()
-  const { workout, loading, error } = useWorkout(id)
+  const { workout, completeWorkout, loading, error } = useWorkout(id)
 
   return (
     <QueryWrapper loading={loading} error={error} data={workout} emptyMessage="No workout found">
-      <WorkoutContent workout={workout} />
+      <WorkoutContent workout={workout} onComplete={completeWorkout} />
     </QueryWrapper>
   )
 }

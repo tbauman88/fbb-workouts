@@ -23,7 +23,7 @@ export const Button: React.FC<ButtonProps> = ({ text, onClick, disabled, variant
     full: 'w-full'
   }
 
-  const disabledStyles = disabled ? 'bg-gray-400 text-white cursor-not-allowed' : ''
+  const disabledStyles = disabled ? 'bg-gray-400 text-white cursor-not-allowed hover:bg-gray-400' : ''
 
   const classNames = `
     ${baseStyles}
