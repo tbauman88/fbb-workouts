@@ -29,30 +29,26 @@ export const useDashboard = (id: number) => {
   if (loading) return { loading: true }
   if (error) return { error: error.message }
 
-  const { workouts, program, total } = data.userCycle.cycle
+  const { completed_workouts, cycle, workout } = data.userCycle
 
-  const currentUser = { ...data.userCycle, total }
+  const currentUser = { ...data.userCycle, total: cycle.total }
 
   const currentProgram = {
-    ...program,
-    name: program ? PROGRAM_NAME_MAP[program.name] || program.name : null
+    ...cycle.program,
+    name: cycle.program ? PROGRAM_NAME_MAP[cycle.program.name] || cycle.program.name : null
   }
 
-  const currentWorkoutIndex = workouts.findIndex((w) => w.id === data.userCycle.current_workout)
-
-  const cycleProgression = workouts.length ? (currentWorkoutIndex / workouts.length) * 100 : 0
-
   const currentWorkout = {
-    ...data.userCycle.workout,
-    items: [...data.userCycle.workout.first, ...data.userCycle.workout.rest]
+    ...workout,
+    items: [...workout.first, ...workout.rest]
   }
 
   return {
     currentUser,
     currentProgram,
     currentWorkout,
-    currentWorkoutIndex,
-    cycleProgression,
+    currentWorkoutIndex: completed_workouts.length,
+    cycleProgression: cycle.workouts.length ? (completed_workouts.length / cycle.workouts.length) * 100 : 0,
     programs: data.programs,
     loading,
     error

@@ -1,6 +1,5 @@
 import { marked } from 'marked'
 import { useNavigate } from 'react-router-dom'
-import { usePrograms } from '../hooks/usePrograms'
 import { useUserContext } from '../context/UserProvider'
 import { ProgressBar } from '../components'
 

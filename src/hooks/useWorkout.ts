@@ -2,12 +2,14 @@ import { useQuery, useMutation } from '@apollo/client'
 import { GET_WORKOUT_BY_ID } from '../graphql/queries'
 import { COMPLETE_WORKOUT } from '../graphql/mutations'
 import { WorkoutEntity } from '../types'
-
+import { useUserContext } from '../context/UserProvider'
 interface WorkoutData {
-  workouts: WorkoutEntity[]
+  workout: WorkoutEntity
 }
 
 export const useWorkout = (id: number) => {
+  const { currentProgram, completedWorkouts } = useUserContext()
+
   const { data, loading, error } = useQuery<WorkoutData>(GET_WORKOUT_BY_ID, {
     variables: { id: String(id) }
   })
@@ -22,8 +24,10 @@ export const useWorkout = (id: number) => {
   })
 
   return {
-    workout: data?.workouts[0],
+    workout: data?.workout,
     completeWorkout,
+    completed: completedWorkouts.includes(data?.workout.id),
+    currentProgram,
     loading,
     error
   }

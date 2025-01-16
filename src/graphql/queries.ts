@@ -28,7 +28,7 @@ export const GET_WORKOUTS = gql`
 
 export const GET_WORKOUT_BY_ID = gql`
   query WorkoutById($id: bigint!) {
-    workouts(where: { id: { _eq: $id } }) {
+    workout: workouts_by_pk(id: $id) {
       id
       title
       subtitle
@@ -206,6 +206,7 @@ export const GET_DASHBOARD_DATA_FOR_USER = gql`
       id
       start_date
       current_workout
+      completed_workouts
       ...User
       ...Workout
       cycle {

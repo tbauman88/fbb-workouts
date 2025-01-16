@@ -1,11 +1,10 @@
-import React, { useMemo, useState } from 'react'
+import React, { useMemo } from 'react'
 import { useWindowSize } from 'react-use'
 import { useWorkout } from '../hooks/useWorkout'
 import { Button, QueryWrapper, WorkoutItem } from '../components'
 import { ChevronLeftIcon, ChevronRightIcon, HomeIcon } from '@heroicons/react/24/solid'
 import { useNavigate } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
-import { useUserContext } from '../context/UserProvider'
 
 const Header: React.FC<{
   name: string
@@ -78,7 +77,7 @@ const Main: React.FC<{
 
               <div className="my-8">
                 <Button
-                  text={completed ? 'Cycle Completed' : 'Mark as Complete'}
+                  text={completed ? 'Workout Completed' : 'Mark as Complete'}
                   onClick={handleComplete}
                   disabled={completed}
                 />
@@ -91,18 +90,14 @@ const Main: React.FC<{
   </main>
 )
 
-const WorkoutContent = ({
-  workout,
-  onComplete
-}: {
+const WorkoutContent: React.FC<{
   workout: Workout
-  onComplete: (userCycleId: number, currentWorkoutId: number) => void
-}) => {
+  currentProgram: Program
+  completed: boolean
+  completeWorkout: () => void
+}> = ({ workout, currentProgram, completed, completeWorkout }) => {
   const { width } = useWindowSize()
   const navigate = useNavigate()
-  const { currentProgram } = useUserContext()
-  const [completed, setCompleted] = useState(false)
-
   const isLargeScreen = useMemo(() => width > 1280, [width])
 
   const [coachingItems, workoutItems] = useMemo(() => {
@@ -130,7 +125,7 @@ const WorkoutContent = ({
 
   const handleComplete = async () => {
     try {
-      await onComplete({ variables: { id: 1, currentWorkout: workout.id + 1 } })
+      await completeWorkout({ variables: { id: 1, currentWorkout: workout.id + 1 } })
       setCompleted(true)
     } catch (err) {
       console.error('Error completing workout:', err)
@@ -147,11 +142,11 @@ const WorkoutContent = ({
 
 export const Workout = () => {
   const { id } = useParams<{ id: string }>()
-  const { workout, completeWorkout, loading, error } = useWorkout(id)
+  const { workout, loading, error, ...rest } = useWorkout(id)
 
   return (
     <QueryWrapper loading={loading} error={error} data={workout} emptyMessage="No workout found">
-      <WorkoutContent workout={workout} onComplete={completeWorkout} />
+      <WorkoutContent {...{ workout, ...rest }} />
     </QueryWrapper>
   )
 }

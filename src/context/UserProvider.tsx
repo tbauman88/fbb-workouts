@@ -7,6 +7,7 @@ interface UserContextType {
   currentWorkout: WorkoutEntity | null
   currentWorkoutIndex: number
   cycleProgression: number
+  completedWorkouts: number[]
   loading: boolean
   error: Error | null
 }
@@ -15,7 +16,7 @@ const UserContext = createContext<UserContextType | undefined>(undefined)
 
 export const UserProvider: React.FC<{ user: UserEntity; children: React.ReactNode }> = ({ user, children }) => {
   const {
-    currentUser,
+    currentUser: userCycle,
     programs,
     currentProgram,
     currentWorkout,
@@ -31,12 +32,13 @@ export const UserProvider: React.FC<{ user: UserEntity; children: React.ReactNod
   return (
     <UserContext.Provider
       value={{
-        user: currentUser,
+        user: userCycle,
         programs,
         currentProgram,
         currentWorkout,
         currentWorkoutIndex,
         cycleProgression,
+        completedWorkouts: userCycle.completed_workouts,
         loading,
         error
       }}
