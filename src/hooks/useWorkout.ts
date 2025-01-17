@@ -8,10 +8,10 @@ interface WorkoutData {
 }
 
 export const useWorkout = (id: number) => {
-  const { currentProgram, completedWorkouts } = useUserContext()
+  const { currentProgram } = useUserContext()
 
   const { data, loading, error } = useQuery<WorkoutData>(GET_WORKOUT_BY_ID, {
-    variables: { id: String(id) }
+    variables: { id: String(id), cycleId: String(currentProgram.cycleId) }
   })
 
   const [completeWorkout] = useMutation(COMPLETE_WORKOUT, {
@@ -23,10 +23,12 @@ export const useWorkout = (id: number) => {
     }
   })
 
+  const workoutIds = data?.workout.user_workouts.map((workout) => workout.id)
+
   return {
     workout: data?.workout,
+    completed: workoutIds?.includes(data?.workout.id) ?? false,
     completeWorkout,
-    completed: completedWorkouts.includes(data?.workout.id),
     currentProgram,
     loading,
     error

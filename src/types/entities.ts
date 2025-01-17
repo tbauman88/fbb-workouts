@@ -24,12 +24,16 @@ export interface ExerciseDetailsEntity {
 
 export type PartialExerciseDetails = Pick<ExerciseDetailsEntity, 'id' | 'title' | 'subtitle' | 'exercise'>
 
+export interface ScoreEntity {
+  value: string
+}
+
 export interface WorkoutItemEntity {
   id: number
   header?: string
   title?: string
   notes?: string | null
-  score?: string
+  scores?: ScoreEntity[]
   exercise_details: ExerciseDetailsEntity[] | PartialExerciseDetails[]
 }
 

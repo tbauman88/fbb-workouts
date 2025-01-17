@@ -27,7 +27,7 @@ export const GET_WORKOUTS = gql`
 `
 
 export const GET_WORKOUT_BY_ID = gql`
-  query WorkoutById($id: bigint!) {
+  query WorkoutById($id: bigint!, $cycleId: bigint!) {
     workout: workouts_by_pk(id: $id) {
       id
       title
@@ -41,9 +41,11 @@ export const GET_WORKOUT_BY_ID = gql`
       workout_items(order_by: { id: asc }) {
         id
         title
-        score
         notes
         header
+        scores {
+          value
+        }
         exercise_details {
           id
           title
@@ -58,6 +60,9 @@ export const GET_WORKOUT_BY_ID = gql`
             demo_video_id
           }
         }
+      }
+      user_workouts(where: { workout_id: { _eq: $id }, cycle_id: { _eq: $cycleId } }) {
+        id: workout_id
       }
     }
   }
@@ -212,6 +217,7 @@ export const GET_DASHBOARD_DATA_FOR_USER = gql`
       cycle {
         ...ProgramDetails
         ...WorkoutIds
+        id
         total: workout_count
       }
     }

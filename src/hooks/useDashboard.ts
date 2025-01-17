@@ -35,6 +35,7 @@ export const useDashboard = (id: number) => {
 
   const currentProgram = {
     ...cycle.program,
+    cycleId: cycle.id,
     name: cycle.program ? PROGRAM_NAME_MAP[cycle.program.name] || cycle.program.name : null
   }
 
