@@ -26,7 +26,7 @@ const Navigation = () => {
   }, [location.pathname])
 
   return (
-    <nav className="flex overflow-x-auto py-4">
+    <nav className="hidden md:block flex overflow-x-auto py-4">
       <ul
         role="list"
         className="flex min-w-full flex-none gap-x-6 px-4 text-sm font-semibold leading-6 text-gray-400 sm:px-6 lg:px-8"
@@ -52,10 +52,10 @@ const Header = ({ user, onClick }: { user: User; onClick: () => void }) => {
     <header className="py-10">
       <div className="mx-auto max-w-7xl px-4 flex justify-between">
         <div className="flex flex-1 items-center gap-x-6">
-          <button type="button" onClick={() => {}} className="-m-3 p-3 md:hidden">
+          {/* <button type="button" onClick={() => {}} className="-m-3 p-3 md:hidden">
             <span className="sr-only">Open main menu</span>
             <Bars3Icon aria-hidden="true" className="h-5 w-5 text-gray-900" />
-          </button>
+          </button> */}
           <Logo />
         </div>
         <Navigation />

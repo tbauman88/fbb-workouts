@@ -2,40 +2,39 @@ import React, { useMemo } from 'react'
 import { useWindowSize } from 'react-use'
 import { useWorkout } from '../hooks/useWorkout'
 import { Button, QueryWrapper, WorkoutItem } from '../components'
-import { ChevronLeftIcon, ChevronRightIcon, HomeIcon } from '@heroicons/react/24/solid'
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid'
 import { useNavigate } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
+import { Logo } from '../components/Logo'
 
 const Header: React.FC<{
   name: string
   handleClick: () => void
 }> = ({ name, handleClick = () => {} }) => (
-  <div className="bg-gray-800 md:pb-32">
+  <div className="bg-gray-800 pb-32">
     <header className="py-10">
       <div className="mx-auto max-w-7xl px-4 flex justify-between">
-        <h1 className="text-3xl font-bold tracking-tight text-white">{name}</h1>
+        <Logo onClick={() => handleClick('home')} />
+
+        <h1 className="hidden md:block text-3xl font-bold tracking-tight text-white">{name}</h1>
 
         <div className="flex items-center text-gray-400">
           <button
             type="button"
             className="-my-1.5 flex flex-none items-center justify-center p-1.5 hover:text-white"
-            onClick={() => handleClick('home')}
+            onClick={() => handleClick('prev')}
           >
-            <span className="sr-only">Home</span>
-            <HomeIcon className="h-5 w-5" aria-hidden="true" />
-          </button>
-
-          <button type="button" className="-my-1.5 flex flex-none items-center justify-center p-1.5 hover:text-white">
             <span className="sr-only">Previous month</span>
-            <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" onClick={() => handleClick('prev')} />
+            <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
           </button>
 
           <button
             type="button"
             className="-my-1.5 -mr-1.5 ml-2 flex flex-none items-center justify-center p-1.5 hover:text-white"
+            onClick={() => handleClick('next')}
           >
             <span className="sr-only">Next month</span>
-            <ChevronRightIcon className="h-5 w-5" aria-hidden="true" onClick={() => handleClick('next')} />
+            <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
           </button>
         </div>
       </div>
