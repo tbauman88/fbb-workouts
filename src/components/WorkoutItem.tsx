@@ -23,13 +23,17 @@ const Notes = ({ notes }: { notes?: string }) =>
   )
 
 export const WorkoutItem: React.FC<WorkoutItemProps> = ({ item }) => {
+  const excludedHeaders = ['Coach Note', 'Short on Time', 'Warm-up', 'Cool Down']
+
+  const needsScore = !excludedHeaders.some((header) => item.header.toLowerCase().includes(header.toLowerCase()))
+
   return (
-    <article className="py-6 flex flex-wrap gap-x-3 w-full">
+    <article className="py-6 flex flex-wrap w-full">
       <Header header={item.header} />
       <Title title={item.title} />
       <Exercises exercise_details={item.exercise_details} />
       <Notes notes={item.notes} />
-      <Score values={item.scores} />
+      <Score values={item.scores} showInput={needsScore} />
     </article>
   )
 }
