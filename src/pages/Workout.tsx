@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useState } from 'react'
 import { useWindowSize } from 'react-use'
 import { useWorkout } from '../hooks/useWorkout'
 import { Button, QueryWrapper, WorkoutItem } from '../components'
@@ -95,6 +95,7 @@ const WorkoutContent: React.FC<{
   completed: boolean
   completeWorkout: () => void
 }> = ({ workout, currentProgram, completed, completeWorkout }) => {
+  const [completedWorkout, setCompletedWorkout] = useState(completed)
   const { width } = useWindowSize()
   const navigate = useNavigate()
   const isLargeScreen = useMemo(() => width > 1280, [width])
@@ -124,8 +125,13 @@ const WorkoutContent: React.FC<{
 
   const handleComplete = async () => {
     try {
-      await completeWorkout({ variables: { id: 1, currentWorkout: workout.id + 1 } })
-      setCompleted(true)
+      await completeWorkout({
+        variables: {
+          completedWorkout: workout.id,
+          cycleId: currentProgram.cycleId
+        }
+      })
+      setCompletedWorkout(true)
     } catch (err) {
       console.error('Error completing workout:', err)
     }
@@ -134,7 +140,7 @@ const WorkoutContent: React.FC<{
   return (
     <div className="min-h-full">
       <Header name={currentProgram.name} handleClick={handleClick} />
-      <Main {...{ workout, coachingItems, workoutItems, handleComplete, completed }} />
+      <Main {...{ workout, coachingItems, workoutItems, handleComplete, completed: completedWorkout }} />
     </div>
   )
 }

@@ -29,9 +29,9 @@ export const useDashboard = (id: number) => {
   if (loading) return { loading: true }
   if (error) return { error: error.message }
 
-  const { completed_workouts, cycle, workout } = data.userCycle
+  const { cycle, workout } = data.userCycle
 
-  const currentUser = { ...data.userCycle, total: cycle.total }
+  const currentUser = { ...data.userCycle }
 
   const currentProgram = {
     ...cycle.program,
@@ -44,12 +44,14 @@ export const useDashboard = (id: number) => {
     items: [...workout.first, ...workout.rest]
   }
 
+  const completedWorkouts = cycle.user_workouts_aggregate.aggregate.count
+  const cycleProgression = cycle.total ? (completedWorkouts / cycle.total) * 100 : 0
+
   return {
     currentUser,
     currentProgram,
     currentWorkout,
-    currentWorkoutIndex: completed_workouts.length,
-    cycleProgression: cycle.workouts.length ? (completed_workouts.length / cycle.workouts.length) * 100 : 0,
+    cycleProgression,
     programs: data.programs,
     loading,
     error

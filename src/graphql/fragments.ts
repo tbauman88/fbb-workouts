@@ -1,13 +1,5 @@
 import { gql } from '@apollo/client'
 
-export const GET_PROGRAMS_FRAGMENT = gql`
-  fragment Programs on programs {
-    id
-    name
-    image
-  }
-`
-
 export const GET_USER_FRAGMENT = gql`
   fragment User on user_cycles {
     user {
@@ -19,12 +11,20 @@ export const GET_USER_FRAGMENT = gql`
   }
 `
 
+export const GET_PROGRAMS_FRAGMENT = gql`
+  fragment Programs on programs {
+    id
+    name
+    image
+  }
+`
+
 export const GET_WORKOUT_FRAGMENT = gql`
   fragment Workout on user_cycles {
     workout {
       id
       title
-      first: workout_items(limit: 1, where: {}) {
+      first: workout_items(limit: 1) {
         id
         header
         notes

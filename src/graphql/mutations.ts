@@ -1,9 +1,10 @@
 import { gql } from '@apollo/client'
 
 export const COMPLETE_WORKOUT = gql`
-  mutation CompleteWorkout($id: bigint!, $currentWorkout: Int!) {
-    update_user_cycles_by_pk(pk_columns: { id: $id }, _set: { current_workout: $currentWorkout, updated_at: "now()" }) {
-      current_workout
+  mutation CompleteWorkout($completedWorkout: bigint!, $cycleId: bigint!) {
+    insert_user_workouts_one(object: { workout_id: $completedWorkout, cycle_id: $cycleId }) {
+      id
+      workout_id
     }
   }
 `

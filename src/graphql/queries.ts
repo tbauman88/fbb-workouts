@@ -1,11 +1,5 @@
 import { gql } from '@apollo/client'
-import {
-  GET_USER_FRAGMENT,
-  GET_WORKOUT_FRAGMENT,
-  GET_PROGRAM_DETAILS_FRAGMENT,
-  GET_WORKOUT_IDS_FRAGMENT,
-  GET_PROGRAMS_FRAGMENT
-} from './fragments'
+import { GET_WORKOUT_FRAGMENT, GET_PROGRAM_DETAILS_FRAGMENT, GET_PROGRAMS_FRAGMENT } from './fragments'
 
 export const GET_WORKOUTS = gql`
   query GetWorkouts($cycleId: Int!) {
@@ -211,14 +205,16 @@ export const GET_DASHBOARD_DATA_FOR_USER = gql`
       id
       start_date
       current_workout
-      completed_workouts
-      ...User
       ...Workout
       cycle {
-        ...ProgramDetails
-        ...WorkoutIds
         id
         total: workout_count
+        user_workouts_aggregate {
+          aggregate {
+            count
+          }
+        }
+        ...ProgramDetails
       }
     }
     programs {
@@ -226,10 +222,8 @@ export const GET_DASHBOARD_DATA_FOR_USER = gql`
     }
   }
 
-  ${GET_USER_FRAGMENT}
   ${GET_WORKOUT_FRAGMENT}
   ${GET_PROGRAM_DETAILS_FRAGMENT}
-  ${GET_WORKOUT_IDS_FRAGMENT}
   ${GET_PROGRAMS_FRAGMENT}
 `
 

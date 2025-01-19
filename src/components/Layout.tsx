@@ -106,7 +106,7 @@ export const Layout: React.FC = () => {
 
       <main className="-mt-32">
         <div className="mx-auto max-w-full lg:px-16">
-          <div className="rounded-lg bg-white lg:py-6 sm:px-6">
+          <div className="rounded-lg bg-white py-6 sm:px-6">
             <Outlet />
           </div>
         </div>

@@ -80,12 +80,12 @@ const TimelineItem = ({ item }) => {
 }
 
 // Current Workout Card Component
-const CurrentWorkoutCard = ({ currentWorkout, trainingDay, onClick }) => (
+const CurrentWorkoutCard = ({ currentWorkout, onClick }) => (
   <div className="-mx-4 shadow-sm ring-1 ring-gray-900/5 sm:mx-0 sm:rounded-lg lg:col-span-2 lg:row-span-2 lg:row-end-2">
     <div className="rounded-lg bg-gray-50 shadow-sm ring-1 ring-gray-900/5">
       <dl className="flex flex-wrap">
         <div className="flex-auto pl-6 pb-6 mt-6 border-b border-gray-900/5">
-          <dt className="text-sm font-semibold leading-6 text-gray-900 uppercase">{trainingDay}</dt>
+          <dt className="text-sm font-semibold leading-6 text-gray-900 uppercase">Daily Training:</dt>
           <dd className="mt-1 text-base font-semibold leading-6 text-gray-900">{currentWorkout?.title}</dd>
         </div>
 
@@ -144,7 +144,7 @@ const Divider = () => (
 
 // Main Dashboard Component
 export const Dashboard = () => {
-  const { user, programs, currentProgram, currentWorkout, currentWorkoutIndex, cycleProgression } = useUserContext()
+  const { programs, currentProgram, currentWorkout, cycleProgression } = useUserContext()
   const navigate = useNavigate()
 
   const navigateToWorkout = (id: number | undefined) => {
@@ -158,11 +158,7 @@ export const Dashboard = () => {
         <section className="mx-auto grid max-w-2xl grid-cols-1 grid-rows-1 items-start gap-x-8 gap-y-8 lg:mx-0 lg:max-w-none lg:grid-cols-3">
           <CurrentProgramCard {...{ currentProgram, cycleProgression }} />
 
-          <CurrentWorkoutCard
-            {...{ currentWorkout }}
-            onClick={navigateToWorkout}
-            trainingDay={`Daily Training (Day ${currentWorkoutIndex} of ${user?.total})`}
-          />
+          <CurrentWorkoutCard onClick={navigateToWorkout} {...{ currentWorkout }} />
         </section>
 
         <Divider />
