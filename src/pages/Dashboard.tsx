@@ -118,7 +118,7 @@ const CurrentWorkoutCard = ({ currentWorkout, onClick }) => (
 
 // Programs List Component
 const ProgramsList = ({ programs }) => (
-  <section className="flex flex-col bg-white m-auto p-auto">
+  <section className="hidden md:block flex flex-col bg-white m-auto p-auto">
     <h2 className="flex pb-5 font-medium text-2xl text-gray-900 uppercase">Programs</h2>
     <div className="flex overflow-x-scroll pb-10 hide-scroll-bar">
       <div className="flex flex-nowrap">
@@ -135,7 +135,7 @@ const ProgramsList = ({ programs }) => (
 )
 
 const Divider = () => (
-  <div className="relative py-10">
+  <div className="hidden md:block relative py-10">
     <div aria-hidden="true" className="absolute inset-0 flex items-center">
       <div className="w-full border-t border-gray-300" />
     </div>
@@ -156,9 +156,8 @@ export const Dashboard = () => {
     <main>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <section className="mx-auto grid max-w-2xl grid-cols-1 grid-rows-1 items-start gap-x-8 gap-y-8 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-          <CurrentProgramCard {...{ currentProgram, cycleProgression }} />
-
           <CurrentWorkoutCard onClick={navigateToWorkout} {...{ currentWorkout }} />
+          <CurrentProgramCard {...{ currentProgram, cycleProgression }} />
         </section>
 
         <Divider />
