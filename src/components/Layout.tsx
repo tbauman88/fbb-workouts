@@ -60,19 +60,8 @@ const Header = ({ user, onClick }: { user: User; onClick: () => void }) => {
       <Disclosure as="nav" className="bg-gray-800 py-10">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 justify-between">
-            <div className="flex">
-              <div className="-ml-2 mr-2 flex items-center md:hidden">
-                <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
-                  <span className="absolute -inset-0.5" />
-                  <span className="sr-only">Open main menu</span>
-                  <Bars3Icon aria-hidden="true" className="block size-6 group-data-[open]:hidden" />
-                  <XMarkIcon aria-hidden="true" className="hidden size-6 group-data-[open]:block" />
-                </DisclosureButton>
-              </div>
-
-              <div className="flex items-center">
-                <Logo />
-              </div>
+            <div className="flex items-center">
+              <Logo />
             </div>
 
             <Navigation navigation={updatedNavigation} />
@@ -121,6 +110,15 @@ const Header = ({ user, onClick }: { user: User; onClick: () => void }) => {
                   </div>
                 </Menu>
               </div>
+            </div>
+
+            <div className="-ml-2 mr-2 flex items-center md:hidden">
+              <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                <span className="absolute -inset-0.5" />
+                <span className="sr-only">Open main menu</span>
+                <Bars3Icon aria-hidden="true" className="block size-6 group-data-[open]:hidden" />
+                <XMarkIcon aria-hidden="true" className="hidden size-6 group-data-[open]:block" />
+              </DisclosureButton>
             </div>
           </div>
         </div>
