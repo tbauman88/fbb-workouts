@@ -39,7 +39,7 @@ export const Exercises = () => {
       >
         {groupedExercises[selectedLetter]?.map((e: Exercise) => (
           <li key={e.demo_video_id} className="relative">
-            <div className="mb-2 group overflow-hidden rounded-lg focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100">
+            <div className="mb-2 group overflow-hidden rounded-lg focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 bg-gray-100">
               <button className="block w-full h-full relative" onClick={() => openExerciseVideo(e.demo_video_url)}>
                 <img
                   alt=""
