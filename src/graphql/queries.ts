@@ -49,7 +49,6 @@ export const GET_WORKOUT_BY_ID = gql`
             id
             demo_video_url
             demo_video_title
-            demo_video_thumb
             demo_video_poster
             demo_video_id
           }
@@ -67,7 +66,6 @@ export const GET_EXERCISES = gql`
     exercises(order_by: [{ demo_video_title: asc }]) {
       id
       demo_video_url
-      demo_video_thumb
       demo_video_title
       demo_video_poster
       demo_video_id

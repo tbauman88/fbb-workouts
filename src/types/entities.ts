@@ -2,7 +2,6 @@ export interface ExerciseEntity {
   demo_video_id: string
   demo_video_title: string
   demo_video_url: string | null
-  demo_video_thumb: string
   demo_video_poster?: string
   levels: string[]
   hidden?: boolean
