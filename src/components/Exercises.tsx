@@ -152,6 +152,8 @@ export const Exercises: React.FC<{ exercise_details: ExerciseDetails[] }> = ({ e
     }))
   }
 
+  if (exercise_details.length === 0) return
+
   return (
     <>
       <section className="w-full">

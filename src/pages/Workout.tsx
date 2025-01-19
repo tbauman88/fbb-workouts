@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useWindowSize } from 'react-use'
 import { useWorkout } from '../hooks/useWorkout'
 import { Button, QueryWrapper, WorkoutItem } from '../components'
@@ -13,7 +13,7 @@ const Header: React.FC<{
 }> = ({ name, handleClick = () => {} }) => (
   <div className="bg-gray-800 pb-32">
     <header className="py-10">
-      <div className="mx-auto max-w-7xl px-4 flex justify-between">
+      <div className="mx-auto max-w-7xl px-4 flex justify-between py-3">
         <Logo onClick={() => handleClick('home')} />
 
         <h1 className="hidden md:block text-3xl font-bold tracking-tight text-white">{name}</h1>
@@ -47,16 +47,26 @@ const Main: React.FC<{
   coachingItems: WorkoutItem[]
   workoutItems: WorkoutItem[]
   handleComplete: () => void
-  completed: boolean
-}> = ({ workout, coachingItems, workoutItems, handleComplete, completed }) => (
+  isWorkoutCompleted: boolean
+}> = ({ workout, coachingItems, workoutItems, handleComplete, isWorkoutCompleted }) => (
   <main className="-mt-32">
     <div className="mx-auto max-w-full lg:px-16">
       <div className="rounded-lg bg-white lg:py-6 sm:px-6">
         <div className="mx-auto max-w-7xl px-4">
           <section className="mx-auto flex max-w-3xl flex-col items-start justify-between gap-8 lg:gap-4 lg:mx-0 lg:max-w-none lg:flex-row lg:min-h-screen">
             <div className="w-full mt-8 lg:mt-0 lg:max-w-lg lg:flex-auto lg:sticky lg:top-16 lg:self-start lg:h-screen">
-              <h2 className="text-pretty text-3xl font-semibold tracking-tight text-gray-900">{workout.title}</h2>
-              <h4 className="text-pretty text-xl tracking-tight text-gray-400">{workout.subtitle}</h4>
+              <div className="flex items-start gap-x-3 items-end">
+                <div className="flex-grow">
+                  <h2 className="text-pretty text-3xl font-semibold tracking-tight text-gray-900">{workout.title}</h2>
+                  <h4 className="text-pretty text-xl tracking-tight text-gray-400">{workout.subtitle}</h4>
+                </div>
+
+                {isWorkoutCompleted && (
+                  <p className="md:hidden text-green-700 bg-green-50 ring-green-600/20 rounded-md px-1.5 py-0.5 text-xs font-medium ring-1 ring-inset uppercase mb-2">
+                    Workout Completed
+                  </p>
+                )}
+              </div>
               <img
                 alt="Workout main image"
                 src={workout.poster}
@@ -76,9 +86,9 @@ const Main: React.FC<{
 
               <div className="my-8">
                 <Button
-                  text={completed ? 'Workout Completed' : 'Mark as Complete'}
+                  text={isWorkoutCompleted ? 'Workout Completed' : 'Mark as Complete'}
                   onClick={handleComplete}
-                  disabled={completed}
+                  disabled={isWorkoutCompleted}
                 />
               </div>
             </div>
@@ -95,10 +105,14 @@ const WorkoutContent: React.FC<{
   completed: boolean
   completeWorkout: () => void
 }> = ({ workout, currentProgram, completed, completeWorkout }) => {
-  const [completedWorkout, setCompletedWorkout] = useState(completed)
+  const [isWorkoutCompleted, setIsWorkoutCompleted] = useState<boolean>(false)
   const { width } = useWindowSize()
   const navigate = useNavigate()
   const isLargeScreen = useMemo(() => width > 1280, [width])
+
+  useEffect(() => {
+    setIsWorkoutCompleted(completed)
+  }, [completed])
 
   const [coachingItems, workoutItems] = useMemo(() => {
     if (!workout || !workout.workout_items) {
@@ -106,7 +120,6 @@ const WorkoutContent: React.FC<{
     }
 
     const items = workout.workout_items
-
     const firstTwo = isLargeScreen ? items.slice(0, 2) : []
     const remaining = isLargeScreen ? items.slice(2) : items
 
@@ -140,7 +153,7 @@ const WorkoutContent: React.FC<{
   return (
     <div className="min-h-full">
       <Header name={currentProgram.name} handleClick={handleClick} />
-      <Main {...{ workout, coachingItems, workoutItems, handleComplete, completed: completedWorkout }} />
+      <Main {...{ workout, coachingItems, workoutItems, handleComplete, isWorkoutCompleted }} />
     </div>
   )
 }
