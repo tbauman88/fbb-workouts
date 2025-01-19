@@ -53,7 +53,7 @@ const Main: React.FC<{
     <div className="mx-auto max-w-full lg:px-16">
       <div className="rounded-lg bg-white lg:py-6 sm:px-6">
         <div className="mx-auto max-w-7xl px-4">
-          <section className="mx-auto flex max-w-3xl flex-col items-start justify-between gap-8 lg:gap-4 lg:mx-0 lg:max-w-none lg:flex-row min-h-screen">
+          <section className="mx-auto flex max-w-3xl flex-col items-start justify-between gap-8 lg:gap-4 lg:mx-0 lg:max-w-none lg:flex-row lg:min-h-screen">
             <div className="w-full mt-8 lg:mt-0 lg:max-w-lg lg:flex-auto lg:sticky lg:top-16 lg:self-start lg:h-screen">
               <h2 className="text-pretty text-3xl font-semibold tracking-tight text-gray-900">{workout.title}</h2>
               <h4 className="text-pretty text-xl tracking-tight text-gray-400">{workout.subtitle}</h4>
