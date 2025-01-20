@@ -122,7 +122,7 @@ const ProgramsList = ({ programs }) => (
     <h2 className="flex pb-5 font-medium text-2xl text-gray-900 uppercase">Programs</h2>
     <div className="flex overflow-x-scroll pb-10 hide-scroll-bar">
       <div className="flex flex-nowrap">
-        {programs.map((program, index) => (
+        {programs?.map((program, index) => (
           <div key={program.name} className={`inline-block ${index === programs.length - 1 ? 'pr-0' : 'pr-6'}`}>
             <div className="min-w-[300px] max-w-xs overflow-hidden rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out">
               <img src={program.image} alt="" />

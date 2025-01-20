@@ -1,33 +1,31 @@
-import { useCallback } from "react";
-import { usePrograms } from "../hooks/usePrograms";
-import { ProgramCard, CardWrapper } from "../components";
-import { useNavigate } from "react-router-dom";
+import { useCallback } from 'react'
+import { usePrograms } from '../hooks/usePrograms'
+import { ProgramCard, CardWrapper } from '../components'
+import { useNavigate } from 'react-router-dom'
 
 export const Programs = () => {
-  const { programs, loading, error } = usePrograms();
-  const navigate = useNavigate();
+  const { programs, loading, error } = usePrograms()
+  const navigate = useNavigate()
 
   const handleClick = useCallback(
     (program: Program) => {
-      navigate(`/programs/${program.id}`);
+      navigate(`/programs/${program.id}`)
     },
     [navigate]
-  );
+  )
 
   const viewCycle = useCallback(
     (program: Program, cycle: number) => {
-      navigate(`/workouts/${cycle}`);
+      navigate(`/workouts/${cycle}`)
     },
     [navigate]
-  );
+  )
 
   const getCycleClasses = (cycleId: number) =>
-    cycleId === 13
-      ? "bg-green-50 text-green-700 ring-green-600/20"
-      : "bg-gray-50 text-gray-600 ring-gray-500/10";
+    cycleId === 13 ? 'bg-green-50 text-green-700 ring-green-600/20' : 'bg-gray-50 text-gray-600 ring-gray-500/10'
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
+  if (loading) return <div>Loading...</div>
+  if (error) return <div>Error: {error.message}</div>
 
   return (
     <CardWrapper desktopCols={3}>
@@ -53,5 +51,5 @@ export const Programs = () => {
         </ProgramCard>
       ))}
     </CardWrapper>
-  );
-};
+  )
+}

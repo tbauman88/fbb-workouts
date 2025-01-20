@@ -11,7 +11,7 @@ export const useWorkout = (id: number) => {
   const { currentProgram } = useUserContext()
 
   const { data, loading, error } = useQuery<WorkoutData>(GET_WORKOUT_BY_ID, {
-    variables: { id: String(id), cycleId: String(currentProgram.cycleId) }
+    variables: { id: String(id), cycleId: String(currentProgram?.cycleId) }
   })
 
   const [completeWorkout] = useMutation(COMPLETE_WORKOUT, {

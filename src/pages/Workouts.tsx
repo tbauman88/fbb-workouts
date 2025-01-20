@@ -1,16 +1,18 @@
-import React from "react";
-import { useWorkouts } from "../hooks/useWorkouts";
-import { WorkoutCard, CardWrapper } from "../components";
+import React from 'react'
+import { useWorkouts } from '../hooks/useWorkouts'
+import { WorkoutCard, CardWrapper } from '../components'
+import { Loading } from './Loading'
 
 export const Workouts = () => {
-  const { workouts, loading, error } = useWorkouts(13);
+  const { workouts, loading, error } = useWorkouts(13)
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
+  if (error) return <div>Error: {error.message}</div>
 
   return (
     <CardWrapper desktopCols={1}>
-      {workouts.map((workout) => (
+      {loading && <Loading page="workouts" />}
+
+      {workouts?.map((workout) => (
         <WorkoutCard
           key={`${workout.id}-${workout.date}`}
           handleClick={() => handleWorkoutClick(workout.id)}
@@ -18,5 +20,5 @@ export const Workouts = () => {
         />
       ))}
     </CardWrapper>
-  );
-};
+  )
+}

@@ -52,6 +52,7 @@ export const useDashboard = (id: number) => {
     currentProgram,
     currentWorkout,
     cycleProgression,
+    completedWorkouts,
     programs: data.programs,
     loading,
     error

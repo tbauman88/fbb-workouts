@@ -21,13 +21,11 @@ export const UserProvider: React.FC<{ user: UserEntity; children: React.ReactNod
     currentProgram,
     currentWorkout,
     currentWorkoutIndex,
+    completedWorkouts,
     cycleProgression,
     loading,
     error
   } = useDashboard(user.id)
-
-  if (loading) return <div>Loading...</div>
-  if (error) return <div>Error: {error.message}</div>
 
   return (
     <UserContext.Provider
@@ -38,7 +36,7 @@ export const UserProvider: React.FC<{ user: UserEntity; children: React.ReactNod
         currentWorkout,
         currentWorkoutIndex,
         cycleProgression,
-        completedWorkouts: userCycle.completed_workouts,
+        completedWorkouts,
         loading,
         error
       }}

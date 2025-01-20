@@ -105,7 +105,7 @@ const Header = ({ user, onClick }: { user: User; onClick: () => void }) => {
                     <MenuButton className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                       <span className="absolute -inset-1.5" />
                       <span className="sr-only">Open user menu</span>
-                      <img alt="" src={user.image_url} className="size-8 rounded-full" />
+                      <img alt="" src={user?.image_url} className="size-8 rounded-full" />
                     </MenuButton>
                   </div>
                 </Menu>
@@ -142,11 +142,11 @@ const Header = ({ user, onClick }: { user: User; onClick: () => void }) => {
           <div className="border-t border-gray-700 pb-3 pt-4">
             <div className="flex items-center px-5 sm:px-6">
               <div className="shrink-0">
-                <img alt="" src={user.image_url} className="size-10 rounded-full" />
+                <img alt="" src={user?.image_url} className="size-10 rounded-full" />
               </div>
               <div className="ml-3">
-                <div className="text-base font-medium text-white">{user.name}</div>
-                <div className="text-sm font-medium text-gray-400">{user.email}</div>
+                <div className="text-base font-medium text-white">{user?.name}</div>
+                <div className="text-sm font-medium text-gray-400">{user?.email}</div>
               </div>
               <button
                 type="button"
@@ -177,11 +177,7 @@ const Header = ({ user, onClick }: { user: User; onClick: () => void }) => {
 }
 
 export const Layout: React.FC = () => {
-  const { user, loading, error } = useUser(1)
-  const { logout } = useAuth()
-
-  if (loading) return <div>Loading...</div>
-  if (error) return <div>Error: {error.message}</div>
+  const { user, logout } = useAuth()
 
   return (
     <div className="min-h-full">
