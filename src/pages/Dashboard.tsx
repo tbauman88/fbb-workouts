@@ -2,32 +2,37 @@ import { marked } from 'marked'
 import { useNavigate } from 'react-router-dom'
 import { useUserContext } from '../context/UserProvider'
 import { ProgressBar } from '../components'
+import { Loading } from './Loading'
 
-// Current Program Card Component
-const CurrentProgramCard = ({ currentProgram, cycleProgression }) => (
-  <div className="lg:col-start-3 lg:row-end-1 pb-6">
-    <h2 className="sr-only">Current Program</h2>
+const CurrentProgramCard = ({ currentProgram, cycleProgression, loading }) => {
+  if (loading) {
+    return <Loading page="dashboard" component="current-program-card" />
+  }
 
-    <div className="rounded-lg bg-gray-50 shadow-sm ring-1 ring-gray-900/5 space-y-6 pb-6">
-      <img src={currentProgram?.image} alt="" />
-      <dl className="flex flex-wrap px-6">
-        <div className="flex-auto">
-          <dt className="text-sm font-semibold leading-6 text-gray-900 uppercase">Current Program:</dt>
-          <dd className="mt-1 text-base font-semibold leading-6 text-gray-900">{currentProgram?.name}</dd>
-        </div>
-        <div className="flex-none self-end">
-          <dt className="sr-only">Status</dt>
-          <dd className="rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-600 ring-1 ring-inset ring-green-600/20">
-            Active
-          </dd>
-        </div>
-      </dl>
-      <ProgressBar progress={cycleProgression} />
+  return (
+    <div className="lg:col-start-3 lg:row-end-1 pb-6">
+      <h2 className="sr-only">Current Program</h2>
+
+      <div className="rounded-lg bg-gray-50 shadow-sm ring-1 ring-gray-900/5 space-y-6 pb-6">
+        <img src={currentProgram?.image} alt="" />
+        <dl className="flex flex-wrap px-6">
+          <div className="flex-auto">
+            <dt className="text-sm font-semibold leading-6 text-gray-900 uppercase">Current Program:</dt>
+            <dd className="mt-1 text-base font-semibold leading-6 text-gray-900">{currentProgram?.name}</dd>
+          </div>
+          <div className="flex-none self-end">
+            <dt className="sr-only">Status</dt>
+            <dd className="rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-600 ring-1 ring-inset ring-green-600/20">
+              Active
+            </dd>
+          </div>
+        </dl>
+        <ProgressBar progress={cycleProgression} />
+      </div>
     </div>
-  </div>
-)
+  )
+}
 
-// Workout Status Badge Component
 const WorkoutStatusBadge = ({ isActiveRecovery, isRestDay }) => {
   if (isActiveRecovery) {
     return (
@@ -47,7 +52,6 @@ const WorkoutStatusBadge = ({ isActiveRecovery, isRestDay }) => {
   return null
 }
 
-// Timeline Item Component
 const TimelineItem = ({ item }) => {
   if (item.header === '') return null
 
@@ -79,60 +83,70 @@ const TimelineItem = ({ item }) => {
   )
 }
 
-// Current Workout Card Component
-const CurrentWorkoutCard = ({ currentWorkout, onClick }) => (
-  <div className="-mx-4 shadow-sm ring-1 ring-gray-900/5 sm:mx-0 sm:rounded-lg lg:col-span-2 lg:row-span-2 lg:row-end-2">
-    <div className="rounded-lg bg-gray-50 shadow-sm ring-1 ring-gray-900/5">
-      <dl className="flex flex-wrap">
-        <div className="flex-auto pl-6 pb-6 mt-6 border-b border-gray-900/5">
-          <dt className="text-sm font-semibold leading-6 text-gray-900 uppercase">Daily Training:</dt>
-          <dd className="mt-1 text-base font-semibold leading-6 text-gray-900">{currentWorkout?.title}</dd>
-        </div>
+const CurrentWorkoutCard = ({ currentWorkout, onClick, loading }) => {
+  if (loading) {
+    return <Loading page="dashboard" component="current-workout-card" />
+  }
 
-        <div className="flex-none self-end px-6 pt-4 pb-6 mt-6 border-b border-gray-900/5">
-          <dt className="sr-only">Is Rest Day?</dt>
-          <WorkoutStatusBadge
-            isActiveRecovery={currentWorkout?.isActiveRecovery}
-            isRestDay={currentWorkout?.isRestDay}
-          />
-        </div>
-
-        <ul role="list" className="mt-6 space-y-4 px-6">
-          {currentWorkout?.items?.map((item) => (
-            <TimelineItem key={item.id} item={item} />
-          ))}
-        </ul>
-      </dl>
-
-      <div className="mt-6 border-t border-gray-900/5 px-6 py-6">
-        <a
-          onClick={() => onClick(currentWorkout?.id)}
-          className="text-sm font-semibold leading-6 text-gray-900 cursor-pointer"
-        >
-          Proceed to workout <span aria-hidden="true">&rarr;</span>
-        </a>
-      </div>
-    </div>
-  </div>
-)
-
-// Programs List Component
-const ProgramsList = ({ programs }) => (
-  <section className="hidden md:block flex flex-col bg-white m-auto p-auto">
-    <h2 className="flex pb-5 font-medium text-2xl text-gray-900 uppercase">Programs</h2>
-    <div className="flex overflow-x-scroll pb-10 hide-scroll-bar">
-      <div className="flex flex-nowrap">
-        {programs?.map((program, index) => (
-          <div key={program.name} className={`inline-block ${index === programs.length - 1 ? 'pr-0' : 'pr-6'}`}>
-            <div className="min-w-[300px] max-w-xs overflow-hidden rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out">
-              <img src={program.image} alt="" />
-            </div>
+  return (
+    <div className="-mx-4 shadow-sm ring-1 ring-gray-900/5 sm:mx-0 sm:rounded-lg lg:col-span-2 lg:row-span-2 lg:row-end-2">
+      <div className="rounded-lg bg-gray-50 shadow-sm ring-1 ring-gray-900/5">
+        <dl className="flex flex-wrap">
+          <div className="flex-auto pl-6 pb-6 mt-6 border-b border-gray-900/5">
+            <dt className="text-sm font-semibold leading-6 text-gray-900 uppercase">Daily Training:</dt>
+            <dd className="mt-1 text-base font-semibold leading-6 text-gray-900">{currentWorkout?.title}</dd>
           </div>
-        ))}
+
+          <div className="flex-none self-end px-6 pt-4 pb-6 mt-6 border-b border-gray-900/5">
+            <dt className="sr-only">Is Rest Day?</dt>
+            <WorkoutStatusBadge
+              isActiveRecovery={currentWorkout?.isActiveRecovery}
+              isRestDay={currentWorkout?.isRestDay}
+            />
+          </div>
+
+          <ul role="list" className="mt-6 space-y-4 px-6">
+            {currentWorkout?.items?.map((item) => (
+              <TimelineItem key={item.id} item={item} />
+            ))}
+          </ul>
+        </dl>
+
+        <div className="mt-6 border-t border-gray-900/5 px-6 py-6">
+          <a
+            onClick={() => onClick(currentWorkout?.id)}
+            className="text-sm font-semibold leading-6 text-gray-900 cursor-pointer"
+          >
+            Proceed to workout <span aria-hidden="true">&rarr;</span>
+          </a>
+        </div>
       </div>
     </div>
-  </section>
-)
+  )
+}
+
+const ProgramsList = ({ programs, loading }) => {
+  if (loading) {
+    return <Loading page="dashboard" component="programs-list" />
+  }
+
+  return (
+    <section className="hidden md:block flex flex-col bg-white m-auto p-auto">
+      <h2 className="flex pb-5 font-medium text-2xl text-gray-900 uppercase">Programs</h2>
+      <div className="flex overflow-x-scroll pb-10 hide-scroll-bar">
+        <div className="flex flex-nowrap">
+          {programs?.map((program, index) => (
+            <div key={program.name} className={`inline-block ${index === programs.length - 1 ? 'pr-0' : 'pr-6'}`}>
+              <div className="min-w-[300px] max-w-xs overflow-hidden rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out">
+                <img src={program.image} alt="" />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
 
 const Divider = () => (
   <div className="hidden md:block relative py-10">
@@ -142,9 +156,8 @@ const Divider = () => (
   </div>
 )
 
-// Main Dashboard Component
 export const Dashboard = () => {
-  const { programs, currentProgram, currentWorkout, cycleProgression } = useUserContext()
+  const { programs, currentProgram, currentWorkout, cycleProgression, loading } = useUserContext()
   const navigate = useNavigate()
 
   const navigateToWorkout = (id: number | undefined) => {
@@ -156,13 +169,13 @@ export const Dashboard = () => {
     <main>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <section className="mx-auto grid max-w-2xl grid-cols-1 grid-rows-1 items-start gap-x-8 gap-y-8 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-          <CurrentWorkoutCard onClick={navigateToWorkout} {...{ currentWorkout }} />
-          <CurrentProgramCard {...{ currentProgram, cycleProgression }} />
+          <CurrentWorkoutCard onClick={navigateToWorkout} {...{ currentWorkout, loading }} />
+          <CurrentProgramCard {...{ currentProgram, cycleProgression, loading }} />
         </section>
 
         <Divider />
 
-        <ProgramsList {...{ programs }} />
+        <ProgramsList {...{ programs, loading }} />
       </div>
     </main>
   )

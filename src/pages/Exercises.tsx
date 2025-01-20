@@ -33,14 +33,14 @@ export const Exercises = () => {
         ))}
       </div>
 
-      {loading && <Loading page="exercises" />}
-
-      {!loading && (
-        <ul
-          role="list"
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-8 gap-x-3 gap-y-6 px-4 lg:px-0 py-4"
-        >
-          {groupedExercises[selectedLetter]?.map((e: Exercise) => (
+      <ul
+        role="list"
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-8 gap-x-3 gap-y-6 px-4 lg:px-0 py-4"
+      >
+        {loading ? (
+          <Loading page="exercises" />
+        ) : (
+          groupedExercises[selectedLetter]?.map((e: Exercise) => (
             <li key={e.demo_video_id} className="relative">
               <div className="mb-2 group overflow-hidden rounded-lg focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 bg-gray-100">
                 <button className="block w-full h-full relative" onClick={() => openExerciseVideo(e.demo_video_url)}>
@@ -56,9 +56,9 @@ export const Exercises = () => {
               </div>
               <p className="block text-sm font-medium text-gray-900">{e.demo_video_title}</p>
             </li>
-          ))}
-        </ul>
-      )}
+          ))
+        )}
+      </ul>
     </>
   )
 }
