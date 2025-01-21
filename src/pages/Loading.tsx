@@ -88,7 +88,7 @@ const WorkoutLoading = () => {
 
         {/* Coaching items */}
         <div className="mt-8 space-y-6">
-          {Array.from({ length: 2 }).map((i) => (
+          {Array.from({ length: 2 }).map((_, i) => (
             <article key={i} className="py-6">
               <Skeleton width="40%" height="24px" className="mb-4" />
               <Skeleton width="100%" height="100px" className="mb-4 rounded-lg" />
@@ -102,7 +102,7 @@ const WorkoutLoading = () => {
       {/* Right Column */}
       <div className="w-full lg:max-w-2xl lg:flex-auto lg:mt-24">
         <section className="-my-6 divide-y divide-gray-100">
-          {Array.from({ length: 6 }).map((i) => (
+          {Array.from({ length: 6 }).map((_, i) => (
             <article key={i} className="py-6">
               <Skeleton width="30%" height="24px" className="mb-4" />
               <div className="space-y-4">

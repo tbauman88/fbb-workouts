@@ -1,11 +1,10 @@
-import React, { useMemo, useState } from 'react'
+import React, { useMemo } from 'react'
 import { Outlet } from 'react-router-dom'
-import { useUser } from '../hooks/useUser'
 import { Link, useLocation } from 'react-router-dom'
 import { NavigationProps } from '../types'
 import { useAuth } from '../hooks/useAuth'
 import { Logo } from './'
-import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
+import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 
 const navigation: NavigationProps[] = [
@@ -16,7 +15,7 @@ const navigation: NavigationProps[] = [
 ]
 
 const userNavigation = [
-  { name: 'Your Profile', href: '#' },
+  { name: 'Your Profile', href: '/settings' },
   { name: 'Settings', href: '#' },
   { name: 'Sign out', href: '#', action: true }
 ]
@@ -97,18 +96,13 @@ const Header = ({ user, onClick }: { user: User; onClick: () => void }) => {
                       strokeLinejoin="round"
                       d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6A2.25 2.25 0 005.25 5.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m-3-3h8.25m0 0l-3-3m3 3l-3 3"
                     />
-                  </svg>{' '}
+                  </svg>
                 </button>
 
-                <Menu as="div" className="relative ml-3">
-                  <div>
-                    <MenuButton className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                      <span className="absolute -inset-1.5" />
-                      <span className="sr-only">Open user menu</span>
-                      <img alt="" src={user?.image_url} className="size-8 rounded-full" />
-                    </MenuButton>
-                  </div>
-                </Menu>
+                <Link key="settings" to="/settings" aria-current={false} className="relative ml-3">
+                  <span className="sr-only">Open user menu</span>
+                  <img alt="" src={user?.image_url} className="size-8 rounded-full" />
+                </Link>
               </div>
             </div>
 

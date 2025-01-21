@@ -16,7 +16,6 @@ const UserContext = createContext<UserContextType | undefined>(undefined)
 
 export const UserProvider: React.FC<{ user: UserEntity; children: React.ReactNode }> = ({ user, children }) => {
   const {
-    currentUser: userCycle,
     programs,
     currentProgram,
     currentWorkout,
@@ -30,7 +29,7 @@ export const UserProvider: React.FC<{ user: UserEntity; children: React.ReactNod
   return (
     <UserContext.Provider
       value={{
-        user: userCycle,
+        user,
         programs,
         currentProgram,
         currentWorkout,

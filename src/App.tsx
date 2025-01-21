@@ -12,6 +12,7 @@ import { Program } from './pages/Program'
 import { Workouts } from './pages/Workouts'
 import { Exercises } from './pages/Exercises'
 import { NotFound } from './pages/NotFound'
+import { Settings } from './pages/Settings'
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { isAuthenticated, user } = useAuth()
@@ -42,6 +43,8 @@ function App() {
           <Route path="programs/:id" element={<Programs />} />
           <Route path="workouts" element={<Workouts />} />
           <Route path="exercises" element={<Exercises />} />
+          <Route path="settings" element={<Settings />} />
+
           <Route path="*" element={<NotFound />} />
         </Route>
 
