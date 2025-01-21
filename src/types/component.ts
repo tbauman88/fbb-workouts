@@ -25,6 +25,7 @@ export interface WorkoutCardProps {
 
 export interface WorkoutItemProps {
   item: WorkoutItem
+  updateScore: (variables: { variables: { workoutItemId: string; score: string } }) => Promise<void>
 }
 
 export interface NavigationProps {

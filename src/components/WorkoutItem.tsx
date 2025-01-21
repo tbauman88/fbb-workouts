@@ -22,7 +22,7 @@ const Notes = ({ notes }: { notes?: string }) =>
     />
   )
 
-export const WorkoutItem: React.FC<WorkoutItemProps> = ({ item }) => {
+export const WorkoutItem: React.FC<WorkoutItemProps> = ({ item, updateScore }) => {
   const excludedHeaders = ['Coach Note', 'Short on Time', 'Warm-up', 'Cool Down']
 
   const needsScore = !excludedHeaders.some((header) => item.header.toLowerCase().includes(header.toLowerCase()))
@@ -33,7 +33,7 @@ export const WorkoutItem: React.FC<WorkoutItemProps> = ({ item }) => {
       <Title title={item.title} />
       <Exercises exercise_details={item.exercise_details} />
       <Notes notes={item.notes} />
-      <Score values={item.scores} showInput={needsScore} />
+      <Score values={item.scores} showInput={needsScore} workoutItemId={item.id} {...{ updateScore }} />
     </article>
   )
 }
