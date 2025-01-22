@@ -9,17 +9,12 @@ export const COMPLETE_WORKOUT = gql`
   }
 `
 
-export const ADD_WORKOUT_ITEM_SCORE = gql`
-  mutation AddWorkoutItemScore($workoutItemId: bigint!, $score: String) {
-    insert_workout_item_scores_one(object: { workout_item_id: $workoutItemId, value: $score }) {
-      id
-    }
-  }
-`
-
-export const UPDATE_WORKOUT_ITEM_SCORE = gql`
-  mutation UpdateWorkoutItemScore($workoutItemId: bigint!, $score: String = "") {
-    update_workout_item_scores(where: { workout_item_id: { _eq: $workoutItemId } }, _set: { value: $score }) {
+export const UPSERT_WORKOUT_ITEM_SCORE = gql`
+  mutation UpsertWorkoutItemScore($workoutItemId: bigint!, $score: String = "") {
+    insert_workout_item_scores(
+      objects: [{ workout_item_id: $workoutItemId, value: $score }]
+      on_conflict: { constraint: workout_item_scores_pkey, update_columns: [value] }
+    ) {
       returning {
         id
         value

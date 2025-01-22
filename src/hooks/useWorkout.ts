@@ -1,6 +1,6 @@
 import { useQuery, useMutation } from '@apollo/client'
 import { GET_WORKOUT_BY_ID } from '../graphql/queries'
-import { ADD_WORKOUT_ITEM_SCORE, COMPLETE_WORKOUT } from '../graphql/mutations'
+import { UPSERT_WORKOUT_ITEM_SCORE, COMPLETE_WORKOUT } from '../graphql/mutations'
 import { WorkoutEntity } from '../types'
 import { useUserContext } from '../context/UserProvider'
 interface WorkoutData {
@@ -14,12 +14,12 @@ export const useWorkout = (id: number) => {
     variables: { id: String(id), cycleId: String(currentProgram?.cycleId) }
   })
 
-  const [addWorkoutItemScore] = useMutation(ADD_WORKOUT_ITEM_SCORE, {
+  const [upsertWorkoutItemScore] = useMutation(UPSERT_WORKOUT_ITEM_SCORE, {
     onCompleted: () => {
-      console.log('Workout item score added successfully:', data)
+      console.log('Workout item score updated successfully:', data)
     },
     onError: (error) => {
-      console.error('Error adding workout item score:', error)
+      console.error('Error updating workout item score:', error)
     }
   })
 
@@ -37,7 +37,7 @@ export const useWorkout = (id: number) => {
   return {
     workout: data?.workout,
     completed: workoutIds?.includes(data?.workout.id) ?? false,
-    addWorkoutItemScore,
+    upsertWorkoutItemScore,
     completeWorkout,
     currentProgram,
     loading,

@@ -44,7 +44,7 @@ const Header: React.FC<{
 
 export const Workout = () => {
   const { id } = useParams<{ id: string }>()
-  const { workout, loading, error, currentProgram, completed, completeWorkout, addWorkoutItemScore } = useWorkout(id)
+  const { workout, loading, error, currentProgram, completed, completeWorkout, upsertWorkoutItemScore } = useWorkout(id)
 
   const [isWorkoutCompleted, setIsWorkoutCompleted] = useState<boolean>(false)
   const { width } = useWindowSize()
@@ -134,7 +134,7 @@ export const Workout = () => {
                     <div className="w-full lg:max-w-2xl lg:flex-auto lg:mt-24">
                       <section className="-my-6 divide-y divide-gray-100">
                         {workoutItems.map((item) => (
-                          <WorkoutItem key={item.id} {...{ item, updateScore: addWorkoutItemScore }} />
+                          <WorkoutItem key={item.id} {...{ item, updateScore: upsertWorkoutItemScore }} />
                         ))}
                       </section>
 
