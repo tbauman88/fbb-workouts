@@ -44,7 +44,8 @@ const Header: React.FC<{
 
 export const Workout = () => {
   const { id } = useParams<{ id: string }>()
-  const { workout, loading, error, currentProgram, completed, completeWorkout, upsertWorkoutItemScore } = useWorkout(id)
+  const { workout, loading, error, currentProgram, completed, completeWorkout, upsertWorkoutItemScore, nextWorkoutId } =
+    useWorkout(id)
 
   const [isWorkoutCompleted, setIsWorkoutCompleted] = useState<boolean>(false)
   const { width } = useWindowSize()
@@ -82,10 +83,10 @@ export const Workout = () => {
       await completeWorkout({
         variables: {
           completedWorkout: workout.id,
-          cycleId: currentProgram.cycleId
+          cycleId: currentProgram.cycleId,
+          nextWorkoutId: nextWorkoutId
         }
       })
-      setCompletedWorkout(true)
     } catch (err) {
       console.error('Error completing workout:', err)
     }

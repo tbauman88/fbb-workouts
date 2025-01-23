@@ -1,10 +1,16 @@
 import { gql } from '@apollo/client'
 
 export const COMPLETE_WORKOUT = gql`
-  mutation CompleteWorkout($completedWorkout: bigint!, $cycleId: bigint!) {
+  mutation CompleteWorkout($completedWorkout: bigint!, $cycleId: bigint!, $nextWorkoutId: Int!) {
     insert_user_workouts_one(object: { workout_id: $completedWorkout, cycle_id: $cycleId }) {
       id
       workout_id
+    }
+    update_user_cycles(
+      _set: { current_workout: $nextWorkoutId }
+      where: { cycle_id: { _eq: $cycleId }, completed: { _eq: false } }
+    ) {
+      affected_rows
     }
   }
 `

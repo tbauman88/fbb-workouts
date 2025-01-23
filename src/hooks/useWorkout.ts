@@ -3,6 +3,7 @@ import { GET_WORKOUT_BY_ID } from '../graphql/queries'
 import { UPSERT_WORKOUT_ITEM_SCORE, COMPLETE_WORKOUT } from '../graphql/mutations'
 import { WorkoutEntity } from '../types'
 import { useUserContext } from '../context/UserProvider'
+
 interface WorkoutData {
   workout: WorkoutEntity
 }
@@ -36,6 +37,7 @@ export const useWorkout = (id: number) => {
 
   return {
     workout: data?.workout,
+    nextWorkoutId: data?.workout.current_cycle.next_workout,
     completed: workoutIds?.includes(data?.workout.id) ?? false,
     upsertWorkoutItemScore,
     completeWorkout,

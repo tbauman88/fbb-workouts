@@ -57,6 +57,9 @@ export const GET_WORKOUT_BY_ID = gql`
       user_workouts(where: { workout_id: { _eq: $id }, cycle_id: { _eq: $cycleId } }) {
         id: workout_id
       }
+      current_cycle {
+        next_workout
+      }
     }
   }
 `
