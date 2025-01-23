@@ -31,8 +31,6 @@ export const useDashboard = (id: number) => {
 
   const { cycle, workout } = data.userCycle
 
-  const currentUser = { ...data.userCycle }
-
   const currentProgram = {
     ...cycle.program,
     cycleId: cycle.id,
@@ -48,7 +46,7 @@ export const useDashboard = (id: number) => {
   const cycleProgression = cycle.total ? (completedWorkouts / cycle.total) * 100 : 0
 
   return {
-    currentUser,
+    userCycle: data.userCycle,
     currentProgram,
     currentWorkout,
     cycleProgression,

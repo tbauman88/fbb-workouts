@@ -1,8 +1,9 @@
 import React, { createContext, useContext } from 'react'
-import { UserEntity, ProgramEntity, WorkoutEntity } from '../types'
+import { UserEntity, ProgramEntity, WorkoutEntity, UserCycleEntity } from '../types'
 import { useDashboard } from '../hooks/useDashboard'
 interface UserContextType {
   user: UserEntity | null
+  userCycle: UserCycleEntity | null
   currentProgram: ProgramEntity | null
   currentWorkout: WorkoutEntity | null
   currentWorkoutIndex: number
@@ -16,6 +17,7 @@ const UserContext = createContext<UserContextType | undefined>(undefined)
 
 export const UserProvider: React.FC<{ user: UserEntity; children: React.ReactNode }> = ({ user, children }) => {
   const {
+    userCycle,
     programs,
     currentProgram,
     currentWorkout,
@@ -30,6 +32,7 @@ export const UserProvider: React.FC<{ user: UserEntity; children: React.ReactNod
     <UserContext.Provider
       value={{
         user,
+        userCycle,
         programs,
         currentProgram,
         currentWorkout,
