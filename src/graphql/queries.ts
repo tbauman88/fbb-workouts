@@ -137,27 +137,6 @@ export const GET_USER = gql`
   }
 `
 
-export const GET_USER_CYCLE_PROGRESS = gql`
-  query GetUserCycleProgress($user_id: bigint!) {
-    user_cycles(where: { user_id: { _eq: $user_id } }) {
-      id
-      start_date
-      cycle {
-        id
-        workout_count
-        program {
-          name
-        }
-        workouts(order_by: { subtitle: asc }, limit: 2) {
-          id
-          title
-          subtitle
-        }
-      }
-    }
-  }
-`
-
 export const GET_DASHBOARD_DATA = gql`
   query GetDashboardDataForUser($userId: bigint!) {
     user_cycles(where: { user_id: { _eq: $userId } }) {
