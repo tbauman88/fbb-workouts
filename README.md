@@ -8,13 +8,14 @@ This application is a workouts app that allows users to choose from different fi
 
 This app is built using the following:
 
-| Technology  | Description                                      |
-|-------------|--------------------------------------------------|
-| **React**   | A JavaScript library for building user interfaces. |
-| **GraphQL** | A query language for APIs.                       |
-| **Hasura**  | Instant GraphQL APIs over Postgres databases.   |
-| **TypeScript** | A typed superset of JavaScript that compiles to plain JavaScript. |
-| **Vite**    | A fast build tool and development server.       |
+<div style="display: flex; align-items: center; gap: 10px;">
+    <img src="https://img.shields.io/badge/Hasura-1C1C1C?style=flat&logo=hasura&logoColor=white" alt="Hasura" />
+    <img src="https://img.shields.io/badge/GraphQL-E10098?style=flat&logo=graphql&logoColor=white" alt="GraphQL" />
+    <img src="https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=black" alt="React" />
+    <img src="https://img.shields.io/badge/TypeScript-007ACC?style=flat&logo=typescript&logoColor=white" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/Vite-6431B1?style=flat&logo=vite&logoColor=white" alt="Vite" />
+  <img src="https://img.shields.io/badge/Vercel-000000?style=flat&logo=vercel&logoColor=white" alt="Vercel" />
+</div>
 
 ## Getting Started
 
