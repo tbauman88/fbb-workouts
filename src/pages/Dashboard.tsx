@@ -55,6 +55,8 @@ const WorkoutStatusBadge = ({ isActiveRecovery, isRestDay }) => {
 const TimelineItem = ({ item }) => {
   if (item.header === '') return null
 
+  const title = item.header || item.title
+
   return (
     <li className="relative flex gap-x-8">
       <div className="relative flex-none mt-1">
@@ -65,17 +67,20 @@ const TimelineItem = ({ item }) => {
       </div>
 
       <div className="flex-1 space-y-3">
-        {(item.header || item.title) && (
+        {title && (
           <div className="flex items-baseline gap-x-3">
-            <div className="min-w-[120px] text-sm font-semibold uppercase text-gray-900">
-              {item.header?.replace(/^[A-Z]\.\s*/g, '')}
-            </div>
+            <div
+              className={`min-w-[120px] text-sm font-semibold uppercase ${
+                item.title ? 'text-gray-500' : 'text-gray-900'
+              }`}
+              dangerouslySetInnerHTML={{ __html: marked(title) }}
+            />
           </div>
         )}
 
         {item.notes && (
           <div className="text-sm text-gray-600">
-            <div dangerouslySetInnerHTML={{ __html: marked(item.notes) }} />
+            <div className="[&>p]:mb-4 last:[&>p]:mb-0" dangerouslySetInnerHTML={{ __html: marked(item.notes) }} />
           </div>
         )}
       </div>
@@ -105,7 +110,7 @@ const CurrentWorkoutCard = ({ currentWorkout, onClick, loading }) => {
             />
           </div>
 
-          <ul role="list" className="mt-6 space-y-4 px-6">
+          <ul role="list" className="mt-6 space-y-4 px-6 w-full">
             {currentWorkout?.items?.map((item) => (
               <TimelineItem key={item.id} item={item} />
             ))}

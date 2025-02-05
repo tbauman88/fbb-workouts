@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client'
 import { GET_DASHBOARD_DATA_FOR_USER } from '../graphql/queries'
 import { PROGRAM_NAME_MAP } from '../hooks/usePrograms'
-import { UserEntity, WorkoutEntity, CycleEntity } from '../graphql/types'
+import { UserEntity, WorkoutEntity, CycleEntity, WorkoutItemEntity } from '../graphql/types'
 
 interface DashboardData {
   user_cycles: {
@@ -10,8 +10,9 @@ interface DashboardData {
     current_workout: string
     user: Pick<UserEntity, 'id' | 'name' | 'email' | 'image_url'>
     workout: Pick<WorkoutEntity, 'id' | 'title'> & {
-      first: Pick<WorkoutItemEntity, 'id' | 'header', 'notes'>[]
+      first: Pick<WorkoutItemEntity, 'id' | 'header' | 'notes'>[]
       rest: Pick<WorkoutItemEntity, 'id' | 'header'>[]
+      titles: Pick<WorkoutItemEntity, 'id' | 'title'>[]
     }
     cycle: Pick<CycleEntity, 'id' | 'name' | 'image'> & {
       workouts: Pick<WorkoutEntity, 'id'>[]
@@ -37,9 +38,11 @@ export const useDashboard = (id: number) => {
     name: cycle.program ? PROGRAM_NAME_MAP[cycle.program.name] || cycle.program.name : null
   }
 
+  const items = [...workout.first, ...workout.rest, ...workout.titles]
+
   const currentWorkout = {
     ...workout,
-    items: [...workout.first, ...workout.rest]
+    items: items.sort((a, b) => parseInt(a.id) - parseInt(b.id))
   }
 
   const completedWorkouts = cycle.user_workouts_aggregate.aggregate.count

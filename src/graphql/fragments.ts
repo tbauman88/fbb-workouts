@@ -24,14 +24,18 @@ export const GET_WORKOUT_FRAGMENT = gql`
     workout {
       id
       title
-      first: workout_items(limit: 1) {
+      first: workout_items(limit: 1, order_by: { id: asc }) {
         id
         header
         notes
       }
-      rest: workout_items(offset: 1) {
+      rest: workout_items(offset: 1, order_by: { id: asc }, where: { header: { _neq: "" } }) {
         id
         header
+      }
+      titles: workout_items(order_by: { id: asc }, where: { title: { _ilike: "Part%" } }) {
+        id
+        title
       }
     }
   }
