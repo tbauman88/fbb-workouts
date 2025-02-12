@@ -1,0 +1,41 @@
+query WorkoutById($id: bigint!, $cycleId: bigint!) {
+  workout: workouts_by_pk(id: $id) {
+    id
+    title
+    subtitle
+    poster
+    isRestDay
+    isActiveRecovery
+    description
+    date
+    cycle
+    workout_items(order_by: { id: asc }) {
+      id
+      title
+      notes
+      header
+      scores {
+        value
+      }
+      exercise_details {
+        id
+        title
+        subtitle
+        levels
+        exercise {
+          id
+          demo_video_url
+          demo_video_title
+          demo_video_poster
+          demo_video_id
+        }
+      }
+    }
+    user_workouts(where: { workout_id: { _eq: $id }, cycle_id: { _eq: $cycleId } }) {
+      id: workout_id
+    }
+    current_cycle {
+      next_workout
+    }
+  }
+}

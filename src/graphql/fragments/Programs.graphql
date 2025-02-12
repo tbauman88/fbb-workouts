@@ -1,0 +1,5 @@
+fragment Programs on programs {
+  id
+  name
+  image
+}

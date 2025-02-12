@@ -1,0 +1,8 @@
+fragment User on user_cycles {
+  user {
+    id
+    name
+    email
+    image_url
+  }
+}

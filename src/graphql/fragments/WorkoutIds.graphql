@@ -1,0 +1,5 @@
+fragment WorkoutIds on cycles {
+  workouts(order_by: { id: asc }) {
+    id
+  }
+}

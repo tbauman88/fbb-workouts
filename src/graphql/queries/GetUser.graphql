@@ -1,0 +1,41 @@
+query GetUser($id: bigint!) {
+  users_by_pk(id: $id) {
+    id
+    email
+    image_url
+    created_at
+    updated_at
+    user_cycles(order_by: { created_at: desc }) {
+      id
+      cycle_id
+      current_workout
+      start_date
+      completed
+      created_at
+      updated_at
+      cycle {
+        id
+        cycle_number
+        date
+        bridge_week
+        program {
+          id
+          name
+          description
+          image
+        }
+        workouts(order_by: { subtitle: asc }) {
+          id
+          title
+          subtitle
+          poster
+          isRestDay
+          isActiveRecovery
+          description
+          date
+          cycle
+        }
+      }
+    }
+  }
+}

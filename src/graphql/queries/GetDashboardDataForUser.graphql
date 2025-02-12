@@ -1,0 +1,21 @@
+query GetUserCycleProgress($userId: bigint!) {
+  userCycle: user_cycles(where: { user_id: { _eq: $userId }, completed: { _eq: false } }) {
+    id
+    start_date
+    current_workout
+    ...Workout
+    cycle {
+      id
+      total: workout_count
+      user_workouts_aggregate {
+        aggregate {
+          count
+        }
+      }
+      ...ProgramDetails
+    }
+  }
+  programs {
+    ...Programs
+  }
+}

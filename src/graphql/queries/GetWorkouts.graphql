@@ -1,0 +1,16 @@
+query GetWorkouts($cycleId: Int!) {
+  workouts(where: { cycle: { _eq: $cycleId } }, order_by: { subtitle: asc }) {
+    id
+    title
+    subtitle
+    isRestDay
+    isActiveRecovery
+    date
+    cycle
+    items: workout_items_aggregate {
+      aggregate {
+        count
+      }
+    }
+  }
+}

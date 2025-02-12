@@ -1,0 +1,40 @@
+query GetDashboardDataForUser($userId: bigint!) {
+  user_cycles(where: { user_id: { _eq: $userId }, completed: { _eq: false } }) {
+    id
+    start_date
+    current_workout
+    completed
+    user {
+      id
+      name
+      email
+      image_url
+    }
+    workout {
+      id
+      title
+      subtitle
+      poster
+      isRestDay
+      isActiveRecovery
+      description
+      date
+      workout_items(limit: 2) {
+        id
+        title
+        header
+        notes
+      }
+    }
+    cycle {
+      program {
+        name
+        image
+      }
+      workouts(order_by: { id: asc }) {
+        id
+      }
+      workout_count
+    }
+  }
+}

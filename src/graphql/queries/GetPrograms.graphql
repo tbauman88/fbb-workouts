@@ -1,0 +1,14 @@
+query GetPrograms {
+  programs(order_by: [{ id: asc }]) {
+    id
+    name
+    description
+    image
+    cycles {
+      workouts(limit: 1) {
+        id
+        cycle
+      }
+    }
+  }
+}

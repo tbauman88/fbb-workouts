@@ -1,0 +1,27 @@
+query GetCurrentUserCycle($userId: bigint!) {
+  user: users_by_pk(id: $userId) {
+    id
+    user_cycles(where: { completed: { _eq: false } }) {
+      start_date
+      end_date
+      current_workout
+      completed
+      cycle {
+        id
+        cycle_number
+        date
+        workouts(order_by: { id: asc }) {
+          id
+          title
+          isRestDay
+          isActiveRecovery
+          items: workout_items_aggregate {
+            aggregate {
+              count
+            }
+          }
+        }
+      }
+    }
+  }
+}

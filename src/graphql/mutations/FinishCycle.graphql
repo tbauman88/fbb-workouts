@@ -1,0 +1,9 @@
+mutation FinishCycle($completedWorkout: bigint!, $cycleId: bigint!) {
+  insert_user_workouts_one(object: { workout_id: $completedWorkout, cycle_id: $cycleId }) {
+    id
+    workout_id
+  }
+  update_user_cycles(where: { cycle_id: { _eq: $cycleId } }, _set: { completed: true }) {
+    affected_rows
+  }
+}

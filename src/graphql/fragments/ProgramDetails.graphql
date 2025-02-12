@@ -1,0 +1,7 @@
+fragment ProgramDetails on cycles {
+  program {
+    id
+    name
+    image
+  }
+}
