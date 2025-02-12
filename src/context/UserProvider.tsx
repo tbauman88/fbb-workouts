@@ -35,7 +35,6 @@ const useDashboardData = (data: GetUserCycleProgress | undefined): DashboardData
     cycleProgression: undefined,
     completedWorkouts: undefined,
     programs: undefined,
-    
   }
 
   const { cycle, workout } = data?.userCycle[0] || {}
@@ -66,6 +65,14 @@ const useDashboardData = (data: GetUserCycleProgress | undefined): DashboardData
   }
 }
 
+export const useUserContext = () => {
+  const context = useContext(UserContext)
+  if (!context) {
+    throw new Error('useUserContext must be used within a UserProvider')
+  }
+  return context
+}
+
 export const UserProvider: React.FC<{
   user: { id: string | number }
   children: React.ReactNode
@@ -85,12 +92,4 @@ export const UserProvider: React.FC<{
       {children}
     </UserContext.Provider>
   )
-}
-
-export const useUserContext = () => {
-  const context = useContext(UserContext)
-  if (!context) {
-    throw new Error('useUserContext must be used within a UserProvider')
-  }
-  return context
 }
