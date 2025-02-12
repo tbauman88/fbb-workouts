@@ -1,36 +1,44 @@
 import { useQuery } from '@apollo/client'
 import { GET_DASHBOARD_DATA_FOR_USER } from '../graphql/queries'
-import { PROGRAM_NAME_MAP } from '../hooks/usePrograms'
-import { UserEntity, WorkoutEntity, CycleEntity, WorkoutItemEntity } from '../graphql/types'
+import { PROGRAM_NAME_MAP } from './usePrograms'
+import { GetUserCycleProgress } from '../generated/graphql'
 
-interface DashboardData {
-  user_cycles: {
+type DashboardData = {
+  userCycle: GetUserCycleProgress['userCycle'][0]
+  currentProgram: {
     id: string
-    start_date: string
-    current_workout: string
-    user: Pick<UserEntity, 'id' | 'name' | 'email' | 'image_url'>
-    workout: Pick<WorkoutEntity, 'id' | 'title'> & {
-      first: Pick<WorkoutItemEntity, 'id' | 'header' | 'notes'>[]
-      rest: Pick<WorkoutItemEntity, 'id' | 'header'>[]
-      titles: Pick<WorkoutItemEntity, 'id' | 'title'>[]
-    }
-    cycle: Pick<CycleEntity, 'id' | 'name' | 'image'> & {
-      workouts: Pick<WorkoutEntity, 'id'>[]
-      total: number
-    }
+    name: string
+  }
+  currentWorkout: {
+    id: string
+    title: string
+    items: {
+      id: string
+      header: string
+      notes: string
+    }[]
+  }
+  cycleProgression: number
+  completedWorkouts: number
+  programs: {
+    id: string
+    name: string
+    image: string
   }[]
-  programs: Pick<ProgramEntity, 'id' | 'name' | 'image'>[]
+  loading: boolean
+  error: Error | null
 }
 
-export const useDashboard = (id: number) => {
-  const { data, loading, error } = useQuery<DashboardData>(GET_DASHBOARD_DATA_FOR_USER, {
+export const useDashboard = (id: number): DashboardData => {
+  const { data, loading, error } = useQuery<GetUserCycleProgress>(GET_DASHBOARD_DATA_FOR_USER, {
     variables: { userId: String(id) }
   })
 
   if (loading) return { loading: true }
   if (error) return { error: error.message }
+  if (!data) return { error: 'No data' }
 
-  const { cycle, workout } = data.userCycle
+  const { cycle, workout } = data.userCycle[0];
 
   const currentProgram = {
     ...cycle.program,
@@ -45,7 +53,7 @@ export const useDashboard = (id: number) => {
     items: items.sort((a, b) => parseInt(a.id) - parseInt(b.id))
   }
 
-  const completedWorkouts = cycle.user_workouts_aggregate.aggregate.count
+  const completedWorkouts = cycle.user_workouts_aggregate?.aggregate?.count ?? 0
   const cycleProgression = cycle.total ? (completedWorkouts / cycle.total) * 100 : 0
 
   return {
@@ -56,6 +64,6 @@ export const useDashboard = (id: number) => {
     completedWorkouts,
     programs: data.programs,
     loading,
-    error
+    error: error?.message || null
   }
 }
