@@ -7,14 +7,14 @@ export const GET_WORKOUTS = gql`
       id
       title
       subtitle
-      poster
       isRestDay
       isActiveRecovery
-      description
       date
       cycle
-      workout_items(limit: 1, order_by: { created_at: asc }) {
-        notes
+      items: workout_items_aggregate {
+        aggregate {
+          count
+        }
       }
     }
   }
@@ -139,10 +139,11 @@ export const GET_USER = gql`
 
 export const GET_DASHBOARD_DATA = gql`
   query GetDashboardDataForUser($userId: bigint!) {
-    user_cycles(where: { user_id: { _eq: $userId } }) {
+    user_cycles(where: { user_id: { _eq: $userId }, completed: { _eq: false } }) {
       id
       start_date
       current_workout
+      completed
       user {
         id
         name
@@ -179,9 +180,39 @@ export const GET_DASHBOARD_DATA = gql`
   }
 `
 
+export const GET_CURRENT_USER_CYCLE = gql`
+  query GetCurrentUserCycle($userId: bigint!) {
+    user: users_by_pk(id: $userId) {
+      id
+      user_cycles(where: { completed: { _eq: false } }) {
+        start_date
+        end_date
+        current_workout
+        completed
+        cycle {
+          id
+          cycle_number
+          date
+          workouts(order_by: { id: asc }) {
+            id
+            title
+            isRestDay
+            isActiveRecovery
+            items: workout_items_aggregate {
+              aggregate {
+                count
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`
+
 export const GET_DASHBOARD_DATA_FOR_USER = gql`
   query GetUserCycleProgress($userId: bigint!) {
-    userCycle: user_cycles_by_pk(id: $userId) {
+    userCycle: user_cycles(where: { user_id: { _eq: $userId }, completed: { _eq: false } }) {
       id
       start_date
       current_workout
