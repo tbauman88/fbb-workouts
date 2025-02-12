@@ -1,6 +1,6 @@
 import { useQuery, useMutation } from '@apollo/client'
 import { GET_WORKOUT_BY_ID } from '../graphql/queries'
-import { UPSERT_WORKOUT_ITEM_SCORE, COMPLETE_WORKOUT } from '../graphql/mutations'
+import { UPSERT_WORKOUT_ITEM_SCORE, COMPLETE_WORKOUT, FINISH_CYCLE } from '../graphql/mutations'
 import { WorkoutEntity } from '../types'
 import { useUserContext } from '../context/UserProvider'
 
@@ -33,6 +33,15 @@ export const useWorkout = (id: number) => {
     }
   })
 
+  const [finishCycle] = useMutation(FINISH_CYCLE, {
+    onCompleted: () => {
+      console.log('Cycle finished successfully:', data)
+    },
+    onError: (error) => {
+      console.error('Error finishing cycle:', error)
+    }
+  })
+
   const workoutIds = data?.workout.user_workouts.map((workout) => workout.id)
 
   return {
@@ -41,6 +50,7 @@ export const useWorkout = (id: number) => {
     completed: workoutIds?.includes(data?.workout.id) ?? false,
     upsertWorkoutItemScore,
     completeWorkout,
+    finishCycle,
     currentProgram,
     loading,
     error
