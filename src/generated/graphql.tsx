@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
-export type Maybe<T> = T | null;
-export type InputMaybe<T> = Maybe<T>;
+export type Maybe<T> = T | null | undefined;
+export type InputMaybe<T> = T | null | undefined;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
@@ -15,16 +15,16 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean; }
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
-  bigint: { input: any; output: any; }
-  date: { input: any; output: any; }
+  bigint: { input: string; output: string; }
+  date: { input: string; output: string; }
   json: { input: any; output: any; }
-  timestamp: { input: any; output: any; }
-  timestamptz: { input: any; output: any; }
-  uuid: { input: any; output: any; }
+  timestamp: { input: string; output: string; }
+  timestamptz: { input: string; output: string; }
+  uuid: { input: string; output: string; }
 };
 
 /** Boolean expression to compare columns of type "Boolean". All fields are combined with logical 'AND'. */
-export type Boolean_Comparison_Exp = {
+export type BooleanComparisonExp = {
   _eq?: InputMaybe<Scalars['Boolean']['input']>;
   _gt?: InputMaybe<Scalars['Boolean']['input']>;
   _gte?: InputMaybe<Scalars['Boolean']['input']>;
@@ -37,7 +37,7 @@ export type Boolean_Comparison_Exp = {
 };
 
 /** Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'. */
-export type Int_Comparison_Exp = {
+export type IntComparisonExp = {
   _eq?: InputMaybe<Scalars['Int']['input']>;
   _gt?: InputMaybe<Scalars['Int']['input']>;
   _gte?: InputMaybe<Scalars['Int']['input']>;
@@ -50,7 +50,7 @@ export type Int_Comparison_Exp = {
 };
 
 /** Boolean expression to compare columns of type "String". All fields are combined with logical 'AND'. */
-export type String_Comparison_Exp = {
+export type StringComparisonExp = {
   _eq?: InputMaybe<Scalars['String']['input']>;
   _gt?: InputMaybe<Scalars['String']['input']>;
   _gte?: InputMaybe<Scalars['String']['input']>;
@@ -83,7 +83,7 @@ export type String_Comparison_Exp = {
 };
 
 /** Boolean expression to compare columns of type "bigint". All fields are combined with logical 'AND'. */
-export type Bigint_Comparison_Exp = {
+export type BigintComparisonExp = {
   _eq?: InputMaybe<Scalars['bigint']['input']>;
   _gt?: InputMaybe<Scalars['bigint']['input']>;
   _gte?: InputMaybe<Scalars['bigint']['input']>;
@@ -96,231 +96,231 @@ export type Bigint_Comparison_Exp = {
 };
 
 /** ordering argument of a cursor */
-export enum Cursor_Ordering {
+export enum CursorOrdering {
   /** ascending ordering of the cursor */
-  Asc = 'ASC',
+  ASC = 'ASC',
   /** descending ordering of the cursor */
-  Desc = 'DESC'
+  DESC = 'DESC'
 }
 
 /** columns and relationships of "cycles" */
 export type Cycles = {
   __typename?: 'cycles';
   bridge_week: Scalars['Boolean']['output'];
-  created_at?: Maybe<Scalars['timestamp']['output']>;
+  created_at: Scalars['timestamp']['output'];
   cycle_number: Scalars['Int']['output'];
-  date?: Maybe<Scalars['String']['output']>;
+  date: Maybe<Scalars['String']['output']>;
   id: Scalars['bigint']['output'];
   /** A computed field, executes function "get_next_workout" */
-  next_workout?: Maybe<Scalars['bigint']['output']>;
+  next_workout: Maybe<Scalars['bigint']['output']>;
   /** An object relationship */
-  program?: Maybe<Programs>;
-  program_id?: Maybe<Scalars['bigint']['output']>;
-  updated_at?: Maybe<Scalars['timestamp']['output']>;
+  program: Programs;
+  program_id: Scalars['bigint']['output'];
+  updated_at: Scalars['timestamp']['output'];
   /** An array relationship */
-  user_cycles: Array<User_Cycles>;
+  user_cycles: Array<UserCycles>;
   /** An aggregate relationship */
-  user_cycles_aggregate: User_Cycles_Aggregate;
+  user_cycles_aggregate: UserCyclesAggregate;
   /** An array relationship */
-  user_workouts: Array<User_Workouts>;
+  user_workouts: Array<UserWorkouts>;
   /** An aggregate relationship */
-  user_workouts_aggregate: User_Workouts_Aggregate;
+  user_workouts_aggregate: UserWorkoutsAggregate;
   workout_count: Scalars['Int']['output'];
   /** An array relationship */
   workouts: Array<Workouts>;
   /** An aggregate relationship */
-  workouts_aggregate: Workouts_Aggregate;
+  workouts_aggregate: WorkoutsAggregate;
 };
 
 
 /** columns and relationships of "cycles" */
-export type CyclesUser_CyclesArgs = {
-  distinct_on?: InputMaybe<Array<User_Cycles_Select_Column>>;
+export type CyclesUserCyclesArgs = {
+  distinct_on?: InputMaybe<Array<UserCyclesSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<User_Cycles_Order_By>>;
-  where?: InputMaybe<User_Cycles_Bool_Exp>;
+  order_by?: InputMaybe<Array<UserCyclesOrderBy>>;
+  where?: InputMaybe<UserCyclesBoolExp>;
 };
 
 
 /** columns and relationships of "cycles" */
-export type CyclesUser_Cycles_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<User_Cycles_Select_Column>>;
+export type CyclesUserCyclesAggregateArgs = {
+  distinct_on?: InputMaybe<Array<UserCyclesSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<User_Cycles_Order_By>>;
-  where?: InputMaybe<User_Cycles_Bool_Exp>;
+  order_by?: InputMaybe<Array<UserCyclesOrderBy>>;
+  where?: InputMaybe<UserCyclesBoolExp>;
 };
 
 
 /** columns and relationships of "cycles" */
-export type CyclesUser_WorkoutsArgs = {
-  distinct_on?: InputMaybe<Array<User_Workouts_Select_Column>>;
+export type CyclesUserWorkoutsArgs = {
+  distinct_on?: InputMaybe<Array<UserWorkoutsSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<User_Workouts_Order_By>>;
-  where?: InputMaybe<User_Workouts_Bool_Exp>;
+  order_by?: InputMaybe<Array<UserWorkoutsOrderBy>>;
+  where?: InputMaybe<UserWorkoutsBoolExp>;
 };
 
 
 /** columns and relationships of "cycles" */
-export type CyclesUser_Workouts_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<User_Workouts_Select_Column>>;
+export type CyclesUserWorkoutsAggregateArgs = {
+  distinct_on?: InputMaybe<Array<UserWorkoutsSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<User_Workouts_Order_By>>;
-  where?: InputMaybe<User_Workouts_Bool_Exp>;
+  order_by?: InputMaybe<Array<UserWorkoutsOrderBy>>;
+  where?: InputMaybe<UserWorkoutsBoolExp>;
 };
 
 
 /** columns and relationships of "cycles" */
 export type CyclesWorkoutsArgs = {
-  distinct_on?: InputMaybe<Array<Workouts_Select_Column>>;
+  distinct_on?: InputMaybe<Array<WorkoutsSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Workouts_Order_By>>;
-  where?: InputMaybe<Workouts_Bool_Exp>;
+  order_by?: InputMaybe<Array<WorkoutsOrderBy>>;
+  where?: InputMaybe<WorkoutsBoolExp>;
 };
 
 
 /** columns and relationships of "cycles" */
-export type CyclesWorkouts_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Workouts_Select_Column>>;
+export type CyclesWorkoutsAggregateArgs = {
+  distinct_on?: InputMaybe<Array<WorkoutsSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Workouts_Order_By>>;
-  where?: InputMaybe<Workouts_Bool_Exp>;
+  order_by?: InputMaybe<Array<WorkoutsOrderBy>>;
+  where?: InputMaybe<WorkoutsBoolExp>;
 };
 
 /** aggregated selection of "cycles" */
-export type Cycles_Aggregate = {
+export type CyclesAggregate = {
   __typename?: 'cycles_aggregate';
-  aggregate?: Maybe<Cycles_Aggregate_Fields>;
+  aggregate: Maybe<CyclesAggregateFields>;
   nodes: Array<Cycles>;
 };
 
-export type Cycles_Aggregate_Bool_Exp = {
-  bool_and?: InputMaybe<Cycles_Aggregate_Bool_Exp_Bool_And>;
-  bool_or?: InputMaybe<Cycles_Aggregate_Bool_Exp_Bool_Or>;
-  count?: InputMaybe<Cycles_Aggregate_Bool_Exp_Count>;
+export type CyclesAggregateBoolExp = {
+  bool_and?: InputMaybe<CyclesAggregateBoolExpBoolAnd>;
+  bool_or?: InputMaybe<CyclesAggregateBoolExpBoolOr>;
+  count?: InputMaybe<CyclesAggregateBoolExpCount>;
 };
 
-export type Cycles_Aggregate_Bool_Exp_Bool_And = {
-  arguments: Cycles_Select_Column_Cycles_Aggregate_Bool_Exp_Bool_And_Arguments_Columns;
+export type CyclesAggregateBoolExpBoolAnd = {
+  arguments: CyclesSelectColumnCyclesAggregateBoolExpBoolAndArgumentsColumns;
   distinct?: InputMaybe<Scalars['Boolean']['input']>;
-  filter?: InputMaybe<Cycles_Bool_Exp>;
-  predicate: Boolean_Comparison_Exp;
+  filter?: InputMaybe<CyclesBoolExp>;
+  predicate: BooleanComparisonExp;
 };
 
-export type Cycles_Aggregate_Bool_Exp_Bool_Or = {
-  arguments: Cycles_Select_Column_Cycles_Aggregate_Bool_Exp_Bool_Or_Arguments_Columns;
+export type CyclesAggregateBoolExpBoolOr = {
+  arguments: CyclesSelectColumnCyclesAggregateBoolExpBoolOrArgumentsColumns;
   distinct?: InputMaybe<Scalars['Boolean']['input']>;
-  filter?: InputMaybe<Cycles_Bool_Exp>;
-  predicate: Boolean_Comparison_Exp;
+  filter?: InputMaybe<CyclesBoolExp>;
+  predicate: BooleanComparisonExp;
 };
 
-export type Cycles_Aggregate_Bool_Exp_Count = {
-  arguments?: InputMaybe<Array<Cycles_Select_Column>>;
+export type CyclesAggregateBoolExpCount = {
+  arguments?: InputMaybe<Array<CyclesSelectColumn>>;
   distinct?: InputMaybe<Scalars['Boolean']['input']>;
-  filter?: InputMaybe<Cycles_Bool_Exp>;
-  predicate: Int_Comparison_Exp;
+  filter?: InputMaybe<CyclesBoolExp>;
+  predicate: IntComparisonExp;
 };
 
 /** aggregate fields of "cycles" */
-export type Cycles_Aggregate_Fields = {
+export type CyclesAggregateFields = {
   __typename?: 'cycles_aggregate_fields';
-  avg?: Maybe<Cycles_Avg_Fields>;
+  avg: Maybe<CyclesAvgFields>;
   count: Scalars['Int']['output'];
-  max?: Maybe<Cycles_Max_Fields>;
-  min?: Maybe<Cycles_Min_Fields>;
-  stddev?: Maybe<Cycles_Stddev_Fields>;
-  stddev_pop?: Maybe<Cycles_Stddev_Pop_Fields>;
-  stddev_samp?: Maybe<Cycles_Stddev_Samp_Fields>;
-  sum?: Maybe<Cycles_Sum_Fields>;
-  var_pop?: Maybe<Cycles_Var_Pop_Fields>;
-  var_samp?: Maybe<Cycles_Var_Samp_Fields>;
-  variance?: Maybe<Cycles_Variance_Fields>;
+  max: Maybe<CyclesMaxFields>;
+  min: Maybe<CyclesMinFields>;
+  stddev: Maybe<CyclesStddevFields>;
+  stddev_pop: Maybe<CyclesStddevPopFields>;
+  stddev_samp: Maybe<CyclesStddevSampFields>;
+  sum: Maybe<CyclesSumFields>;
+  var_pop: Maybe<CyclesVarPopFields>;
+  var_samp: Maybe<CyclesVarSampFields>;
+  variance: Maybe<CyclesVarianceFields>;
 };
 
 
 /** aggregate fields of "cycles" */
-export type Cycles_Aggregate_FieldsCountArgs = {
-  columns?: InputMaybe<Array<Cycles_Select_Column>>;
+export type CyclesAggregateFieldsCountArgs = {
+  columns?: InputMaybe<Array<CyclesSelectColumn>>;
   distinct?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 /** order by aggregate values of table "cycles" */
-export type Cycles_Aggregate_Order_By = {
-  avg?: InputMaybe<Cycles_Avg_Order_By>;
-  count?: InputMaybe<Order_By>;
-  max?: InputMaybe<Cycles_Max_Order_By>;
-  min?: InputMaybe<Cycles_Min_Order_By>;
-  stddev?: InputMaybe<Cycles_Stddev_Order_By>;
-  stddev_pop?: InputMaybe<Cycles_Stddev_Pop_Order_By>;
-  stddev_samp?: InputMaybe<Cycles_Stddev_Samp_Order_By>;
-  sum?: InputMaybe<Cycles_Sum_Order_By>;
-  var_pop?: InputMaybe<Cycles_Var_Pop_Order_By>;
-  var_samp?: InputMaybe<Cycles_Var_Samp_Order_By>;
-  variance?: InputMaybe<Cycles_Variance_Order_By>;
+export type CyclesAggregateOrderBy = {
+  avg?: InputMaybe<CyclesAvgOrderBy>;
+  count?: InputMaybe<OrderBy>;
+  max?: InputMaybe<CyclesMaxOrderBy>;
+  min?: InputMaybe<CyclesMinOrderBy>;
+  stddev?: InputMaybe<CyclesStddevOrderBy>;
+  stddev_pop?: InputMaybe<CyclesStddevPopOrderBy>;
+  stddev_samp?: InputMaybe<CyclesStddevSampOrderBy>;
+  sum?: InputMaybe<CyclesSumOrderBy>;
+  var_pop?: InputMaybe<CyclesVarPopOrderBy>;
+  var_samp?: InputMaybe<CyclesVarSampOrderBy>;
+  variance?: InputMaybe<CyclesVarianceOrderBy>;
 };
 
 /** input type for inserting array relation for remote table "cycles" */
-export type Cycles_Arr_Rel_Insert_Input = {
-  data: Array<Cycles_Insert_Input>;
+export type CyclesArrRelInsertInput = {
+  data: Array<CyclesInsertInput>;
   /** upsert condition */
-  on_conflict?: InputMaybe<Cycles_On_Conflict>;
+  on_conflict?: InputMaybe<CyclesOnConflict>;
 };
 
 /** aggregate avg on columns */
-export type Cycles_Avg_Fields = {
+export type CyclesAvgFields = {
   __typename?: 'cycles_avg_fields';
-  cycle_number?: Maybe<Scalars['Float']['output']>;
-  id?: Maybe<Scalars['Float']['output']>;
+  cycle_number: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
   /** A computed field, executes function "get_next_workout" */
-  next_workout?: Maybe<Scalars['bigint']['output']>;
-  program_id?: Maybe<Scalars['Float']['output']>;
-  workout_count?: Maybe<Scalars['Float']['output']>;
+  next_workout: Maybe<Scalars['bigint']['output']>;
+  program_id: Maybe<Scalars['Float']['output']>;
+  workout_count: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by avg() on columns of table "cycles" */
-export type Cycles_Avg_Order_By = {
-  cycle_number?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  program_id?: InputMaybe<Order_By>;
-  workout_count?: InputMaybe<Order_By>;
+export type CyclesAvgOrderBy = {
+  cycle_number?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  program_id?: InputMaybe<OrderBy>;
+  workout_count?: InputMaybe<OrderBy>;
 };
 
 /** Boolean expression to filter rows from the table "cycles". All fields are combined with a logical 'AND'. */
-export type Cycles_Bool_Exp = {
-  _and?: InputMaybe<Array<Cycles_Bool_Exp>>;
-  _not?: InputMaybe<Cycles_Bool_Exp>;
-  _or?: InputMaybe<Array<Cycles_Bool_Exp>>;
-  bridge_week?: InputMaybe<Boolean_Comparison_Exp>;
-  created_at?: InputMaybe<Timestamp_Comparison_Exp>;
-  cycle_number?: InputMaybe<Int_Comparison_Exp>;
-  date?: InputMaybe<String_Comparison_Exp>;
-  id?: InputMaybe<Bigint_Comparison_Exp>;
-  next_workout?: InputMaybe<Bigint_Comparison_Exp>;
-  program?: InputMaybe<Programs_Bool_Exp>;
-  program_id?: InputMaybe<Bigint_Comparison_Exp>;
-  updated_at?: InputMaybe<Timestamp_Comparison_Exp>;
-  user_cycles?: InputMaybe<User_Cycles_Bool_Exp>;
-  user_cycles_aggregate?: InputMaybe<User_Cycles_Aggregate_Bool_Exp>;
-  user_workouts?: InputMaybe<User_Workouts_Bool_Exp>;
-  user_workouts_aggregate?: InputMaybe<User_Workouts_Aggregate_Bool_Exp>;
-  workout_count?: InputMaybe<Int_Comparison_Exp>;
-  workouts?: InputMaybe<Workouts_Bool_Exp>;
-  workouts_aggregate?: InputMaybe<Workouts_Aggregate_Bool_Exp>;
+export type CyclesBoolExp = {
+  _and?: InputMaybe<Array<CyclesBoolExp>>;
+  _not?: InputMaybe<CyclesBoolExp>;
+  _or?: InputMaybe<Array<CyclesBoolExp>>;
+  bridge_week?: InputMaybe<BooleanComparisonExp>;
+  created_at?: InputMaybe<TimestampComparisonExp>;
+  cycle_number?: InputMaybe<IntComparisonExp>;
+  date?: InputMaybe<StringComparisonExp>;
+  id?: InputMaybe<BigintComparisonExp>;
+  next_workout?: InputMaybe<BigintComparisonExp>;
+  program?: InputMaybe<ProgramsBoolExp>;
+  program_id?: InputMaybe<BigintComparisonExp>;
+  updated_at?: InputMaybe<TimestampComparisonExp>;
+  user_cycles?: InputMaybe<UserCyclesBoolExp>;
+  user_cycles_aggregate?: InputMaybe<UserCyclesAggregateBoolExp>;
+  user_workouts?: InputMaybe<UserWorkoutsBoolExp>;
+  user_workouts_aggregate?: InputMaybe<UserWorkoutsAggregateBoolExp>;
+  workout_count?: InputMaybe<IntComparisonExp>;
+  workouts?: InputMaybe<WorkoutsBoolExp>;
+  workouts_aggregate?: InputMaybe<WorkoutsAggregateBoolExp>;
 };
 
 /** unique or primary key constraints on table "cycles" */
-export enum Cycles_Constraint {
+export enum CyclesConstraint {
   /** unique or primary key constraint on columns "id" */
-  CyclesPkey = 'cycles_pkey'
+  CYCLES_PKEY = 'cycles_pkey'
 }
 
 /** input type for incrementing numeric columns in table "cycles" */
-export type Cycles_Inc_Input = {
+export type CyclesIncInput = {
   cycle_number?: InputMaybe<Scalars['Int']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
   program_id?: InputMaybe<Scalars['bigint']['input']>;
@@ -328,73 +328,73 @@ export type Cycles_Inc_Input = {
 };
 
 /** input type for inserting data into table "cycles" */
-export type Cycles_Insert_Input = {
+export type CyclesInsertInput = {
   bridge_week?: InputMaybe<Scalars['Boolean']['input']>;
   created_at?: InputMaybe<Scalars['timestamp']['input']>;
   cycle_number?: InputMaybe<Scalars['Int']['input']>;
   date?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
-  program?: InputMaybe<Programs_Obj_Rel_Insert_Input>;
+  program?: InputMaybe<ProgramsObjRelInsertInput>;
   program_id?: InputMaybe<Scalars['bigint']['input']>;
   updated_at?: InputMaybe<Scalars['timestamp']['input']>;
-  user_cycles?: InputMaybe<User_Cycles_Arr_Rel_Insert_Input>;
-  user_workouts?: InputMaybe<User_Workouts_Arr_Rel_Insert_Input>;
+  user_cycles?: InputMaybe<UserCyclesArrRelInsertInput>;
+  user_workouts?: InputMaybe<UserWorkoutsArrRelInsertInput>;
   workout_count?: InputMaybe<Scalars['Int']['input']>;
-  workouts?: InputMaybe<Workouts_Arr_Rel_Insert_Input>;
+  workouts?: InputMaybe<WorkoutsArrRelInsertInput>;
 };
 
 /** aggregate max on columns */
-export type Cycles_Max_Fields = {
+export type CyclesMaxFields = {
   __typename?: 'cycles_max_fields';
-  created_at?: Maybe<Scalars['timestamp']['output']>;
-  cycle_number?: Maybe<Scalars['Int']['output']>;
-  date?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['bigint']['output']>;
+  created_at: Maybe<Scalars['timestamp']['output']>;
+  cycle_number: Maybe<Scalars['Int']['output']>;
+  date: Maybe<Scalars['String']['output']>;
+  id: Maybe<Scalars['bigint']['output']>;
   /** A computed field, executes function "get_next_workout" */
-  next_workout?: Maybe<Scalars['bigint']['output']>;
-  program_id?: Maybe<Scalars['bigint']['output']>;
-  updated_at?: Maybe<Scalars['timestamp']['output']>;
-  workout_count?: Maybe<Scalars['Int']['output']>;
+  next_workout: Maybe<Scalars['bigint']['output']>;
+  program_id: Maybe<Scalars['bigint']['output']>;
+  updated_at: Maybe<Scalars['timestamp']['output']>;
+  workout_count: Maybe<Scalars['Int']['output']>;
 };
 
 /** order by max() on columns of table "cycles" */
-export type Cycles_Max_Order_By = {
-  created_at?: InputMaybe<Order_By>;
-  cycle_number?: InputMaybe<Order_By>;
-  date?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  program_id?: InputMaybe<Order_By>;
-  updated_at?: InputMaybe<Order_By>;
-  workout_count?: InputMaybe<Order_By>;
+export type CyclesMaxOrderBy = {
+  created_at?: InputMaybe<OrderBy>;
+  cycle_number?: InputMaybe<OrderBy>;
+  date?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  program_id?: InputMaybe<OrderBy>;
+  updated_at?: InputMaybe<OrderBy>;
+  workout_count?: InputMaybe<OrderBy>;
 };
 
 /** aggregate min on columns */
-export type Cycles_Min_Fields = {
+export type CyclesMinFields = {
   __typename?: 'cycles_min_fields';
-  created_at?: Maybe<Scalars['timestamp']['output']>;
-  cycle_number?: Maybe<Scalars['Int']['output']>;
-  date?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['bigint']['output']>;
+  created_at: Maybe<Scalars['timestamp']['output']>;
+  cycle_number: Maybe<Scalars['Int']['output']>;
+  date: Maybe<Scalars['String']['output']>;
+  id: Maybe<Scalars['bigint']['output']>;
   /** A computed field, executes function "get_next_workout" */
-  next_workout?: Maybe<Scalars['bigint']['output']>;
-  program_id?: Maybe<Scalars['bigint']['output']>;
-  updated_at?: Maybe<Scalars['timestamp']['output']>;
-  workout_count?: Maybe<Scalars['Int']['output']>;
+  next_workout: Maybe<Scalars['bigint']['output']>;
+  program_id: Maybe<Scalars['bigint']['output']>;
+  updated_at: Maybe<Scalars['timestamp']['output']>;
+  workout_count: Maybe<Scalars['Int']['output']>;
 };
 
 /** order by min() on columns of table "cycles" */
-export type Cycles_Min_Order_By = {
-  created_at?: InputMaybe<Order_By>;
-  cycle_number?: InputMaybe<Order_By>;
-  date?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  program_id?: InputMaybe<Order_By>;
-  updated_at?: InputMaybe<Order_By>;
-  workout_count?: InputMaybe<Order_By>;
+export type CyclesMinOrderBy = {
+  created_at?: InputMaybe<OrderBy>;
+  cycle_number?: InputMaybe<OrderBy>;
+  date?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  program_id?: InputMaybe<OrderBy>;
+  updated_at?: InputMaybe<OrderBy>;
+  workout_count?: InputMaybe<OrderBy>;
 };
 
 /** response of any mutation on the table "cycles" */
-export type Cycles_Mutation_Response = {
+export type CyclesMutationResponse = {
   __typename?: 'cycles_mutation_response';
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int']['output'];
@@ -403,75 +403,75 @@ export type Cycles_Mutation_Response = {
 };
 
 /** input type for inserting object relation for remote table "cycles" */
-export type Cycles_Obj_Rel_Insert_Input = {
-  data: Cycles_Insert_Input;
+export type CyclesObjRelInsertInput = {
+  data: CyclesInsertInput;
   /** upsert condition */
-  on_conflict?: InputMaybe<Cycles_On_Conflict>;
+  on_conflict?: InputMaybe<CyclesOnConflict>;
 };
 
 /** on_conflict condition type for table "cycles" */
-export type Cycles_On_Conflict = {
-  constraint: Cycles_Constraint;
-  update_columns?: Array<Cycles_Update_Column>;
-  where?: InputMaybe<Cycles_Bool_Exp>;
+export type CyclesOnConflict = {
+  constraint: CyclesConstraint;
+  update_columns?: Array<CyclesUpdateColumn>;
+  where?: InputMaybe<CyclesBoolExp>;
 };
 
 /** Ordering options when selecting data from "cycles". */
-export type Cycles_Order_By = {
-  bridge_week?: InputMaybe<Order_By>;
-  created_at?: InputMaybe<Order_By>;
-  cycle_number?: InputMaybe<Order_By>;
-  date?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  next_workout?: InputMaybe<Order_By>;
-  program?: InputMaybe<Programs_Order_By>;
-  program_id?: InputMaybe<Order_By>;
-  updated_at?: InputMaybe<Order_By>;
-  user_cycles_aggregate?: InputMaybe<User_Cycles_Aggregate_Order_By>;
-  user_workouts_aggregate?: InputMaybe<User_Workouts_Aggregate_Order_By>;
-  workout_count?: InputMaybe<Order_By>;
-  workouts_aggregate?: InputMaybe<Workouts_Aggregate_Order_By>;
+export type CyclesOrderBy = {
+  bridge_week?: InputMaybe<OrderBy>;
+  created_at?: InputMaybe<OrderBy>;
+  cycle_number?: InputMaybe<OrderBy>;
+  date?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  next_workout?: InputMaybe<OrderBy>;
+  program?: InputMaybe<ProgramsOrderBy>;
+  program_id?: InputMaybe<OrderBy>;
+  updated_at?: InputMaybe<OrderBy>;
+  user_cycles_aggregate?: InputMaybe<UserCyclesAggregateOrderBy>;
+  user_workouts_aggregate?: InputMaybe<UserWorkoutsAggregateOrderBy>;
+  workout_count?: InputMaybe<OrderBy>;
+  workouts_aggregate?: InputMaybe<WorkoutsAggregateOrderBy>;
 };
 
 /** primary key columns input for table: cycles */
-export type Cycles_Pk_Columns_Input = {
+export type CyclesPkColumnsInput = {
   id: Scalars['bigint']['input'];
 };
 
 /** select columns of table "cycles" */
-export enum Cycles_Select_Column {
+export enum CyclesSelectColumn {
   /** column name */
-  BridgeWeek = 'bridge_week',
+  BRIDGE_WEEK = 'bridge_week',
   /** column name */
-  CreatedAt = 'created_at',
+  CREATED_AT = 'created_at',
   /** column name */
-  CycleNumber = 'cycle_number',
+  CYCLE_NUMBER = 'cycle_number',
   /** column name */
-  Date = 'date',
+  DATE = 'date',
   /** column name */
-  Id = 'id',
+  ID = 'id',
   /** column name */
-  ProgramId = 'program_id',
+  PROGRAM_ID = 'program_id',
   /** column name */
-  UpdatedAt = 'updated_at',
+  UPDATED_AT = 'updated_at',
   /** column name */
-  WorkoutCount = 'workout_count'
+  WORKOUT_COUNT = 'workout_count'
 }
 
 /** select "cycles_aggregate_bool_exp_bool_and_arguments_columns" columns of table "cycles" */
-export enum Cycles_Select_Column_Cycles_Aggregate_Bool_Exp_Bool_And_Arguments_Columns {
+export enum CyclesSelectColumnCyclesAggregateBoolExpBoolAndArgumentsColumns {
   /** column name */
-  BridgeWeek = 'bridge_week'
+  BRIDGE_WEEK = 'bridge_week'
 }
 
 /** select "cycles_aggregate_bool_exp_bool_or_arguments_columns" columns of table "cycles" */
-export enum Cycles_Select_Column_Cycles_Aggregate_Bool_Exp_Bool_Or_Arguments_Columns {
+export enum CyclesSelectColumnCyclesAggregateBoolExpBoolOrArgumentsColumns {
   /** column name */
-  BridgeWeek = 'bridge_week'
+  BRIDGE_WEEK = 'bridge_week'
 }
 
 /** input type for updating data in table "cycles" */
-export type Cycles_Set_Input = {
+export type CyclesSetInput = {
   bridge_week?: InputMaybe<Scalars['Boolean']['input']>;
   created_at?: InputMaybe<Scalars['timestamp']['input']>;
   cycle_number?: InputMaybe<Scalars['Int']['input']>;
@@ -483,72 +483,72 @@ export type Cycles_Set_Input = {
 };
 
 /** aggregate stddev on columns */
-export type Cycles_Stddev_Fields = {
+export type CyclesStddevFields = {
   __typename?: 'cycles_stddev_fields';
-  cycle_number?: Maybe<Scalars['Float']['output']>;
-  id?: Maybe<Scalars['Float']['output']>;
+  cycle_number: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
   /** A computed field, executes function "get_next_workout" */
-  next_workout?: Maybe<Scalars['bigint']['output']>;
-  program_id?: Maybe<Scalars['Float']['output']>;
-  workout_count?: Maybe<Scalars['Float']['output']>;
+  next_workout: Maybe<Scalars['bigint']['output']>;
+  program_id: Maybe<Scalars['Float']['output']>;
+  workout_count: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev() on columns of table "cycles" */
-export type Cycles_Stddev_Order_By = {
-  cycle_number?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  program_id?: InputMaybe<Order_By>;
-  workout_count?: InputMaybe<Order_By>;
+export type CyclesStddevOrderBy = {
+  cycle_number?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  program_id?: InputMaybe<OrderBy>;
+  workout_count?: InputMaybe<OrderBy>;
 };
 
 /** aggregate stddev_pop on columns */
-export type Cycles_Stddev_Pop_Fields = {
+export type CyclesStddevPopFields = {
   __typename?: 'cycles_stddev_pop_fields';
-  cycle_number?: Maybe<Scalars['Float']['output']>;
-  id?: Maybe<Scalars['Float']['output']>;
+  cycle_number: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
   /** A computed field, executes function "get_next_workout" */
-  next_workout?: Maybe<Scalars['bigint']['output']>;
-  program_id?: Maybe<Scalars['Float']['output']>;
-  workout_count?: Maybe<Scalars['Float']['output']>;
+  next_workout: Maybe<Scalars['bigint']['output']>;
+  program_id: Maybe<Scalars['Float']['output']>;
+  workout_count: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev_pop() on columns of table "cycles" */
-export type Cycles_Stddev_Pop_Order_By = {
-  cycle_number?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  program_id?: InputMaybe<Order_By>;
-  workout_count?: InputMaybe<Order_By>;
+export type CyclesStddevPopOrderBy = {
+  cycle_number?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  program_id?: InputMaybe<OrderBy>;
+  workout_count?: InputMaybe<OrderBy>;
 };
 
 /** aggregate stddev_samp on columns */
-export type Cycles_Stddev_Samp_Fields = {
+export type CyclesStddevSampFields = {
   __typename?: 'cycles_stddev_samp_fields';
-  cycle_number?: Maybe<Scalars['Float']['output']>;
-  id?: Maybe<Scalars['Float']['output']>;
+  cycle_number: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
   /** A computed field, executes function "get_next_workout" */
-  next_workout?: Maybe<Scalars['bigint']['output']>;
-  program_id?: Maybe<Scalars['Float']['output']>;
-  workout_count?: Maybe<Scalars['Float']['output']>;
+  next_workout: Maybe<Scalars['bigint']['output']>;
+  program_id: Maybe<Scalars['Float']['output']>;
+  workout_count: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev_samp() on columns of table "cycles" */
-export type Cycles_Stddev_Samp_Order_By = {
-  cycle_number?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  program_id?: InputMaybe<Order_By>;
-  workout_count?: InputMaybe<Order_By>;
+export type CyclesStddevSampOrderBy = {
+  cycle_number?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  program_id?: InputMaybe<OrderBy>;
+  workout_count?: InputMaybe<OrderBy>;
 };
 
 /** Streaming cursor of the table "cycles" */
-export type Cycles_Stream_Cursor_Input = {
+export type CyclesStreamCursorInput = {
   /** Stream column input with initial value */
-  initial_value: Cycles_Stream_Cursor_Value_Input;
+  initial_value: CyclesStreamCursorValueInput;
   /** cursor ordering */
-  ordering?: InputMaybe<Cursor_Ordering>;
+  ordering?: InputMaybe<CursorOrdering>;
 };
 
 /** Initial value of the column from where the streaming should start */
-export type Cycles_Stream_Cursor_Value_Input = {
+export type CyclesStreamCursorValueInput = {
   bridge_week?: InputMaybe<Scalars['Boolean']['input']>;
   created_at?: InputMaybe<Scalars['timestamp']['input']>;
   cycle_number?: InputMaybe<Scalars['Int']['input']>;
@@ -560,112 +560,112 @@ export type Cycles_Stream_Cursor_Value_Input = {
 };
 
 /** aggregate sum on columns */
-export type Cycles_Sum_Fields = {
+export type CyclesSumFields = {
   __typename?: 'cycles_sum_fields';
-  cycle_number?: Maybe<Scalars['Int']['output']>;
-  id?: Maybe<Scalars['bigint']['output']>;
+  cycle_number: Maybe<Scalars['Int']['output']>;
+  id: Maybe<Scalars['bigint']['output']>;
   /** A computed field, executes function "get_next_workout" */
-  next_workout?: Maybe<Scalars['bigint']['output']>;
-  program_id?: Maybe<Scalars['bigint']['output']>;
-  workout_count?: Maybe<Scalars['Int']['output']>;
+  next_workout: Maybe<Scalars['bigint']['output']>;
+  program_id: Maybe<Scalars['bigint']['output']>;
+  workout_count: Maybe<Scalars['Int']['output']>;
 };
 
 /** order by sum() on columns of table "cycles" */
-export type Cycles_Sum_Order_By = {
-  cycle_number?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  program_id?: InputMaybe<Order_By>;
-  workout_count?: InputMaybe<Order_By>;
+export type CyclesSumOrderBy = {
+  cycle_number?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  program_id?: InputMaybe<OrderBy>;
+  workout_count?: InputMaybe<OrderBy>;
 };
 
 /** update columns of table "cycles" */
-export enum Cycles_Update_Column {
+export enum CyclesUpdateColumn {
   /** column name */
-  BridgeWeek = 'bridge_week',
+  BRIDGE_WEEK = 'bridge_week',
   /** column name */
-  CreatedAt = 'created_at',
+  CREATED_AT = 'created_at',
   /** column name */
-  CycleNumber = 'cycle_number',
+  CYCLE_NUMBER = 'cycle_number',
   /** column name */
-  Date = 'date',
+  DATE = 'date',
   /** column name */
-  Id = 'id',
+  ID = 'id',
   /** column name */
-  ProgramId = 'program_id',
+  PROGRAM_ID = 'program_id',
   /** column name */
-  UpdatedAt = 'updated_at',
+  UPDATED_AT = 'updated_at',
   /** column name */
-  WorkoutCount = 'workout_count'
+  WORKOUT_COUNT = 'workout_count'
 }
 
-export type Cycles_Updates = {
+export type CyclesUpdates = {
   /** increments the numeric columns with given value of the filtered values */
-  _inc?: InputMaybe<Cycles_Inc_Input>;
+  _inc?: InputMaybe<CyclesIncInput>;
   /** sets the columns of the filtered rows to the given values */
-  _set?: InputMaybe<Cycles_Set_Input>;
+  _set?: InputMaybe<CyclesSetInput>;
   /** filter the rows which have to be updated */
-  where: Cycles_Bool_Exp;
+  where: CyclesBoolExp;
 };
 
 /** aggregate var_pop on columns */
-export type Cycles_Var_Pop_Fields = {
+export type CyclesVarPopFields = {
   __typename?: 'cycles_var_pop_fields';
-  cycle_number?: Maybe<Scalars['Float']['output']>;
-  id?: Maybe<Scalars['Float']['output']>;
+  cycle_number: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
   /** A computed field, executes function "get_next_workout" */
-  next_workout?: Maybe<Scalars['bigint']['output']>;
-  program_id?: Maybe<Scalars['Float']['output']>;
-  workout_count?: Maybe<Scalars['Float']['output']>;
+  next_workout: Maybe<Scalars['bigint']['output']>;
+  program_id: Maybe<Scalars['Float']['output']>;
+  workout_count: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by var_pop() on columns of table "cycles" */
-export type Cycles_Var_Pop_Order_By = {
-  cycle_number?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  program_id?: InputMaybe<Order_By>;
-  workout_count?: InputMaybe<Order_By>;
+export type CyclesVarPopOrderBy = {
+  cycle_number?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  program_id?: InputMaybe<OrderBy>;
+  workout_count?: InputMaybe<OrderBy>;
 };
 
 /** aggregate var_samp on columns */
-export type Cycles_Var_Samp_Fields = {
+export type CyclesVarSampFields = {
   __typename?: 'cycles_var_samp_fields';
-  cycle_number?: Maybe<Scalars['Float']['output']>;
-  id?: Maybe<Scalars['Float']['output']>;
+  cycle_number: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
   /** A computed field, executes function "get_next_workout" */
-  next_workout?: Maybe<Scalars['bigint']['output']>;
-  program_id?: Maybe<Scalars['Float']['output']>;
-  workout_count?: Maybe<Scalars['Float']['output']>;
+  next_workout: Maybe<Scalars['bigint']['output']>;
+  program_id: Maybe<Scalars['Float']['output']>;
+  workout_count: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by var_samp() on columns of table "cycles" */
-export type Cycles_Var_Samp_Order_By = {
-  cycle_number?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  program_id?: InputMaybe<Order_By>;
-  workout_count?: InputMaybe<Order_By>;
+export type CyclesVarSampOrderBy = {
+  cycle_number?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  program_id?: InputMaybe<OrderBy>;
+  workout_count?: InputMaybe<OrderBy>;
 };
 
 /** aggregate variance on columns */
-export type Cycles_Variance_Fields = {
+export type CyclesVarianceFields = {
   __typename?: 'cycles_variance_fields';
-  cycle_number?: Maybe<Scalars['Float']['output']>;
-  id?: Maybe<Scalars['Float']['output']>;
+  cycle_number: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
   /** A computed field, executes function "get_next_workout" */
-  next_workout?: Maybe<Scalars['bigint']['output']>;
-  program_id?: Maybe<Scalars['Float']['output']>;
-  workout_count?: Maybe<Scalars['Float']['output']>;
+  next_workout: Maybe<Scalars['bigint']['output']>;
+  program_id: Maybe<Scalars['Float']['output']>;
+  workout_count: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by variance() on columns of table "cycles" */
-export type Cycles_Variance_Order_By = {
-  cycle_number?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  program_id?: InputMaybe<Order_By>;
-  workout_count?: InputMaybe<Order_By>;
+export type CyclesVarianceOrderBy = {
+  cycle_number?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  program_id?: InputMaybe<OrderBy>;
+  workout_count?: InputMaybe<OrderBy>;
 };
 
 /** Boolean expression to compare columns of type "date". All fields are combined with logical 'AND'. */
-export type Date_Comparison_Exp = {
+export type DateComparisonExp = {
   _eq?: InputMaybe<Scalars['date']['input']>;
   _gt?: InputMaybe<Scalars['date']['input']>;
   _gte?: InputMaybe<Scalars['date']['input']>;
@@ -678,253 +678,253 @@ export type Date_Comparison_Exp = {
 };
 
 /** columns and relationships of "exercise_details" */
-export type Exercise_Details = {
+export type ExerciseDetails = {
   __typename?: 'exercise_details';
-  created_at?: Maybe<Scalars['timestamp']['output']>;
+  created_at: Scalars['timestamp']['output'];
   /** An object relationship */
-  exercise?: Maybe<Exercises>;
-  exercise_id?: Maybe<Scalars['bigint']['output']>;
+  exercise: Maybe<Exercises>;
+  exercise_id: Maybe<Scalars['bigint']['output']>;
   id: Scalars['bigint']['output'];
-  levels?: Maybe<Scalars['json']['output']>;
-  subtitle?: Maybe<Scalars['String']['output']>;
-  title?: Maybe<Scalars['String']['output']>;
-  updated_at?: Maybe<Scalars['timestamp']['output']>;
+  levels: Maybe<Scalars['json']['output']>;
+  subtitle: Maybe<Scalars['String']['output']>;
+  title: Maybe<Scalars['String']['output']>;
+  updated_at: Scalars['timestamp']['output'];
   /** An object relationship */
-  workout_item: Workout_Items;
+  workout_item: WorkoutItems;
   workout_item_id: Scalars['bigint']['output'];
 };
 
 
 /** columns and relationships of "exercise_details" */
-export type Exercise_DetailsLevelsArgs = {
+export type ExerciseDetailsLevelsArgs = {
   path?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** aggregated selection of "exercise_details" */
-export type Exercise_Details_Aggregate = {
+export type ExerciseDetailsAggregate = {
   __typename?: 'exercise_details_aggregate';
-  aggregate?: Maybe<Exercise_Details_Aggregate_Fields>;
-  nodes: Array<Exercise_Details>;
+  aggregate: Maybe<ExerciseDetailsAggregateFields>;
+  nodes: Array<ExerciseDetails>;
 };
 
-export type Exercise_Details_Aggregate_Bool_Exp = {
-  count?: InputMaybe<Exercise_Details_Aggregate_Bool_Exp_Count>;
+export type ExerciseDetailsAggregateBoolExp = {
+  count?: InputMaybe<ExerciseDetailsAggregateBoolExpCount>;
 };
 
-export type Exercise_Details_Aggregate_Bool_Exp_Count = {
-  arguments?: InputMaybe<Array<Exercise_Details_Select_Column>>;
+export type ExerciseDetailsAggregateBoolExpCount = {
+  arguments?: InputMaybe<Array<ExerciseDetailsSelectColumn>>;
   distinct?: InputMaybe<Scalars['Boolean']['input']>;
-  filter?: InputMaybe<Exercise_Details_Bool_Exp>;
-  predicate: Int_Comparison_Exp;
+  filter?: InputMaybe<ExerciseDetailsBoolExp>;
+  predicate: IntComparisonExp;
 };
 
 /** aggregate fields of "exercise_details" */
-export type Exercise_Details_Aggregate_Fields = {
+export type ExerciseDetailsAggregateFields = {
   __typename?: 'exercise_details_aggregate_fields';
-  avg?: Maybe<Exercise_Details_Avg_Fields>;
+  avg: Maybe<ExerciseDetailsAvgFields>;
   count: Scalars['Int']['output'];
-  max?: Maybe<Exercise_Details_Max_Fields>;
-  min?: Maybe<Exercise_Details_Min_Fields>;
-  stddev?: Maybe<Exercise_Details_Stddev_Fields>;
-  stddev_pop?: Maybe<Exercise_Details_Stddev_Pop_Fields>;
-  stddev_samp?: Maybe<Exercise_Details_Stddev_Samp_Fields>;
-  sum?: Maybe<Exercise_Details_Sum_Fields>;
-  var_pop?: Maybe<Exercise_Details_Var_Pop_Fields>;
-  var_samp?: Maybe<Exercise_Details_Var_Samp_Fields>;
-  variance?: Maybe<Exercise_Details_Variance_Fields>;
+  max: Maybe<ExerciseDetailsMaxFields>;
+  min: Maybe<ExerciseDetailsMinFields>;
+  stddev: Maybe<ExerciseDetailsStddevFields>;
+  stddev_pop: Maybe<ExerciseDetailsStddevPopFields>;
+  stddev_samp: Maybe<ExerciseDetailsStddevSampFields>;
+  sum: Maybe<ExerciseDetailsSumFields>;
+  var_pop: Maybe<ExerciseDetailsVarPopFields>;
+  var_samp: Maybe<ExerciseDetailsVarSampFields>;
+  variance: Maybe<ExerciseDetailsVarianceFields>;
 };
 
 
 /** aggregate fields of "exercise_details" */
-export type Exercise_Details_Aggregate_FieldsCountArgs = {
-  columns?: InputMaybe<Array<Exercise_Details_Select_Column>>;
+export type ExerciseDetailsAggregateFieldsCountArgs = {
+  columns?: InputMaybe<Array<ExerciseDetailsSelectColumn>>;
   distinct?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 /** order by aggregate values of table "exercise_details" */
-export type Exercise_Details_Aggregate_Order_By = {
-  avg?: InputMaybe<Exercise_Details_Avg_Order_By>;
-  count?: InputMaybe<Order_By>;
-  max?: InputMaybe<Exercise_Details_Max_Order_By>;
-  min?: InputMaybe<Exercise_Details_Min_Order_By>;
-  stddev?: InputMaybe<Exercise_Details_Stddev_Order_By>;
-  stddev_pop?: InputMaybe<Exercise_Details_Stddev_Pop_Order_By>;
-  stddev_samp?: InputMaybe<Exercise_Details_Stddev_Samp_Order_By>;
-  sum?: InputMaybe<Exercise_Details_Sum_Order_By>;
-  var_pop?: InputMaybe<Exercise_Details_Var_Pop_Order_By>;
-  var_samp?: InputMaybe<Exercise_Details_Var_Samp_Order_By>;
-  variance?: InputMaybe<Exercise_Details_Variance_Order_By>;
+export type ExerciseDetailsAggregateOrderBy = {
+  avg?: InputMaybe<ExerciseDetailsAvgOrderBy>;
+  count?: InputMaybe<OrderBy>;
+  max?: InputMaybe<ExerciseDetailsMaxOrderBy>;
+  min?: InputMaybe<ExerciseDetailsMinOrderBy>;
+  stddev?: InputMaybe<ExerciseDetailsStddevOrderBy>;
+  stddev_pop?: InputMaybe<ExerciseDetailsStddevPopOrderBy>;
+  stddev_samp?: InputMaybe<ExerciseDetailsStddevSampOrderBy>;
+  sum?: InputMaybe<ExerciseDetailsSumOrderBy>;
+  var_pop?: InputMaybe<ExerciseDetailsVarPopOrderBy>;
+  var_samp?: InputMaybe<ExerciseDetailsVarSampOrderBy>;
+  variance?: InputMaybe<ExerciseDetailsVarianceOrderBy>;
 };
 
 /** input type for inserting array relation for remote table "exercise_details" */
-export type Exercise_Details_Arr_Rel_Insert_Input = {
-  data: Array<Exercise_Details_Insert_Input>;
+export type ExerciseDetailsArrRelInsertInput = {
+  data: Array<ExerciseDetailsInsertInput>;
   /** upsert condition */
-  on_conflict?: InputMaybe<Exercise_Details_On_Conflict>;
+  on_conflict?: InputMaybe<ExerciseDetailsOnConflict>;
 };
 
 /** aggregate avg on columns */
-export type Exercise_Details_Avg_Fields = {
+export type ExerciseDetailsAvgFields = {
   __typename?: 'exercise_details_avg_fields';
-  exercise_id?: Maybe<Scalars['Float']['output']>;
-  id?: Maybe<Scalars['Float']['output']>;
-  workout_item_id?: Maybe<Scalars['Float']['output']>;
+  exercise_id: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
+  workout_item_id: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by avg() on columns of table "exercise_details" */
-export type Exercise_Details_Avg_Order_By = {
-  exercise_id?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  workout_item_id?: InputMaybe<Order_By>;
+export type ExerciseDetailsAvgOrderBy = {
+  exercise_id?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  workout_item_id?: InputMaybe<OrderBy>;
 };
 
 /** Boolean expression to filter rows from the table "exercise_details". All fields are combined with a logical 'AND'. */
-export type Exercise_Details_Bool_Exp = {
-  _and?: InputMaybe<Array<Exercise_Details_Bool_Exp>>;
-  _not?: InputMaybe<Exercise_Details_Bool_Exp>;
-  _or?: InputMaybe<Array<Exercise_Details_Bool_Exp>>;
-  created_at?: InputMaybe<Timestamp_Comparison_Exp>;
-  exercise?: InputMaybe<Exercises_Bool_Exp>;
-  exercise_id?: InputMaybe<Bigint_Comparison_Exp>;
-  id?: InputMaybe<Bigint_Comparison_Exp>;
-  levels?: InputMaybe<Json_Comparison_Exp>;
-  subtitle?: InputMaybe<String_Comparison_Exp>;
-  title?: InputMaybe<String_Comparison_Exp>;
-  updated_at?: InputMaybe<Timestamp_Comparison_Exp>;
-  workout_item?: InputMaybe<Workout_Items_Bool_Exp>;
-  workout_item_id?: InputMaybe<Bigint_Comparison_Exp>;
+export type ExerciseDetailsBoolExp = {
+  _and?: InputMaybe<Array<ExerciseDetailsBoolExp>>;
+  _not?: InputMaybe<ExerciseDetailsBoolExp>;
+  _or?: InputMaybe<Array<ExerciseDetailsBoolExp>>;
+  created_at?: InputMaybe<TimestampComparisonExp>;
+  exercise?: InputMaybe<ExercisesBoolExp>;
+  exercise_id?: InputMaybe<BigintComparisonExp>;
+  id?: InputMaybe<BigintComparisonExp>;
+  levels?: InputMaybe<JsonComparisonExp>;
+  subtitle?: InputMaybe<StringComparisonExp>;
+  title?: InputMaybe<StringComparisonExp>;
+  updated_at?: InputMaybe<TimestampComparisonExp>;
+  workout_item?: InputMaybe<WorkoutItemsBoolExp>;
+  workout_item_id?: InputMaybe<BigintComparisonExp>;
 };
 
 /** unique or primary key constraints on table "exercise_details" */
-export enum Exercise_Details_Constraint {
+export enum ExerciseDetailsConstraint {
   /** unique or primary key constraint on columns "id" */
-  ExerciseDetailsPkey = 'exercise_details_pkey'
+  EXERCISE_DETAILS_PKEY = 'exercise_details_pkey'
 }
 
 /** input type for incrementing numeric columns in table "exercise_details" */
-export type Exercise_Details_Inc_Input = {
+export type ExerciseDetailsIncInput = {
   exercise_id?: InputMaybe<Scalars['bigint']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
   workout_item_id?: InputMaybe<Scalars['bigint']['input']>;
 };
 
 /** input type for inserting data into table "exercise_details" */
-export type Exercise_Details_Insert_Input = {
+export type ExerciseDetailsInsertInput = {
   created_at?: InputMaybe<Scalars['timestamp']['input']>;
-  exercise?: InputMaybe<Exercises_Obj_Rel_Insert_Input>;
+  exercise?: InputMaybe<ExercisesObjRelInsertInput>;
   exercise_id?: InputMaybe<Scalars['bigint']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
   levels?: InputMaybe<Scalars['json']['input']>;
   subtitle?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   updated_at?: InputMaybe<Scalars['timestamp']['input']>;
-  workout_item?: InputMaybe<Workout_Items_Obj_Rel_Insert_Input>;
+  workout_item?: InputMaybe<WorkoutItemsObjRelInsertInput>;
   workout_item_id?: InputMaybe<Scalars['bigint']['input']>;
 };
 
 /** aggregate max on columns */
-export type Exercise_Details_Max_Fields = {
+export type ExerciseDetailsMaxFields = {
   __typename?: 'exercise_details_max_fields';
-  created_at?: Maybe<Scalars['timestamp']['output']>;
-  exercise_id?: Maybe<Scalars['bigint']['output']>;
-  id?: Maybe<Scalars['bigint']['output']>;
-  subtitle?: Maybe<Scalars['String']['output']>;
-  title?: Maybe<Scalars['String']['output']>;
-  updated_at?: Maybe<Scalars['timestamp']['output']>;
-  workout_item_id?: Maybe<Scalars['bigint']['output']>;
+  created_at: Maybe<Scalars['timestamp']['output']>;
+  exercise_id: Maybe<Scalars['bigint']['output']>;
+  id: Maybe<Scalars['bigint']['output']>;
+  subtitle: Maybe<Scalars['String']['output']>;
+  title: Maybe<Scalars['String']['output']>;
+  updated_at: Maybe<Scalars['timestamp']['output']>;
+  workout_item_id: Maybe<Scalars['bigint']['output']>;
 };
 
 /** order by max() on columns of table "exercise_details" */
-export type Exercise_Details_Max_Order_By = {
-  created_at?: InputMaybe<Order_By>;
-  exercise_id?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  subtitle?: InputMaybe<Order_By>;
-  title?: InputMaybe<Order_By>;
-  updated_at?: InputMaybe<Order_By>;
-  workout_item_id?: InputMaybe<Order_By>;
+export type ExerciseDetailsMaxOrderBy = {
+  created_at?: InputMaybe<OrderBy>;
+  exercise_id?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  subtitle?: InputMaybe<OrderBy>;
+  title?: InputMaybe<OrderBy>;
+  updated_at?: InputMaybe<OrderBy>;
+  workout_item_id?: InputMaybe<OrderBy>;
 };
 
 /** aggregate min on columns */
-export type Exercise_Details_Min_Fields = {
+export type ExerciseDetailsMinFields = {
   __typename?: 'exercise_details_min_fields';
-  created_at?: Maybe<Scalars['timestamp']['output']>;
-  exercise_id?: Maybe<Scalars['bigint']['output']>;
-  id?: Maybe<Scalars['bigint']['output']>;
-  subtitle?: Maybe<Scalars['String']['output']>;
-  title?: Maybe<Scalars['String']['output']>;
-  updated_at?: Maybe<Scalars['timestamp']['output']>;
-  workout_item_id?: Maybe<Scalars['bigint']['output']>;
+  created_at: Maybe<Scalars['timestamp']['output']>;
+  exercise_id: Maybe<Scalars['bigint']['output']>;
+  id: Maybe<Scalars['bigint']['output']>;
+  subtitle: Maybe<Scalars['String']['output']>;
+  title: Maybe<Scalars['String']['output']>;
+  updated_at: Maybe<Scalars['timestamp']['output']>;
+  workout_item_id: Maybe<Scalars['bigint']['output']>;
 };
 
 /** order by min() on columns of table "exercise_details" */
-export type Exercise_Details_Min_Order_By = {
-  created_at?: InputMaybe<Order_By>;
-  exercise_id?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  subtitle?: InputMaybe<Order_By>;
-  title?: InputMaybe<Order_By>;
-  updated_at?: InputMaybe<Order_By>;
-  workout_item_id?: InputMaybe<Order_By>;
+export type ExerciseDetailsMinOrderBy = {
+  created_at?: InputMaybe<OrderBy>;
+  exercise_id?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  subtitle?: InputMaybe<OrderBy>;
+  title?: InputMaybe<OrderBy>;
+  updated_at?: InputMaybe<OrderBy>;
+  workout_item_id?: InputMaybe<OrderBy>;
 };
 
 /** response of any mutation on the table "exercise_details" */
-export type Exercise_Details_Mutation_Response = {
+export type ExerciseDetailsMutationResponse = {
   __typename?: 'exercise_details_mutation_response';
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int']['output'];
   /** data from the rows affected by the mutation */
-  returning: Array<Exercise_Details>;
+  returning: Array<ExerciseDetails>;
 };
 
 /** on_conflict condition type for table "exercise_details" */
-export type Exercise_Details_On_Conflict = {
-  constraint: Exercise_Details_Constraint;
-  update_columns?: Array<Exercise_Details_Update_Column>;
-  where?: InputMaybe<Exercise_Details_Bool_Exp>;
+export type ExerciseDetailsOnConflict = {
+  constraint: ExerciseDetailsConstraint;
+  update_columns?: Array<ExerciseDetailsUpdateColumn>;
+  where?: InputMaybe<ExerciseDetailsBoolExp>;
 };
 
 /** Ordering options when selecting data from "exercise_details". */
-export type Exercise_Details_Order_By = {
-  created_at?: InputMaybe<Order_By>;
-  exercise?: InputMaybe<Exercises_Order_By>;
-  exercise_id?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  levels?: InputMaybe<Order_By>;
-  subtitle?: InputMaybe<Order_By>;
-  title?: InputMaybe<Order_By>;
-  updated_at?: InputMaybe<Order_By>;
-  workout_item?: InputMaybe<Workout_Items_Order_By>;
-  workout_item_id?: InputMaybe<Order_By>;
+export type ExerciseDetailsOrderBy = {
+  created_at?: InputMaybe<OrderBy>;
+  exercise?: InputMaybe<ExercisesOrderBy>;
+  exercise_id?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  levels?: InputMaybe<OrderBy>;
+  subtitle?: InputMaybe<OrderBy>;
+  title?: InputMaybe<OrderBy>;
+  updated_at?: InputMaybe<OrderBy>;
+  workout_item?: InputMaybe<WorkoutItemsOrderBy>;
+  workout_item_id?: InputMaybe<OrderBy>;
 };
 
 /** primary key columns input for table: exercise_details */
-export type Exercise_Details_Pk_Columns_Input = {
+export type ExerciseDetailsPkColumnsInput = {
   id: Scalars['bigint']['input'];
 };
 
 /** select columns of table "exercise_details" */
-export enum Exercise_Details_Select_Column {
+export enum ExerciseDetailsSelectColumn {
   /** column name */
-  CreatedAt = 'created_at',
+  CREATED_AT = 'created_at',
   /** column name */
-  ExerciseId = 'exercise_id',
+  EXERCISE_ID = 'exercise_id',
   /** column name */
-  Id = 'id',
+  ID = 'id',
   /** column name */
-  Levels = 'levels',
+  LEVELS = 'levels',
   /** column name */
-  Subtitle = 'subtitle',
+  SUBTITLE = 'subtitle',
   /** column name */
-  Title = 'title',
+  TITLE = 'title',
   /** column name */
-  UpdatedAt = 'updated_at',
+  UPDATED_AT = 'updated_at',
   /** column name */
-  WorkoutItemId = 'workout_item_id'
+  WORKOUT_ITEM_ID = 'workout_item_id'
 }
 
 /** input type for updating data in table "exercise_details" */
-export type Exercise_Details_Set_Input = {
+export type ExerciseDetailsSetInput = {
   created_at?: InputMaybe<Scalars['timestamp']['input']>;
   exercise_id?: InputMaybe<Scalars['bigint']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
@@ -936,60 +936,60 @@ export type Exercise_Details_Set_Input = {
 };
 
 /** aggregate stddev on columns */
-export type Exercise_Details_Stddev_Fields = {
+export type ExerciseDetailsStddevFields = {
   __typename?: 'exercise_details_stddev_fields';
-  exercise_id?: Maybe<Scalars['Float']['output']>;
-  id?: Maybe<Scalars['Float']['output']>;
-  workout_item_id?: Maybe<Scalars['Float']['output']>;
+  exercise_id: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
+  workout_item_id: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev() on columns of table "exercise_details" */
-export type Exercise_Details_Stddev_Order_By = {
-  exercise_id?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  workout_item_id?: InputMaybe<Order_By>;
+export type ExerciseDetailsStddevOrderBy = {
+  exercise_id?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  workout_item_id?: InputMaybe<OrderBy>;
 };
 
 /** aggregate stddev_pop on columns */
-export type Exercise_Details_Stddev_Pop_Fields = {
+export type ExerciseDetailsStddevPopFields = {
   __typename?: 'exercise_details_stddev_pop_fields';
-  exercise_id?: Maybe<Scalars['Float']['output']>;
-  id?: Maybe<Scalars['Float']['output']>;
-  workout_item_id?: Maybe<Scalars['Float']['output']>;
+  exercise_id: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
+  workout_item_id: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev_pop() on columns of table "exercise_details" */
-export type Exercise_Details_Stddev_Pop_Order_By = {
-  exercise_id?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  workout_item_id?: InputMaybe<Order_By>;
+export type ExerciseDetailsStddevPopOrderBy = {
+  exercise_id?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  workout_item_id?: InputMaybe<OrderBy>;
 };
 
 /** aggregate stddev_samp on columns */
-export type Exercise_Details_Stddev_Samp_Fields = {
+export type ExerciseDetailsStddevSampFields = {
   __typename?: 'exercise_details_stddev_samp_fields';
-  exercise_id?: Maybe<Scalars['Float']['output']>;
-  id?: Maybe<Scalars['Float']['output']>;
-  workout_item_id?: Maybe<Scalars['Float']['output']>;
+  exercise_id: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
+  workout_item_id: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev_samp() on columns of table "exercise_details" */
-export type Exercise_Details_Stddev_Samp_Order_By = {
-  exercise_id?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  workout_item_id?: InputMaybe<Order_By>;
+export type ExerciseDetailsStddevSampOrderBy = {
+  exercise_id?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  workout_item_id?: InputMaybe<OrderBy>;
 };
 
 /** Streaming cursor of the table "exercise_details" */
-export type Exercise_Details_Stream_Cursor_Input = {
+export type ExerciseDetailsStreamCursorInput = {
   /** Stream column input with initial value */
-  initial_value: Exercise_Details_Stream_Cursor_Value_Input;
+  initial_value: ExerciseDetailsStreamCursorValueInput;
   /** cursor ordering */
-  ordering?: InputMaybe<Cursor_Ordering>;
+  ordering?: InputMaybe<CursorOrdering>;
 };
 
 /** Initial value of the column from where the streaming should start */
-export type Exercise_Details_Stream_Cursor_Value_Input = {
+export type ExerciseDetailsStreamCursorValueInput = {
   created_at?: InputMaybe<Scalars['timestamp']['input']>;
   exercise_id?: InputMaybe<Scalars['bigint']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
@@ -1001,238 +1001,238 @@ export type Exercise_Details_Stream_Cursor_Value_Input = {
 };
 
 /** aggregate sum on columns */
-export type Exercise_Details_Sum_Fields = {
+export type ExerciseDetailsSumFields = {
   __typename?: 'exercise_details_sum_fields';
-  exercise_id?: Maybe<Scalars['bigint']['output']>;
-  id?: Maybe<Scalars['bigint']['output']>;
-  workout_item_id?: Maybe<Scalars['bigint']['output']>;
+  exercise_id: Maybe<Scalars['bigint']['output']>;
+  id: Maybe<Scalars['bigint']['output']>;
+  workout_item_id: Maybe<Scalars['bigint']['output']>;
 };
 
 /** order by sum() on columns of table "exercise_details" */
-export type Exercise_Details_Sum_Order_By = {
-  exercise_id?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  workout_item_id?: InputMaybe<Order_By>;
+export type ExerciseDetailsSumOrderBy = {
+  exercise_id?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  workout_item_id?: InputMaybe<OrderBy>;
 };
 
 /** update columns of table "exercise_details" */
-export enum Exercise_Details_Update_Column {
+export enum ExerciseDetailsUpdateColumn {
   /** column name */
-  CreatedAt = 'created_at',
+  CREATED_AT = 'created_at',
   /** column name */
-  ExerciseId = 'exercise_id',
+  EXERCISE_ID = 'exercise_id',
   /** column name */
-  Id = 'id',
+  ID = 'id',
   /** column name */
-  Levels = 'levels',
+  LEVELS = 'levels',
   /** column name */
-  Subtitle = 'subtitle',
+  SUBTITLE = 'subtitle',
   /** column name */
-  Title = 'title',
+  TITLE = 'title',
   /** column name */
-  UpdatedAt = 'updated_at',
+  UPDATED_AT = 'updated_at',
   /** column name */
-  WorkoutItemId = 'workout_item_id'
+  WORKOUT_ITEM_ID = 'workout_item_id'
 }
 
-export type Exercise_Details_Updates = {
+export type ExerciseDetailsUpdates = {
   /** increments the numeric columns with given value of the filtered values */
-  _inc?: InputMaybe<Exercise_Details_Inc_Input>;
+  _inc?: InputMaybe<ExerciseDetailsIncInput>;
   /** sets the columns of the filtered rows to the given values */
-  _set?: InputMaybe<Exercise_Details_Set_Input>;
+  _set?: InputMaybe<ExerciseDetailsSetInput>;
   /** filter the rows which have to be updated */
-  where: Exercise_Details_Bool_Exp;
+  where: ExerciseDetailsBoolExp;
 };
 
 /** aggregate var_pop on columns */
-export type Exercise_Details_Var_Pop_Fields = {
+export type ExerciseDetailsVarPopFields = {
   __typename?: 'exercise_details_var_pop_fields';
-  exercise_id?: Maybe<Scalars['Float']['output']>;
-  id?: Maybe<Scalars['Float']['output']>;
-  workout_item_id?: Maybe<Scalars['Float']['output']>;
+  exercise_id: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
+  workout_item_id: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by var_pop() on columns of table "exercise_details" */
-export type Exercise_Details_Var_Pop_Order_By = {
-  exercise_id?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  workout_item_id?: InputMaybe<Order_By>;
+export type ExerciseDetailsVarPopOrderBy = {
+  exercise_id?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  workout_item_id?: InputMaybe<OrderBy>;
 };
 
 /** aggregate var_samp on columns */
-export type Exercise_Details_Var_Samp_Fields = {
+export type ExerciseDetailsVarSampFields = {
   __typename?: 'exercise_details_var_samp_fields';
-  exercise_id?: Maybe<Scalars['Float']['output']>;
-  id?: Maybe<Scalars['Float']['output']>;
-  workout_item_id?: Maybe<Scalars['Float']['output']>;
+  exercise_id: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
+  workout_item_id: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by var_samp() on columns of table "exercise_details" */
-export type Exercise_Details_Var_Samp_Order_By = {
-  exercise_id?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  workout_item_id?: InputMaybe<Order_By>;
+export type ExerciseDetailsVarSampOrderBy = {
+  exercise_id?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  workout_item_id?: InputMaybe<OrderBy>;
 };
 
 /** aggregate variance on columns */
-export type Exercise_Details_Variance_Fields = {
+export type ExerciseDetailsVarianceFields = {
   __typename?: 'exercise_details_variance_fields';
-  exercise_id?: Maybe<Scalars['Float']['output']>;
-  id?: Maybe<Scalars['Float']['output']>;
-  workout_item_id?: Maybe<Scalars['Float']['output']>;
+  exercise_id: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
+  workout_item_id: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by variance() on columns of table "exercise_details" */
-export type Exercise_Details_Variance_Order_By = {
-  exercise_id?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  workout_item_id?: InputMaybe<Order_By>;
+export type ExerciseDetailsVarianceOrderBy = {
+  exercise_id?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  workout_item_id?: InputMaybe<OrderBy>;
 };
 
 /** columns and relationships of "exercises" */
 export type Exercises = {
   __typename?: 'exercises';
-  created_at?: Maybe<Scalars['timestamp']['output']>;
+  created_at: Scalars['timestamp']['output'];
   demo_video_id: Scalars['String']['output'];
   demo_video_poster: Scalars['String']['output'];
   demo_video_thumb: Scalars['String']['output'];
   demo_video_title: Scalars['String']['output'];
-  demo_video_url?: Maybe<Scalars['String']['output']>;
+  demo_video_url: Maybe<Scalars['String']['output']>;
   /** An array relationship */
-  exercise_details: Array<Exercise_Details>;
+  exercise_details: Array<ExerciseDetails>;
   /** An aggregate relationship */
-  exercise_details_aggregate: Exercise_Details_Aggregate;
+  exercise_details_aggregate: ExerciseDetailsAggregate;
   id: Scalars['bigint']['output'];
-  updated_at?: Maybe<Scalars['timestamp']['output']>;
+  updated_at: Scalars['timestamp']['output'];
 };
 
 
 /** columns and relationships of "exercises" */
-export type ExercisesExercise_DetailsArgs = {
-  distinct_on?: InputMaybe<Array<Exercise_Details_Select_Column>>;
+export type ExercisesExerciseDetailsArgs = {
+  distinct_on?: InputMaybe<Array<ExerciseDetailsSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Exercise_Details_Order_By>>;
-  where?: InputMaybe<Exercise_Details_Bool_Exp>;
+  order_by?: InputMaybe<Array<ExerciseDetailsOrderBy>>;
+  where?: InputMaybe<ExerciseDetailsBoolExp>;
 };
 
 
 /** columns and relationships of "exercises" */
-export type ExercisesExercise_Details_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Exercise_Details_Select_Column>>;
+export type ExercisesExerciseDetailsAggregateArgs = {
+  distinct_on?: InputMaybe<Array<ExerciseDetailsSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Exercise_Details_Order_By>>;
-  where?: InputMaybe<Exercise_Details_Bool_Exp>;
+  order_by?: InputMaybe<Array<ExerciseDetailsOrderBy>>;
+  where?: InputMaybe<ExerciseDetailsBoolExp>;
 };
 
 /** aggregated selection of "exercises" */
-export type Exercises_Aggregate = {
+export type ExercisesAggregate = {
   __typename?: 'exercises_aggregate';
-  aggregate?: Maybe<Exercises_Aggregate_Fields>;
+  aggregate: Maybe<ExercisesAggregateFields>;
   nodes: Array<Exercises>;
 };
 
 /** aggregate fields of "exercises" */
-export type Exercises_Aggregate_Fields = {
+export type ExercisesAggregateFields = {
   __typename?: 'exercises_aggregate_fields';
-  avg?: Maybe<Exercises_Avg_Fields>;
+  avg: Maybe<ExercisesAvgFields>;
   count: Scalars['Int']['output'];
-  max?: Maybe<Exercises_Max_Fields>;
-  min?: Maybe<Exercises_Min_Fields>;
-  stddev?: Maybe<Exercises_Stddev_Fields>;
-  stddev_pop?: Maybe<Exercises_Stddev_Pop_Fields>;
-  stddev_samp?: Maybe<Exercises_Stddev_Samp_Fields>;
-  sum?: Maybe<Exercises_Sum_Fields>;
-  var_pop?: Maybe<Exercises_Var_Pop_Fields>;
-  var_samp?: Maybe<Exercises_Var_Samp_Fields>;
-  variance?: Maybe<Exercises_Variance_Fields>;
+  max: Maybe<ExercisesMaxFields>;
+  min: Maybe<ExercisesMinFields>;
+  stddev: Maybe<ExercisesStddevFields>;
+  stddev_pop: Maybe<ExercisesStddevPopFields>;
+  stddev_samp: Maybe<ExercisesStddevSampFields>;
+  sum: Maybe<ExercisesSumFields>;
+  var_pop: Maybe<ExercisesVarPopFields>;
+  var_samp: Maybe<ExercisesVarSampFields>;
+  variance: Maybe<ExercisesVarianceFields>;
 };
 
 
 /** aggregate fields of "exercises" */
-export type Exercises_Aggregate_FieldsCountArgs = {
-  columns?: InputMaybe<Array<Exercises_Select_Column>>;
+export type ExercisesAggregateFieldsCountArgs = {
+  columns?: InputMaybe<Array<ExercisesSelectColumn>>;
   distinct?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 /** aggregate avg on columns */
-export type Exercises_Avg_Fields = {
+export type ExercisesAvgFields = {
   __typename?: 'exercises_avg_fields';
-  id?: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
 };
 
 /** Boolean expression to filter rows from the table "exercises". All fields are combined with a logical 'AND'. */
-export type Exercises_Bool_Exp = {
-  _and?: InputMaybe<Array<Exercises_Bool_Exp>>;
-  _not?: InputMaybe<Exercises_Bool_Exp>;
-  _or?: InputMaybe<Array<Exercises_Bool_Exp>>;
-  created_at?: InputMaybe<Timestamp_Comparison_Exp>;
-  demo_video_id?: InputMaybe<String_Comparison_Exp>;
-  demo_video_poster?: InputMaybe<String_Comparison_Exp>;
-  demo_video_thumb?: InputMaybe<String_Comparison_Exp>;
-  demo_video_title?: InputMaybe<String_Comparison_Exp>;
-  demo_video_url?: InputMaybe<String_Comparison_Exp>;
-  exercise_details?: InputMaybe<Exercise_Details_Bool_Exp>;
-  exercise_details_aggregate?: InputMaybe<Exercise_Details_Aggregate_Bool_Exp>;
-  id?: InputMaybe<Bigint_Comparison_Exp>;
-  updated_at?: InputMaybe<Timestamp_Comparison_Exp>;
+export type ExercisesBoolExp = {
+  _and?: InputMaybe<Array<ExercisesBoolExp>>;
+  _not?: InputMaybe<ExercisesBoolExp>;
+  _or?: InputMaybe<Array<ExercisesBoolExp>>;
+  created_at?: InputMaybe<TimestampComparisonExp>;
+  demo_video_id?: InputMaybe<StringComparisonExp>;
+  demo_video_poster?: InputMaybe<StringComparisonExp>;
+  demo_video_thumb?: InputMaybe<StringComparisonExp>;
+  demo_video_title?: InputMaybe<StringComparisonExp>;
+  demo_video_url?: InputMaybe<StringComparisonExp>;
+  exercise_details?: InputMaybe<ExerciseDetailsBoolExp>;
+  exercise_details_aggregate?: InputMaybe<ExerciseDetailsAggregateBoolExp>;
+  id?: InputMaybe<BigintComparisonExp>;
+  updated_at?: InputMaybe<TimestampComparisonExp>;
 };
 
 /** unique or primary key constraints on table "exercises" */
-export enum Exercises_Constraint {
+export enum ExercisesConstraint {
   /** unique or primary key constraint on columns "demo_video_title" */
-  ExercisesDemoVideoTitleUnique = 'exercises_demo_video_title_unique',
+  EXERCISES_DEMO_VIDEO_TITLE_UNIQUE = 'exercises_demo_video_title_unique',
   /** unique or primary key constraint on columns "id" */
-  ExercisesPkey = 'exercises_pkey'
+  EXERCISES_PKEY = 'exercises_pkey'
 }
 
 /** input type for incrementing numeric columns in table "exercises" */
-export type Exercises_Inc_Input = {
+export type ExercisesIncInput = {
   id?: InputMaybe<Scalars['bigint']['input']>;
 };
 
 /** input type for inserting data into table "exercises" */
-export type Exercises_Insert_Input = {
+export type ExercisesInsertInput = {
   created_at?: InputMaybe<Scalars['timestamp']['input']>;
   demo_video_id?: InputMaybe<Scalars['String']['input']>;
   demo_video_poster?: InputMaybe<Scalars['String']['input']>;
   demo_video_thumb?: InputMaybe<Scalars['String']['input']>;
   demo_video_title?: InputMaybe<Scalars['String']['input']>;
   demo_video_url?: InputMaybe<Scalars['String']['input']>;
-  exercise_details?: InputMaybe<Exercise_Details_Arr_Rel_Insert_Input>;
+  exercise_details?: InputMaybe<ExerciseDetailsArrRelInsertInput>;
   id?: InputMaybe<Scalars['bigint']['input']>;
   updated_at?: InputMaybe<Scalars['timestamp']['input']>;
 };
 
 /** aggregate max on columns */
-export type Exercises_Max_Fields = {
+export type ExercisesMaxFields = {
   __typename?: 'exercises_max_fields';
-  created_at?: Maybe<Scalars['timestamp']['output']>;
-  demo_video_id?: Maybe<Scalars['String']['output']>;
-  demo_video_poster?: Maybe<Scalars['String']['output']>;
-  demo_video_thumb?: Maybe<Scalars['String']['output']>;
-  demo_video_title?: Maybe<Scalars['String']['output']>;
-  demo_video_url?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['bigint']['output']>;
-  updated_at?: Maybe<Scalars['timestamp']['output']>;
+  created_at: Maybe<Scalars['timestamp']['output']>;
+  demo_video_id: Maybe<Scalars['String']['output']>;
+  demo_video_poster: Maybe<Scalars['String']['output']>;
+  demo_video_thumb: Maybe<Scalars['String']['output']>;
+  demo_video_title: Maybe<Scalars['String']['output']>;
+  demo_video_url: Maybe<Scalars['String']['output']>;
+  id: Maybe<Scalars['bigint']['output']>;
+  updated_at: Maybe<Scalars['timestamp']['output']>;
 };
 
 /** aggregate min on columns */
-export type Exercises_Min_Fields = {
+export type ExercisesMinFields = {
   __typename?: 'exercises_min_fields';
-  created_at?: Maybe<Scalars['timestamp']['output']>;
-  demo_video_id?: Maybe<Scalars['String']['output']>;
-  demo_video_poster?: Maybe<Scalars['String']['output']>;
-  demo_video_thumb?: Maybe<Scalars['String']['output']>;
-  demo_video_title?: Maybe<Scalars['String']['output']>;
-  demo_video_url?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['bigint']['output']>;
-  updated_at?: Maybe<Scalars['timestamp']['output']>;
+  created_at: Maybe<Scalars['timestamp']['output']>;
+  demo_video_id: Maybe<Scalars['String']['output']>;
+  demo_video_poster: Maybe<Scalars['String']['output']>;
+  demo_video_thumb: Maybe<Scalars['String']['output']>;
+  demo_video_title: Maybe<Scalars['String']['output']>;
+  demo_video_url: Maybe<Scalars['String']['output']>;
+  id: Maybe<Scalars['bigint']['output']>;
+  updated_at: Maybe<Scalars['timestamp']['output']>;
 };
 
 /** response of any mutation on the table "exercises" */
-export type Exercises_Mutation_Response = {
+export type ExercisesMutationResponse = {
   __typename?: 'exercises_mutation_response';
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int']['output'];
@@ -1241,59 +1241,59 @@ export type Exercises_Mutation_Response = {
 };
 
 /** input type for inserting object relation for remote table "exercises" */
-export type Exercises_Obj_Rel_Insert_Input = {
-  data: Exercises_Insert_Input;
+export type ExercisesObjRelInsertInput = {
+  data: ExercisesInsertInput;
   /** upsert condition */
-  on_conflict?: InputMaybe<Exercises_On_Conflict>;
+  on_conflict?: InputMaybe<ExercisesOnConflict>;
 };
 
 /** on_conflict condition type for table "exercises" */
-export type Exercises_On_Conflict = {
-  constraint: Exercises_Constraint;
-  update_columns?: Array<Exercises_Update_Column>;
-  where?: InputMaybe<Exercises_Bool_Exp>;
+export type ExercisesOnConflict = {
+  constraint: ExercisesConstraint;
+  update_columns?: Array<ExercisesUpdateColumn>;
+  where?: InputMaybe<ExercisesBoolExp>;
 };
 
 /** Ordering options when selecting data from "exercises". */
-export type Exercises_Order_By = {
-  created_at?: InputMaybe<Order_By>;
-  demo_video_id?: InputMaybe<Order_By>;
-  demo_video_poster?: InputMaybe<Order_By>;
-  demo_video_thumb?: InputMaybe<Order_By>;
-  demo_video_title?: InputMaybe<Order_By>;
-  demo_video_url?: InputMaybe<Order_By>;
-  exercise_details_aggregate?: InputMaybe<Exercise_Details_Aggregate_Order_By>;
-  id?: InputMaybe<Order_By>;
-  updated_at?: InputMaybe<Order_By>;
+export type ExercisesOrderBy = {
+  created_at?: InputMaybe<OrderBy>;
+  demo_video_id?: InputMaybe<OrderBy>;
+  demo_video_poster?: InputMaybe<OrderBy>;
+  demo_video_thumb?: InputMaybe<OrderBy>;
+  demo_video_title?: InputMaybe<OrderBy>;
+  demo_video_url?: InputMaybe<OrderBy>;
+  exercise_details_aggregate?: InputMaybe<ExerciseDetailsAggregateOrderBy>;
+  id?: InputMaybe<OrderBy>;
+  updated_at?: InputMaybe<OrderBy>;
 };
 
 /** primary key columns input for table: exercises */
-export type Exercises_Pk_Columns_Input = {
+export type ExercisesPkColumnsInput = {
   id: Scalars['bigint']['input'];
 };
 
 /** select columns of table "exercises" */
-export enum Exercises_Select_Column {
+export enum ExercisesSelectColumn {
   /** column name */
-  CreatedAt = 'created_at',
+  CREATED_AT = 'created_at',
   /** column name */
-  DemoVideoId = 'demo_video_id',
+  DEMO_VIDEO_ID = 'demo_video_id',
   /** column name */
-  DemoVideoPoster = 'demo_video_poster',
+  DEMO_VIDEO_POSTER = 'demo_video_poster',
   /** column name */
-  DemoVideoThumb = 'demo_video_thumb',
+  DEMO_VIDEO_THUMB = 'demo_video_thumb',
   /** column name */
-  DemoVideoTitle = 'demo_video_title',
+  DEMO_VIDEO_TITLE = 'demo_video_title',
   /** column name */
-  DemoVideoUrl = 'demo_video_url',
+  DEMO_VIDEO_URL = 'demo_video_url',
   /** column name */
-  Id = 'id',
+  ID = 'id',
   /** column name */
-  UpdatedAt = 'updated_at'
+  UPDATED_AT = 'updated_at'
 }
 
 /** input type for updating data in table "exercises" */
-export type Exercises_Set_Input = {
+export type ExercisesSetInput = {
   created_at?: InputMaybe<Scalars['timestamp']['input']>;
   demo_video_id?: InputMaybe<Scalars['String']['input']>;
   demo_video_poster?: InputMaybe<Scalars['String']['input']>;
@@ -1305,33 +1305,33 @@ export type Exercises_Set_Input = {
 };
 
 /** aggregate stddev on columns */
-export type Exercises_Stddev_Fields = {
+export type ExercisesStddevFields = {
   __typename?: 'exercises_stddev_fields';
-  id?: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
 };
 
 /** aggregate stddev_pop on columns */
-export type Exercises_Stddev_Pop_Fields = {
+export type ExercisesStddevPopFields = {
   __typename?: 'exercises_stddev_pop_fields';
-  id?: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
 };
 
 /** aggregate stddev_samp on columns */
-export type Exercises_Stddev_Samp_Fields = {
+export type ExercisesStddevSampFields = {
   __typename?: 'exercises_stddev_samp_fields';
-  id?: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
 };
 
 /** Streaming cursor of the table "exercises" */
-export type Exercises_Stream_Cursor_Input = {
+export type ExercisesStreamCursorInput = {
   /** Stream column input with initial value */
-  initial_value: Exercises_Stream_Cursor_Value_Input;
+  initial_value: ExercisesStreamCursorValueInput;
   /** cursor ordering */
-  ordering?: InputMaybe<Cursor_Ordering>;
+  ordering?: InputMaybe<CursorOrdering>;
 };
 
 /** Initial value of the column from where the streaming should start */
-export type Exercises_Stream_Cursor_Value_Input = {
+export type ExercisesStreamCursorValueInput = {
   created_at?: InputMaybe<Scalars['timestamp']['input']>;
   demo_video_id?: InputMaybe<Scalars['String']['input']>;
   demo_video_poster?: InputMaybe<Scalars['String']['input']>;
@@ -1343,60 +1343,60 @@ export type Exercises_Stream_Cursor_Value_Input = {
 };
 
 /** aggregate sum on columns */
-export type Exercises_Sum_Fields = {
+export type ExercisesSumFields = {
   __typename?: 'exercises_sum_fields';
-  id?: Maybe<Scalars['bigint']['output']>;
+  id: Maybe<Scalars['bigint']['output']>;
 };
 
 /** update columns of table "exercises" */
-export enum Exercises_Update_Column {
+export enum ExercisesUpdateColumn {
   /** column name */
-  CreatedAt = 'created_at',
+  CREATED_AT = 'created_at',
   /** column name */
-  DemoVideoId = 'demo_video_id',
+  DEMO_VIDEO_ID = 'demo_video_id',
   /** column name */
-  DemoVideoPoster = 'demo_video_poster',
+  DEMO_VIDEO_POSTER = 'demo_video_poster',
   /** column name */
-  DemoVideoThumb = 'demo_video_thumb',
+  DEMO_VIDEO_THUMB = 'demo_video_thumb',
   /** column name */
-  DemoVideoTitle = 'demo_video_title',
+  DEMO_VIDEO_TITLE = 'demo_video_title',
   /** column name */
-  DemoVideoUrl = 'demo_video_url',
+  DEMO_VIDEO_URL = 'demo_video_url',
   /** column name */
-  Id = 'id',
+  ID = 'id',
   /** column name */
-  UpdatedAt = 'updated_at'
+  UPDATED_AT = 'updated_at'
 }
 
-export type Exercises_Updates = {
+export type ExercisesUpdates = {
   /** increments the numeric columns with given value of the filtered values */
-  _inc?: InputMaybe<Exercises_Inc_Input>;
+  _inc?: InputMaybe<ExercisesIncInput>;
   /** sets the columns of the filtered rows to the given values */
-  _set?: InputMaybe<Exercises_Set_Input>;
+  _set?: InputMaybe<ExercisesSetInput>;
   /** filter the rows which have to be updated */
-  where: Exercises_Bool_Exp;
+  where: ExercisesBoolExp;
 };
 
 /** aggregate var_pop on columns */
-export type Exercises_Var_Pop_Fields = {
+export type ExercisesVarPopFields = {
   __typename?: 'exercises_var_pop_fields';
-  id?: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
 };
 
 /** aggregate var_samp on columns */
-export type Exercises_Var_Samp_Fields = {
+export type ExercisesVarSampFields = {
   __typename?: 'exercises_var_samp_fields';
-  id?: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
 };
 
 /** aggregate variance on columns */
-export type Exercises_Variance_Fields = {
+export type ExercisesVarianceFields = {
   __typename?: 'exercises_variance_fields';
-  id?: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
 };
 
 /** Boolean expression to compare columns of type "json". All fields are combined with logical 'AND'. */
-export type Json_Comparison_Exp = {
+export type JsonComparisonExp = {
   _eq?: InputMaybe<Scalars['json']['input']>;
   _gt?: InputMaybe<Scalars['json']['input']>;
   _gte?: InputMaybe<Scalars['json']['input']>;
@@ -1409,809 +1409,809 @@ export type Json_Comparison_Exp = {
 };
 
 /** mutation root */
-export type Mutation_Root = {
+export type MutationRoot = {
   __typename?: 'mutation_root';
   /** delete data from the table: "cycles" */
-  delete_cycles?: Maybe<Cycles_Mutation_Response>;
+  delete_cycles: Maybe<CyclesMutationResponse>;
   /** delete single row from the table: "cycles" */
-  delete_cycles_by_pk?: Maybe<Cycles>;
+  delete_cycles_by_pk: Maybe<Cycles>;
   /** delete data from the table: "exercise_details" */
-  delete_exercise_details?: Maybe<Exercise_Details_Mutation_Response>;
+  delete_exercise_details: Maybe<ExerciseDetailsMutationResponse>;
   /** delete single row from the table: "exercise_details" */
-  delete_exercise_details_by_pk?: Maybe<Exercise_Details>;
+  delete_exercise_details_by_pk: Maybe<ExerciseDetails>;
   /** delete data from the table: "exercises" */
-  delete_exercises?: Maybe<Exercises_Mutation_Response>;
+  delete_exercises: Maybe<ExercisesMutationResponse>;
   /** delete single row from the table: "exercises" */
-  delete_exercises_by_pk?: Maybe<Exercises>;
+  delete_exercises_by_pk: Maybe<Exercises>;
   /** delete data from the table: "programs" */
-  delete_programs?: Maybe<Programs_Mutation_Response>;
+  delete_programs: Maybe<ProgramsMutationResponse>;
   /** delete single row from the table: "programs" */
-  delete_programs_by_pk?: Maybe<Programs>;
+  delete_programs_by_pk: Maybe<Programs>;
   /** delete data from the table: "scores" */
-  delete_scores?: Maybe<Scores_Mutation_Response>;
+  delete_scores: Maybe<ScoresMutationResponse>;
   /** delete single row from the table: "scores" */
-  delete_scores_by_pk?: Maybe<Scores>;
+  delete_scores_by_pk: Maybe<Scores>;
   /** delete data from the table: "user_cycles" */
-  delete_user_cycles?: Maybe<User_Cycles_Mutation_Response>;
+  delete_user_cycles: Maybe<UserCyclesMutationResponse>;
   /** delete single row from the table: "user_cycles" */
-  delete_user_cycles_by_pk?: Maybe<User_Cycles>;
+  delete_user_cycles_by_pk: Maybe<UserCycles>;
   /** delete data from the table: "user_workouts" */
-  delete_user_workouts?: Maybe<User_Workouts_Mutation_Response>;
+  delete_user_workouts: Maybe<UserWorkoutsMutationResponse>;
   /** delete single row from the table: "user_workouts" */
-  delete_user_workouts_by_pk?: Maybe<User_Workouts>;
+  delete_user_workouts_by_pk: Maybe<UserWorkouts>;
   /** delete data from the table: "users" */
-  delete_users?: Maybe<Users_Mutation_Response>;
+  delete_users: Maybe<UsersMutationResponse>;
   /** delete single row from the table: "users" */
-  delete_users_by_pk?: Maybe<Users>;
+  delete_users_by_pk: Maybe<Users>;
   /** delete data from the table: "workout_item_scores" */
-  delete_workout_item_scores?: Maybe<Workout_Item_Scores_Mutation_Response>;
+  delete_workout_item_scores: Maybe<WorkoutItemScoresMutationResponse>;
   /** delete single row from the table: "workout_item_scores" */
-  delete_workout_item_scores_by_pk?: Maybe<Workout_Item_Scores>;
+  delete_workout_item_scores_by_pk: Maybe<WorkoutItemScores>;
   /** delete data from the table: "workout_items" */
-  delete_workout_items?: Maybe<Workout_Items_Mutation_Response>;
+  delete_workout_items: Maybe<WorkoutItemsMutationResponse>;
   /** delete single row from the table: "workout_items" */
-  delete_workout_items_by_pk?: Maybe<Workout_Items>;
+  delete_workout_items_by_pk: Maybe<WorkoutItems>;
   /** delete data from the table: "workouts" */
-  delete_workouts?: Maybe<Workouts_Mutation_Response>;
+  delete_workouts: Maybe<WorkoutsMutationResponse>;
   /** delete single row from the table: "workouts" */
-  delete_workouts_by_pk?: Maybe<Workouts>;
+  delete_workouts_by_pk: Maybe<Workouts>;
   /** insert data into the table: "cycles" */
-  insert_cycles?: Maybe<Cycles_Mutation_Response>;
+  insert_cycles: Maybe<CyclesMutationResponse>;
   /** insert a single row into the table: "cycles" */
-  insert_cycles_one?: Maybe<Cycles>;
+  insert_cycles_one: Maybe<Cycles>;
   /** insert data into the table: "exercise_details" */
-  insert_exercise_details?: Maybe<Exercise_Details_Mutation_Response>;
+  insert_exercise_details: Maybe<ExerciseDetailsMutationResponse>;
   /** insert a single row into the table: "exercise_details" */
-  insert_exercise_details_one?: Maybe<Exercise_Details>;
+  insert_exercise_details_one: Maybe<ExerciseDetails>;
   /** insert data into the table: "exercises" */
-  insert_exercises?: Maybe<Exercises_Mutation_Response>;
+  insert_exercises: Maybe<ExercisesMutationResponse>;
   /** insert a single row into the table: "exercises" */
-  insert_exercises_one?: Maybe<Exercises>;
+  insert_exercises_one: Maybe<Exercises>;
   /** insert data into the table: "programs" */
-  insert_programs?: Maybe<Programs_Mutation_Response>;
+  insert_programs: Maybe<ProgramsMutationResponse>;
   /** insert a single row into the table: "programs" */
-  insert_programs_one?: Maybe<Programs>;
+  insert_programs_one: Maybe<Programs>;
   /** insert data into the table: "scores" */
-  insert_scores?: Maybe<Scores_Mutation_Response>;
+  insert_scores: Maybe<ScoresMutationResponse>;
   /** insert a single row into the table: "scores" */
-  insert_scores_one?: Maybe<Scores>;
+  insert_scores_one: Maybe<Scores>;
   /** insert data into the table: "user_cycles" */
-  insert_user_cycles?: Maybe<User_Cycles_Mutation_Response>;
+  insert_user_cycles: Maybe<UserCyclesMutationResponse>;
   /** insert a single row into the table: "user_cycles" */
-  insert_user_cycles_one?: Maybe<User_Cycles>;
+  insert_user_cycles_one: Maybe<UserCycles>;
   /** insert data into the table: "user_workouts" */
-  insert_user_workouts?: Maybe<User_Workouts_Mutation_Response>;
+  insert_user_workouts: Maybe<UserWorkoutsMutationResponse>;
   /** insert a single row into the table: "user_workouts" */
-  insert_user_workouts_one?: Maybe<User_Workouts>;
+  insert_user_workouts_one: Maybe<UserWorkouts>;
   /** insert data into the table: "users" */
-  insert_users?: Maybe<Users_Mutation_Response>;
+  insert_users: Maybe<UsersMutationResponse>;
   /** insert a single row into the table: "users" */
-  insert_users_one?: Maybe<Users>;
+  insert_users_one: Maybe<Users>;
   /** insert data into the table: "workout_item_scores" */
-  insert_workout_item_scores?: Maybe<Workout_Item_Scores_Mutation_Response>;
+  insert_workout_item_scores: Maybe<WorkoutItemScoresMutationResponse>;
   /** insert a single row into the table: "workout_item_scores" */
-  insert_workout_item_scores_one?: Maybe<Workout_Item_Scores>;
+  insert_workout_item_scores_one: Maybe<WorkoutItemScores>;
   /** insert data into the table: "workout_items" */
-  insert_workout_items?: Maybe<Workout_Items_Mutation_Response>;
+  insert_workout_items: Maybe<WorkoutItemsMutationResponse>;
   /** insert a single row into the table: "workout_items" */
-  insert_workout_items_one?: Maybe<Workout_Items>;
+  insert_workout_items_one: Maybe<WorkoutItems>;
   /** insert data into the table: "workouts" */
-  insert_workouts?: Maybe<Workouts_Mutation_Response>;
+  insert_workouts: Maybe<WorkoutsMutationResponse>;
   /** insert a single row into the table: "workouts" */
-  insert_workouts_one?: Maybe<Workouts>;
+  insert_workouts_one: Maybe<Workouts>;
   /** update data of the table: "cycles" */
-  update_cycles?: Maybe<Cycles_Mutation_Response>;
+  update_cycles: Maybe<CyclesMutationResponse>;
   /** update single row of the table: "cycles" */
-  update_cycles_by_pk?: Maybe<Cycles>;
+  update_cycles_by_pk: Maybe<Cycles>;
   /** update multiples rows of table: "cycles" */
-  update_cycles_many?: Maybe<Array<Maybe<Cycles_Mutation_Response>>>;
+  update_cycles_many: Maybe<Array<Maybe<CyclesMutationResponse>>>;
   /** update data of the table: "exercise_details" */
-  update_exercise_details?: Maybe<Exercise_Details_Mutation_Response>;
+  update_exercise_details: Maybe<ExerciseDetailsMutationResponse>;
   /** update single row of the table: "exercise_details" */
-  update_exercise_details_by_pk?: Maybe<Exercise_Details>;
+  update_exercise_details_by_pk: Maybe<ExerciseDetails>;
   /** update multiples rows of table: "exercise_details" */
-  update_exercise_details_many?: Maybe<Array<Maybe<Exercise_Details_Mutation_Response>>>;
+  update_exercise_details_many: Maybe<Array<Maybe<ExerciseDetailsMutationResponse>>>;
   /** update data of the table: "exercises" */
-  update_exercises?: Maybe<Exercises_Mutation_Response>;
+  update_exercises: Maybe<ExercisesMutationResponse>;
   /** update single row of the table: "exercises" */
-  update_exercises_by_pk?: Maybe<Exercises>;
+  update_exercises_by_pk: Maybe<Exercises>;
   /** update multiples rows of table: "exercises" */
-  update_exercises_many?: Maybe<Array<Maybe<Exercises_Mutation_Response>>>;
+  update_exercises_many: Maybe<Array<Maybe<ExercisesMutationResponse>>>;
   /** update data of the table: "programs" */
-  update_programs?: Maybe<Programs_Mutation_Response>;
+  update_programs: Maybe<ProgramsMutationResponse>;
   /** update single row of the table: "programs" */
-  update_programs_by_pk?: Maybe<Programs>;
+  update_programs_by_pk: Maybe<Programs>;
   /** update multiples rows of table: "programs" */
-  update_programs_many?: Maybe<Array<Maybe<Programs_Mutation_Response>>>;
+  update_programs_many: Maybe<Array<Maybe<ProgramsMutationResponse>>>;
   /** update data of the table: "scores" */
-  update_scores?: Maybe<Scores_Mutation_Response>;
+  update_scores: Maybe<ScoresMutationResponse>;
   /** update single row of the table: "scores" */
-  update_scores_by_pk?: Maybe<Scores>;
+  update_scores_by_pk: Maybe<Scores>;
   /** update multiples rows of table: "scores" */
-  update_scores_many?: Maybe<Array<Maybe<Scores_Mutation_Response>>>;
+  update_scores_many: Maybe<Array<Maybe<ScoresMutationResponse>>>;
   /** update data of the table: "user_cycles" */
-  update_user_cycles?: Maybe<User_Cycles_Mutation_Response>;
+  update_user_cycles: Maybe<UserCyclesMutationResponse>;
   /** update single row of the table: "user_cycles" */
-  update_user_cycles_by_pk?: Maybe<User_Cycles>;
+  update_user_cycles_by_pk: Maybe<UserCycles>;
   /** update multiples rows of table: "user_cycles" */
-  update_user_cycles_many?: Maybe<Array<Maybe<User_Cycles_Mutation_Response>>>;
+  update_user_cycles_many: Maybe<Array<Maybe<UserCyclesMutationResponse>>>;
   /** update data of the table: "user_workouts" */
-  update_user_workouts?: Maybe<User_Workouts_Mutation_Response>;
+  update_user_workouts: Maybe<UserWorkoutsMutationResponse>;
   /** update single row of the table: "user_workouts" */
-  update_user_workouts_by_pk?: Maybe<User_Workouts>;
+  update_user_workouts_by_pk: Maybe<UserWorkouts>;
   /** update multiples rows of table: "user_workouts" */
-  update_user_workouts_many?: Maybe<Array<Maybe<User_Workouts_Mutation_Response>>>;
+  update_user_workouts_many: Maybe<Array<Maybe<UserWorkoutsMutationResponse>>>;
   /** update data of the table: "users" */
-  update_users?: Maybe<Users_Mutation_Response>;
+  update_users: Maybe<UsersMutationResponse>;
   /** update single row of the table: "users" */
-  update_users_by_pk?: Maybe<Users>;
+  update_users_by_pk: Maybe<Users>;
   /** update multiples rows of table: "users" */
-  update_users_many?: Maybe<Array<Maybe<Users_Mutation_Response>>>;
+  update_users_many: Maybe<Array<Maybe<UsersMutationResponse>>>;
   /** update data of the table: "workout_item_scores" */
-  update_workout_item_scores?: Maybe<Workout_Item_Scores_Mutation_Response>;
+  update_workout_item_scores: Maybe<WorkoutItemScoresMutationResponse>;
   /** update single row of the table: "workout_item_scores" */
-  update_workout_item_scores_by_pk?: Maybe<Workout_Item_Scores>;
+  update_workout_item_scores_by_pk: Maybe<WorkoutItemScores>;
   /** update multiples rows of table: "workout_item_scores" */
-  update_workout_item_scores_many?: Maybe<Array<Maybe<Workout_Item_Scores_Mutation_Response>>>;
+  update_workout_item_scores_many: Maybe<Array<Maybe<WorkoutItemScoresMutationResponse>>>;
   /** update data of the table: "workout_items" */
-  update_workout_items?: Maybe<Workout_Items_Mutation_Response>;
+  update_workout_items: Maybe<WorkoutItemsMutationResponse>;
   /** update single row of the table: "workout_items" */
-  update_workout_items_by_pk?: Maybe<Workout_Items>;
+  update_workout_items_by_pk: Maybe<WorkoutItems>;
   /** update multiples rows of table: "workout_items" */
-  update_workout_items_many?: Maybe<Array<Maybe<Workout_Items_Mutation_Response>>>;
+  update_workout_items_many: Maybe<Array<Maybe<WorkoutItemsMutationResponse>>>;
   /** update data of the table: "workouts" */
-  update_workouts?: Maybe<Workouts_Mutation_Response>;
+  update_workouts: Maybe<WorkoutsMutationResponse>;
   /** update single row of the table: "workouts" */
-  update_workouts_by_pk?: Maybe<Workouts>;
+  update_workouts_by_pk: Maybe<Workouts>;
   /** update multiples rows of table: "workouts" */
-  update_workouts_many?: Maybe<Array<Maybe<Workouts_Mutation_Response>>>;
+  update_workouts_many: Maybe<Array<Maybe<WorkoutsMutationResponse>>>;
 };
 
 
 /** mutation root */
-export type Mutation_RootDelete_CyclesArgs = {
-  where: Cycles_Bool_Exp;
+export type MutationRootDeleteCyclesArgs = {
+  where: CyclesBoolExp;
 };
 
 
 /** mutation root */
-export type Mutation_RootDelete_Cycles_By_PkArgs = {
+export type MutationRootDeleteCyclesByPkArgs = {
   id: Scalars['bigint']['input'];
 };
 
 
 /** mutation root */
-export type Mutation_RootDelete_Exercise_DetailsArgs = {
-  where: Exercise_Details_Bool_Exp;
+export type MutationRootDeleteExerciseDetailsArgs = {
+  where: ExerciseDetailsBoolExp;
 };
 
 
 /** mutation root */
-export type Mutation_RootDelete_Exercise_Details_By_PkArgs = {
+export type MutationRootDeleteExerciseDetailsByPkArgs = {
   id: Scalars['bigint']['input'];
 };
 
 
 /** mutation root */
-export type Mutation_RootDelete_ExercisesArgs = {
-  where: Exercises_Bool_Exp;
+export type MutationRootDeleteExercisesArgs = {
+  where: ExercisesBoolExp;
 };
 
 
 /** mutation root */
-export type Mutation_RootDelete_Exercises_By_PkArgs = {
+export type MutationRootDeleteExercisesByPkArgs = {
   id: Scalars['bigint']['input'];
 };
 
 
 /** mutation root */
-export type Mutation_RootDelete_ProgramsArgs = {
-  where: Programs_Bool_Exp;
+export type MutationRootDeleteProgramsArgs = {
+  where: ProgramsBoolExp;
 };
 
 
 /** mutation root */
-export type Mutation_RootDelete_Programs_By_PkArgs = {
+export type MutationRootDeleteProgramsByPkArgs = {
   id: Scalars['bigint']['input'];
 };
 
 
 /** mutation root */
-export type Mutation_RootDelete_ScoresArgs = {
-  where: Scores_Bool_Exp;
+export type MutationRootDeleteScoresArgs = {
+  where: ScoresBoolExp;
 };
 
 
 /** mutation root */
-export type Mutation_RootDelete_Scores_By_PkArgs = {
+export type MutationRootDeleteScoresByPkArgs = {
   id: Scalars['bigint']['input'];
 };
 
 
 /** mutation root */
-export type Mutation_RootDelete_User_CyclesArgs = {
-  where: User_Cycles_Bool_Exp;
+export type MutationRootDeleteUserCyclesArgs = {
+  where: UserCyclesBoolExp;
 };
 
 
 /** mutation root */
-export type Mutation_RootDelete_User_Cycles_By_PkArgs = {
+export type MutationRootDeleteUserCyclesByPkArgs = {
   id: Scalars['bigint']['input'];
 };
 
 
 /** mutation root */
-export type Mutation_RootDelete_User_WorkoutsArgs = {
-  where: User_Workouts_Bool_Exp;
+export type MutationRootDeleteUserWorkoutsArgs = {
+  where: UserWorkoutsBoolExp;
 };
 
 
 /** mutation root */
-export type Mutation_RootDelete_User_Workouts_By_PkArgs = {
+export type MutationRootDeleteUserWorkoutsByPkArgs = {
   id: Scalars['uuid']['input'];
 };
 
 
 /** mutation root */
-export type Mutation_RootDelete_UsersArgs = {
-  where: Users_Bool_Exp;
+export type MutationRootDeleteUsersArgs = {
+  where: UsersBoolExp;
 };
 
 
 /** mutation root */
-export type Mutation_RootDelete_Users_By_PkArgs = {
+export type MutationRootDeleteUsersByPkArgs = {
   id: Scalars['bigint']['input'];
 };
 
 
 /** mutation root */
-export type Mutation_RootDelete_Workout_Item_ScoresArgs = {
-  where: Workout_Item_Scores_Bool_Exp;
+export type MutationRootDeleteWorkoutItemScoresArgs = {
+  where: WorkoutItemScoresBoolExp;
 };
 
 
 /** mutation root */
-export type Mutation_RootDelete_Workout_Item_Scores_By_PkArgs = {
+export type MutationRootDeleteWorkoutItemScoresByPkArgs = {
   id: Scalars['bigint']['input'];
 };
 
 
 /** mutation root */
-export type Mutation_RootDelete_Workout_ItemsArgs = {
-  where: Workout_Items_Bool_Exp;
+export type MutationRootDeleteWorkoutItemsArgs = {
+  where: WorkoutItemsBoolExp;
 };
 
 
 /** mutation root */
-export type Mutation_RootDelete_Workout_Items_By_PkArgs = {
+export type MutationRootDeleteWorkoutItemsByPkArgs = {
   id: Scalars['bigint']['input'];
 };
 
 
 /** mutation root */
-export type Mutation_RootDelete_WorkoutsArgs = {
-  where: Workouts_Bool_Exp;
+export type MutationRootDeleteWorkoutsArgs = {
+  where: WorkoutsBoolExp;
 };
 
 
 /** mutation root */
-export type Mutation_RootDelete_Workouts_By_PkArgs = {
+export type MutationRootDeleteWorkoutsByPkArgs = {
   id: Scalars['bigint']['input'];
 };
 
 
 /** mutation root */
-export type Mutation_RootInsert_CyclesArgs = {
-  objects: Array<Cycles_Insert_Input>;
-  on_conflict?: InputMaybe<Cycles_On_Conflict>;
+export type MutationRootInsertCyclesArgs = {
+  objects: Array<CyclesInsertInput>;
+  on_conflict?: InputMaybe<CyclesOnConflict>;
 };
 
 
 /** mutation root */
-export type Mutation_RootInsert_Cycles_OneArgs = {
-  object: Cycles_Insert_Input;
-  on_conflict?: InputMaybe<Cycles_On_Conflict>;
+export type MutationRootInsertCyclesOneArgs = {
+  object: CyclesInsertInput;
+  on_conflict?: InputMaybe<CyclesOnConflict>;
 };
 
 
 /** mutation root */
-export type Mutation_RootInsert_Exercise_DetailsArgs = {
-  objects: Array<Exercise_Details_Insert_Input>;
-  on_conflict?: InputMaybe<Exercise_Details_On_Conflict>;
+export type MutationRootInsertExerciseDetailsArgs = {
+  objects: Array<ExerciseDetailsInsertInput>;
+  on_conflict?: InputMaybe<ExerciseDetailsOnConflict>;
 };
 
 
 /** mutation root */
-export type Mutation_RootInsert_Exercise_Details_OneArgs = {
-  object: Exercise_Details_Insert_Input;
-  on_conflict?: InputMaybe<Exercise_Details_On_Conflict>;
+export type MutationRootInsertExerciseDetailsOneArgs = {
+  object: ExerciseDetailsInsertInput;
+  on_conflict?: InputMaybe<ExerciseDetailsOnConflict>;
 };
 
 
 /** mutation root */
-export type Mutation_RootInsert_ExercisesArgs = {
-  objects: Array<Exercises_Insert_Input>;
-  on_conflict?: InputMaybe<Exercises_On_Conflict>;
+export type MutationRootInsertExercisesArgs = {
+  objects: Array<ExercisesInsertInput>;
+  on_conflict?: InputMaybe<ExercisesOnConflict>;
 };
 
 
 /** mutation root */
-export type Mutation_RootInsert_Exercises_OneArgs = {
-  object: Exercises_Insert_Input;
-  on_conflict?: InputMaybe<Exercises_On_Conflict>;
+export type MutationRootInsertExercisesOneArgs = {
+  object: ExercisesInsertInput;
+  on_conflict?: InputMaybe<ExercisesOnConflict>;
 };
 
 
 /** mutation root */
-export type Mutation_RootInsert_ProgramsArgs = {
-  objects: Array<Programs_Insert_Input>;
-  on_conflict?: InputMaybe<Programs_On_Conflict>;
+export type MutationRootInsertProgramsArgs = {
+  objects: Array<ProgramsInsertInput>;
+  on_conflict?: InputMaybe<ProgramsOnConflict>;
 };
 
 
 /** mutation root */
-export type Mutation_RootInsert_Programs_OneArgs = {
-  object: Programs_Insert_Input;
-  on_conflict?: InputMaybe<Programs_On_Conflict>;
+export type MutationRootInsertProgramsOneArgs = {
+  object: ProgramsInsertInput;
+  on_conflict?: InputMaybe<ProgramsOnConflict>;
 };
 
 
 /** mutation root */
-export type Mutation_RootInsert_ScoresArgs = {
-  objects: Array<Scores_Insert_Input>;
-  on_conflict?: InputMaybe<Scores_On_Conflict>;
+export type MutationRootInsertScoresArgs = {
+  objects: Array<ScoresInsertInput>;
+  on_conflict?: InputMaybe<ScoresOnConflict>;
 };
 
 
 /** mutation root */
-export type Mutation_RootInsert_Scores_OneArgs = {
-  object: Scores_Insert_Input;
-  on_conflict?: InputMaybe<Scores_On_Conflict>;
+export type MutationRootInsertScoresOneArgs = {
+  object: ScoresInsertInput;
+  on_conflict?: InputMaybe<ScoresOnConflict>;
 };
 
 
 /** mutation root */
-export type Mutation_RootInsert_User_CyclesArgs = {
-  objects: Array<User_Cycles_Insert_Input>;
-  on_conflict?: InputMaybe<User_Cycles_On_Conflict>;
+export type MutationRootInsertUserCyclesArgs = {
+  objects: Array<UserCyclesInsertInput>;
+  on_conflict?: InputMaybe<UserCyclesOnConflict>;
 };
 
 
 /** mutation root */
-export type Mutation_RootInsert_User_Cycles_OneArgs = {
-  object: User_Cycles_Insert_Input;
-  on_conflict?: InputMaybe<User_Cycles_On_Conflict>;
+export type MutationRootInsertUserCyclesOneArgs = {
+  object: UserCyclesInsertInput;
+  on_conflict?: InputMaybe<UserCyclesOnConflict>;
 };
 
 
 /** mutation root */
-export type Mutation_RootInsert_User_WorkoutsArgs = {
-  objects: Array<User_Workouts_Insert_Input>;
-  on_conflict?: InputMaybe<User_Workouts_On_Conflict>;
+export type MutationRootInsertUserWorkoutsArgs = {
+  objects: Array<UserWorkoutsInsertInput>;
+  on_conflict?: InputMaybe<UserWorkoutsOnConflict>;
 };
 
 
 /** mutation root */
-export type Mutation_RootInsert_User_Workouts_OneArgs = {
-  object: User_Workouts_Insert_Input;
-  on_conflict?: InputMaybe<User_Workouts_On_Conflict>;
+export type MutationRootInsertUserWorkoutsOneArgs = {
+  object: UserWorkoutsInsertInput;
+  on_conflict?: InputMaybe<UserWorkoutsOnConflict>;
 };
 
 
 /** mutation root */
-export type Mutation_RootInsert_UsersArgs = {
-  objects: Array<Users_Insert_Input>;
-  on_conflict?: InputMaybe<Users_On_Conflict>;
+export type MutationRootInsertUsersArgs = {
+  objects: Array<UsersInsertInput>;
+  on_conflict?: InputMaybe<UsersOnConflict>;
 };
 
 
 /** mutation root */
-export type Mutation_RootInsert_Users_OneArgs = {
-  object: Users_Insert_Input;
-  on_conflict?: InputMaybe<Users_On_Conflict>;
+export type MutationRootInsertUsersOneArgs = {
+  object: UsersInsertInput;
+  on_conflict?: InputMaybe<UsersOnConflict>;
 };
 
 
 /** mutation root */
-export type Mutation_RootInsert_Workout_Item_ScoresArgs = {
-  objects: Array<Workout_Item_Scores_Insert_Input>;
-  on_conflict?: InputMaybe<Workout_Item_Scores_On_Conflict>;
+export type MutationRootInsertWorkoutItemScoresArgs = {
+  objects: Array<WorkoutItemScoresInsertInput>;
+  on_conflict?: InputMaybe<WorkoutItemScoresOnConflict>;
 };
 
 
 /** mutation root */
-export type Mutation_RootInsert_Workout_Item_Scores_OneArgs = {
-  object: Workout_Item_Scores_Insert_Input;
-  on_conflict?: InputMaybe<Workout_Item_Scores_On_Conflict>;
+export type MutationRootInsertWorkoutItemScoresOneArgs = {
+  object: WorkoutItemScoresInsertInput;
+  on_conflict?: InputMaybe<WorkoutItemScoresOnConflict>;
 };
 
 
 /** mutation root */
-export type Mutation_RootInsert_Workout_ItemsArgs = {
-  objects: Array<Workout_Items_Insert_Input>;
-  on_conflict?: InputMaybe<Workout_Items_On_Conflict>;
+export type MutationRootInsertWorkoutItemsArgs = {
+  objects: Array<WorkoutItemsInsertInput>;
+  on_conflict?: InputMaybe<WorkoutItemsOnConflict>;
 };
 
 
 /** mutation root */
-export type Mutation_RootInsert_Workout_Items_OneArgs = {
-  object: Workout_Items_Insert_Input;
-  on_conflict?: InputMaybe<Workout_Items_On_Conflict>;
+export type MutationRootInsertWorkoutItemsOneArgs = {
+  object: WorkoutItemsInsertInput;
+  on_conflict?: InputMaybe<WorkoutItemsOnConflict>;
 };
 
 
 /** mutation root */
-export type Mutation_RootInsert_WorkoutsArgs = {
-  objects: Array<Workouts_Insert_Input>;
-  on_conflict?: InputMaybe<Workouts_On_Conflict>;
+export type MutationRootInsertWorkoutsArgs = {
+  objects: Array<WorkoutsInsertInput>;
+  on_conflict?: InputMaybe<WorkoutsOnConflict>;
 };
 
 
 /** mutation root */
-export type Mutation_RootInsert_Workouts_OneArgs = {
-  object: Workouts_Insert_Input;
-  on_conflict?: InputMaybe<Workouts_On_Conflict>;
+export type MutationRootInsertWorkoutsOneArgs = {
+  object: WorkoutsInsertInput;
+  on_conflict?: InputMaybe<WorkoutsOnConflict>;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_CyclesArgs = {
-  _inc?: InputMaybe<Cycles_Inc_Input>;
-  _set?: InputMaybe<Cycles_Set_Input>;
-  where: Cycles_Bool_Exp;
+export type MutationRootUpdateCyclesArgs = {
+  _inc?: InputMaybe<CyclesIncInput>;
+  _set?: InputMaybe<CyclesSetInput>;
+  where: CyclesBoolExp;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Cycles_By_PkArgs = {
-  _inc?: InputMaybe<Cycles_Inc_Input>;
-  _set?: InputMaybe<Cycles_Set_Input>;
-  pk_columns: Cycles_Pk_Columns_Input;
+export type MutationRootUpdateCyclesByPkArgs = {
+  _inc?: InputMaybe<CyclesIncInput>;
+  _set?: InputMaybe<CyclesSetInput>;
+  pk_columns: CyclesPkColumnsInput;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Cycles_ManyArgs = {
-  updates: Array<Cycles_Updates>;
+export type MutationRootUpdateCyclesManyArgs = {
+  updates: Array<CyclesUpdates>;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Exercise_DetailsArgs = {
-  _inc?: InputMaybe<Exercise_Details_Inc_Input>;
-  _set?: InputMaybe<Exercise_Details_Set_Input>;
-  where: Exercise_Details_Bool_Exp;
+export type MutationRootUpdateExerciseDetailsArgs = {
+  _inc?: InputMaybe<ExerciseDetailsIncInput>;
+  _set?: InputMaybe<ExerciseDetailsSetInput>;
+  where: ExerciseDetailsBoolExp;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Exercise_Details_By_PkArgs = {
-  _inc?: InputMaybe<Exercise_Details_Inc_Input>;
-  _set?: InputMaybe<Exercise_Details_Set_Input>;
-  pk_columns: Exercise_Details_Pk_Columns_Input;
+export type MutationRootUpdateExerciseDetailsByPkArgs = {
+  _inc?: InputMaybe<ExerciseDetailsIncInput>;
+  _set?: InputMaybe<ExerciseDetailsSetInput>;
+  pk_columns: ExerciseDetailsPkColumnsInput;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Exercise_Details_ManyArgs = {
-  updates: Array<Exercise_Details_Updates>;
+export type MutationRootUpdateExerciseDetailsManyArgs = {
+  updates: Array<ExerciseDetailsUpdates>;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_ExercisesArgs = {
-  _inc?: InputMaybe<Exercises_Inc_Input>;
-  _set?: InputMaybe<Exercises_Set_Input>;
-  where: Exercises_Bool_Exp;
+export type MutationRootUpdateExercisesArgs = {
+  _inc?: InputMaybe<ExercisesIncInput>;
+  _set?: InputMaybe<ExercisesSetInput>;
+  where: ExercisesBoolExp;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Exercises_By_PkArgs = {
-  _inc?: InputMaybe<Exercises_Inc_Input>;
-  _set?: InputMaybe<Exercises_Set_Input>;
-  pk_columns: Exercises_Pk_Columns_Input;
+export type MutationRootUpdateExercisesByPkArgs = {
+  _inc?: InputMaybe<ExercisesIncInput>;
+  _set?: InputMaybe<ExercisesSetInput>;
+  pk_columns: ExercisesPkColumnsInput;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Exercises_ManyArgs = {
-  updates: Array<Exercises_Updates>;
+export type MutationRootUpdateExercisesManyArgs = {
+  updates: Array<ExercisesUpdates>;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_ProgramsArgs = {
-  _inc?: InputMaybe<Programs_Inc_Input>;
-  _set?: InputMaybe<Programs_Set_Input>;
-  where: Programs_Bool_Exp;
+export type MutationRootUpdateProgramsArgs = {
+  _inc?: InputMaybe<ProgramsIncInput>;
+  _set?: InputMaybe<ProgramsSetInput>;
+  where: ProgramsBoolExp;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Programs_By_PkArgs = {
-  _inc?: InputMaybe<Programs_Inc_Input>;
-  _set?: InputMaybe<Programs_Set_Input>;
-  pk_columns: Programs_Pk_Columns_Input;
+export type MutationRootUpdateProgramsByPkArgs = {
+  _inc?: InputMaybe<ProgramsIncInput>;
+  _set?: InputMaybe<ProgramsSetInput>;
+  pk_columns: ProgramsPkColumnsInput;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Programs_ManyArgs = {
-  updates: Array<Programs_Updates>;
+export type MutationRootUpdateProgramsManyArgs = {
+  updates: Array<ProgramsUpdates>;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_ScoresArgs = {
-  _inc?: InputMaybe<Scores_Inc_Input>;
-  _set?: InputMaybe<Scores_Set_Input>;
-  where: Scores_Bool_Exp;
+export type MutationRootUpdateScoresArgs = {
+  _inc?: InputMaybe<ScoresIncInput>;
+  _set?: InputMaybe<ScoresSetInput>;
+  where: ScoresBoolExp;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Scores_By_PkArgs = {
-  _inc?: InputMaybe<Scores_Inc_Input>;
-  _set?: InputMaybe<Scores_Set_Input>;
-  pk_columns: Scores_Pk_Columns_Input;
+export type MutationRootUpdateScoresByPkArgs = {
+  _inc?: InputMaybe<ScoresIncInput>;
+  _set?: InputMaybe<ScoresSetInput>;
+  pk_columns: ScoresPkColumnsInput;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Scores_ManyArgs = {
-  updates: Array<Scores_Updates>;
+export type MutationRootUpdateScoresManyArgs = {
+  updates: Array<ScoresUpdates>;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_User_CyclesArgs = {
-  _inc?: InputMaybe<User_Cycles_Inc_Input>;
-  _set?: InputMaybe<User_Cycles_Set_Input>;
-  where: User_Cycles_Bool_Exp;
+export type MutationRootUpdateUserCyclesArgs = {
+  _inc?: InputMaybe<UserCyclesIncInput>;
+  _set?: InputMaybe<UserCyclesSetInput>;
+  where: UserCyclesBoolExp;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_User_Cycles_By_PkArgs = {
-  _inc?: InputMaybe<User_Cycles_Inc_Input>;
-  _set?: InputMaybe<User_Cycles_Set_Input>;
-  pk_columns: User_Cycles_Pk_Columns_Input;
+export type MutationRootUpdateUserCyclesByPkArgs = {
+  _inc?: InputMaybe<UserCyclesIncInput>;
+  _set?: InputMaybe<UserCyclesSetInput>;
+  pk_columns: UserCyclesPkColumnsInput;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_User_Cycles_ManyArgs = {
-  updates: Array<User_Cycles_Updates>;
+export type MutationRootUpdateUserCyclesManyArgs = {
+  updates: Array<UserCyclesUpdates>;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_User_WorkoutsArgs = {
-  _inc?: InputMaybe<User_Workouts_Inc_Input>;
-  _set?: InputMaybe<User_Workouts_Set_Input>;
-  where: User_Workouts_Bool_Exp;
+export type MutationRootUpdateUserWorkoutsArgs = {
+  _inc?: InputMaybe<UserWorkoutsIncInput>;
+  _set?: InputMaybe<UserWorkoutsSetInput>;
+  where: UserWorkoutsBoolExp;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_User_Workouts_By_PkArgs = {
-  _inc?: InputMaybe<User_Workouts_Inc_Input>;
-  _set?: InputMaybe<User_Workouts_Set_Input>;
-  pk_columns: User_Workouts_Pk_Columns_Input;
+export type MutationRootUpdateUserWorkoutsByPkArgs = {
+  _inc?: InputMaybe<UserWorkoutsIncInput>;
+  _set?: InputMaybe<UserWorkoutsSetInput>;
+  pk_columns: UserWorkoutsPkColumnsInput;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_User_Workouts_ManyArgs = {
-  updates: Array<User_Workouts_Updates>;
+export type MutationRootUpdateUserWorkoutsManyArgs = {
+  updates: Array<UserWorkoutsUpdates>;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_UsersArgs = {
-  _inc?: InputMaybe<Users_Inc_Input>;
-  _set?: InputMaybe<Users_Set_Input>;
-  where: Users_Bool_Exp;
+export type MutationRootUpdateUsersArgs = {
+  _inc?: InputMaybe<UsersIncInput>;
+  _set?: InputMaybe<UsersSetInput>;
+  where: UsersBoolExp;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Users_By_PkArgs = {
-  _inc?: InputMaybe<Users_Inc_Input>;
-  _set?: InputMaybe<Users_Set_Input>;
-  pk_columns: Users_Pk_Columns_Input;
+export type MutationRootUpdateUsersByPkArgs = {
+  _inc?: InputMaybe<UsersIncInput>;
+  _set?: InputMaybe<UsersSetInput>;
+  pk_columns: UsersPkColumnsInput;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Users_ManyArgs = {
-  updates: Array<Users_Updates>;
+export type MutationRootUpdateUsersManyArgs = {
+  updates: Array<UsersUpdates>;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Workout_Item_ScoresArgs = {
-  _inc?: InputMaybe<Workout_Item_Scores_Inc_Input>;
-  _set?: InputMaybe<Workout_Item_Scores_Set_Input>;
-  where: Workout_Item_Scores_Bool_Exp;
+export type MutationRootUpdateWorkoutItemScoresArgs = {
+  _inc?: InputMaybe<WorkoutItemScoresIncInput>;
+  _set?: InputMaybe<WorkoutItemScoresSetInput>;
+  where: WorkoutItemScoresBoolExp;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Workout_Item_Scores_By_PkArgs = {
-  _inc?: InputMaybe<Workout_Item_Scores_Inc_Input>;
-  _set?: InputMaybe<Workout_Item_Scores_Set_Input>;
-  pk_columns: Workout_Item_Scores_Pk_Columns_Input;
+export type MutationRootUpdateWorkoutItemScoresByPkArgs = {
+  _inc?: InputMaybe<WorkoutItemScoresIncInput>;
+  _set?: InputMaybe<WorkoutItemScoresSetInput>;
+  pk_columns: WorkoutItemScoresPkColumnsInput;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Workout_Item_Scores_ManyArgs = {
-  updates: Array<Workout_Item_Scores_Updates>;
+export type MutationRootUpdateWorkoutItemScoresManyArgs = {
+  updates: Array<WorkoutItemScoresUpdates>;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Workout_ItemsArgs = {
-  _inc?: InputMaybe<Workout_Items_Inc_Input>;
-  _set?: InputMaybe<Workout_Items_Set_Input>;
-  where: Workout_Items_Bool_Exp;
+export type MutationRootUpdateWorkoutItemsArgs = {
+  _inc?: InputMaybe<WorkoutItemsIncInput>;
+  _set?: InputMaybe<WorkoutItemsSetInput>;
+  where: WorkoutItemsBoolExp;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Workout_Items_By_PkArgs = {
-  _inc?: InputMaybe<Workout_Items_Inc_Input>;
-  _set?: InputMaybe<Workout_Items_Set_Input>;
-  pk_columns: Workout_Items_Pk_Columns_Input;
+export type MutationRootUpdateWorkoutItemsByPkArgs = {
+  _inc?: InputMaybe<WorkoutItemsIncInput>;
+  _set?: InputMaybe<WorkoutItemsSetInput>;
+  pk_columns: WorkoutItemsPkColumnsInput;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Workout_Items_ManyArgs = {
-  updates: Array<Workout_Items_Updates>;
+export type MutationRootUpdateWorkoutItemsManyArgs = {
+  updates: Array<WorkoutItemsUpdates>;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_WorkoutsArgs = {
-  _inc?: InputMaybe<Workouts_Inc_Input>;
-  _set?: InputMaybe<Workouts_Set_Input>;
-  where: Workouts_Bool_Exp;
+export type MutationRootUpdateWorkoutsArgs = {
+  _inc?: InputMaybe<WorkoutsIncInput>;
+  _set?: InputMaybe<WorkoutsSetInput>;
+  where: WorkoutsBoolExp;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Workouts_By_PkArgs = {
-  _inc?: InputMaybe<Workouts_Inc_Input>;
-  _set?: InputMaybe<Workouts_Set_Input>;
-  pk_columns: Workouts_Pk_Columns_Input;
+export type MutationRootUpdateWorkoutsByPkArgs = {
+  _inc?: InputMaybe<WorkoutsIncInput>;
+  _set?: InputMaybe<WorkoutsSetInput>;
+  pk_columns: WorkoutsPkColumnsInput;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Workouts_ManyArgs = {
-  updates: Array<Workouts_Updates>;
+export type MutationRootUpdateWorkoutsManyArgs = {
+  updates: Array<WorkoutsUpdates>;
 };
 
 /** column ordering options */
-export enum Order_By {
+export enum OrderBy {
   /** in ascending order, nulls last */
-  Asc = 'asc',
+  ASC = 'asc',
   /** in ascending order, nulls first */
-  AscNullsFirst = 'asc_nulls_first',
+  ASC_NULLS_FIRST = 'asc_nulls_first',
   /** in ascending order, nulls last */
-  AscNullsLast = 'asc_nulls_last',
+  ASC_NULLS_LAST = 'asc_nulls_last',
   /** in descending order, nulls first */
-  Desc = 'desc',
+  DESC = 'desc',
   /** in descending order, nulls first */
-  DescNullsFirst = 'desc_nulls_first',
+  DESC_NULLS_FIRST = 'desc_nulls_first',
   /** in descending order, nulls last */
-  DescNullsLast = 'desc_nulls_last'
+  DESC_NULLS_LAST = 'desc_nulls_last'
 }
 
 /** columns and relationships of "programs" */
 export type Programs = {
   __typename?: 'programs';
-  created_at?: Maybe<Scalars['timestamp']['output']>;
+  created_at: Scalars['timestamp']['output'];
   /** An array relationship */
   cycles: Array<Cycles>;
   /** An aggregate relationship */
-  cycles_aggregate: Cycles_Aggregate;
-  description?: Maybe<Scalars['String']['output']>;
+  cycles_aggregate: CyclesAggregate;
+  description: Maybe<Scalars['String']['output']>;
   id: Scalars['bigint']['output'];
-  image?: Maybe<Scalars['String']['output']>;
+  image: Maybe<Scalars['String']['output']>;
   name: Scalars['String']['output'];
-  updated_at?: Maybe<Scalars['timestamp']['output']>;
+  updated_at: Scalars['timestamp']['output'];
 };
 
 
 /** columns and relationships of "programs" */
 export type ProgramsCyclesArgs = {
-  distinct_on?: InputMaybe<Array<Cycles_Select_Column>>;
+  distinct_on?: InputMaybe<Array<CyclesSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Cycles_Order_By>>;
-  where?: InputMaybe<Cycles_Bool_Exp>;
+  order_by?: InputMaybe<Array<CyclesOrderBy>>;
+  where?: InputMaybe<CyclesBoolExp>;
 };
 
 
 /** columns and relationships of "programs" */
-export type ProgramsCycles_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Cycles_Select_Column>>;
+export type ProgramsCyclesAggregateArgs = {
+  distinct_on?: InputMaybe<Array<CyclesSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Cycles_Order_By>>;
-  where?: InputMaybe<Cycles_Bool_Exp>;
+  order_by?: InputMaybe<Array<CyclesOrderBy>>;
+  where?: InputMaybe<CyclesBoolExp>;
 };
 
 /** aggregated selection of "programs" */
-export type Programs_Aggregate = {
+export type ProgramsAggregate = {
   __typename?: 'programs_aggregate';
-  aggregate?: Maybe<Programs_Aggregate_Fields>;
+  aggregate: Maybe<ProgramsAggregateFields>;
   nodes: Array<Programs>;
 };
 
 /** aggregate fields of "programs" */
-export type Programs_Aggregate_Fields = {
+export type ProgramsAggregateFields = {
   __typename?: 'programs_aggregate_fields';
-  avg?: Maybe<Programs_Avg_Fields>;
+  avg: Maybe<ProgramsAvgFields>;
   count: Scalars['Int']['output'];
-  max?: Maybe<Programs_Max_Fields>;
-  min?: Maybe<Programs_Min_Fields>;
-  stddev?: Maybe<Programs_Stddev_Fields>;
-  stddev_pop?: Maybe<Programs_Stddev_Pop_Fields>;
-  stddev_samp?: Maybe<Programs_Stddev_Samp_Fields>;
-  sum?: Maybe<Programs_Sum_Fields>;
-  var_pop?: Maybe<Programs_Var_Pop_Fields>;
-  var_samp?: Maybe<Programs_Var_Samp_Fields>;
-  variance?: Maybe<Programs_Variance_Fields>;
+  max: Maybe<ProgramsMaxFields>;
+  min: Maybe<ProgramsMinFields>;
+  stddev: Maybe<ProgramsStddevFields>;
+  stddev_pop: Maybe<ProgramsStddevPopFields>;
+  stddev_samp: Maybe<ProgramsStddevSampFields>;
+  sum: Maybe<ProgramsSumFields>;
+  var_pop: Maybe<ProgramsVarPopFields>;
+  var_samp: Maybe<ProgramsVarSampFields>;
+  variance: Maybe<ProgramsVarianceFields>;
 };
 
 
 /** aggregate fields of "programs" */
-export type Programs_Aggregate_FieldsCountArgs = {
-  columns?: InputMaybe<Array<Programs_Select_Column>>;
+export type ProgramsAggregateFieldsCountArgs = {
+  columns?: InputMaybe<Array<ProgramsSelectColumn>>;
   distinct?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 /** aggregate avg on columns */
-export type Programs_Avg_Fields = {
+export type ProgramsAvgFields = {
   __typename?: 'programs_avg_fields';
-  id?: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
 };
 
 /** Boolean expression to filter rows from the table "programs". All fields are combined with a logical 'AND'. */
-export type Programs_Bool_Exp = {
-  _and?: InputMaybe<Array<Programs_Bool_Exp>>;
-  _not?: InputMaybe<Programs_Bool_Exp>;
-  _or?: InputMaybe<Array<Programs_Bool_Exp>>;
-  created_at?: InputMaybe<Timestamp_Comparison_Exp>;
-  cycles?: InputMaybe<Cycles_Bool_Exp>;
-  cycles_aggregate?: InputMaybe<Cycles_Aggregate_Bool_Exp>;
-  description?: InputMaybe<String_Comparison_Exp>;
-  id?: InputMaybe<Bigint_Comparison_Exp>;
-  image?: InputMaybe<String_Comparison_Exp>;
-  name?: InputMaybe<String_Comparison_Exp>;
-  updated_at?: InputMaybe<Timestamp_Comparison_Exp>;
+export type ProgramsBoolExp = {
+  _and?: InputMaybe<Array<ProgramsBoolExp>>;
+  _not?: InputMaybe<ProgramsBoolExp>;
+  _or?: InputMaybe<Array<ProgramsBoolExp>>;
+  created_at?: InputMaybe<TimestampComparisonExp>;
+  cycles?: InputMaybe<CyclesBoolExp>;
+  cycles_aggregate?: InputMaybe<CyclesAggregateBoolExp>;
+  description?: InputMaybe<StringComparisonExp>;
+  id?: InputMaybe<BigintComparisonExp>;
+  image?: InputMaybe<StringComparisonExp>;
+  name?: InputMaybe<StringComparisonExp>;
+  updated_at?: InputMaybe<TimestampComparisonExp>;
 };
 
 /** unique or primary key constraints on table "programs" */
-export enum Programs_Constraint {
+export enum ProgramsConstraint {
   /** unique or primary key constraint on columns "id" */
-  ProgramsPkey = 'programs_pkey'
+  PROGRAMS_PKEY = 'programs_pkey'
 }
 
 /** input type for incrementing numeric columns in table "programs" */
-export type Programs_Inc_Input = {
+export type ProgramsIncInput = {
   id?: InputMaybe<Scalars['bigint']['input']>;
 };
 
 /** input type for inserting data into table "programs" */
-export type Programs_Insert_Input = {
+export type ProgramsInsertInput = {
   created_at?: InputMaybe<Scalars['timestamp']['input']>;
-  cycles?: InputMaybe<Cycles_Arr_Rel_Insert_Input>;
+  cycles?: InputMaybe<CyclesArrRelInsertInput>;
   description?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
   image?: InputMaybe<Scalars['String']['input']>;
@@ -2220,29 +2220,29 @@ export type Programs_Insert_Input = {
 };
 
 /** aggregate max on columns */
-export type Programs_Max_Fields = {
+export type ProgramsMaxFields = {
   __typename?: 'programs_max_fields';
-  created_at?: Maybe<Scalars['timestamp']['output']>;
-  description?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['bigint']['output']>;
-  image?: Maybe<Scalars['String']['output']>;
-  name?: Maybe<Scalars['String']['output']>;
-  updated_at?: Maybe<Scalars['timestamp']['output']>;
+  created_at: Maybe<Scalars['timestamp']['output']>;
+  description: Maybe<Scalars['String']['output']>;
+  id: Maybe<Scalars['bigint']['output']>;
+  image: Maybe<Scalars['String']['output']>;
+  name: Maybe<Scalars['String']['output']>;
+  updated_at: Maybe<Scalars['timestamp']['output']>;
 };
 
 /** aggregate min on columns */
-export type Programs_Min_Fields = {
+export type ProgramsMinFields = {
   __typename?: 'programs_min_fields';
-  created_at?: Maybe<Scalars['timestamp']['output']>;
-  description?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['bigint']['output']>;
-  image?: Maybe<Scalars['String']['output']>;
-  name?: Maybe<Scalars['String']['output']>;
-  updated_at?: Maybe<Scalars['timestamp']['output']>;
+  created_at: Maybe<Scalars['timestamp']['output']>;
+  description: Maybe<Scalars['String']['output']>;
+  id: Maybe<Scalars['bigint']['output']>;
+  image: Maybe<Scalars['String']['output']>;
+  name: Maybe<Scalars['String']['output']>;
+  updated_at: Maybe<Scalars['timestamp']['output']>;
 };
 
 /** response of any mutation on the table "programs" */
-export type Programs_Mutation_Response = {
+export type ProgramsMutationResponse = {
   __typename?: 'programs_mutation_response';
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int']['output'];
@@ -2251,53 +2251,53 @@ export type Programs_Mutation_Response = {
 };
 
 /** input type for inserting object relation for remote table "programs" */
-export type Programs_Obj_Rel_Insert_Input = {
-  data: Programs_Insert_Input;
+export type ProgramsObjRelInsertInput = {
+  data: ProgramsInsertInput;
   /** upsert condition */
-  on_conflict?: InputMaybe<Programs_On_Conflict>;
+  on_conflict?: InputMaybe<ProgramsOnConflict>;
 };
 
 /** on_conflict condition type for table "programs" */
-export type Programs_On_Conflict = {
-  constraint: Programs_Constraint;
-  update_columns?: Array<Programs_Update_Column>;
-  where?: InputMaybe<Programs_Bool_Exp>;
+export type ProgramsOnConflict = {
+  constraint: ProgramsConstraint;
+  update_columns?: Array<ProgramsUpdateColumn>;
+  where?: InputMaybe<ProgramsBoolExp>;
 };
 
 /** Ordering options when selecting data from "programs". */
-export type Programs_Order_By = {
-  created_at?: InputMaybe<Order_By>;
-  cycles_aggregate?: InputMaybe<Cycles_Aggregate_Order_By>;
-  description?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  image?: InputMaybe<Order_By>;
-  name?: InputMaybe<Order_By>;
-  updated_at?: InputMaybe<Order_By>;
+export type ProgramsOrderBy = {
+  created_at?: InputMaybe<OrderBy>;
+  cycles_aggregate?: InputMaybe<CyclesAggregateOrderBy>;
+  description?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  image?: InputMaybe<OrderBy>;
+  name?: InputMaybe<OrderBy>;
+  updated_at?: InputMaybe<OrderBy>;
 };
 
 /** primary key columns input for table: programs */
-export type Programs_Pk_Columns_Input = {
+export type ProgramsPkColumnsInput = {
   id: Scalars['bigint']['input'];
 };
 
 /** select columns of table "programs" */
-export enum Programs_Select_Column {
+export enum ProgramsSelectColumn {
   /** column name */
-  CreatedAt = 'created_at',
+  CREATED_AT = 'created_at',
   /** column name */
-  Description = 'description',
+  DESCRIPTION = 'description',
   /** column name */
-  Id = 'id',
+  ID = 'id',
   /** column name */
-  Image = 'image',
+  IMAGE = 'image',
   /** column name */
-  Name = 'name',
+  NAME = 'name',
   /** column name */
-  UpdatedAt = 'updated_at'
+  UPDATED_AT = 'updated_at'
 }
 
 /** input type for updating data in table "programs" */
-export type Programs_Set_Input = {
+export type ProgramsSetInput = {
   created_at?: InputMaybe<Scalars['timestamp']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
@@ -2307,33 +2307,33 @@ export type Programs_Set_Input = {
 };
 
 /** aggregate stddev on columns */
-export type Programs_Stddev_Fields = {
+export type ProgramsStddevFields = {
   __typename?: 'programs_stddev_fields';
-  id?: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
 };
 
 /** aggregate stddev_pop on columns */
-export type Programs_Stddev_Pop_Fields = {
+export type ProgramsStddevPopFields = {
   __typename?: 'programs_stddev_pop_fields';
-  id?: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
 };
 
 /** aggregate stddev_samp on columns */
-export type Programs_Stddev_Samp_Fields = {
+export type ProgramsStddevSampFields = {
   __typename?: 'programs_stddev_samp_fields';
-  id?: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
 };
 
 /** Streaming cursor of the table "programs" */
-export type Programs_Stream_Cursor_Input = {
+export type ProgramsStreamCursorInput = {
   /** Stream column input with initial value */
-  initial_value: Programs_Stream_Cursor_Value_Input;
+  initial_value: ProgramsStreamCursorValueInput;
   /** cursor ordering */
-  ordering?: InputMaybe<Cursor_Ordering>;
+  ordering?: InputMaybe<CursorOrdering>;
 };
 
 /** Initial value of the column from where the streaming should start */
-export type Programs_Stream_Cursor_Value_Input = {
+export type ProgramsStreamCursorValueInput = {
   created_at?: InputMaybe<Scalars['timestamp']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
@@ -2343,374 +2343,374 @@ export type Programs_Stream_Cursor_Value_Input = {
 };
 
 /** aggregate sum on columns */
-export type Programs_Sum_Fields = {
+export type ProgramsSumFields = {
   __typename?: 'programs_sum_fields';
-  id?: Maybe<Scalars['bigint']['output']>;
+  id: Maybe<Scalars['bigint']['output']>;
 };
 
 /** update columns of table "programs" */
-export enum Programs_Update_Column {
+export enum ProgramsUpdateColumn {
   /** column name */
-  CreatedAt = 'created_at',
+  CREATED_AT = 'created_at',
   /** column name */
-  Description = 'description',
+  DESCRIPTION = 'description',
   /** column name */
-  Id = 'id',
+  ID = 'id',
   /** column name */
-  Image = 'image',
+  IMAGE = 'image',
   /** column name */
-  Name = 'name',
+  NAME = 'name',
   /** column name */
-  UpdatedAt = 'updated_at'
+  UPDATED_AT = 'updated_at'
 }
 
-export type Programs_Updates = {
+export type ProgramsUpdates = {
   /** increments the numeric columns with given value of the filtered values */
-  _inc?: InputMaybe<Programs_Inc_Input>;
+  _inc?: InputMaybe<ProgramsIncInput>;
   /** sets the columns of the filtered rows to the given values */
-  _set?: InputMaybe<Programs_Set_Input>;
+  _set?: InputMaybe<ProgramsSetInput>;
   /** filter the rows which have to be updated */
-  where: Programs_Bool_Exp;
+  where: ProgramsBoolExp;
 };
 
 /** aggregate var_pop on columns */
-export type Programs_Var_Pop_Fields = {
+export type ProgramsVarPopFields = {
   __typename?: 'programs_var_pop_fields';
-  id?: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
 };
 
 /** aggregate var_samp on columns */
-export type Programs_Var_Samp_Fields = {
+export type ProgramsVarSampFields = {
   __typename?: 'programs_var_samp_fields';
-  id?: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
 };
 
 /** aggregate variance on columns */
-export type Programs_Variance_Fields = {
+export type ProgramsVarianceFields = {
   __typename?: 'programs_variance_fields';
-  id?: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
 };
 
-export type Query_Root = {
+export type QueryRoot = {
   __typename?: 'query_root';
   /** An array relationship */
   cycles: Array<Cycles>;
   /** An aggregate relationship */
-  cycles_aggregate: Cycles_Aggregate;
+  cycles_aggregate: CyclesAggregate;
   /** fetch data from the table: "cycles" using primary key columns */
-  cycles_by_pk?: Maybe<Cycles>;
+  cycles_by_pk: Maybe<Cycles>;
   /** An array relationship */
-  exercise_details: Array<Exercise_Details>;
+  exercise_details: Array<ExerciseDetails>;
   /** An aggregate relationship */
-  exercise_details_aggregate: Exercise_Details_Aggregate;
+  exercise_details_aggregate: ExerciseDetailsAggregate;
   /** fetch data from the table: "exercise_details" using primary key columns */
-  exercise_details_by_pk?: Maybe<Exercise_Details>;
+  exercise_details_by_pk: Maybe<ExerciseDetails>;
   /** fetch data from the table: "exercises" */
   exercises: Array<Exercises>;
   /** fetch aggregated fields from the table: "exercises" */
-  exercises_aggregate: Exercises_Aggregate;
+  exercises_aggregate: ExercisesAggregate;
   /** fetch data from the table: "exercises" using primary key columns */
-  exercises_by_pk?: Maybe<Exercises>;
+  exercises_by_pk: Maybe<Exercises>;
   /** fetch data from the table: "programs" */
   programs: Array<Programs>;
   /** fetch aggregated fields from the table: "programs" */
-  programs_aggregate: Programs_Aggregate;
+  programs_aggregate: ProgramsAggregate;
   /** fetch data from the table: "programs" using primary key columns */
-  programs_by_pk?: Maybe<Programs>;
+  programs_by_pk: Maybe<Programs>;
   /** fetch data from the table: "scores" */
   scores: Array<Scores>;
   /** fetch aggregated fields from the table: "scores" */
-  scores_aggregate: Scores_Aggregate;
+  scores_aggregate: ScoresAggregate;
   /** fetch data from the table: "scores" using primary key columns */
-  scores_by_pk?: Maybe<Scores>;
+  scores_by_pk: Maybe<Scores>;
   /** An array relationship */
-  user_cycles: Array<User_Cycles>;
+  user_cycles: Array<UserCycles>;
   /** An aggregate relationship */
-  user_cycles_aggregate: User_Cycles_Aggregate;
+  user_cycles_aggregate: UserCyclesAggregate;
   /** fetch data from the table: "user_cycles" using primary key columns */
-  user_cycles_by_pk?: Maybe<User_Cycles>;
+  user_cycles_by_pk: Maybe<UserCycles>;
   /** An array relationship */
-  user_workouts: Array<User_Workouts>;
+  user_workouts: Array<UserWorkouts>;
   /** An aggregate relationship */
-  user_workouts_aggregate: User_Workouts_Aggregate;
+  user_workouts_aggregate: UserWorkoutsAggregate;
   /** fetch data from the table: "user_workouts" using primary key columns */
-  user_workouts_by_pk?: Maybe<User_Workouts>;
+  user_workouts_by_pk: Maybe<UserWorkouts>;
   /** fetch data from the table: "users" */
   users: Array<Users>;
   /** fetch aggregated fields from the table: "users" */
-  users_aggregate: Users_Aggregate;
+  users_aggregate: UsersAggregate;
   /** fetch data from the table: "users" using primary key columns */
-  users_by_pk?: Maybe<Users>;
+  users_by_pk: Maybe<Users>;
   /** fetch data from the table: "workout_item_scores" */
-  workout_item_scores: Array<Workout_Item_Scores>;
+  workout_item_scores: Array<WorkoutItemScores>;
   /** fetch aggregated fields from the table: "workout_item_scores" */
-  workout_item_scores_aggregate: Workout_Item_Scores_Aggregate;
+  workout_item_scores_aggregate: WorkoutItemScoresAggregate;
   /** fetch data from the table: "workout_item_scores" using primary key columns */
-  workout_item_scores_by_pk?: Maybe<Workout_Item_Scores>;
+  workout_item_scores_by_pk: Maybe<WorkoutItemScores>;
   /** An array relationship */
-  workout_items: Array<Workout_Items>;
+  workout_items: Array<WorkoutItems>;
   /** An aggregate relationship */
-  workout_items_aggregate: Workout_Items_Aggregate;
+  workout_items_aggregate: WorkoutItemsAggregate;
   /** fetch data from the table: "workout_items" using primary key columns */
-  workout_items_by_pk?: Maybe<Workout_Items>;
+  workout_items_by_pk: Maybe<WorkoutItems>;
   /** An array relationship */
   workouts: Array<Workouts>;
   /** An aggregate relationship */
-  workouts_aggregate: Workouts_Aggregate;
+  workouts_aggregate: WorkoutsAggregate;
   /** fetch data from the table: "workouts" using primary key columns */
-  workouts_by_pk?: Maybe<Workouts>;
+  workouts_by_pk: Maybe<Workouts>;
 };
 
 
-export type Query_RootCyclesArgs = {
-  distinct_on?: InputMaybe<Array<Cycles_Select_Column>>;
+export type QueryRootCyclesArgs = {
+  distinct_on?: InputMaybe<Array<CyclesSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Cycles_Order_By>>;
-  where?: InputMaybe<Cycles_Bool_Exp>;
+  order_by?: InputMaybe<Array<CyclesOrderBy>>;
+  where?: InputMaybe<CyclesBoolExp>;
 };
 
 
-export type Query_RootCycles_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Cycles_Select_Column>>;
+export type QueryRootCyclesAggregateArgs = {
+  distinct_on?: InputMaybe<Array<CyclesSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Cycles_Order_By>>;
-  where?: InputMaybe<Cycles_Bool_Exp>;
+  order_by?: InputMaybe<Array<CyclesOrderBy>>;
+  where?: InputMaybe<CyclesBoolExp>;
 };
 
 
-export type Query_RootCycles_By_PkArgs = {
+export type QueryRootCyclesByPkArgs = {
   id: Scalars['bigint']['input'];
 };
 
 
-export type Query_RootExercise_DetailsArgs = {
-  distinct_on?: InputMaybe<Array<Exercise_Details_Select_Column>>;
+export type QueryRootExerciseDetailsArgs = {
+  distinct_on?: InputMaybe<Array<ExerciseDetailsSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Exercise_Details_Order_By>>;
-  where?: InputMaybe<Exercise_Details_Bool_Exp>;
+  order_by?: InputMaybe<Array<ExerciseDetailsOrderBy>>;
+  where?: InputMaybe<ExerciseDetailsBoolExp>;
 };
 
 
-export type Query_RootExercise_Details_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Exercise_Details_Select_Column>>;
+export type QueryRootExerciseDetailsAggregateArgs = {
+  distinct_on?: InputMaybe<Array<ExerciseDetailsSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Exercise_Details_Order_By>>;
-  where?: InputMaybe<Exercise_Details_Bool_Exp>;
+  order_by?: InputMaybe<Array<ExerciseDetailsOrderBy>>;
+  where?: InputMaybe<ExerciseDetailsBoolExp>;
 };
 
 
-export type Query_RootExercise_Details_By_PkArgs = {
+export type QueryRootExerciseDetailsByPkArgs = {
   id: Scalars['bigint']['input'];
 };
 
 
-export type Query_RootExercisesArgs = {
-  distinct_on?: InputMaybe<Array<Exercises_Select_Column>>;
+export type QueryRootExercisesArgs = {
+  distinct_on?: InputMaybe<Array<ExercisesSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Exercises_Order_By>>;
-  where?: InputMaybe<Exercises_Bool_Exp>;
+  order_by?: InputMaybe<Array<ExercisesOrderBy>>;
+  where?: InputMaybe<ExercisesBoolExp>;
 };
 
 
-export type Query_RootExercises_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Exercises_Select_Column>>;
+export type QueryRootExercisesAggregateArgs = {
+  distinct_on?: InputMaybe<Array<ExercisesSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Exercises_Order_By>>;
-  where?: InputMaybe<Exercises_Bool_Exp>;
+  order_by?: InputMaybe<Array<ExercisesOrderBy>>;
+  where?: InputMaybe<ExercisesBoolExp>;
 };
 
 
-export type Query_RootExercises_By_PkArgs = {
+export type QueryRootExercisesByPkArgs = {
   id: Scalars['bigint']['input'];
 };
 
 
-export type Query_RootProgramsArgs = {
-  distinct_on?: InputMaybe<Array<Programs_Select_Column>>;
+export type QueryRootProgramsArgs = {
+  distinct_on?: InputMaybe<Array<ProgramsSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Programs_Order_By>>;
-  where?: InputMaybe<Programs_Bool_Exp>;
+  order_by?: InputMaybe<Array<ProgramsOrderBy>>;
+  where?: InputMaybe<ProgramsBoolExp>;
 };
 
 
-export type Query_RootPrograms_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Programs_Select_Column>>;
+export type QueryRootProgramsAggregateArgs = {
+  distinct_on?: InputMaybe<Array<ProgramsSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Programs_Order_By>>;
-  where?: InputMaybe<Programs_Bool_Exp>;
+  order_by?: InputMaybe<Array<ProgramsOrderBy>>;
+  where?: InputMaybe<ProgramsBoolExp>;
 };
 
 
-export type Query_RootPrograms_By_PkArgs = {
+export type QueryRootProgramsByPkArgs = {
   id: Scalars['bigint']['input'];
 };
 
 
-export type Query_RootScoresArgs = {
-  distinct_on?: InputMaybe<Array<Scores_Select_Column>>;
+export type QueryRootScoresArgs = {
+  distinct_on?: InputMaybe<Array<ScoresSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Scores_Order_By>>;
-  where?: InputMaybe<Scores_Bool_Exp>;
+  order_by?: InputMaybe<Array<ScoresOrderBy>>;
+  where?: InputMaybe<ScoresBoolExp>;
 };
 
 
-export type Query_RootScores_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Scores_Select_Column>>;
+export type QueryRootScoresAggregateArgs = {
+  distinct_on?: InputMaybe<Array<ScoresSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Scores_Order_By>>;
-  where?: InputMaybe<Scores_Bool_Exp>;
+  order_by?: InputMaybe<Array<ScoresOrderBy>>;
+  where?: InputMaybe<ScoresBoolExp>;
 };
 
 
-export type Query_RootScores_By_PkArgs = {
+export type QueryRootScoresByPkArgs = {
   id: Scalars['bigint']['input'];
 };
 
 
-export type Query_RootUser_CyclesArgs = {
-  distinct_on?: InputMaybe<Array<User_Cycles_Select_Column>>;
+export type QueryRootUserCyclesArgs = {
+  distinct_on?: InputMaybe<Array<UserCyclesSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<User_Cycles_Order_By>>;
-  where?: InputMaybe<User_Cycles_Bool_Exp>;
+  order_by?: InputMaybe<Array<UserCyclesOrderBy>>;
+  where?: InputMaybe<UserCyclesBoolExp>;
 };
 
 
-export type Query_RootUser_Cycles_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<User_Cycles_Select_Column>>;
+export type QueryRootUserCyclesAggregateArgs = {
+  distinct_on?: InputMaybe<Array<UserCyclesSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<User_Cycles_Order_By>>;
-  where?: InputMaybe<User_Cycles_Bool_Exp>;
+  order_by?: InputMaybe<Array<UserCyclesOrderBy>>;
+  where?: InputMaybe<UserCyclesBoolExp>;
 };
 
 
-export type Query_RootUser_Cycles_By_PkArgs = {
+export type QueryRootUserCyclesByPkArgs = {
   id: Scalars['bigint']['input'];
 };
 
 
-export type Query_RootUser_WorkoutsArgs = {
-  distinct_on?: InputMaybe<Array<User_Workouts_Select_Column>>;
+export type QueryRootUserWorkoutsArgs = {
+  distinct_on?: InputMaybe<Array<UserWorkoutsSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<User_Workouts_Order_By>>;
-  where?: InputMaybe<User_Workouts_Bool_Exp>;
+  order_by?: InputMaybe<Array<UserWorkoutsOrderBy>>;
+  where?: InputMaybe<UserWorkoutsBoolExp>;
 };
 
 
-export type Query_RootUser_Workouts_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<User_Workouts_Select_Column>>;
+export type QueryRootUserWorkoutsAggregateArgs = {
+  distinct_on?: InputMaybe<Array<UserWorkoutsSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<User_Workouts_Order_By>>;
-  where?: InputMaybe<User_Workouts_Bool_Exp>;
+  order_by?: InputMaybe<Array<UserWorkoutsOrderBy>>;
+  where?: InputMaybe<UserWorkoutsBoolExp>;
 };
 
 
-export type Query_RootUser_Workouts_By_PkArgs = {
+export type QueryRootUserWorkoutsByPkArgs = {
   id: Scalars['uuid']['input'];
 };
 
 
-export type Query_RootUsersArgs = {
-  distinct_on?: InputMaybe<Array<Users_Select_Column>>;
+export type QueryRootUsersArgs = {
+  distinct_on?: InputMaybe<Array<UsersSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Users_Order_By>>;
-  where?: InputMaybe<Users_Bool_Exp>;
+  order_by?: InputMaybe<Array<UsersOrderBy>>;
+  where?: InputMaybe<UsersBoolExp>;
 };
 
 
-export type Query_RootUsers_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Users_Select_Column>>;
+export type QueryRootUsersAggregateArgs = {
+  distinct_on?: InputMaybe<Array<UsersSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Users_Order_By>>;
-  where?: InputMaybe<Users_Bool_Exp>;
+  order_by?: InputMaybe<Array<UsersOrderBy>>;
+  where?: InputMaybe<UsersBoolExp>;
 };
 
 
-export type Query_RootUsers_By_PkArgs = {
+export type QueryRootUsersByPkArgs = {
   id: Scalars['bigint']['input'];
 };
 
 
-export type Query_RootWorkout_Item_ScoresArgs = {
-  distinct_on?: InputMaybe<Array<Workout_Item_Scores_Select_Column>>;
+export type QueryRootWorkoutItemScoresArgs = {
+  distinct_on?: InputMaybe<Array<WorkoutItemScoresSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Workout_Item_Scores_Order_By>>;
-  where?: InputMaybe<Workout_Item_Scores_Bool_Exp>;
+  order_by?: InputMaybe<Array<WorkoutItemScoresOrderBy>>;
+  where?: InputMaybe<WorkoutItemScoresBoolExp>;
 };
 
 
-export type Query_RootWorkout_Item_Scores_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Workout_Item_Scores_Select_Column>>;
+export type QueryRootWorkoutItemScoresAggregateArgs = {
+  distinct_on?: InputMaybe<Array<WorkoutItemScoresSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Workout_Item_Scores_Order_By>>;
-  where?: InputMaybe<Workout_Item_Scores_Bool_Exp>;
+  order_by?: InputMaybe<Array<WorkoutItemScoresOrderBy>>;
+  where?: InputMaybe<WorkoutItemScoresBoolExp>;
 };
 
 
-export type Query_RootWorkout_Item_Scores_By_PkArgs = {
+export type QueryRootWorkoutItemScoresByPkArgs = {
   id: Scalars['bigint']['input'];
 };
 
 
-export type Query_RootWorkout_ItemsArgs = {
-  distinct_on?: InputMaybe<Array<Workout_Items_Select_Column>>;
+export type QueryRootWorkoutItemsArgs = {
+  distinct_on?: InputMaybe<Array<WorkoutItemsSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Workout_Items_Order_By>>;
-  where?: InputMaybe<Workout_Items_Bool_Exp>;
+  order_by?: InputMaybe<Array<WorkoutItemsOrderBy>>;
+  where?: InputMaybe<WorkoutItemsBoolExp>;
 };
 
 
-export type Query_RootWorkout_Items_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Workout_Items_Select_Column>>;
+export type QueryRootWorkoutItemsAggregateArgs = {
+  distinct_on?: InputMaybe<Array<WorkoutItemsSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Workout_Items_Order_By>>;
-  where?: InputMaybe<Workout_Items_Bool_Exp>;
+  order_by?: InputMaybe<Array<WorkoutItemsOrderBy>>;
+  where?: InputMaybe<WorkoutItemsBoolExp>;
 };
 
 
-export type Query_RootWorkout_Items_By_PkArgs = {
+export type QueryRootWorkoutItemsByPkArgs = {
   id: Scalars['bigint']['input'];
 };
 
 
-export type Query_RootWorkoutsArgs = {
-  distinct_on?: InputMaybe<Array<Workouts_Select_Column>>;
+export type QueryRootWorkoutsArgs = {
+  distinct_on?: InputMaybe<Array<WorkoutsSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Workouts_Order_By>>;
-  where?: InputMaybe<Workouts_Bool_Exp>;
+  order_by?: InputMaybe<Array<WorkoutsOrderBy>>;
+  where?: InputMaybe<WorkoutsBoolExp>;
 };
 
 
-export type Query_RootWorkouts_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Workouts_Select_Column>>;
+export type QueryRootWorkoutsAggregateArgs = {
+  distinct_on?: InputMaybe<Array<WorkoutsSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Workouts_Order_By>>;
-  where?: InputMaybe<Workouts_Bool_Exp>;
+  order_by?: InputMaybe<Array<WorkoutsOrderBy>>;
+  where?: InputMaybe<WorkoutsBoolExp>;
 };
 
 
-export type Query_RootWorkouts_By_PkArgs = {
+export type QueryRootWorkoutsByPkArgs = {
   id: Scalars['bigint']['input'];
 };
 
@@ -2719,80 +2719,80 @@ export type Scores = {
   __typename?: 'scores';
   date: Scalars['date']['output'];
   id: Scalars['bigint']['output'];
-  notes?: Maybe<Scalars['String']['output']>;
+  notes: Maybe<Scalars['String']['output']>;
   program: Scalars['String']['output'];
-  section_notes?: Maybe<Scalars['json']['output']>;
+  section_notes: Maybe<Scalars['json']['output']>;
 };
 
 
 /** columns and relationships of "scores" */
-export type ScoresSection_NotesArgs = {
+export type ScoresSectionNotesArgs = {
   path?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** aggregated selection of "scores" */
-export type Scores_Aggregate = {
+export type ScoresAggregate = {
   __typename?: 'scores_aggregate';
-  aggregate?: Maybe<Scores_Aggregate_Fields>;
+  aggregate: Maybe<ScoresAggregateFields>;
   nodes: Array<Scores>;
 };
 
 /** aggregate fields of "scores" */
-export type Scores_Aggregate_Fields = {
+export type ScoresAggregateFields = {
   __typename?: 'scores_aggregate_fields';
-  avg?: Maybe<Scores_Avg_Fields>;
+  avg: Maybe<ScoresAvgFields>;
   count: Scalars['Int']['output'];
-  max?: Maybe<Scores_Max_Fields>;
-  min?: Maybe<Scores_Min_Fields>;
-  stddev?: Maybe<Scores_Stddev_Fields>;
-  stddev_pop?: Maybe<Scores_Stddev_Pop_Fields>;
-  stddev_samp?: Maybe<Scores_Stddev_Samp_Fields>;
-  sum?: Maybe<Scores_Sum_Fields>;
-  var_pop?: Maybe<Scores_Var_Pop_Fields>;
-  var_samp?: Maybe<Scores_Var_Samp_Fields>;
-  variance?: Maybe<Scores_Variance_Fields>;
+  max: Maybe<ScoresMaxFields>;
+  min: Maybe<ScoresMinFields>;
+  stddev: Maybe<ScoresStddevFields>;
+  stddev_pop: Maybe<ScoresStddevPopFields>;
+  stddev_samp: Maybe<ScoresStddevSampFields>;
+  sum: Maybe<ScoresSumFields>;
+  var_pop: Maybe<ScoresVarPopFields>;
+  var_samp: Maybe<ScoresVarSampFields>;
+  variance: Maybe<ScoresVarianceFields>;
 };
 
 
 /** aggregate fields of "scores" */
-export type Scores_Aggregate_FieldsCountArgs = {
-  columns?: InputMaybe<Array<Scores_Select_Column>>;
+export type ScoresAggregateFieldsCountArgs = {
+  columns?: InputMaybe<Array<ScoresSelectColumn>>;
   distinct?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 /** aggregate avg on columns */
-export type Scores_Avg_Fields = {
+export type ScoresAvgFields = {
   __typename?: 'scores_avg_fields';
-  id?: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
 };
 
 /** Boolean expression to filter rows from the table "scores". All fields are combined with a logical 'AND'. */
-export type Scores_Bool_Exp = {
-  _and?: InputMaybe<Array<Scores_Bool_Exp>>;
-  _not?: InputMaybe<Scores_Bool_Exp>;
-  _or?: InputMaybe<Array<Scores_Bool_Exp>>;
-  date?: InputMaybe<Date_Comparison_Exp>;
-  id?: InputMaybe<Bigint_Comparison_Exp>;
-  notes?: InputMaybe<String_Comparison_Exp>;
-  program?: InputMaybe<String_Comparison_Exp>;
-  section_notes?: InputMaybe<Json_Comparison_Exp>;
+export type ScoresBoolExp = {
+  _and?: InputMaybe<Array<ScoresBoolExp>>;
+  _not?: InputMaybe<ScoresBoolExp>;
+  _or?: InputMaybe<Array<ScoresBoolExp>>;
+  date?: InputMaybe<DateComparisonExp>;
+  id?: InputMaybe<BigintComparisonExp>;
+  notes?: InputMaybe<StringComparisonExp>;
+  program?: InputMaybe<StringComparisonExp>;
+  section_notes?: InputMaybe<JsonComparisonExp>;
 };
 
 /** unique or primary key constraints on table "scores" */
-export enum Scores_Constraint {
+export enum ScoresConstraint {
   /** unique or primary key constraint on columns "date" */
-  ScoresDateUnique = 'scores_date_unique',
+  SCORES_DATE_UNIQUE = 'scores_date_unique',
   /** unique or primary key constraint on columns "id" */
-  ScoresPkey = 'scores_pkey'
+  SCORES_PKEY = 'scores_pkey'
 }
 
 /** input type for incrementing numeric columns in table "scores" */
-export type Scores_Inc_Input = {
+export type ScoresIncInput = {
   id?: InputMaybe<Scalars['bigint']['input']>;
 };
 
 /** input type for inserting data into table "scores" */
-export type Scores_Insert_Input = {
+export type ScoresInsertInput = {
   date?: InputMaybe<Scalars['date']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
   notes?: InputMaybe<Scalars['String']['input']>;
@@ -2801,25 +2801,25 @@ export type Scores_Insert_Input = {
 };
 
 /** aggregate max on columns */
-export type Scores_Max_Fields = {
+export type ScoresMaxFields = {
   __typename?: 'scores_max_fields';
-  date?: Maybe<Scalars['date']['output']>;
-  id?: Maybe<Scalars['bigint']['output']>;
-  notes?: Maybe<Scalars['String']['output']>;
-  program?: Maybe<Scalars['String']['output']>;
+  date: Maybe<Scalars['date']['output']>;
+  id: Maybe<Scalars['bigint']['output']>;
+  notes: Maybe<Scalars['String']['output']>;
+  program: Maybe<Scalars['String']['output']>;
 };
 
 /** aggregate min on columns */
-export type Scores_Min_Fields = {
+export type ScoresMinFields = {
   __typename?: 'scores_min_fields';
-  date?: Maybe<Scalars['date']['output']>;
-  id?: Maybe<Scalars['bigint']['output']>;
-  notes?: Maybe<Scalars['String']['output']>;
-  program?: Maybe<Scalars['String']['output']>;
+  date: Maybe<Scalars['date']['output']>;
+  id: Maybe<Scalars['bigint']['output']>;
+  notes: Maybe<Scalars['String']['output']>;
+  program: Maybe<Scalars['String']['output']>;
 };
 
 /** response of any mutation on the table "scores" */
-export type Scores_Mutation_Response = {
+export type ScoresMutationResponse = {
   __typename?: 'scores_mutation_response';
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int']['output'];
@@ -2828,42 +2828,42 @@ export type Scores_Mutation_Response = {
 };
 
 /** on_conflict condition type for table "scores" */
-export type Scores_On_Conflict = {
-  constraint: Scores_Constraint;
-  update_columns?: Array<Scores_Update_Column>;
-  where?: InputMaybe<Scores_Bool_Exp>;
+export type ScoresOnConflict = {
+  constraint: ScoresConstraint;
+  update_columns?: Array<ScoresUpdateColumn>;
+  where?: InputMaybe<ScoresBoolExp>;
 };
 
 /** Ordering options when selecting data from "scores". */
-export type Scores_Order_By = {
-  date?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  notes?: InputMaybe<Order_By>;
-  program?: InputMaybe<Order_By>;
-  section_notes?: InputMaybe<Order_By>;
+export type ScoresOrderBy = {
+  date?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  notes?: InputMaybe<OrderBy>;
+  program?: InputMaybe<OrderBy>;
+  section_notes?: InputMaybe<OrderBy>;
 };
 
 /** primary key columns input for table: scores */
-export type Scores_Pk_Columns_Input = {
+export type ScoresPkColumnsInput = {
   id: Scalars['bigint']['input'];
 };
 
 /** select columns of table "scores" */
-export enum Scores_Select_Column {
+export enum ScoresSelectColumn {
   /** column name */
-  Date = 'date',
+  DATE = 'date',
   /** column name */
-  Id = 'id',
+  ID = 'id',
   /** column name */
-  Notes = 'notes',
+  NOTES = 'notes',
   /** column name */
-  Program = 'program',
+  PROGRAM = 'program',
   /** column name */
-  SectionNotes = 'section_notes'
+  SECTION_NOTES = 'section_notes'
 }
 
 /** input type for updating data in table "scores" */
-export type Scores_Set_Input = {
+export type ScoresSetInput = {
   date?: InputMaybe<Scalars['date']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
   notes?: InputMaybe<Scalars['String']['input']>;
@@ -2872,33 +2872,33 @@ export type Scores_Set_Input = {
 };
 
 /** aggregate stddev on columns */
-export type Scores_Stddev_Fields = {
+export type ScoresStddevFields = {
   __typename?: 'scores_stddev_fields';
-  id?: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
 };
 
 /** aggregate stddev_pop on columns */
-export type Scores_Stddev_Pop_Fields = {
+export type ScoresStddevPopFields = {
   __typename?: 'scores_stddev_pop_fields';
-  id?: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
 };
 
 /** aggregate stddev_samp on columns */
-export type Scores_Stddev_Samp_Fields = {
+export type ScoresStddevSampFields = {
   __typename?: 'scores_stddev_samp_fields';
-  id?: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
 };
 
 /** Streaming cursor of the table "scores" */
-export type Scores_Stream_Cursor_Input = {
+export type ScoresStreamCursorInput = {
   /** Stream column input with initial value */
-  initial_value: Scores_Stream_Cursor_Value_Input;
+  initial_value: ScoresStreamCursorValueInput;
   /** cursor ordering */
-  ordering?: InputMaybe<Cursor_Ordering>;
+  ordering?: InputMaybe<CursorOrdering>;
 };
 
 /** Initial value of the column from where the streaming should start */
-export type Scores_Stream_Cursor_Value_Input = {
+export type ScoresStreamCursorValueInput = {
   date?: InputMaybe<Scalars['date']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
   notes?: InputMaybe<Scalars['String']['input']>;
@@ -2907,476 +2907,476 @@ export type Scores_Stream_Cursor_Value_Input = {
 };
 
 /** aggregate sum on columns */
-export type Scores_Sum_Fields = {
+export type ScoresSumFields = {
   __typename?: 'scores_sum_fields';
-  id?: Maybe<Scalars['bigint']['output']>;
+  id: Maybe<Scalars['bigint']['output']>;
 };
 
 /** update columns of table "scores" */
-export enum Scores_Update_Column {
+export enum ScoresUpdateColumn {
   /** column name */
-  Date = 'date',
+  DATE = 'date',
   /** column name */
-  Id = 'id',
+  ID = 'id',
   /** column name */
-  Notes = 'notes',
+  NOTES = 'notes',
   /** column name */
-  Program = 'program',
+  PROGRAM = 'program',
   /** column name */
-  SectionNotes = 'section_notes'
+  SECTION_NOTES = 'section_notes'
 }
 
-export type Scores_Updates = {
+export type ScoresUpdates = {
   /** increments the numeric columns with given value of the filtered values */
-  _inc?: InputMaybe<Scores_Inc_Input>;
+  _inc?: InputMaybe<ScoresIncInput>;
   /** sets the columns of the filtered rows to the given values */
-  _set?: InputMaybe<Scores_Set_Input>;
+  _set?: InputMaybe<ScoresSetInput>;
   /** filter the rows which have to be updated */
-  where: Scores_Bool_Exp;
+  where: ScoresBoolExp;
 };
 
 /** aggregate var_pop on columns */
-export type Scores_Var_Pop_Fields = {
+export type ScoresVarPopFields = {
   __typename?: 'scores_var_pop_fields';
-  id?: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
 };
 
 /** aggregate var_samp on columns */
-export type Scores_Var_Samp_Fields = {
+export type ScoresVarSampFields = {
   __typename?: 'scores_var_samp_fields';
-  id?: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
 };
 
 /** aggregate variance on columns */
-export type Scores_Variance_Fields = {
+export type ScoresVarianceFields = {
   __typename?: 'scores_variance_fields';
-  id?: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
 };
 
-export type Subscription_Root = {
+export type SubscriptionRoot = {
   __typename?: 'subscription_root';
   /** An array relationship */
   cycles: Array<Cycles>;
   /** An aggregate relationship */
-  cycles_aggregate: Cycles_Aggregate;
+  cycles_aggregate: CyclesAggregate;
   /** fetch data from the table: "cycles" using primary key columns */
-  cycles_by_pk?: Maybe<Cycles>;
+  cycles_by_pk: Maybe<Cycles>;
   /** fetch data from the table in a streaming manner: "cycles" */
   cycles_stream: Array<Cycles>;
   /** An array relationship */
-  exercise_details: Array<Exercise_Details>;
+  exercise_details: Array<ExerciseDetails>;
   /** An aggregate relationship */
-  exercise_details_aggregate: Exercise_Details_Aggregate;
+  exercise_details_aggregate: ExerciseDetailsAggregate;
   /** fetch data from the table: "exercise_details" using primary key columns */
-  exercise_details_by_pk?: Maybe<Exercise_Details>;
+  exercise_details_by_pk: Maybe<ExerciseDetails>;
   /** fetch data from the table in a streaming manner: "exercise_details" */
-  exercise_details_stream: Array<Exercise_Details>;
+  exercise_details_stream: Array<ExerciseDetails>;
   /** fetch data from the table: "exercises" */
   exercises: Array<Exercises>;
   /** fetch aggregated fields from the table: "exercises" */
-  exercises_aggregate: Exercises_Aggregate;
+  exercises_aggregate: ExercisesAggregate;
   /** fetch data from the table: "exercises" using primary key columns */
-  exercises_by_pk?: Maybe<Exercises>;
+  exercises_by_pk: Maybe<Exercises>;
   /** fetch data from the table in a streaming manner: "exercises" */
   exercises_stream: Array<Exercises>;
   /** fetch data from the table: "programs" */
   programs: Array<Programs>;
   /** fetch aggregated fields from the table: "programs" */
-  programs_aggregate: Programs_Aggregate;
+  programs_aggregate: ProgramsAggregate;
   /** fetch data from the table: "programs" using primary key columns */
-  programs_by_pk?: Maybe<Programs>;
+  programs_by_pk: Maybe<Programs>;
   /** fetch data from the table in a streaming manner: "programs" */
   programs_stream: Array<Programs>;
   /** fetch data from the table: "scores" */
   scores: Array<Scores>;
   /** fetch aggregated fields from the table: "scores" */
-  scores_aggregate: Scores_Aggregate;
+  scores_aggregate: ScoresAggregate;
   /** fetch data from the table: "scores" using primary key columns */
-  scores_by_pk?: Maybe<Scores>;
+  scores_by_pk: Maybe<Scores>;
   /** fetch data from the table in a streaming manner: "scores" */
   scores_stream: Array<Scores>;
   /** An array relationship */
-  user_cycles: Array<User_Cycles>;
+  user_cycles: Array<UserCycles>;
   /** An aggregate relationship */
-  user_cycles_aggregate: User_Cycles_Aggregate;
+  user_cycles_aggregate: UserCyclesAggregate;
   /** fetch data from the table: "user_cycles" using primary key columns */
-  user_cycles_by_pk?: Maybe<User_Cycles>;
+  user_cycles_by_pk: Maybe<UserCycles>;
   /** fetch data from the table in a streaming manner: "user_cycles" */
-  user_cycles_stream: Array<User_Cycles>;
+  user_cycles_stream: Array<UserCycles>;
   /** An array relationship */
-  user_workouts: Array<User_Workouts>;
+  user_workouts: Array<UserWorkouts>;
   /** An aggregate relationship */
-  user_workouts_aggregate: User_Workouts_Aggregate;
+  user_workouts_aggregate: UserWorkoutsAggregate;
   /** fetch data from the table: "user_workouts" using primary key columns */
-  user_workouts_by_pk?: Maybe<User_Workouts>;
+  user_workouts_by_pk: Maybe<UserWorkouts>;
   /** fetch data from the table in a streaming manner: "user_workouts" */
-  user_workouts_stream: Array<User_Workouts>;
+  user_workouts_stream: Array<UserWorkouts>;
   /** fetch data from the table: "users" */
   users: Array<Users>;
   /** fetch aggregated fields from the table: "users" */
-  users_aggregate: Users_Aggregate;
+  users_aggregate: UsersAggregate;
   /** fetch data from the table: "users" using primary key columns */
-  users_by_pk?: Maybe<Users>;
+  users_by_pk: Maybe<Users>;
   /** fetch data from the table in a streaming manner: "users" */
   users_stream: Array<Users>;
   /** fetch data from the table: "workout_item_scores" */
-  workout_item_scores: Array<Workout_Item_Scores>;
+  workout_item_scores: Array<WorkoutItemScores>;
   /** fetch aggregated fields from the table: "workout_item_scores" */
-  workout_item_scores_aggregate: Workout_Item_Scores_Aggregate;
+  workout_item_scores_aggregate: WorkoutItemScoresAggregate;
   /** fetch data from the table: "workout_item_scores" using primary key columns */
-  workout_item_scores_by_pk?: Maybe<Workout_Item_Scores>;
+  workout_item_scores_by_pk: Maybe<WorkoutItemScores>;
   /** fetch data from the table in a streaming manner: "workout_item_scores" */
-  workout_item_scores_stream: Array<Workout_Item_Scores>;
+  workout_item_scores_stream: Array<WorkoutItemScores>;
   /** An array relationship */
-  workout_items: Array<Workout_Items>;
+  workout_items: Array<WorkoutItems>;
   /** An aggregate relationship */
-  workout_items_aggregate: Workout_Items_Aggregate;
+  workout_items_aggregate: WorkoutItemsAggregate;
   /** fetch data from the table: "workout_items" using primary key columns */
-  workout_items_by_pk?: Maybe<Workout_Items>;
+  workout_items_by_pk: Maybe<WorkoutItems>;
   /** fetch data from the table in a streaming manner: "workout_items" */
-  workout_items_stream: Array<Workout_Items>;
+  workout_items_stream: Array<WorkoutItems>;
   /** An array relationship */
   workouts: Array<Workouts>;
   /** An aggregate relationship */
-  workouts_aggregate: Workouts_Aggregate;
+  workouts_aggregate: WorkoutsAggregate;
   /** fetch data from the table: "workouts" using primary key columns */
-  workouts_by_pk?: Maybe<Workouts>;
+  workouts_by_pk: Maybe<Workouts>;
   /** fetch data from the table in a streaming manner: "workouts" */
   workouts_stream: Array<Workouts>;
 };
 
 
-export type Subscription_RootCyclesArgs = {
-  distinct_on?: InputMaybe<Array<Cycles_Select_Column>>;
+export type SubscriptionRootCyclesArgs = {
+  distinct_on?: InputMaybe<Array<CyclesSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Cycles_Order_By>>;
-  where?: InputMaybe<Cycles_Bool_Exp>;
+  order_by?: InputMaybe<Array<CyclesOrderBy>>;
+  where?: InputMaybe<CyclesBoolExp>;
 };
 
 
-export type Subscription_RootCycles_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Cycles_Select_Column>>;
+export type SubscriptionRootCyclesAggregateArgs = {
+  distinct_on?: InputMaybe<Array<CyclesSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Cycles_Order_By>>;
-  where?: InputMaybe<Cycles_Bool_Exp>;
+  order_by?: InputMaybe<Array<CyclesOrderBy>>;
+  where?: InputMaybe<CyclesBoolExp>;
 };
 
 
-export type Subscription_RootCycles_By_PkArgs = {
+export type SubscriptionRootCyclesByPkArgs = {
   id: Scalars['bigint']['input'];
 };
 
 
-export type Subscription_RootCycles_StreamArgs = {
+export type SubscriptionRootCyclesStreamArgs = {
   batch_size: Scalars['Int']['input'];
-  cursor: Array<InputMaybe<Cycles_Stream_Cursor_Input>>;
-  where?: InputMaybe<Cycles_Bool_Exp>;
+  cursor: Array<InputMaybe<CyclesStreamCursorInput>>;
+  where?: InputMaybe<CyclesBoolExp>;
 };
 
 
-export type Subscription_RootExercise_DetailsArgs = {
-  distinct_on?: InputMaybe<Array<Exercise_Details_Select_Column>>;
+export type SubscriptionRootExerciseDetailsArgs = {
+  distinct_on?: InputMaybe<Array<ExerciseDetailsSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Exercise_Details_Order_By>>;
-  where?: InputMaybe<Exercise_Details_Bool_Exp>;
+  order_by?: InputMaybe<Array<ExerciseDetailsOrderBy>>;
+  where?: InputMaybe<ExerciseDetailsBoolExp>;
 };
 
 
-export type Subscription_RootExercise_Details_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Exercise_Details_Select_Column>>;
+export type SubscriptionRootExerciseDetailsAggregateArgs = {
+  distinct_on?: InputMaybe<Array<ExerciseDetailsSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Exercise_Details_Order_By>>;
-  where?: InputMaybe<Exercise_Details_Bool_Exp>;
+  order_by?: InputMaybe<Array<ExerciseDetailsOrderBy>>;
+  where?: InputMaybe<ExerciseDetailsBoolExp>;
 };
 
 
-export type Subscription_RootExercise_Details_By_PkArgs = {
+export type SubscriptionRootExerciseDetailsByPkArgs = {
   id: Scalars['bigint']['input'];
 };
 
 
-export type Subscription_RootExercise_Details_StreamArgs = {
+export type SubscriptionRootExerciseDetailsStreamArgs = {
   batch_size: Scalars['Int']['input'];
-  cursor: Array<InputMaybe<Exercise_Details_Stream_Cursor_Input>>;
-  where?: InputMaybe<Exercise_Details_Bool_Exp>;
+  cursor: Array<InputMaybe<ExerciseDetailsStreamCursorInput>>;
+  where?: InputMaybe<ExerciseDetailsBoolExp>;
 };
 
 
-export type Subscription_RootExercisesArgs = {
-  distinct_on?: InputMaybe<Array<Exercises_Select_Column>>;
+export type SubscriptionRootExercisesArgs = {
+  distinct_on?: InputMaybe<Array<ExercisesSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Exercises_Order_By>>;
-  where?: InputMaybe<Exercises_Bool_Exp>;
+  order_by?: InputMaybe<Array<ExercisesOrderBy>>;
+  where?: InputMaybe<ExercisesBoolExp>;
 };
 
 
-export type Subscription_RootExercises_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Exercises_Select_Column>>;
+export type SubscriptionRootExercisesAggregateArgs = {
+  distinct_on?: InputMaybe<Array<ExercisesSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Exercises_Order_By>>;
-  where?: InputMaybe<Exercises_Bool_Exp>;
+  order_by?: InputMaybe<Array<ExercisesOrderBy>>;
+  where?: InputMaybe<ExercisesBoolExp>;
 };
 
 
-export type Subscription_RootExercises_By_PkArgs = {
+export type SubscriptionRootExercisesByPkArgs = {
   id: Scalars['bigint']['input'];
 };
 
 
-export type Subscription_RootExercises_StreamArgs = {
+export type SubscriptionRootExercisesStreamArgs = {
   batch_size: Scalars['Int']['input'];
-  cursor: Array<InputMaybe<Exercises_Stream_Cursor_Input>>;
-  where?: InputMaybe<Exercises_Bool_Exp>;
+  cursor: Array<InputMaybe<ExercisesStreamCursorInput>>;
+  where?: InputMaybe<ExercisesBoolExp>;
 };
 
 
-export type Subscription_RootProgramsArgs = {
-  distinct_on?: InputMaybe<Array<Programs_Select_Column>>;
+export type SubscriptionRootProgramsArgs = {
+  distinct_on?: InputMaybe<Array<ProgramsSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Programs_Order_By>>;
-  where?: InputMaybe<Programs_Bool_Exp>;
+  order_by?: InputMaybe<Array<ProgramsOrderBy>>;
+  where?: InputMaybe<ProgramsBoolExp>;
 };
 
 
-export type Subscription_RootPrograms_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Programs_Select_Column>>;
+export type SubscriptionRootProgramsAggregateArgs = {
+  distinct_on?: InputMaybe<Array<ProgramsSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Programs_Order_By>>;
-  where?: InputMaybe<Programs_Bool_Exp>;
+  order_by?: InputMaybe<Array<ProgramsOrderBy>>;
+  where?: InputMaybe<ProgramsBoolExp>;
 };
 
 
-export type Subscription_RootPrograms_By_PkArgs = {
+export type SubscriptionRootProgramsByPkArgs = {
   id: Scalars['bigint']['input'];
 };
 
 
-export type Subscription_RootPrograms_StreamArgs = {
+export type SubscriptionRootProgramsStreamArgs = {
   batch_size: Scalars['Int']['input'];
-  cursor: Array<InputMaybe<Programs_Stream_Cursor_Input>>;
-  where?: InputMaybe<Programs_Bool_Exp>;
+  cursor: Array<InputMaybe<ProgramsStreamCursorInput>>;
+  where?: InputMaybe<ProgramsBoolExp>;
 };
 
 
-export type Subscription_RootScoresArgs = {
-  distinct_on?: InputMaybe<Array<Scores_Select_Column>>;
+export type SubscriptionRootScoresArgs = {
+  distinct_on?: InputMaybe<Array<ScoresSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Scores_Order_By>>;
-  where?: InputMaybe<Scores_Bool_Exp>;
+  order_by?: InputMaybe<Array<ScoresOrderBy>>;
+  where?: InputMaybe<ScoresBoolExp>;
 };
 
 
-export type Subscription_RootScores_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Scores_Select_Column>>;
+export type SubscriptionRootScoresAggregateArgs = {
+  distinct_on?: InputMaybe<Array<ScoresSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Scores_Order_By>>;
-  where?: InputMaybe<Scores_Bool_Exp>;
+  order_by?: InputMaybe<Array<ScoresOrderBy>>;
+  where?: InputMaybe<ScoresBoolExp>;
 };
 
 
-export type Subscription_RootScores_By_PkArgs = {
+export type SubscriptionRootScoresByPkArgs = {
   id: Scalars['bigint']['input'];
 };
 
 
-export type Subscription_RootScores_StreamArgs = {
+export type SubscriptionRootScoresStreamArgs = {
   batch_size: Scalars['Int']['input'];
-  cursor: Array<InputMaybe<Scores_Stream_Cursor_Input>>;
-  where?: InputMaybe<Scores_Bool_Exp>;
+  cursor: Array<InputMaybe<ScoresStreamCursorInput>>;
+  where?: InputMaybe<ScoresBoolExp>;
 };
 
 
-export type Subscription_RootUser_CyclesArgs = {
-  distinct_on?: InputMaybe<Array<User_Cycles_Select_Column>>;
+export type SubscriptionRootUserCyclesArgs = {
+  distinct_on?: InputMaybe<Array<UserCyclesSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<User_Cycles_Order_By>>;
-  where?: InputMaybe<User_Cycles_Bool_Exp>;
+  order_by?: InputMaybe<Array<UserCyclesOrderBy>>;
+  where?: InputMaybe<UserCyclesBoolExp>;
 };
 
 
-export type Subscription_RootUser_Cycles_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<User_Cycles_Select_Column>>;
+export type SubscriptionRootUserCyclesAggregateArgs = {
+  distinct_on?: InputMaybe<Array<UserCyclesSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<User_Cycles_Order_By>>;
-  where?: InputMaybe<User_Cycles_Bool_Exp>;
+  order_by?: InputMaybe<Array<UserCyclesOrderBy>>;
+  where?: InputMaybe<UserCyclesBoolExp>;
 };
 
 
-export type Subscription_RootUser_Cycles_By_PkArgs = {
+export type SubscriptionRootUserCyclesByPkArgs = {
   id: Scalars['bigint']['input'];
 };
 
 
-export type Subscription_RootUser_Cycles_StreamArgs = {
+export type SubscriptionRootUserCyclesStreamArgs = {
   batch_size: Scalars['Int']['input'];
-  cursor: Array<InputMaybe<User_Cycles_Stream_Cursor_Input>>;
-  where?: InputMaybe<User_Cycles_Bool_Exp>;
+  cursor: Array<InputMaybe<UserCyclesStreamCursorInput>>;
+  where?: InputMaybe<UserCyclesBoolExp>;
 };
 
 
-export type Subscription_RootUser_WorkoutsArgs = {
-  distinct_on?: InputMaybe<Array<User_Workouts_Select_Column>>;
+export type SubscriptionRootUserWorkoutsArgs = {
+  distinct_on?: InputMaybe<Array<UserWorkoutsSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<User_Workouts_Order_By>>;
-  where?: InputMaybe<User_Workouts_Bool_Exp>;
+  order_by?: InputMaybe<Array<UserWorkoutsOrderBy>>;
+  where?: InputMaybe<UserWorkoutsBoolExp>;
 };
 
 
-export type Subscription_RootUser_Workouts_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<User_Workouts_Select_Column>>;
+export type SubscriptionRootUserWorkoutsAggregateArgs = {
+  distinct_on?: InputMaybe<Array<UserWorkoutsSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<User_Workouts_Order_By>>;
-  where?: InputMaybe<User_Workouts_Bool_Exp>;
+  order_by?: InputMaybe<Array<UserWorkoutsOrderBy>>;
+  where?: InputMaybe<UserWorkoutsBoolExp>;
 };
 
 
-export type Subscription_RootUser_Workouts_By_PkArgs = {
+export type SubscriptionRootUserWorkoutsByPkArgs = {
   id: Scalars['uuid']['input'];
 };
 
 
-export type Subscription_RootUser_Workouts_StreamArgs = {
+export type SubscriptionRootUserWorkoutsStreamArgs = {
   batch_size: Scalars['Int']['input'];
-  cursor: Array<InputMaybe<User_Workouts_Stream_Cursor_Input>>;
-  where?: InputMaybe<User_Workouts_Bool_Exp>;
+  cursor: Array<InputMaybe<UserWorkoutsStreamCursorInput>>;
+  where?: InputMaybe<UserWorkoutsBoolExp>;
 };
 
 
-export type Subscription_RootUsersArgs = {
-  distinct_on?: InputMaybe<Array<Users_Select_Column>>;
+export type SubscriptionRootUsersArgs = {
+  distinct_on?: InputMaybe<Array<UsersSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Users_Order_By>>;
-  where?: InputMaybe<Users_Bool_Exp>;
+  order_by?: InputMaybe<Array<UsersOrderBy>>;
+  where?: InputMaybe<UsersBoolExp>;
 };
 
 
-export type Subscription_RootUsers_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Users_Select_Column>>;
+export type SubscriptionRootUsersAggregateArgs = {
+  distinct_on?: InputMaybe<Array<UsersSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Users_Order_By>>;
-  where?: InputMaybe<Users_Bool_Exp>;
+  order_by?: InputMaybe<Array<UsersOrderBy>>;
+  where?: InputMaybe<UsersBoolExp>;
 };
 
 
-export type Subscription_RootUsers_By_PkArgs = {
+export type SubscriptionRootUsersByPkArgs = {
   id: Scalars['bigint']['input'];
 };
 
 
-export type Subscription_RootUsers_StreamArgs = {
+export type SubscriptionRootUsersStreamArgs = {
   batch_size: Scalars['Int']['input'];
-  cursor: Array<InputMaybe<Users_Stream_Cursor_Input>>;
-  where?: InputMaybe<Users_Bool_Exp>;
+  cursor: Array<InputMaybe<UsersStreamCursorInput>>;
+  where?: InputMaybe<UsersBoolExp>;
 };
 
 
-export type Subscription_RootWorkout_Item_ScoresArgs = {
-  distinct_on?: InputMaybe<Array<Workout_Item_Scores_Select_Column>>;
+export type SubscriptionRootWorkoutItemScoresArgs = {
+  distinct_on?: InputMaybe<Array<WorkoutItemScoresSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Workout_Item_Scores_Order_By>>;
-  where?: InputMaybe<Workout_Item_Scores_Bool_Exp>;
+  order_by?: InputMaybe<Array<WorkoutItemScoresOrderBy>>;
+  where?: InputMaybe<WorkoutItemScoresBoolExp>;
 };
 
 
-export type Subscription_RootWorkout_Item_Scores_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Workout_Item_Scores_Select_Column>>;
+export type SubscriptionRootWorkoutItemScoresAggregateArgs = {
+  distinct_on?: InputMaybe<Array<WorkoutItemScoresSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Workout_Item_Scores_Order_By>>;
-  where?: InputMaybe<Workout_Item_Scores_Bool_Exp>;
+  order_by?: InputMaybe<Array<WorkoutItemScoresOrderBy>>;
+  where?: InputMaybe<WorkoutItemScoresBoolExp>;
 };
 
 
-export type Subscription_RootWorkout_Item_Scores_By_PkArgs = {
+export type SubscriptionRootWorkoutItemScoresByPkArgs = {
   id: Scalars['bigint']['input'];
 };
 
 
-export type Subscription_RootWorkout_Item_Scores_StreamArgs = {
+export type SubscriptionRootWorkoutItemScoresStreamArgs = {
   batch_size: Scalars['Int']['input'];
-  cursor: Array<InputMaybe<Workout_Item_Scores_Stream_Cursor_Input>>;
-  where?: InputMaybe<Workout_Item_Scores_Bool_Exp>;
+  cursor: Array<InputMaybe<WorkoutItemScoresStreamCursorInput>>;
+  where?: InputMaybe<WorkoutItemScoresBoolExp>;
 };
 
 
-export type Subscription_RootWorkout_ItemsArgs = {
-  distinct_on?: InputMaybe<Array<Workout_Items_Select_Column>>;
+export type SubscriptionRootWorkoutItemsArgs = {
+  distinct_on?: InputMaybe<Array<WorkoutItemsSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Workout_Items_Order_By>>;
-  where?: InputMaybe<Workout_Items_Bool_Exp>;
+  order_by?: InputMaybe<Array<WorkoutItemsOrderBy>>;
+  where?: InputMaybe<WorkoutItemsBoolExp>;
 };
 
 
-export type Subscription_RootWorkout_Items_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Workout_Items_Select_Column>>;
+export type SubscriptionRootWorkoutItemsAggregateArgs = {
+  distinct_on?: InputMaybe<Array<WorkoutItemsSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Workout_Items_Order_By>>;
-  where?: InputMaybe<Workout_Items_Bool_Exp>;
+  order_by?: InputMaybe<Array<WorkoutItemsOrderBy>>;
+  where?: InputMaybe<WorkoutItemsBoolExp>;
 };
 
 
-export type Subscription_RootWorkout_Items_By_PkArgs = {
+export type SubscriptionRootWorkoutItemsByPkArgs = {
   id: Scalars['bigint']['input'];
 };
 
 
-export type Subscription_RootWorkout_Items_StreamArgs = {
+export type SubscriptionRootWorkoutItemsStreamArgs = {
   batch_size: Scalars['Int']['input'];
-  cursor: Array<InputMaybe<Workout_Items_Stream_Cursor_Input>>;
-  where?: InputMaybe<Workout_Items_Bool_Exp>;
+  cursor: Array<InputMaybe<WorkoutItemsStreamCursorInput>>;
+  where?: InputMaybe<WorkoutItemsBoolExp>;
 };
 
 
-export type Subscription_RootWorkoutsArgs = {
-  distinct_on?: InputMaybe<Array<Workouts_Select_Column>>;
+export type SubscriptionRootWorkoutsArgs = {
+  distinct_on?: InputMaybe<Array<WorkoutsSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Workouts_Order_By>>;
-  where?: InputMaybe<Workouts_Bool_Exp>;
+  order_by?: InputMaybe<Array<WorkoutsOrderBy>>;
+  where?: InputMaybe<WorkoutsBoolExp>;
 };
 
 
-export type Subscription_RootWorkouts_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Workouts_Select_Column>>;
+export type SubscriptionRootWorkoutsAggregateArgs = {
+  distinct_on?: InputMaybe<Array<WorkoutsSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Workouts_Order_By>>;
-  where?: InputMaybe<Workouts_Bool_Exp>;
+  order_by?: InputMaybe<Array<WorkoutsOrderBy>>;
+  where?: InputMaybe<WorkoutsBoolExp>;
 };
 
 
-export type Subscription_RootWorkouts_By_PkArgs = {
+export type SubscriptionRootWorkoutsByPkArgs = {
   id: Scalars['bigint']['input'];
 };
 
 
-export type Subscription_RootWorkouts_StreamArgs = {
+export type SubscriptionRootWorkoutsStreamArgs = {
   batch_size: Scalars['Int']['input'];
-  cursor: Array<InputMaybe<Workouts_Stream_Cursor_Input>>;
-  where?: InputMaybe<Workouts_Bool_Exp>;
+  cursor: Array<InputMaybe<WorkoutsStreamCursorInput>>;
+  where?: InputMaybe<WorkoutsBoolExp>;
 };
 
 /** Boolean expression to compare columns of type "timestamp". All fields are combined with logical 'AND'. */
-export type Timestamp_Comparison_Exp = {
+export type TimestampComparisonExp = {
   _eq?: InputMaybe<Scalars['timestamp']['input']>;
   _gt?: InputMaybe<Scalars['timestamp']['input']>;
   _gte?: InputMaybe<Scalars['timestamp']['input']>;
@@ -3389,7 +3389,7 @@ export type Timestamp_Comparison_Exp = {
 };
 
 /** Boolean expression to compare columns of type "timestamptz". All fields are combined with logical 'AND'. */
-export type Timestamptz_Comparison_Exp = {
+export type TimestamptzComparisonExp = {
   _eq?: InputMaybe<Scalars['timestamptz']['input']>;
   _gt?: InputMaybe<Scalars['timestamptz']['input']>;
   _gte?: InputMaybe<Scalars['timestamptz']['input']>;
@@ -3402,17 +3402,18 @@ export type Timestamptz_Comparison_Exp = {
 };
 
 /** columns and relationships of "user_cycles" */
-export type User_Cycles = {
+export type UserCycles = {
   __typename?: 'user_cycles';
   completed: Scalars['Boolean']['output'];
-  created_at?: Maybe<Scalars['timestamp']['output']>;
+  created_at: Scalars['timestamp']['output'];
   current_workout: Scalars['Int']['output'];
   /** An object relationship */
   cycle: Cycles;
   cycle_id: Scalars['bigint']['output'];
+  end_date: Scalars['timestamp']['output'];
   id: Scalars['bigint']['output'];
-  start_date: Scalars['date']['output'];
-  updated_at?: Maybe<Scalars['timestamp']['output']>;
+  start_date: Scalars['timestamp']['output'];
+  updated_at: Scalars['timestamp']['output'];
   /** An object relationship */
   user: Users;
   user_id: Scalars['bigint']['output'];
@@ -3421,127 +3422,128 @@ export type User_Cycles = {
 };
 
 /** aggregated selection of "user_cycles" */
-export type User_Cycles_Aggregate = {
+export type UserCyclesAggregate = {
   __typename?: 'user_cycles_aggregate';
-  aggregate?: Maybe<User_Cycles_Aggregate_Fields>;
-  nodes: Array<User_Cycles>;
+  aggregate: Maybe<UserCyclesAggregateFields>;
+  nodes: Array<UserCycles>;
 };
 
-export type User_Cycles_Aggregate_Bool_Exp = {
-  bool_and?: InputMaybe<User_Cycles_Aggregate_Bool_Exp_Bool_And>;
-  bool_or?: InputMaybe<User_Cycles_Aggregate_Bool_Exp_Bool_Or>;
-  count?: InputMaybe<User_Cycles_Aggregate_Bool_Exp_Count>;
+export type UserCyclesAggregateBoolExp = {
+  bool_and?: InputMaybe<UserCyclesAggregateBoolExpBoolAnd>;
+  bool_or?: InputMaybe<UserCyclesAggregateBoolExpBoolOr>;
+  count?: InputMaybe<UserCyclesAggregateBoolExpCount>;
 };
 
-export type User_Cycles_Aggregate_Bool_Exp_Bool_And = {
-  arguments: User_Cycles_Select_Column_User_Cycles_Aggregate_Bool_Exp_Bool_And_Arguments_Columns;
+export type UserCyclesAggregateBoolExpBoolAnd = {
+  arguments: UserCyclesSelectColumnUserCyclesAggregateBoolExpBoolAndArgumentsColumns;
   distinct?: InputMaybe<Scalars['Boolean']['input']>;
-  filter?: InputMaybe<User_Cycles_Bool_Exp>;
-  predicate: Boolean_Comparison_Exp;
+  filter?: InputMaybe<UserCyclesBoolExp>;
+  predicate: BooleanComparisonExp;
 };
 
-export type User_Cycles_Aggregate_Bool_Exp_Bool_Or = {
-  arguments: User_Cycles_Select_Column_User_Cycles_Aggregate_Bool_Exp_Bool_Or_Arguments_Columns;
+export type UserCyclesAggregateBoolExpBoolOr = {
+  arguments: UserCyclesSelectColumnUserCyclesAggregateBoolExpBoolOrArgumentsColumns;
   distinct?: InputMaybe<Scalars['Boolean']['input']>;
-  filter?: InputMaybe<User_Cycles_Bool_Exp>;
-  predicate: Boolean_Comparison_Exp;
+  filter?: InputMaybe<UserCyclesBoolExp>;
+  predicate: BooleanComparisonExp;
 };
 
-export type User_Cycles_Aggregate_Bool_Exp_Count = {
-  arguments?: InputMaybe<Array<User_Cycles_Select_Column>>;
+export type UserCyclesAggregateBoolExpCount = {
+  arguments?: InputMaybe<Array<UserCyclesSelectColumn>>;
   distinct?: InputMaybe<Scalars['Boolean']['input']>;
-  filter?: InputMaybe<User_Cycles_Bool_Exp>;
-  predicate: Int_Comparison_Exp;
+  filter?: InputMaybe<UserCyclesBoolExp>;
+  predicate: IntComparisonExp;
 };
 
 /** aggregate fields of "user_cycles" */
-export type User_Cycles_Aggregate_Fields = {
+export type UserCyclesAggregateFields = {
   __typename?: 'user_cycles_aggregate_fields';
-  avg?: Maybe<User_Cycles_Avg_Fields>;
+  avg: Maybe<UserCyclesAvgFields>;
   count: Scalars['Int']['output'];
-  max?: Maybe<User_Cycles_Max_Fields>;
-  min?: Maybe<User_Cycles_Min_Fields>;
-  stddev?: Maybe<User_Cycles_Stddev_Fields>;
-  stddev_pop?: Maybe<User_Cycles_Stddev_Pop_Fields>;
-  stddev_samp?: Maybe<User_Cycles_Stddev_Samp_Fields>;
-  sum?: Maybe<User_Cycles_Sum_Fields>;
-  var_pop?: Maybe<User_Cycles_Var_Pop_Fields>;
-  var_samp?: Maybe<User_Cycles_Var_Samp_Fields>;
-  variance?: Maybe<User_Cycles_Variance_Fields>;
+  max: Maybe<UserCyclesMaxFields>;
+  min: Maybe<UserCyclesMinFields>;
+  stddev: Maybe<UserCyclesStddevFields>;
+  stddev_pop: Maybe<UserCyclesStddevPopFields>;
+  stddev_samp: Maybe<UserCyclesStddevSampFields>;
+  sum: Maybe<UserCyclesSumFields>;
+  var_pop: Maybe<UserCyclesVarPopFields>;
+  var_samp: Maybe<UserCyclesVarSampFields>;
+  variance: Maybe<UserCyclesVarianceFields>;
 };
 
 
 /** aggregate fields of "user_cycles" */
-export type User_Cycles_Aggregate_FieldsCountArgs = {
-  columns?: InputMaybe<Array<User_Cycles_Select_Column>>;
+export type UserCyclesAggregateFieldsCountArgs = {
+  columns?: InputMaybe<Array<UserCyclesSelectColumn>>;
   distinct?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 /** order by aggregate values of table "user_cycles" */
-export type User_Cycles_Aggregate_Order_By = {
-  avg?: InputMaybe<User_Cycles_Avg_Order_By>;
-  count?: InputMaybe<Order_By>;
-  max?: InputMaybe<User_Cycles_Max_Order_By>;
-  min?: InputMaybe<User_Cycles_Min_Order_By>;
-  stddev?: InputMaybe<User_Cycles_Stddev_Order_By>;
-  stddev_pop?: InputMaybe<User_Cycles_Stddev_Pop_Order_By>;
-  stddev_samp?: InputMaybe<User_Cycles_Stddev_Samp_Order_By>;
-  sum?: InputMaybe<User_Cycles_Sum_Order_By>;
-  var_pop?: InputMaybe<User_Cycles_Var_Pop_Order_By>;
-  var_samp?: InputMaybe<User_Cycles_Var_Samp_Order_By>;
-  variance?: InputMaybe<User_Cycles_Variance_Order_By>;
+export type UserCyclesAggregateOrderBy = {
+  avg?: InputMaybe<UserCyclesAvgOrderBy>;
+  count?: InputMaybe<OrderBy>;
+  max?: InputMaybe<UserCyclesMaxOrderBy>;
+  min?: InputMaybe<UserCyclesMinOrderBy>;
+  stddev?: InputMaybe<UserCyclesStddevOrderBy>;
+  stddev_pop?: InputMaybe<UserCyclesStddevPopOrderBy>;
+  stddev_samp?: InputMaybe<UserCyclesStddevSampOrderBy>;
+  sum?: InputMaybe<UserCyclesSumOrderBy>;
+  var_pop?: InputMaybe<UserCyclesVarPopOrderBy>;
+  var_samp?: InputMaybe<UserCyclesVarSampOrderBy>;
+  variance?: InputMaybe<UserCyclesVarianceOrderBy>;
 };
 
 /** input type for inserting array relation for remote table "user_cycles" */
-export type User_Cycles_Arr_Rel_Insert_Input = {
-  data: Array<User_Cycles_Insert_Input>;
+export type UserCyclesArrRelInsertInput = {
+  data: Array<UserCyclesInsertInput>;
   /** upsert condition */
-  on_conflict?: InputMaybe<User_Cycles_On_Conflict>;
+  on_conflict?: InputMaybe<UserCyclesOnConflict>;
 };
 
 /** aggregate avg on columns */
-export type User_Cycles_Avg_Fields = {
+export type UserCyclesAvgFields = {
   __typename?: 'user_cycles_avg_fields';
-  current_workout?: Maybe<Scalars['Float']['output']>;
-  cycle_id?: Maybe<Scalars['Float']['output']>;
-  id?: Maybe<Scalars['Float']['output']>;
-  user_id?: Maybe<Scalars['Float']['output']>;
+  current_workout: Maybe<Scalars['Float']['output']>;
+  cycle_id: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
+  user_id: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by avg() on columns of table "user_cycles" */
-export type User_Cycles_Avg_Order_By = {
-  current_workout?: InputMaybe<Order_By>;
-  cycle_id?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  user_id?: InputMaybe<Order_By>;
+export type UserCyclesAvgOrderBy = {
+  current_workout?: InputMaybe<OrderBy>;
+  cycle_id?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  user_id?: InputMaybe<OrderBy>;
 };
 
 /** Boolean expression to filter rows from the table "user_cycles". All fields are combined with a logical 'AND'. */
-export type User_Cycles_Bool_Exp = {
-  _and?: InputMaybe<Array<User_Cycles_Bool_Exp>>;
-  _not?: InputMaybe<User_Cycles_Bool_Exp>;
-  _or?: InputMaybe<Array<User_Cycles_Bool_Exp>>;
-  completed?: InputMaybe<Boolean_Comparison_Exp>;
-  created_at?: InputMaybe<Timestamp_Comparison_Exp>;
-  current_workout?: InputMaybe<Int_Comparison_Exp>;
-  cycle?: InputMaybe<Cycles_Bool_Exp>;
-  cycle_id?: InputMaybe<Bigint_Comparison_Exp>;
-  id?: InputMaybe<Bigint_Comparison_Exp>;
-  start_date?: InputMaybe<Date_Comparison_Exp>;
-  updated_at?: InputMaybe<Timestamp_Comparison_Exp>;
-  user?: InputMaybe<Users_Bool_Exp>;
-  user_id?: InputMaybe<Bigint_Comparison_Exp>;
-  workout?: InputMaybe<Workouts_Bool_Exp>;
+export type UserCyclesBoolExp = {
+  _and?: InputMaybe<Array<UserCyclesBoolExp>>;
+  _not?: InputMaybe<UserCyclesBoolExp>;
+  _or?: InputMaybe<Array<UserCyclesBoolExp>>;
+  completed?: InputMaybe<BooleanComparisonExp>;
+  created_at?: InputMaybe<TimestampComparisonExp>;
+  current_workout?: InputMaybe<IntComparisonExp>;
+  cycle?: InputMaybe<CyclesBoolExp>;
+  cycle_id?: InputMaybe<BigintComparisonExp>;
+  end_date?: InputMaybe<TimestampComparisonExp>;
+  id?: InputMaybe<BigintComparisonExp>;
+  start_date?: InputMaybe<TimestampComparisonExp>;
+  updated_at?: InputMaybe<TimestampComparisonExp>;
+  user?: InputMaybe<UsersBoolExp>;
+  user_id?: InputMaybe<BigintComparisonExp>;
+  workout?: InputMaybe<WorkoutsBoolExp>;
 };
 
 /** unique or primary key constraints on table "user_cycles" */
-export enum User_Cycles_Constraint {
+export enum UserCyclesConstraint {
   /** unique or primary key constraint on columns "id" */
-  UserCyclesPkey = 'user_cycles_pkey'
+  USER_CYCLES_PKEY = 'user_cycles_pkey'
 }
 
 /** input type for incrementing numeric columns in table "user_cycles" */
-export type User_Cycles_Inc_Input = {
+export type UserCyclesIncInput = {
   current_workout?: InputMaybe<Scalars['Int']['input']>;
   cycle_id?: InputMaybe<Scalars['bigint']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
@@ -3549,316 +3551,328 @@ export type User_Cycles_Inc_Input = {
 };
 
 /** input type for inserting data into table "user_cycles" */
-export type User_Cycles_Insert_Input = {
+export type UserCyclesInsertInput = {
   completed?: InputMaybe<Scalars['Boolean']['input']>;
   created_at?: InputMaybe<Scalars['timestamp']['input']>;
   current_workout?: InputMaybe<Scalars['Int']['input']>;
-  cycle?: InputMaybe<Cycles_Obj_Rel_Insert_Input>;
+  cycle?: InputMaybe<CyclesObjRelInsertInput>;
   cycle_id?: InputMaybe<Scalars['bigint']['input']>;
+  end_date?: InputMaybe<Scalars['timestamp']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
-  start_date?: InputMaybe<Scalars['date']['input']>;
+  start_date?: InputMaybe<Scalars['timestamp']['input']>;
   updated_at?: InputMaybe<Scalars['timestamp']['input']>;
-  user?: InputMaybe<Users_Obj_Rel_Insert_Input>;
+  user?: InputMaybe<UsersObjRelInsertInput>;
   user_id?: InputMaybe<Scalars['bigint']['input']>;
-  workout?: InputMaybe<Workouts_Obj_Rel_Insert_Input>;
+  workout?: InputMaybe<WorkoutsObjRelInsertInput>;
 };
 
 /** aggregate max on columns */
-export type User_Cycles_Max_Fields = {
+export type UserCyclesMaxFields = {
   __typename?: 'user_cycles_max_fields';
-  created_at?: Maybe<Scalars['timestamp']['output']>;
-  current_workout?: Maybe<Scalars['Int']['output']>;
-  cycle_id?: Maybe<Scalars['bigint']['output']>;
-  id?: Maybe<Scalars['bigint']['output']>;
-  start_date?: Maybe<Scalars['date']['output']>;
-  updated_at?: Maybe<Scalars['timestamp']['output']>;
-  user_id?: Maybe<Scalars['bigint']['output']>;
+  created_at: Maybe<Scalars['timestamp']['output']>;
+  current_workout: Maybe<Scalars['Int']['output']>;
+  cycle_id: Maybe<Scalars['bigint']['output']>;
+  end_date: Maybe<Scalars['timestamp']['output']>;
+  id: Maybe<Scalars['bigint']['output']>;
+  start_date: Maybe<Scalars['timestamp']['output']>;
+  updated_at: Maybe<Scalars['timestamp']['output']>;
+  user_id: Maybe<Scalars['bigint']['output']>;
 };
 
 /** order by max() on columns of table "user_cycles" */
-export type User_Cycles_Max_Order_By = {
-  created_at?: InputMaybe<Order_By>;
-  current_workout?: InputMaybe<Order_By>;
-  cycle_id?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  start_date?: InputMaybe<Order_By>;
-  updated_at?: InputMaybe<Order_By>;
-  user_id?: InputMaybe<Order_By>;
+export type UserCyclesMaxOrderBy = {
+  created_at?: InputMaybe<OrderBy>;
+  current_workout?: InputMaybe<OrderBy>;
+  cycle_id?: InputMaybe<OrderBy>;
+  end_date?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  start_date?: InputMaybe<OrderBy>;
+  updated_at?: InputMaybe<OrderBy>;
+  user_id?: InputMaybe<OrderBy>;
 };
 
 /** aggregate min on columns */
-export type User_Cycles_Min_Fields = {
+export type UserCyclesMinFields = {
   __typename?: 'user_cycles_min_fields';
-  created_at?: Maybe<Scalars['timestamp']['output']>;
-  current_workout?: Maybe<Scalars['Int']['output']>;
-  cycle_id?: Maybe<Scalars['bigint']['output']>;
-  id?: Maybe<Scalars['bigint']['output']>;
-  start_date?: Maybe<Scalars['date']['output']>;
-  updated_at?: Maybe<Scalars['timestamp']['output']>;
-  user_id?: Maybe<Scalars['bigint']['output']>;
+  created_at: Maybe<Scalars['timestamp']['output']>;
+  current_workout: Maybe<Scalars['Int']['output']>;
+  cycle_id: Maybe<Scalars['bigint']['output']>;
+  end_date: Maybe<Scalars['timestamp']['output']>;
+  id: Maybe<Scalars['bigint']['output']>;
+  start_date: Maybe<Scalars['timestamp']['output']>;
+  updated_at: Maybe<Scalars['timestamp']['output']>;
+  user_id: Maybe<Scalars['bigint']['output']>;
 };
 
 /** order by min() on columns of table "user_cycles" */
-export type User_Cycles_Min_Order_By = {
-  created_at?: InputMaybe<Order_By>;
-  current_workout?: InputMaybe<Order_By>;
-  cycle_id?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  start_date?: InputMaybe<Order_By>;
-  updated_at?: InputMaybe<Order_By>;
-  user_id?: InputMaybe<Order_By>;
+export type UserCyclesMinOrderBy = {
+  created_at?: InputMaybe<OrderBy>;
+  current_workout?: InputMaybe<OrderBy>;
+  cycle_id?: InputMaybe<OrderBy>;
+  end_date?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  start_date?: InputMaybe<OrderBy>;
+  updated_at?: InputMaybe<OrderBy>;
+  user_id?: InputMaybe<OrderBy>;
 };
 
 /** response of any mutation on the table "user_cycles" */
-export type User_Cycles_Mutation_Response = {
+export type UserCyclesMutationResponse = {
   __typename?: 'user_cycles_mutation_response';
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int']['output'];
   /** data from the rows affected by the mutation */
-  returning: Array<User_Cycles>;
+  returning: Array<UserCycles>;
 };
 
 /** on_conflict condition type for table "user_cycles" */
-export type User_Cycles_On_Conflict = {
-  constraint: User_Cycles_Constraint;
-  update_columns?: Array<User_Cycles_Update_Column>;
-  where?: InputMaybe<User_Cycles_Bool_Exp>;
+export type UserCyclesOnConflict = {
+  constraint: UserCyclesConstraint;
+  update_columns?: Array<UserCyclesUpdateColumn>;
+  where?: InputMaybe<UserCyclesBoolExp>;
 };
 
 /** Ordering options when selecting data from "user_cycles". */
-export type User_Cycles_Order_By = {
-  completed?: InputMaybe<Order_By>;
-  created_at?: InputMaybe<Order_By>;
-  current_workout?: InputMaybe<Order_By>;
-  cycle?: InputMaybe<Cycles_Order_By>;
-  cycle_id?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  start_date?: InputMaybe<Order_By>;
-  updated_at?: InputMaybe<Order_By>;
-  user?: InputMaybe<Users_Order_By>;
-  user_id?: InputMaybe<Order_By>;
-  workout?: InputMaybe<Workouts_Order_By>;
+export type UserCyclesOrderBy = {
+  completed?: InputMaybe<OrderBy>;
+  created_at?: InputMaybe<OrderBy>;
+  current_workout?: InputMaybe<OrderBy>;
+  cycle?: InputMaybe<CyclesOrderBy>;
+  cycle_id?: InputMaybe<OrderBy>;
+  end_date?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  start_date?: InputMaybe<OrderBy>;
+  updated_at?: InputMaybe<OrderBy>;
+  user?: InputMaybe<UsersOrderBy>;
+  user_id?: InputMaybe<OrderBy>;
+  workout?: InputMaybe<WorkoutsOrderBy>;
 };
 
 /** primary key columns input for table: user_cycles */
-export type User_Cycles_Pk_Columns_Input = {
+export type UserCyclesPkColumnsInput = {
   id: Scalars['bigint']['input'];
 };
 
 /** select columns of table "user_cycles" */
-export enum User_Cycles_Select_Column {
+export enum UserCyclesSelectColumn {
   /** column name */
-  Completed = 'completed',
+  COMPLETED = 'completed',
   /** column name */
-  CreatedAt = 'created_at',
+  CREATED_AT = 'created_at',
   /** column name */
-  CurrentWorkout = 'current_workout',
+  CURRENT_WORKOUT = 'current_workout',
   /** column name */
-  CycleId = 'cycle_id',
+  CYCLE_ID = 'cycle_id',
   /** column name */
-  Id = 'id',
+  END_DATE = 'end_date',
   /** column name */
-  StartDate = 'start_date',
+  ID = 'id',
   /** column name */
-  UpdatedAt = 'updated_at',
+  START_DATE = 'start_date',
   /** column name */
-  UserId = 'user_id'
+  UPDATED_AT = 'updated_at',
+  /** column name */
+  USER_ID = 'user_id'
 }
 
 /** select "user_cycles_aggregate_bool_exp_bool_and_arguments_columns" columns of table "user_cycles" */
-export enum User_Cycles_Select_Column_User_Cycles_Aggregate_Bool_Exp_Bool_And_Arguments_Columns {
+export enum UserCyclesSelectColumnUserCyclesAggregateBoolExpBoolAndArgumentsColumns {
   /** column name */
-  Completed = 'completed'
+  COMPLETED = 'completed'
 }
 
 /** select "user_cycles_aggregate_bool_exp_bool_or_arguments_columns" columns of table "user_cycles" */
-export enum User_Cycles_Select_Column_User_Cycles_Aggregate_Bool_Exp_Bool_Or_Arguments_Columns {
+export enum UserCyclesSelectColumnUserCyclesAggregateBoolExpBoolOrArgumentsColumns {
   /** column name */
-  Completed = 'completed'
+  COMPLETED = 'completed'
 }
 
 /** input type for updating data in table "user_cycles" */
-export type User_Cycles_Set_Input = {
+export type UserCyclesSetInput = {
   completed?: InputMaybe<Scalars['Boolean']['input']>;
   created_at?: InputMaybe<Scalars['timestamp']['input']>;
   current_workout?: InputMaybe<Scalars['Int']['input']>;
   cycle_id?: InputMaybe<Scalars['bigint']['input']>;
+  end_date?: InputMaybe<Scalars['timestamp']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
-  start_date?: InputMaybe<Scalars['date']['input']>;
+  start_date?: InputMaybe<Scalars['timestamp']['input']>;
   updated_at?: InputMaybe<Scalars['timestamp']['input']>;
   user_id?: InputMaybe<Scalars['bigint']['input']>;
 };
 
 /** aggregate stddev on columns */
-export type User_Cycles_Stddev_Fields = {
+export type UserCyclesStddevFields = {
   __typename?: 'user_cycles_stddev_fields';
-  current_workout?: Maybe<Scalars['Float']['output']>;
-  cycle_id?: Maybe<Scalars['Float']['output']>;
-  id?: Maybe<Scalars['Float']['output']>;
-  user_id?: Maybe<Scalars['Float']['output']>;
+  current_workout: Maybe<Scalars['Float']['output']>;
+  cycle_id: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
+  user_id: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev() on columns of table "user_cycles" */
-export type User_Cycles_Stddev_Order_By = {
-  current_workout?: InputMaybe<Order_By>;
-  cycle_id?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  user_id?: InputMaybe<Order_By>;
+export type UserCyclesStddevOrderBy = {
+  current_workout?: InputMaybe<OrderBy>;
+  cycle_id?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  user_id?: InputMaybe<OrderBy>;
 };
 
 /** aggregate stddev_pop on columns */
-export type User_Cycles_Stddev_Pop_Fields = {
+export type UserCyclesStddevPopFields = {
   __typename?: 'user_cycles_stddev_pop_fields';
-  current_workout?: Maybe<Scalars['Float']['output']>;
-  cycle_id?: Maybe<Scalars['Float']['output']>;
-  id?: Maybe<Scalars['Float']['output']>;
-  user_id?: Maybe<Scalars['Float']['output']>;
+  current_workout: Maybe<Scalars['Float']['output']>;
+  cycle_id: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
+  user_id: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev_pop() on columns of table "user_cycles" */
-export type User_Cycles_Stddev_Pop_Order_By = {
-  current_workout?: InputMaybe<Order_By>;
-  cycle_id?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  user_id?: InputMaybe<Order_By>;
+export type UserCyclesStddevPopOrderBy = {
+  current_workout?: InputMaybe<OrderBy>;
+  cycle_id?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  user_id?: InputMaybe<OrderBy>;
 };
 
 /** aggregate stddev_samp on columns */
-export type User_Cycles_Stddev_Samp_Fields = {
+export type UserCyclesStddevSampFields = {
   __typename?: 'user_cycles_stddev_samp_fields';
-  current_workout?: Maybe<Scalars['Float']['output']>;
-  cycle_id?: Maybe<Scalars['Float']['output']>;
-  id?: Maybe<Scalars['Float']['output']>;
-  user_id?: Maybe<Scalars['Float']['output']>;
+  current_workout: Maybe<Scalars['Float']['output']>;
+  cycle_id: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
+  user_id: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev_samp() on columns of table "user_cycles" */
-export type User_Cycles_Stddev_Samp_Order_By = {
-  current_workout?: InputMaybe<Order_By>;
-  cycle_id?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  user_id?: InputMaybe<Order_By>;
+export type UserCyclesStddevSampOrderBy = {
+  current_workout?: InputMaybe<OrderBy>;
+  cycle_id?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  user_id?: InputMaybe<OrderBy>;
 };
 
 /** Streaming cursor of the table "user_cycles" */
-export type User_Cycles_Stream_Cursor_Input = {
+export type UserCyclesStreamCursorInput = {
   /** Stream column input with initial value */
-  initial_value: User_Cycles_Stream_Cursor_Value_Input;
+  initial_value: UserCyclesStreamCursorValueInput;
   /** cursor ordering */
-  ordering?: InputMaybe<Cursor_Ordering>;
+  ordering?: InputMaybe<CursorOrdering>;
 };
 
 /** Initial value of the column from where the streaming should start */
-export type User_Cycles_Stream_Cursor_Value_Input = {
+export type UserCyclesStreamCursorValueInput = {
   completed?: InputMaybe<Scalars['Boolean']['input']>;
   created_at?: InputMaybe<Scalars['timestamp']['input']>;
   current_workout?: InputMaybe<Scalars['Int']['input']>;
   cycle_id?: InputMaybe<Scalars['bigint']['input']>;
+  end_date?: InputMaybe<Scalars['timestamp']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
-  start_date?: InputMaybe<Scalars['date']['input']>;
+  start_date?: InputMaybe<Scalars['timestamp']['input']>;
   updated_at?: InputMaybe<Scalars['timestamp']['input']>;
   user_id?: InputMaybe<Scalars['bigint']['input']>;
 };
 
 /** aggregate sum on columns */
-export type User_Cycles_Sum_Fields = {
+export type UserCyclesSumFields = {
   __typename?: 'user_cycles_sum_fields';
-  current_workout?: Maybe<Scalars['Int']['output']>;
-  cycle_id?: Maybe<Scalars['bigint']['output']>;
-  id?: Maybe<Scalars['bigint']['output']>;
-  user_id?: Maybe<Scalars['bigint']['output']>;
+  current_workout: Maybe<Scalars['Int']['output']>;
+  cycle_id: Maybe<Scalars['bigint']['output']>;
+  id: Maybe<Scalars['bigint']['output']>;
+  user_id: Maybe<Scalars['bigint']['output']>;
 };
 
 /** order by sum() on columns of table "user_cycles" */
-export type User_Cycles_Sum_Order_By = {
-  current_workout?: InputMaybe<Order_By>;
-  cycle_id?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  user_id?: InputMaybe<Order_By>;
+export type UserCyclesSumOrderBy = {
+  current_workout?: InputMaybe<OrderBy>;
+  cycle_id?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  user_id?: InputMaybe<OrderBy>;
 };
 
 /** update columns of table "user_cycles" */
-export enum User_Cycles_Update_Column {
+export enum UserCyclesUpdateColumn {
   /** column name */
-  Completed = 'completed',
+  COMPLETED = 'completed',
   /** column name */
-  CreatedAt = 'created_at',
+  CREATED_AT = 'created_at',
   /** column name */
-  CurrentWorkout = 'current_workout',
+  CURRENT_WORKOUT = 'current_workout',
   /** column name */
-  CycleId = 'cycle_id',
+  CYCLE_ID = 'cycle_id',
   /** column name */
-  Id = 'id',
+  END_DATE = 'end_date',
   /** column name */
-  StartDate = 'start_date',
+  ID = 'id',
   /** column name */
-  UpdatedAt = 'updated_at',
+  START_DATE = 'start_date',
   /** column name */
-  UserId = 'user_id'
+  UPDATED_AT = 'updated_at',
+  /** column name */
+  USER_ID = 'user_id'
 }
 
-export type User_Cycles_Updates = {
+export type UserCyclesUpdates = {
   /** increments the numeric columns with given value of the filtered values */
-  _inc?: InputMaybe<User_Cycles_Inc_Input>;
+  _inc?: InputMaybe<UserCyclesIncInput>;
   /** sets the columns of the filtered rows to the given values */
-  _set?: InputMaybe<User_Cycles_Set_Input>;
+  _set?: InputMaybe<UserCyclesSetInput>;
   /** filter the rows which have to be updated */
-  where: User_Cycles_Bool_Exp;
+  where: UserCyclesBoolExp;
 };
 
 /** aggregate var_pop on columns */
-export type User_Cycles_Var_Pop_Fields = {
+export type UserCyclesVarPopFields = {
   __typename?: 'user_cycles_var_pop_fields';
-  current_workout?: Maybe<Scalars['Float']['output']>;
-  cycle_id?: Maybe<Scalars['Float']['output']>;
-  id?: Maybe<Scalars['Float']['output']>;
-  user_id?: Maybe<Scalars['Float']['output']>;
+  current_workout: Maybe<Scalars['Float']['output']>;
+  cycle_id: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
+  user_id: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by var_pop() on columns of table "user_cycles" */
-export type User_Cycles_Var_Pop_Order_By = {
-  current_workout?: InputMaybe<Order_By>;
-  cycle_id?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  user_id?: InputMaybe<Order_By>;
+export type UserCyclesVarPopOrderBy = {
+  current_workout?: InputMaybe<OrderBy>;
+  cycle_id?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  user_id?: InputMaybe<OrderBy>;
 };
 
 /** aggregate var_samp on columns */
-export type User_Cycles_Var_Samp_Fields = {
+export type UserCyclesVarSampFields = {
   __typename?: 'user_cycles_var_samp_fields';
-  current_workout?: Maybe<Scalars['Float']['output']>;
-  cycle_id?: Maybe<Scalars['Float']['output']>;
-  id?: Maybe<Scalars['Float']['output']>;
-  user_id?: Maybe<Scalars['Float']['output']>;
+  current_workout: Maybe<Scalars['Float']['output']>;
+  cycle_id: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
+  user_id: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by var_samp() on columns of table "user_cycles" */
-export type User_Cycles_Var_Samp_Order_By = {
-  current_workout?: InputMaybe<Order_By>;
-  cycle_id?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  user_id?: InputMaybe<Order_By>;
+export type UserCyclesVarSampOrderBy = {
+  current_workout?: InputMaybe<OrderBy>;
+  cycle_id?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  user_id?: InputMaybe<OrderBy>;
 };
 
 /** aggregate variance on columns */
-export type User_Cycles_Variance_Fields = {
+export type UserCyclesVarianceFields = {
   __typename?: 'user_cycles_variance_fields';
-  current_workout?: Maybe<Scalars['Float']['output']>;
-  cycle_id?: Maybe<Scalars['Float']['output']>;
-  id?: Maybe<Scalars['Float']['output']>;
-  user_id?: Maybe<Scalars['Float']['output']>;
+  current_workout: Maybe<Scalars['Float']['output']>;
+  cycle_id: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
+  user_id: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by variance() on columns of table "user_cycles" */
-export type User_Cycles_Variance_Order_By = {
-  current_workout?: InputMaybe<Order_By>;
-  cycle_id?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  user_id?: InputMaybe<Order_By>;
+export type UserCyclesVarianceOrderBy = {
+  current_workout?: InputMaybe<OrderBy>;
+  cycle_id?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  user_id?: InputMaybe<OrderBy>;
 };
 
 /** columns and relationships of "user_workouts" */
-export type User_Workouts = {
+export type UserWorkouts = {
   __typename?: 'user_workouts';
   completed_at: Scalars['date']['output'];
   created_at: Scalars['timestamptz']['output'];
@@ -3866,7 +3880,7 @@ export type User_Workouts = {
   cycle: Cycles;
   cycle_id: Scalars['bigint']['output'];
   id: Scalars['uuid']['output'];
-  notes?: Maybe<Scalars['String']['output']>;
+  notes: Maybe<Scalars['String']['output']>;
   updated_at: Scalars['timestamptz']['output'];
   /** An object relationship */
   workout: Workouts;
@@ -3874,222 +3888,222 @@ export type User_Workouts = {
 };
 
 /** aggregated selection of "user_workouts" */
-export type User_Workouts_Aggregate = {
+export type UserWorkoutsAggregate = {
   __typename?: 'user_workouts_aggregate';
-  aggregate?: Maybe<User_Workouts_Aggregate_Fields>;
-  nodes: Array<User_Workouts>;
+  aggregate: Maybe<UserWorkoutsAggregateFields>;
+  nodes: Array<UserWorkouts>;
 };
 
-export type User_Workouts_Aggregate_Bool_Exp = {
-  count?: InputMaybe<User_Workouts_Aggregate_Bool_Exp_Count>;
+export type UserWorkoutsAggregateBoolExp = {
+  count?: InputMaybe<UserWorkoutsAggregateBoolExpCount>;
 };
 
-export type User_Workouts_Aggregate_Bool_Exp_Count = {
-  arguments?: InputMaybe<Array<User_Workouts_Select_Column>>;
+export type UserWorkoutsAggregateBoolExpCount = {
+  arguments?: InputMaybe<Array<UserWorkoutsSelectColumn>>;
   distinct?: InputMaybe<Scalars['Boolean']['input']>;
-  filter?: InputMaybe<User_Workouts_Bool_Exp>;
-  predicate: Int_Comparison_Exp;
+  filter?: InputMaybe<UserWorkoutsBoolExp>;
+  predicate: IntComparisonExp;
 };
 
 /** aggregate fields of "user_workouts" */
-export type User_Workouts_Aggregate_Fields = {
+export type UserWorkoutsAggregateFields = {
   __typename?: 'user_workouts_aggregate_fields';
-  avg?: Maybe<User_Workouts_Avg_Fields>;
+  avg: Maybe<UserWorkoutsAvgFields>;
   count: Scalars['Int']['output'];
-  max?: Maybe<User_Workouts_Max_Fields>;
-  min?: Maybe<User_Workouts_Min_Fields>;
-  stddev?: Maybe<User_Workouts_Stddev_Fields>;
-  stddev_pop?: Maybe<User_Workouts_Stddev_Pop_Fields>;
-  stddev_samp?: Maybe<User_Workouts_Stddev_Samp_Fields>;
-  sum?: Maybe<User_Workouts_Sum_Fields>;
-  var_pop?: Maybe<User_Workouts_Var_Pop_Fields>;
-  var_samp?: Maybe<User_Workouts_Var_Samp_Fields>;
-  variance?: Maybe<User_Workouts_Variance_Fields>;
+  max: Maybe<UserWorkoutsMaxFields>;
+  min: Maybe<UserWorkoutsMinFields>;
+  stddev: Maybe<UserWorkoutsStddevFields>;
+  stddev_pop: Maybe<UserWorkoutsStddevPopFields>;
+  stddev_samp: Maybe<UserWorkoutsStddevSampFields>;
+  sum: Maybe<UserWorkoutsSumFields>;
+  var_pop: Maybe<UserWorkoutsVarPopFields>;
+  var_samp: Maybe<UserWorkoutsVarSampFields>;
+  variance: Maybe<UserWorkoutsVarianceFields>;
 };
 
 
 /** aggregate fields of "user_workouts" */
-export type User_Workouts_Aggregate_FieldsCountArgs = {
-  columns?: InputMaybe<Array<User_Workouts_Select_Column>>;
+export type UserWorkoutsAggregateFieldsCountArgs = {
+  columns?: InputMaybe<Array<UserWorkoutsSelectColumn>>;
   distinct?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 /** order by aggregate values of table "user_workouts" */
-export type User_Workouts_Aggregate_Order_By = {
-  avg?: InputMaybe<User_Workouts_Avg_Order_By>;
-  count?: InputMaybe<Order_By>;
-  max?: InputMaybe<User_Workouts_Max_Order_By>;
-  min?: InputMaybe<User_Workouts_Min_Order_By>;
-  stddev?: InputMaybe<User_Workouts_Stddev_Order_By>;
-  stddev_pop?: InputMaybe<User_Workouts_Stddev_Pop_Order_By>;
-  stddev_samp?: InputMaybe<User_Workouts_Stddev_Samp_Order_By>;
-  sum?: InputMaybe<User_Workouts_Sum_Order_By>;
-  var_pop?: InputMaybe<User_Workouts_Var_Pop_Order_By>;
-  var_samp?: InputMaybe<User_Workouts_Var_Samp_Order_By>;
-  variance?: InputMaybe<User_Workouts_Variance_Order_By>;
+export type UserWorkoutsAggregateOrderBy = {
+  avg?: InputMaybe<UserWorkoutsAvgOrderBy>;
+  count?: InputMaybe<OrderBy>;
+  max?: InputMaybe<UserWorkoutsMaxOrderBy>;
+  min?: InputMaybe<UserWorkoutsMinOrderBy>;
+  stddev?: InputMaybe<UserWorkoutsStddevOrderBy>;
+  stddev_pop?: InputMaybe<UserWorkoutsStddevPopOrderBy>;
+  stddev_samp?: InputMaybe<UserWorkoutsStddevSampOrderBy>;
+  sum?: InputMaybe<UserWorkoutsSumOrderBy>;
+  var_pop?: InputMaybe<UserWorkoutsVarPopOrderBy>;
+  var_samp?: InputMaybe<UserWorkoutsVarSampOrderBy>;
+  variance?: InputMaybe<UserWorkoutsVarianceOrderBy>;
 };
 
 /** input type for inserting array relation for remote table "user_workouts" */
-export type User_Workouts_Arr_Rel_Insert_Input = {
-  data: Array<User_Workouts_Insert_Input>;
+export type UserWorkoutsArrRelInsertInput = {
+  data: Array<UserWorkoutsInsertInput>;
   /** upsert condition */
-  on_conflict?: InputMaybe<User_Workouts_On_Conflict>;
+  on_conflict?: InputMaybe<UserWorkoutsOnConflict>;
 };
 
 /** aggregate avg on columns */
-export type User_Workouts_Avg_Fields = {
+export type UserWorkoutsAvgFields = {
   __typename?: 'user_workouts_avg_fields';
-  cycle_id?: Maybe<Scalars['Float']['output']>;
-  workout_id?: Maybe<Scalars['Float']['output']>;
+  cycle_id: Maybe<Scalars['Float']['output']>;
+  workout_id: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by avg() on columns of table "user_workouts" */
-export type User_Workouts_Avg_Order_By = {
-  cycle_id?: InputMaybe<Order_By>;
-  workout_id?: InputMaybe<Order_By>;
+export type UserWorkoutsAvgOrderBy = {
+  cycle_id?: InputMaybe<OrderBy>;
+  workout_id?: InputMaybe<OrderBy>;
 };
 
 /** Boolean expression to filter rows from the table "user_workouts". All fields are combined with a logical 'AND'. */
-export type User_Workouts_Bool_Exp = {
-  _and?: InputMaybe<Array<User_Workouts_Bool_Exp>>;
-  _not?: InputMaybe<User_Workouts_Bool_Exp>;
-  _or?: InputMaybe<Array<User_Workouts_Bool_Exp>>;
-  completed_at?: InputMaybe<Date_Comparison_Exp>;
-  created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
-  cycle?: InputMaybe<Cycles_Bool_Exp>;
-  cycle_id?: InputMaybe<Bigint_Comparison_Exp>;
-  id?: InputMaybe<Uuid_Comparison_Exp>;
-  notes?: InputMaybe<String_Comparison_Exp>;
-  updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
-  workout?: InputMaybe<Workouts_Bool_Exp>;
-  workout_id?: InputMaybe<Bigint_Comparison_Exp>;
+export type UserWorkoutsBoolExp = {
+  _and?: InputMaybe<Array<UserWorkoutsBoolExp>>;
+  _not?: InputMaybe<UserWorkoutsBoolExp>;
+  _or?: InputMaybe<Array<UserWorkoutsBoolExp>>;
+  completed_at?: InputMaybe<DateComparisonExp>;
+  created_at?: InputMaybe<TimestamptzComparisonExp>;
+  cycle?: InputMaybe<CyclesBoolExp>;
+  cycle_id?: InputMaybe<BigintComparisonExp>;
+  id?: InputMaybe<UuidComparisonExp>;
+  notes?: InputMaybe<StringComparisonExp>;
+  updated_at?: InputMaybe<TimestamptzComparisonExp>;
+  workout?: InputMaybe<WorkoutsBoolExp>;
+  workout_id?: InputMaybe<BigintComparisonExp>;
 };
 
 /** unique or primary key constraints on table "user_workouts" */
-export enum User_Workouts_Constraint {
+export enum UserWorkoutsConstraint {
   /** unique or primary key constraint on columns "id" */
-  UserWorkoutsPkey = 'user_workouts_pkey'
+  USER_WORKOUTS_PKEY = 'user_workouts_pkey'
 }
 
 /** input type for incrementing numeric columns in table "user_workouts" */
-export type User_Workouts_Inc_Input = {
+export type UserWorkoutsIncInput = {
   cycle_id?: InputMaybe<Scalars['bigint']['input']>;
   workout_id?: InputMaybe<Scalars['bigint']['input']>;
 };
 
 /** input type for inserting data into table "user_workouts" */
-export type User_Workouts_Insert_Input = {
+export type UserWorkoutsInsertInput = {
   completed_at?: InputMaybe<Scalars['date']['input']>;
   created_at?: InputMaybe<Scalars['timestamptz']['input']>;
-  cycle?: InputMaybe<Cycles_Obj_Rel_Insert_Input>;
+  cycle?: InputMaybe<CyclesObjRelInsertInput>;
   cycle_id?: InputMaybe<Scalars['bigint']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   notes?: InputMaybe<Scalars['String']['input']>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
-  workout?: InputMaybe<Workouts_Obj_Rel_Insert_Input>;
+  workout?: InputMaybe<WorkoutsObjRelInsertInput>;
   workout_id?: InputMaybe<Scalars['bigint']['input']>;
 };
 
 /** aggregate max on columns */
-export type User_Workouts_Max_Fields = {
+export type UserWorkoutsMaxFields = {
   __typename?: 'user_workouts_max_fields';
-  completed_at?: Maybe<Scalars['date']['output']>;
-  created_at?: Maybe<Scalars['timestamptz']['output']>;
-  cycle_id?: Maybe<Scalars['bigint']['output']>;
-  id?: Maybe<Scalars['uuid']['output']>;
-  notes?: Maybe<Scalars['String']['output']>;
-  updated_at?: Maybe<Scalars['timestamptz']['output']>;
-  workout_id?: Maybe<Scalars['bigint']['output']>;
+  completed_at: Maybe<Scalars['date']['output']>;
+  created_at: Maybe<Scalars['timestamptz']['output']>;
+  cycle_id: Maybe<Scalars['bigint']['output']>;
+  id: Maybe<Scalars['uuid']['output']>;
+  notes: Maybe<Scalars['String']['output']>;
+  updated_at: Maybe<Scalars['timestamptz']['output']>;
+  workout_id: Maybe<Scalars['bigint']['output']>;
 };
 
 /** order by max() on columns of table "user_workouts" */
-export type User_Workouts_Max_Order_By = {
-  completed_at?: InputMaybe<Order_By>;
-  created_at?: InputMaybe<Order_By>;
-  cycle_id?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  notes?: InputMaybe<Order_By>;
-  updated_at?: InputMaybe<Order_By>;
-  workout_id?: InputMaybe<Order_By>;
+export type UserWorkoutsMaxOrderBy = {
+  completed_at?: InputMaybe<OrderBy>;
+  created_at?: InputMaybe<OrderBy>;
+  cycle_id?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  notes?: InputMaybe<OrderBy>;
+  updated_at?: InputMaybe<OrderBy>;
+  workout_id?: InputMaybe<OrderBy>;
 };
 
 /** aggregate min on columns */
-export type User_Workouts_Min_Fields = {
+export type UserWorkoutsMinFields = {
   __typename?: 'user_workouts_min_fields';
-  completed_at?: Maybe<Scalars['date']['output']>;
-  created_at?: Maybe<Scalars['timestamptz']['output']>;
-  cycle_id?: Maybe<Scalars['bigint']['output']>;
-  id?: Maybe<Scalars['uuid']['output']>;
-  notes?: Maybe<Scalars['String']['output']>;
-  updated_at?: Maybe<Scalars['timestamptz']['output']>;
-  workout_id?: Maybe<Scalars['bigint']['output']>;
+  completed_at: Maybe<Scalars['date']['output']>;
+  created_at: Maybe<Scalars['timestamptz']['output']>;
+  cycle_id: Maybe<Scalars['bigint']['output']>;
+  id: Maybe<Scalars['uuid']['output']>;
+  notes: Maybe<Scalars['String']['output']>;
+  updated_at: Maybe<Scalars['timestamptz']['output']>;
+  workout_id: Maybe<Scalars['bigint']['output']>;
 };
 
 /** order by min() on columns of table "user_workouts" */
-export type User_Workouts_Min_Order_By = {
-  completed_at?: InputMaybe<Order_By>;
-  created_at?: InputMaybe<Order_By>;
-  cycle_id?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  notes?: InputMaybe<Order_By>;
-  updated_at?: InputMaybe<Order_By>;
-  workout_id?: InputMaybe<Order_By>;
+export type UserWorkoutsMinOrderBy = {
+  completed_at?: InputMaybe<OrderBy>;
+  created_at?: InputMaybe<OrderBy>;
+  cycle_id?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  notes?: InputMaybe<OrderBy>;
+  updated_at?: InputMaybe<OrderBy>;
+  workout_id?: InputMaybe<OrderBy>;
 };
 
 /** response of any mutation on the table "user_workouts" */
-export type User_Workouts_Mutation_Response = {
+export type UserWorkoutsMutationResponse = {
   __typename?: 'user_workouts_mutation_response';
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int']['output'];
   /** data from the rows affected by the mutation */
-  returning: Array<User_Workouts>;
+  returning: Array<UserWorkouts>;
 };
 
 /** on_conflict condition type for table "user_workouts" */
-export type User_Workouts_On_Conflict = {
-  constraint: User_Workouts_Constraint;
-  update_columns?: Array<User_Workouts_Update_Column>;
-  where?: InputMaybe<User_Workouts_Bool_Exp>;
+export type UserWorkoutsOnConflict = {
+  constraint: UserWorkoutsConstraint;
+  update_columns?: Array<UserWorkoutsUpdateColumn>;
+  where?: InputMaybe<UserWorkoutsBoolExp>;
 };
 
 /** Ordering options when selecting data from "user_workouts". */
-export type User_Workouts_Order_By = {
-  completed_at?: InputMaybe<Order_By>;
-  created_at?: InputMaybe<Order_By>;
-  cycle?: InputMaybe<Cycles_Order_By>;
-  cycle_id?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  notes?: InputMaybe<Order_By>;
-  updated_at?: InputMaybe<Order_By>;
-  workout?: InputMaybe<Workouts_Order_By>;
-  workout_id?: InputMaybe<Order_By>;
+export type UserWorkoutsOrderBy = {
+  completed_at?: InputMaybe<OrderBy>;
+  created_at?: InputMaybe<OrderBy>;
+  cycle?: InputMaybe<CyclesOrderBy>;
+  cycle_id?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  notes?: InputMaybe<OrderBy>;
+  updated_at?: InputMaybe<OrderBy>;
+  workout?: InputMaybe<WorkoutsOrderBy>;
+  workout_id?: InputMaybe<OrderBy>;
 };
 
 /** primary key columns input for table: user_workouts */
-export type User_Workouts_Pk_Columns_Input = {
+export type UserWorkoutsPkColumnsInput = {
   id: Scalars['uuid']['input'];
 };
 
 /** select columns of table "user_workouts" */
-export enum User_Workouts_Select_Column {
+export enum UserWorkoutsSelectColumn {
   /** column name */
-  CompletedAt = 'completed_at',
+  COMPLETED_AT = 'completed_at',
   /** column name */
-  CreatedAt = 'created_at',
+  CREATED_AT = 'created_at',
   /** column name */
-  CycleId = 'cycle_id',
+  CYCLE_ID = 'cycle_id',
   /** column name */
-  Id = 'id',
+  ID = 'id',
   /** column name */
-  Notes = 'notes',
+  NOTES = 'notes',
   /** column name */
-  UpdatedAt = 'updated_at',
+  UPDATED_AT = 'updated_at',
   /** column name */
-  WorkoutId = 'workout_id'
+  WORKOUT_ID = 'workout_id'
 }
 
 /** input type for updating data in table "user_workouts" */
-export type User_Workouts_Set_Input = {
+export type UserWorkoutsSetInput = {
   completed_at?: InputMaybe<Scalars['date']['input']>;
   created_at?: InputMaybe<Scalars['timestamptz']['input']>;
   cycle_id?: InputMaybe<Scalars['bigint']['input']>;
@@ -4100,54 +4114,54 @@ export type User_Workouts_Set_Input = {
 };
 
 /** aggregate stddev on columns */
-export type User_Workouts_Stddev_Fields = {
+export type UserWorkoutsStddevFields = {
   __typename?: 'user_workouts_stddev_fields';
-  cycle_id?: Maybe<Scalars['Float']['output']>;
-  workout_id?: Maybe<Scalars['Float']['output']>;
+  cycle_id: Maybe<Scalars['Float']['output']>;
+  workout_id: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev() on columns of table "user_workouts" */
-export type User_Workouts_Stddev_Order_By = {
-  cycle_id?: InputMaybe<Order_By>;
-  workout_id?: InputMaybe<Order_By>;
+export type UserWorkoutsStddevOrderBy = {
+  cycle_id?: InputMaybe<OrderBy>;
+  workout_id?: InputMaybe<OrderBy>;
 };
 
 /** aggregate stddev_pop on columns */
-export type User_Workouts_Stddev_Pop_Fields = {
+export type UserWorkoutsStddevPopFields = {
   __typename?: 'user_workouts_stddev_pop_fields';
-  cycle_id?: Maybe<Scalars['Float']['output']>;
-  workout_id?: Maybe<Scalars['Float']['output']>;
+  cycle_id: Maybe<Scalars['Float']['output']>;
+  workout_id: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev_pop() on columns of table "user_workouts" */
-export type User_Workouts_Stddev_Pop_Order_By = {
-  cycle_id?: InputMaybe<Order_By>;
-  workout_id?: InputMaybe<Order_By>;
+export type UserWorkoutsStddevPopOrderBy = {
+  cycle_id?: InputMaybe<OrderBy>;
+  workout_id?: InputMaybe<OrderBy>;
 };
 
 /** aggregate stddev_samp on columns */
-export type User_Workouts_Stddev_Samp_Fields = {
+export type UserWorkoutsStddevSampFields = {
   __typename?: 'user_workouts_stddev_samp_fields';
-  cycle_id?: Maybe<Scalars['Float']['output']>;
-  workout_id?: Maybe<Scalars['Float']['output']>;
+  cycle_id: Maybe<Scalars['Float']['output']>;
+  workout_id: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev_samp() on columns of table "user_workouts" */
-export type User_Workouts_Stddev_Samp_Order_By = {
-  cycle_id?: InputMaybe<Order_By>;
-  workout_id?: InputMaybe<Order_By>;
+export type UserWorkoutsStddevSampOrderBy = {
+  cycle_id?: InputMaybe<OrderBy>;
+  workout_id?: InputMaybe<OrderBy>;
 };
 
 /** Streaming cursor of the table "user_workouts" */
-export type User_Workouts_Stream_Cursor_Input = {
+export type UserWorkoutsStreamCursorInput = {
   /** Stream column input with initial value */
-  initial_value: User_Workouts_Stream_Cursor_Value_Input;
+  initial_value: UserWorkoutsStreamCursorValueInput;
   /** cursor ordering */
-  ordering?: InputMaybe<Cursor_Ordering>;
+  ordering?: InputMaybe<CursorOrdering>;
 };
 
 /** Initial value of the column from where the streaming should start */
-export type User_Workouts_Stream_Cursor_Value_Input = {
+export type UserWorkoutsStreamCursorValueInput = {
   completed_at?: InputMaybe<Scalars['date']['input']>;
   created_at?: InputMaybe<Scalars['timestamptz']['input']>;
   cycle_id?: InputMaybe<Scalars['bigint']['input']>;
@@ -4158,191 +4172,191 @@ export type User_Workouts_Stream_Cursor_Value_Input = {
 };
 
 /** aggregate sum on columns */
-export type User_Workouts_Sum_Fields = {
+export type UserWorkoutsSumFields = {
   __typename?: 'user_workouts_sum_fields';
-  cycle_id?: Maybe<Scalars['bigint']['output']>;
-  workout_id?: Maybe<Scalars['bigint']['output']>;
+  cycle_id: Maybe<Scalars['bigint']['output']>;
+  workout_id: Maybe<Scalars['bigint']['output']>;
 };
 
 /** order by sum() on columns of table "user_workouts" */
-export type User_Workouts_Sum_Order_By = {
-  cycle_id?: InputMaybe<Order_By>;
-  workout_id?: InputMaybe<Order_By>;
+export type UserWorkoutsSumOrderBy = {
+  cycle_id?: InputMaybe<OrderBy>;
+  workout_id?: InputMaybe<OrderBy>;
 };
 
 /** update columns of table "user_workouts" */
-export enum User_Workouts_Update_Column {
+export enum UserWorkoutsUpdateColumn {
   /** column name */
-  CompletedAt = 'completed_at',
+  COMPLETED_AT = 'completed_at',
   /** column name */
-  CreatedAt = 'created_at',
+  CREATED_AT = 'created_at',
   /** column name */
-  CycleId = 'cycle_id',
+  CYCLE_ID = 'cycle_id',
   /** column name */
-  Id = 'id',
+  ID = 'id',
   /** column name */
-  Notes = 'notes',
+  NOTES = 'notes',
   /** column name */
-  UpdatedAt = 'updated_at',
+  UPDATED_AT = 'updated_at',
   /** column name */
-  WorkoutId = 'workout_id'
+  WORKOUT_ID = 'workout_id'
 }
 
-export type User_Workouts_Updates = {
+export type UserWorkoutsUpdates = {
   /** increments the numeric columns with given value of the filtered values */
-  _inc?: InputMaybe<User_Workouts_Inc_Input>;
+  _inc?: InputMaybe<UserWorkoutsIncInput>;
   /** sets the columns of the filtered rows to the given values */
-  _set?: InputMaybe<User_Workouts_Set_Input>;
+  _set?: InputMaybe<UserWorkoutsSetInput>;
   /** filter the rows which have to be updated */
-  where: User_Workouts_Bool_Exp;
+  where: UserWorkoutsBoolExp;
 };
 
 /** aggregate var_pop on columns */
-export type User_Workouts_Var_Pop_Fields = {
+export type UserWorkoutsVarPopFields = {
   __typename?: 'user_workouts_var_pop_fields';
-  cycle_id?: Maybe<Scalars['Float']['output']>;
-  workout_id?: Maybe<Scalars['Float']['output']>;
+  cycle_id: Maybe<Scalars['Float']['output']>;
+  workout_id: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by var_pop() on columns of table "user_workouts" */
-export type User_Workouts_Var_Pop_Order_By = {
-  cycle_id?: InputMaybe<Order_By>;
-  workout_id?: InputMaybe<Order_By>;
+export type UserWorkoutsVarPopOrderBy = {
+  cycle_id?: InputMaybe<OrderBy>;
+  workout_id?: InputMaybe<OrderBy>;
 };
 
 /** aggregate var_samp on columns */
-export type User_Workouts_Var_Samp_Fields = {
+export type UserWorkoutsVarSampFields = {
   __typename?: 'user_workouts_var_samp_fields';
-  cycle_id?: Maybe<Scalars['Float']['output']>;
-  workout_id?: Maybe<Scalars['Float']['output']>;
+  cycle_id: Maybe<Scalars['Float']['output']>;
+  workout_id: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by var_samp() on columns of table "user_workouts" */
-export type User_Workouts_Var_Samp_Order_By = {
-  cycle_id?: InputMaybe<Order_By>;
-  workout_id?: InputMaybe<Order_By>;
+export type UserWorkoutsVarSampOrderBy = {
+  cycle_id?: InputMaybe<OrderBy>;
+  workout_id?: InputMaybe<OrderBy>;
 };
 
 /** aggregate variance on columns */
-export type User_Workouts_Variance_Fields = {
+export type UserWorkoutsVarianceFields = {
   __typename?: 'user_workouts_variance_fields';
-  cycle_id?: Maybe<Scalars['Float']['output']>;
-  workout_id?: Maybe<Scalars['Float']['output']>;
+  cycle_id: Maybe<Scalars['Float']['output']>;
+  workout_id: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by variance() on columns of table "user_workouts" */
-export type User_Workouts_Variance_Order_By = {
-  cycle_id?: InputMaybe<Order_By>;
-  workout_id?: InputMaybe<Order_By>;
+export type UserWorkoutsVarianceOrderBy = {
+  cycle_id?: InputMaybe<OrderBy>;
+  workout_id?: InputMaybe<OrderBy>;
 };
 
 /** columns and relationships of "users" */
 export type Users = {
   __typename?: 'users';
-  created_at?: Maybe<Scalars['timestamp']['output']>;
+  created_at: Scalars['timestamp']['output'];
   email: Scalars['String']['output'];
-  email_verified_at?: Maybe<Scalars['timestamp']['output']>;
+  email_verified_at: Maybe<Scalars['timestamp']['output']>;
   id: Scalars['bigint']['output'];
-  image_url?: Maybe<Scalars['String']['output']>;
+  image_url: Maybe<Scalars['String']['output']>;
   name: Scalars['String']['output'];
   password: Scalars['String']['output'];
-  remember_token?: Maybe<Scalars['String']['output']>;
-  updated_at?: Maybe<Scalars['timestamp']['output']>;
+  remember_token: Maybe<Scalars['String']['output']>;
+  updated_at: Scalars['timestamp']['output'];
   /** An array relationship */
-  user_cycles: Array<User_Cycles>;
+  user_cycles: Array<UserCycles>;
   /** An aggregate relationship */
-  user_cycles_aggregate: User_Cycles_Aggregate;
+  user_cycles_aggregate: UserCyclesAggregate;
 };
 
 
 /** columns and relationships of "users" */
-export type UsersUser_CyclesArgs = {
-  distinct_on?: InputMaybe<Array<User_Cycles_Select_Column>>;
+export type UsersUserCyclesArgs = {
+  distinct_on?: InputMaybe<Array<UserCyclesSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<User_Cycles_Order_By>>;
-  where?: InputMaybe<User_Cycles_Bool_Exp>;
+  order_by?: InputMaybe<Array<UserCyclesOrderBy>>;
+  where?: InputMaybe<UserCyclesBoolExp>;
 };
 
 
 /** columns and relationships of "users" */
-export type UsersUser_Cycles_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<User_Cycles_Select_Column>>;
+export type UsersUserCyclesAggregateArgs = {
+  distinct_on?: InputMaybe<Array<UserCyclesSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<User_Cycles_Order_By>>;
-  where?: InputMaybe<User_Cycles_Bool_Exp>;
+  order_by?: InputMaybe<Array<UserCyclesOrderBy>>;
+  where?: InputMaybe<UserCyclesBoolExp>;
 };
 
 /** aggregated selection of "users" */
-export type Users_Aggregate = {
+export type UsersAggregate = {
   __typename?: 'users_aggregate';
-  aggregate?: Maybe<Users_Aggregate_Fields>;
+  aggregate: Maybe<UsersAggregateFields>;
   nodes: Array<Users>;
 };
 
 /** aggregate fields of "users" */
-export type Users_Aggregate_Fields = {
+export type UsersAggregateFields = {
   __typename?: 'users_aggregate_fields';
-  avg?: Maybe<Users_Avg_Fields>;
+  avg: Maybe<UsersAvgFields>;
   count: Scalars['Int']['output'];
-  max?: Maybe<Users_Max_Fields>;
-  min?: Maybe<Users_Min_Fields>;
-  stddev?: Maybe<Users_Stddev_Fields>;
-  stddev_pop?: Maybe<Users_Stddev_Pop_Fields>;
-  stddev_samp?: Maybe<Users_Stddev_Samp_Fields>;
-  sum?: Maybe<Users_Sum_Fields>;
-  var_pop?: Maybe<Users_Var_Pop_Fields>;
-  var_samp?: Maybe<Users_Var_Samp_Fields>;
-  variance?: Maybe<Users_Variance_Fields>;
+  max: Maybe<UsersMaxFields>;
+  min: Maybe<UsersMinFields>;
+  stddev: Maybe<UsersStddevFields>;
+  stddev_pop: Maybe<UsersStddevPopFields>;
+  stddev_samp: Maybe<UsersStddevSampFields>;
+  sum: Maybe<UsersSumFields>;
+  var_pop: Maybe<UsersVarPopFields>;
+  var_samp: Maybe<UsersVarSampFields>;
+  variance: Maybe<UsersVarianceFields>;
 };
 
 
 /** aggregate fields of "users" */
-export type Users_Aggregate_FieldsCountArgs = {
-  columns?: InputMaybe<Array<Users_Select_Column>>;
+export type UsersAggregateFieldsCountArgs = {
+  columns?: InputMaybe<Array<UsersSelectColumn>>;
   distinct?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 /** aggregate avg on columns */
-export type Users_Avg_Fields = {
+export type UsersAvgFields = {
   __typename?: 'users_avg_fields';
-  id?: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
 };
 
 /** Boolean expression to filter rows from the table "users". All fields are combined with a logical 'AND'. */
-export type Users_Bool_Exp = {
-  _and?: InputMaybe<Array<Users_Bool_Exp>>;
-  _not?: InputMaybe<Users_Bool_Exp>;
-  _or?: InputMaybe<Array<Users_Bool_Exp>>;
-  created_at?: InputMaybe<Timestamp_Comparison_Exp>;
-  email?: InputMaybe<String_Comparison_Exp>;
-  email_verified_at?: InputMaybe<Timestamp_Comparison_Exp>;
-  id?: InputMaybe<Bigint_Comparison_Exp>;
-  image_url?: InputMaybe<String_Comparison_Exp>;
-  name?: InputMaybe<String_Comparison_Exp>;
-  password?: InputMaybe<String_Comparison_Exp>;
-  remember_token?: InputMaybe<String_Comparison_Exp>;
-  updated_at?: InputMaybe<Timestamp_Comparison_Exp>;
-  user_cycles?: InputMaybe<User_Cycles_Bool_Exp>;
-  user_cycles_aggregate?: InputMaybe<User_Cycles_Aggregate_Bool_Exp>;
+export type UsersBoolExp = {
+  _and?: InputMaybe<Array<UsersBoolExp>>;
+  _not?: InputMaybe<UsersBoolExp>;
+  _or?: InputMaybe<Array<UsersBoolExp>>;
+  created_at?: InputMaybe<TimestampComparisonExp>;
+  email?: InputMaybe<StringComparisonExp>;
+  email_verified_at?: InputMaybe<TimestampComparisonExp>;
+  id?: InputMaybe<BigintComparisonExp>;
+  image_url?: InputMaybe<StringComparisonExp>;
+  name?: InputMaybe<StringComparisonExp>;
+  password?: InputMaybe<StringComparisonExp>;
+  remember_token?: InputMaybe<StringComparisonExp>;
+  updated_at?: InputMaybe<TimestampComparisonExp>;
+  user_cycles?: InputMaybe<UserCyclesBoolExp>;
+  user_cycles_aggregate?: InputMaybe<UserCyclesAggregateBoolExp>;
 };
 
 /** unique or primary key constraints on table "users" */
-export enum Users_Constraint {
+export enum UsersConstraint {
   /** unique or primary key constraint on columns "email" */
-  UsersEmailUnique = 'users_email_unique',
+  USERS_EMAIL_UNIQUE = 'users_email_unique',
   /** unique or primary key constraint on columns "id" */
-  UsersPkey = 'users_pkey'
+  USERS_PKEY = 'users_pkey'
 }
 
 /** input type for incrementing numeric columns in table "users" */
-export type Users_Inc_Input = {
+export type UsersIncInput = {
   id?: InputMaybe<Scalars['bigint']['input']>;
 };
 
 /** input type for inserting data into table "users" */
-export type Users_Insert_Input = {
+export type UsersInsertInput = {
   created_at?: InputMaybe<Scalars['timestamp']['input']>;
   email?: InputMaybe<Scalars['String']['input']>;
   email_verified_at?: InputMaybe<Scalars['timestamp']['input']>;
@@ -4352,39 +4366,39 @@ export type Users_Insert_Input = {
   password?: InputMaybe<Scalars['String']['input']>;
   remember_token?: InputMaybe<Scalars['String']['input']>;
   updated_at?: InputMaybe<Scalars['timestamp']['input']>;
-  user_cycles?: InputMaybe<User_Cycles_Arr_Rel_Insert_Input>;
+  user_cycles?: InputMaybe<UserCyclesArrRelInsertInput>;
 };
 
 /** aggregate max on columns */
-export type Users_Max_Fields = {
+export type UsersMaxFields = {
   __typename?: 'users_max_fields';
-  created_at?: Maybe<Scalars['timestamp']['output']>;
-  email?: Maybe<Scalars['String']['output']>;
-  email_verified_at?: Maybe<Scalars['timestamp']['output']>;
-  id?: Maybe<Scalars['bigint']['output']>;
-  image_url?: Maybe<Scalars['String']['output']>;
-  name?: Maybe<Scalars['String']['output']>;
-  password?: Maybe<Scalars['String']['output']>;
-  remember_token?: Maybe<Scalars['String']['output']>;
-  updated_at?: Maybe<Scalars['timestamp']['output']>;
+  created_at: Maybe<Scalars['timestamp']['output']>;
+  email: Maybe<Scalars['String']['output']>;
+  email_verified_at: Maybe<Scalars['timestamp']['output']>;
+  id: Maybe<Scalars['bigint']['output']>;
+  image_url: Maybe<Scalars['String']['output']>;
+  name: Maybe<Scalars['String']['output']>;
+  password: Maybe<Scalars['String']['output']>;
+  remember_token: Maybe<Scalars['String']['output']>;
+  updated_at: Maybe<Scalars['timestamp']['output']>;
 };
 
 /** aggregate min on columns */
-export type Users_Min_Fields = {
+export type UsersMinFields = {
   __typename?: 'users_min_fields';
-  created_at?: Maybe<Scalars['timestamp']['output']>;
-  email?: Maybe<Scalars['String']['output']>;
-  email_verified_at?: Maybe<Scalars['timestamp']['output']>;
-  id?: Maybe<Scalars['bigint']['output']>;
-  image_url?: Maybe<Scalars['String']['output']>;
-  name?: Maybe<Scalars['String']['output']>;
-  password?: Maybe<Scalars['String']['output']>;
-  remember_token?: Maybe<Scalars['String']['output']>;
-  updated_at?: Maybe<Scalars['timestamp']['output']>;
+  created_at: Maybe<Scalars['timestamp']['output']>;
+  email: Maybe<Scalars['String']['output']>;
+  email_verified_at: Maybe<Scalars['timestamp']['output']>;
+  id: Maybe<Scalars['bigint']['output']>;
+  image_url: Maybe<Scalars['String']['output']>;
+  name: Maybe<Scalars['String']['output']>;
+  password: Maybe<Scalars['String']['output']>;
+  remember_token: Maybe<Scalars['String']['output']>;
+  updated_at: Maybe<Scalars['timestamp']['output']>;
 };
 
 /** response of any mutation on the table "users" */
-export type Users_Mutation_Response = {
+export type UsersMutationResponse = {
   __typename?: 'users_mutation_response';
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int']['output'];
@@ -4393,62 +4407,62 @@ export type Users_Mutation_Response = {
 };
 
 /** input type for inserting object relation for remote table "users" */
-export type Users_Obj_Rel_Insert_Input = {
-  data: Users_Insert_Input;
+export type UsersObjRelInsertInput = {
+  data: UsersInsertInput;
   /** upsert condition */
-  on_conflict?: InputMaybe<Users_On_Conflict>;
+  on_conflict?: InputMaybe<UsersOnConflict>;
 };
 
 /** on_conflict condition type for table "users" */
-export type Users_On_Conflict = {
-  constraint: Users_Constraint;
-  update_columns?: Array<Users_Update_Column>;
-  where?: InputMaybe<Users_Bool_Exp>;
+export type UsersOnConflict = {
+  constraint: UsersConstraint;
+  update_columns?: Array<UsersUpdateColumn>;
+  where?: InputMaybe<UsersBoolExp>;
 };
 
 /** Ordering options when selecting data from "users". */
-export type Users_Order_By = {
-  created_at?: InputMaybe<Order_By>;
-  email?: InputMaybe<Order_By>;
-  email_verified_at?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  image_url?: InputMaybe<Order_By>;
-  name?: InputMaybe<Order_By>;
-  password?: InputMaybe<Order_By>;
-  remember_token?: InputMaybe<Order_By>;
-  updated_at?: InputMaybe<Order_By>;
-  user_cycles_aggregate?: InputMaybe<User_Cycles_Aggregate_Order_By>;
+export type UsersOrderBy = {
+  created_at?: InputMaybe<OrderBy>;
+  email?: InputMaybe<OrderBy>;
+  email_verified_at?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  image_url?: InputMaybe<OrderBy>;
+  name?: InputMaybe<OrderBy>;
+  password?: InputMaybe<OrderBy>;
+  remember_token?: InputMaybe<OrderBy>;
+  updated_at?: InputMaybe<OrderBy>;
+  user_cycles_aggregate?: InputMaybe<UserCyclesAggregateOrderBy>;
 };
 
 /** primary key columns input for table: users */
-export type Users_Pk_Columns_Input = {
+export type UsersPkColumnsInput = {
   id: Scalars['bigint']['input'];
 };
 
 /** select columns of table "users" */
-export enum Users_Select_Column {
+export enum UsersSelectColumn {
   /** column name */
-  CreatedAt = 'created_at',
+  CREATED_AT = 'created_at',
   /** column name */
-  Email = 'email',
+  EMAIL = 'email',
   /** column name */
-  EmailVerifiedAt = 'email_verified_at',
+  EMAIL_VERIFIED_AT = 'email_verified_at',
   /** column name */
-  Id = 'id',
+  ID = 'id',
   /** column name */
-  ImageUrl = 'image_url',
+  IMAGE_URL = 'image_url',
   /** column name */
-  Name = 'name',
+  NAME = 'name',
   /** column name */
-  Password = 'password',
+  PASSWORD = 'password',
   /** column name */
-  RememberToken = 'remember_token',
+  REMEMBER_TOKEN = 'remember_token',
   /** column name */
-  UpdatedAt = 'updated_at'
+  UPDATED_AT = 'updated_at'
 }
 
 /** input type for updating data in table "users" */
-export type Users_Set_Input = {
+export type UsersSetInput = {
   created_at?: InputMaybe<Scalars['timestamp']['input']>;
   email?: InputMaybe<Scalars['String']['input']>;
   email_verified_at?: InputMaybe<Scalars['timestamp']['input']>;
@@ -4461,33 +4475,33 @@ export type Users_Set_Input = {
 };
 
 /** aggregate stddev on columns */
-export type Users_Stddev_Fields = {
+export type UsersStddevFields = {
   __typename?: 'users_stddev_fields';
-  id?: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
 };
 
 /** aggregate stddev_pop on columns */
-export type Users_Stddev_Pop_Fields = {
+export type UsersStddevPopFields = {
   __typename?: 'users_stddev_pop_fields';
-  id?: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
 };
 
 /** aggregate stddev_samp on columns */
-export type Users_Stddev_Samp_Fields = {
+export type UsersStddevSampFields = {
   __typename?: 'users_stddev_samp_fields';
-  id?: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
 };
 
 /** Streaming cursor of the table "users" */
-export type Users_Stream_Cursor_Input = {
+export type UsersStreamCursorInput = {
   /** Stream column input with initial value */
-  initial_value: Users_Stream_Cursor_Value_Input;
+  initial_value: UsersStreamCursorValueInput;
   /** cursor ordering */
-  ordering?: InputMaybe<Cursor_Ordering>;
+  ordering?: InputMaybe<CursorOrdering>;
 };
 
 /** Initial value of the column from where the streaming should start */
-export type Users_Stream_Cursor_Value_Input = {
+export type UsersStreamCursorValueInput = {
   created_at?: InputMaybe<Scalars['timestamp']['input']>;
   email?: InputMaybe<Scalars['String']['input']>;
   email_verified_at?: InputMaybe<Scalars['timestamp']['input']>;
@@ -4500,62 +4514,62 @@ export type Users_Stream_Cursor_Value_Input = {
 };
 
 /** aggregate sum on columns */
-export type Users_Sum_Fields = {
+export type UsersSumFields = {
   __typename?: 'users_sum_fields';
-  id?: Maybe<Scalars['bigint']['output']>;
+  id: Maybe<Scalars['bigint']['output']>;
 };
 
 /** update columns of table "users" */
-export enum Users_Update_Column {
+export enum UsersUpdateColumn {
   /** column name */
-  CreatedAt = 'created_at',
+  CREATED_AT = 'created_at',
   /** column name */
-  Email = 'email',
+  EMAIL = 'email',
   /** column name */
-  EmailVerifiedAt = 'email_verified_at',
+  EMAIL_VERIFIED_AT = 'email_verified_at',
   /** column name */
-  Id = 'id',
+  ID = 'id',
   /** column name */
-  ImageUrl = 'image_url',
+  IMAGE_URL = 'image_url',
   /** column name */
-  Name = 'name',
+  NAME = 'name',
   /** column name */
-  Password = 'password',
+  PASSWORD = 'password',
   /** column name */
-  RememberToken = 'remember_token',
+  REMEMBER_TOKEN = 'remember_token',
   /** column name */
-  UpdatedAt = 'updated_at'
+  UPDATED_AT = 'updated_at'
 }
 
-export type Users_Updates = {
+export type UsersUpdates = {
   /** increments the numeric columns with given value of the filtered values */
-  _inc?: InputMaybe<Users_Inc_Input>;
+  _inc?: InputMaybe<UsersIncInput>;
   /** sets the columns of the filtered rows to the given values */
-  _set?: InputMaybe<Users_Set_Input>;
+  _set?: InputMaybe<UsersSetInput>;
   /** filter the rows which have to be updated */
-  where: Users_Bool_Exp;
+  where: UsersBoolExp;
 };
 
 /** aggregate var_pop on columns */
-export type Users_Var_Pop_Fields = {
+export type UsersVarPopFields = {
   __typename?: 'users_var_pop_fields';
-  id?: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
 };
 
 /** aggregate var_samp on columns */
-export type Users_Var_Samp_Fields = {
+export type UsersVarSampFields = {
   __typename?: 'users_var_samp_fields';
-  id?: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
 };
 
 /** aggregate variance on columns */
-export type Users_Variance_Fields = {
+export type UsersVarianceFields = {
   __typename?: 'users_variance_fields';
-  id?: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
 };
 
 /** Boolean expression to compare columns of type "uuid". All fields are combined with logical 'AND'. */
-export type Uuid_Comparison_Exp = {
+export type UuidComparisonExp = {
   _eq?: InputMaybe<Scalars['uuid']['input']>;
   _gt?: InputMaybe<Scalars['uuid']['input']>;
   _gte?: InputMaybe<Scalars['uuid']['input']>;
@@ -4568,213 +4582,213 @@ export type Uuid_Comparison_Exp = {
 };
 
 /** columns and relationships of "workout_item_scores" */
-export type Workout_Item_Scores = {
+export type WorkoutItemScores = {
   __typename?: 'workout_item_scores';
-  created_at?: Maybe<Scalars['date']['output']>;
+  created_at: Scalars['date']['output'];
   id: Scalars['bigint']['output'];
-  updated_at?: Maybe<Scalars['date']['output']>;
+  updated_at: Scalars['date']['output'];
   value: Scalars['String']['output'];
   /** An object relationship */
-  workout_item: Workout_Items;
+  workout_item: WorkoutItems;
   workout_item_id: Scalars['bigint']['output'];
 };
 
 /** aggregated selection of "workout_item_scores" */
-export type Workout_Item_Scores_Aggregate = {
+export type WorkoutItemScoresAggregate = {
   __typename?: 'workout_item_scores_aggregate';
-  aggregate?: Maybe<Workout_Item_Scores_Aggregate_Fields>;
-  nodes: Array<Workout_Item_Scores>;
+  aggregate: Maybe<WorkoutItemScoresAggregateFields>;
+  nodes: Array<WorkoutItemScores>;
 };
 
-export type Workout_Item_Scores_Aggregate_Bool_Exp = {
-  count?: InputMaybe<Workout_Item_Scores_Aggregate_Bool_Exp_Count>;
+export type WorkoutItemScoresAggregateBoolExp = {
+  count?: InputMaybe<WorkoutItemScoresAggregateBoolExpCount>;
 };
 
-export type Workout_Item_Scores_Aggregate_Bool_Exp_Count = {
-  arguments?: InputMaybe<Array<Workout_Item_Scores_Select_Column>>;
+export type WorkoutItemScoresAggregateBoolExpCount = {
+  arguments?: InputMaybe<Array<WorkoutItemScoresSelectColumn>>;
   distinct?: InputMaybe<Scalars['Boolean']['input']>;
-  filter?: InputMaybe<Workout_Item_Scores_Bool_Exp>;
-  predicate: Int_Comparison_Exp;
+  filter?: InputMaybe<WorkoutItemScoresBoolExp>;
+  predicate: IntComparisonExp;
 };
 
 /** aggregate fields of "workout_item_scores" */
-export type Workout_Item_Scores_Aggregate_Fields = {
+export type WorkoutItemScoresAggregateFields = {
   __typename?: 'workout_item_scores_aggregate_fields';
-  avg?: Maybe<Workout_Item_Scores_Avg_Fields>;
+  avg: Maybe<WorkoutItemScoresAvgFields>;
   count: Scalars['Int']['output'];
-  max?: Maybe<Workout_Item_Scores_Max_Fields>;
-  min?: Maybe<Workout_Item_Scores_Min_Fields>;
-  stddev?: Maybe<Workout_Item_Scores_Stddev_Fields>;
-  stddev_pop?: Maybe<Workout_Item_Scores_Stddev_Pop_Fields>;
-  stddev_samp?: Maybe<Workout_Item_Scores_Stddev_Samp_Fields>;
-  sum?: Maybe<Workout_Item_Scores_Sum_Fields>;
-  var_pop?: Maybe<Workout_Item_Scores_Var_Pop_Fields>;
-  var_samp?: Maybe<Workout_Item_Scores_Var_Samp_Fields>;
-  variance?: Maybe<Workout_Item_Scores_Variance_Fields>;
+  max: Maybe<WorkoutItemScoresMaxFields>;
+  min: Maybe<WorkoutItemScoresMinFields>;
+  stddev: Maybe<WorkoutItemScoresStddevFields>;
+  stddev_pop: Maybe<WorkoutItemScoresStddevPopFields>;
+  stddev_samp: Maybe<WorkoutItemScoresStddevSampFields>;
+  sum: Maybe<WorkoutItemScoresSumFields>;
+  var_pop: Maybe<WorkoutItemScoresVarPopFields>;
+  var_samp: Maybe<WorkoutItemScoresVarSampFields>;
+  variance: Maybe<WorkoutItemScoresVarianceFields>;
 };
 
 
 /** aggregate fields of "workout_item_scores" */
-export type Workout_Item_Scores_Aggregate_FieldsCountArgs = {
-  columns?: InputMaybe<Array<Workout_Item_Scores_Select_Column>>;
+export type WorkoutItemScoresAggregateFieldsCountArgs = {
+  columns?: InputMaybe<Array<WorkoutItemScoresSelectColumn>>;
   distinct?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 /** order by aggregate values of table "workout_item_scores" */
-export type Workout_Item_Scores_Aggregate_Order_By = {
-  avg?: InputMaybe<Workout_Item_Scores_Avg_Order_By>;
-  count?: InputMaybe<Order_By>;
-  max?: InputMaybe<Workout_Item_Scores_Max_Order_By>;
-  min?: InputMaybe<Workout_Item_Scores_Min_Order_By>;
-  stddev?: InputMaybe<Workout_Item_Scores_Stddev_Order_By>;
-  stddev_pop?: InputMaybe<Workout_Item_Scores_Stddev_Pop_Order_By>;
-  stddev_samp?: InputMaybe<Workout_Item_Scores_Stddev_Samp_Order_By>;
-  sum?: InputMaybe<Workout_Item_Scores_Sum_Order_By>;
-  var_pop?: InputMaybe<Workout_Item_Scores_Var_Pop_Order_By>;
-  var_samp?: InputMaybe<Workout_Item_Scores_Var_Samp_Order_By>;
-  variance?: InputMaybe<Workout_Item_Scores_Variance_Order_By>;
+export type WorkoutItemScoresAggregateOrderBy = {
+  avg?: InputMaybe<WorkoutItemScoresAvgOrderBy>;
+  count?: InputMaybe<OrderBy>;
+  max?: InputMaybe<WorkoutItemScoresMaxOrderBy>;
+  min?: InputMaybe<WorkoutItemScoresMinOrderBy>;
+  stddev?: InputMaybe<WorkoutItemScoresStddevOrderBy>;
+  stddev_pop?: InputMaybe<WorkoutItemScoresStddevPopOrderBy>;
+  stddev_samp?: InputMaybe<WorkoutItemScoresStddevSampOrderBy>;
+  sum?: InputMaybe<WorkoutItemScoresSumOrderBy>;
+  var_pop?: InputMaybe<WorkoutItemScoresVarPopOrderBy>;
+  var_samp?: InputMaybe<WorkoutItemScoresVarSampOrderBy>;
+  variance?: InputMaybe<WorkoutItemScoresVarianceOrderBy>;
 };
 
 /** input type for inserting array relation for remote table "workout_item_scores" */
-export type Workout_Item_Scores_Arr_Rel_Insert_Input = {
-  data: Array<Workout_Item_Scores_Insert_Input>;
+export type WorkoutItemScoresArrRelInsertInput = {
+  data: Array<WorkoutItemScoresInsertInput>;
   /** upsert condition */
-  on_conflict?: InputMaybe<Workout_Item_Scores_On_Conflict>;
+  on_conflict?: InputMaybe<WorkoutItemScoresOnConflict>;
 };
 
 /** aggregate avg on columns */
-export type Workout_Item_Scores_Avg_Fields = {
+export type WorkoutItemScoresAvgFields = {
   __typename?: 'workout_item_scores_avg_fields';
-  id?: Maybe<Scalars['Float']['output']>;
-  workout_item_id?: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
+  workout_item_id: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by avg() on columns of table "workout_item_scores" */
-export type Workout_Item_Scores_Avg_Order_By = {
-  id?: InputMaybe<Order_By>;
-  workout_item_id?: InputMaybe<Order_By>;
+export type WorkoutItemScoresAvgOrderBy = {
+  id?: InputMaybe<OrderBy>;
+  workout_item_id?: InputMaybe<OrderBy>;
 };
 
 /** Boolean expression to filter rows from the table "workout_item_scores". All fields are combined with a logical 'AND'. */
-export type Workout_Item_Scores_Bool_Exp = {
-  _and?: InputMaybe<Array<Workout_Item_Scores_Bool_Exp>>;
-  _not?: InputMaybe<Workout_Item_Scores_Bool_Exp>;
-  _or?: InputMaybe<Array<Workout_Item_Scores_Bool_Exp>>;
-  created_at?: InputMaybe<Date_Comparison_Exp>;
-  id?: InputMaybe<Bigint_Comparison_Exp>;
-  updated_at?: InputMaybe<Date_Comparison_Exp>;
-  value?: InputMaybe<String_Comparison_Exp>;
-  workout_item?: InputMaybe<Workout_Items_Bool_Exp>;
-  workout_item_id?: InputMaybe<Bigint_Comparison_Exp>;
+export type WorkoutItemScoresBoolExp = {
+  _and?: InputMaybe<Array<WorkoutItemScoresBoolExp>>;
+  _not?: InputMaybe<WorkoutItemScoresBoolExp>;
+  _or?: InputMaybe<Array<WorkoutItemScoresBoolExp>>;
+  created_at?: InputMaybe<DateComparisonExp>;
+  id?: InputMaybe<BigintComparisonExp>;
+  updated_at?: InputMaybe<DateComparisonExp>;
+  value?: InputMaybe<StringComparisonExp>;
+  workout_item?: InputMaybe<WorkoutItemsBoolExp>;
+  workout_item_id?: InputMaybe<BigintComparisonExp>;
 };
 
 /** unique or primary key constraints on table "workout_item_scores" */
-export enum Workout_Item_Scores_Constraint {
+export enum WorkoutItemScoresConstraint {
   /** unique or primary key constraint on columns "id" */
-  WorkoutItemScoresPkey = 'workout_item_scores_pkey'
+  WORKOUT_ITEM_SCORES_PKEY = 'workout_item_scores_pkey'
 }
 
 /** input type for incrementing numeric columns in table "workout_item_scores" */
-export type Workout_Item_Scores_Inc_Input = {
+export type WorkoutItemScoresIncInput = {
   id?: InputMaybe<Scalars['bigint']['input']>;
   workout_item_id?: InputMaybe<Scalars['bigint']['input']>;
 };
 
 /** input type for inserting data into table "workout_item_scores" */
-export type Workout_Item_Scores_Insert_Input = {
+export type WorkoutItemScoresInsertInput = {
   created_at?: InputMaybe<Scalars['date']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
   updated_at?: InputMaybe<Scalars['date']['input']>;
   value?: InputMaybe<Scalars['String']['input']>;
-  workout_item?: InputMaybe<Workout_Items_Obj_Rel_Insert_Input>;
+  workout_item?: InputMaybe<WorkoutItemsObjRelInsertInput>;
   workout_item_id?: InputMaybe<Scalars['bigint']['input']>;
 };
 
 /** aggregate max on columns */
-export type Workout_Item_Scores_Max_Fields = {
+export type WorkoutItemScoresMaxFields = {
   __typename?: 'workout_item_scores_max_fields';
-  created_at?: Maybe<Scalars['date']['output']>;
-  id?: Maybe<Scalars['bigint']['output']>;
-  updated_at?: Maybe<Scalars['date']['output']>;
-  value?: Maybe<Scalars['String']['output']>;
-  workout_item_id?: Maybe<Scalars['bigint']['output']>;
+  created_at: Maybe<Scalars['date']['output']>;
+  id: Maybe<Scalars['bigint']['output']>;
+  updated_at: Maybe<Scalars['date']['output']>;
+  value: Maybe<Scalars['String']['output']>;
+  workout_item_id: Maybe<Scalars['bigint']['output']>;
 };
 
 /** order by max() on columns of table "workout_item_scores" */
-export type Workout_Item_Scores_Max_Order_By = {
-  created_at?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  updated_at?: InputMaybe<Order_By>;
-  value?: InputMaybe<Order_By>;
-  workout_item_id?: InputMaybe<Order_By>;
+export type WorkoutItemScoresMaxOrderBy = {
+  created_at?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  updated_at?: InputMaybe<OrderBy>;
+  value?: InputMaybe<OrderBy>;
+  workout_item_id?: InputMaybe<OrderBy>;
 };
 
 /** aggregate min on columns */
-export type Workout_Item_Scores_Min_Fields = {
+export type WorkoutItemScoresMinFields = {
   __typename?: 'workout_item_scores_min_fields';
-  created_at?: Maybe<Scalars['date']['output']>;
-  id?: Maybe<Scalars['bigint']['output']>;
-  updated_at?: Maybe<Scalars['date']['output']>;
-  value?: Maybe<Scalars['String']['output']>;
-  workout_item_id?: Maybe<Scalars['bigint']['output']>;
+  created_at: Maybe<Scalars['date']['output']>;
+  id: Maybe<Scalars['bigint']['output']>;
+  updated_at: Maybe<Scalars['date']['output']>;
+  value: Maybe<Scalars['String']['output']>;
+  workout_item_id: Maybe<Scalars['bigint']['output']>;
 };
 
 /** order by min() on columns of table "workout_item_scores" */
-export type Workout_Item_Scores_Min_Order_By = {
-  created_at?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  updated_at?: InputMaybe<Order_By>;
-  value?: InputMaybe<Order_By>;
-  workout_item_id?: InputMaybe<Order_By>;
+export type WorkoutItemScoresMinOrderBy = {
+  created_at?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  updated_at?: InputMaybe<OrderBy>;
+  value?: InputMaybe<OrderBy>;
+  workout_item_id?: InputMaybe<OrderBy>;
 };
 
 /** response of any mutation on the table "workout_item_scores" */
-export type Workout_Item_Scores_Mutation_Response = {
+export type WorkoutItemScoresMutationResponse = {
   __typename?: 'workout_item_scores_mutation_response';
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int']['output'];
   /** data from the rows affected by the mutation */
-  returning: Array<Workout_Item_Scores>;
+  returning: Array<WorkoutItemScores>;
 };
 
 /** on_conflict condition type for table "workout_item_scores" */
-export type Workout_Item_Scores_On_Conflict = {
-  constraint: Workout_Item_Scores_Constraint;
-  update_columns?: Array<Workout_Item_Scores_Update_Column>;
-  where?: InputMaybe<Workout_Item_Scores_Bool_Exp>;
+export type WorkoutItemScoresOnConflict = {
+  constraint: WorkoutItemScoresConstraint;
+  update_columns?: Array<WorkoutItemScoresUpdateColumn>;
+  where?: InputMaybe<WorkoutItemScoresBoolExp>;
 };
 
 /** Ordering options when selecting data from "workout_item_scores". */
-export type Workout_Item_Scores_Order_By = {
-  created_at?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  updated_at?: InputMaybe<Order_By>;
-  value?: InputMaybe<Order_By>;
-  workout_item?: InputMaybe<Workout_Items_Order_By>;
-  workout_item_id?: InputMaybe<Order_By>;
+export type WorkoutItemScoresOrderBy = {
+  created_at?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  updated_at?: InputMaybe<OrderBy>;
+  value?: InputMaybe<OrderBy>;
+  workout_item?: InputMaybe<WorkoutItemsOrderBy>;
+  workout_item_id?: InputMaybe<OrderBy>;
 };
 
 /** primary key columns input for table: workout_item_scores */
-export type Workout_Item_Scores_Pk_Columns_Input = {
+export type WorkoutItemScoresPkColumnsInput = {
   id: Scalars['bigint']['input'];
 };
 
 /** select columns of table "workout_item_scores" */
-export enum Workout_Item_Scores_Select_Column {
+export enum WorkoutItemScoresSelectColumn {
   /** column name */
-  CreatedAt = 'created_at',
+  CREATED_AT = 'created_at',
   /** column name */
-  Id = 'id',
+  ID = 'id',
   /** column name */
-  UpdatedAt = 'updated_at',
+  UPDATED_AT = 'updated_at',
   /** column name */
-  Value = 'value',
+  VALUE = 'value',
   /** column name */
-  WorkoutItemId = 'workout_item_id'
+  WORKOUT_ITEM_ID = 'workout_item_id'
 }
 
 /** input type for updating data in table "workout_item_scores" */
-export type Workout_Item_Scores_Set_Input = {
+export type WorkoutItemScoresSetInput = {
   created_at?: InputMaybe<Scalars['date']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
   updated_at?: InputMaybe<Scalars['date']['input']>;
@@ -4783,54 +4797,54 @@ export type Workout_Item_Scores_Set_Input = {
 };
 
 /** aggregate stddev on columns */
-export type Workout_Item_Scores_Stddev_Fields = {
+export type WorkoutItemScoresStddevFields = {
   __typename?: 'workout_item_scores_stddev_fields';
-  id?: Maybe<Scalars['Float']['output']>;
-  workout_item_id?: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
+  workout_item_id: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev() on columns of table "workout_item_scores" */
-export type Workout_Item_Scores_Stddev_Order_By = {
-  id?: InputMaybe<Order_By>;
-  workout_item_id?: InputMaybe<Order_By>;
+export type WorkoutItemScoresStddevOrderBy = {
+  id?: InputMaybe<OrderBy>;
+  workout_item_id?: InputMaybe<OrderBy>;
 };
 
 /** aggregate stddev_pop on columns */
-export type Workout_Item_Scores_Stddev_Pop_Fields = {
+export type WorkoutItemScoresStddevPopFields = {
   __typename?: 'workout_item_scores_stddev_pop_fields';
-  id?: Maybe<Scalars['Float']['output']>;
-  workout_item_id?: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
+  workout_item_id: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev_pop() on columns of table "workout_item_scores" */
-export type Workout_Item_Scores_Stddev_Pop_Order_By = {
-  id?: InputMaybe<Order_By>;
-  workout_item_id?: InputMaybe<Order_By>;
+export type WorkoutItemScoresStddevPopOrderBy = {
+  id?: InputMaybe<OrderBy>;
+  workout_item_id?: InputMaybe<OrderBy>;
 };
 
 /** aggregate stddev_samp on columns */
-export type Workout_Item_Scores_Stddev_Samp_Fields = {
+export type WorkoutItemScoresStddevSampFields = {
   __typename?: 'workout_item_scores_stddev_samp_fields';
-  id?: Maybe<Scalars['Float']['output']>;
-  workout_item_id?: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
+  workout_item_id: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev_samp() on columns of table "workout_item_scores" */
-export type Workout_Item_Scores_Stddev_Samp_Order_By = {
-  id?: InputMaybe<Order_By>;
-  workout_item_id?: InputMaybe<Order_By>;
+export type WorkoutItemScoresStddevSampOrderBy = {
+  id?: InputMaybe<OrderBy>;
+  workout_item_id?: InputMaybe<OrderBy>;
 };
 
 /** Streaming cursor of the table "workout_item_scores" */
-export type Workout_Item_Scores_Stream_Cursor_Input = {
+export type WorkoutItemScoresStreamCursorInput = {
   /** Stream column input with initial value */
-  initial_value: Workout_Item_Scores_Stream_Cursor_Value_Input;
+  initial_value: WorkoutItemScoresStreamCursorValueInput;
   /** cursor ordering */
-  ordering?: InputMaybe<Cursor_Ordering>;
+  ordering?: InputMaybe<CursorOrdering>;
 };
 
 /** Initial value of the column from where the streaming should start */
-export type Workout_Item_Scores_Stream_Cursor_Value_Input = {
+export type WorkoutItemScoresStreamCursorValueInput = {
   created_at?: InputMaybe<Scalars['date']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
   updated_at?: InputMaybe<Scalars['date']['input']>;
@@ -4839,98 +4853,98 @@ export type Workout_Item_Scores_Stream_Cursor_Value_Input = {
 };
 
 /** aggregate sum on columns */
-export type Workout_Item_Scores_Sum_Fields = {
+export type WorkoutItemScoresSumFields = {
   __typename?: 'workout_item_scores_sum_fields';
-  id?: Maybe<Scalars['bigint']['output']>;
-  workout_item_id?: Maybe<Scalars['bigint']['output']>;
+  id: Maybe<Scalars['bigint']['output']>;
+  workout_item_id: Maybe<Scalars['bigint']['output']>;
 };
 
 /** order by sum() on columns of table "workout_item_scores" */
-export type Workout_Item_Scores_Sum_Order_By = {
-  id?: InputMaybe<Order_By>;
-  workout_item_id?: InputMaybe<Order_By>;
+export type WorkoutItemScoresSumOrderBy = {
+  id?: InputMaybe<OrderBy>;
+  workout_item_id?: InputMaybe<OrderBy>;
 };
 
 /** update columns of table "workout_item_scores" */
-export enum Workout_Item_Scores_Update_Column {
+export enum WorkoutItemScoresUpdateColumn {
   /** column name */
-  CreatedAt = 'created_at',
+  CREATED_AT = 'created_at',
   /** column name */
-  Id = 'id',
+  ID = 'id',
   /** column name */
-  UpdatedAt = 'updated_at',
+  UPDATED_AT = 'updated_at',
   /** column name */
-  Value = 'value',
+  VALUE = 'value',
   /** column name */
-  WorkoutItemId = 'workout_item_id'
+  WORKOUT_ITEM_ID = 'workout_item_id'
 }
 
-export type Workout_Item_Scores_Updates = {
+export type WorkoutItemScoresUpdates = {
   /** increments the numeric columns with given value of the filtered values */
-  _inc?: InputMaybe<Workout_Item_Scores_Inc_Input>;
+  _inc?: InputMaybe<WorkoutItemScoresIncInput>;
   /** sets the columns of the filtered rows to the given values */
-  _set?: InputMaybe<Workout_Item_Scores_Set_Input>;
+  _set?: InputMaybe<WorkoutItemScoresSetInput>;
   /** filter the rows which have to be updated */
-  where: Workout_Item_Scores_Bool_Exp;
+  where: WorkoutItemScoresBoolExp;
 };
 
 /** aggregate var_pop on columns */
-export type Workout_Item_Scores_Var_Pop_Fields = {
+export type WorkoutItemScoresVarPopFields = {
   __typename?: 'workout_item_scores_var_pop_fields';
-  id?: Maybe<Scalars['Float']['output']>;
-  workout_item_id?: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
+  workout_item_id: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by var_pop() on columns of table "workout_item_scores" */
-export type Workout_Item_Scores_Var_Pop_Order_By = {
-  id?: InputMaybe<Order_By>;
-  workout_item_id?: InputMaybe<Order_By>;
+export type WorkoutItemScoresVarPopOrderBy = {
+  id?: InputMaybe<OrderBy>;
+  workout_item_id?: InputMaybe<OrderBy>;
 };
 
 /** aggregate var_samp on columns */
-export type Workout_Item_Scores_Var_Samp_Fields = {
+export type WorkoutItemScoresVarSampFields = {
   __typename?: 'workout_item_scores_var_samp_fields';
-  id?: Maybe<Scalars['Float']['output']>;
-  workout_item_id?: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
+  workout_item_id: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by var_samp() on columns of table "workout_item_scores" */
-export type Workout_Item_Scores_Var_Samp_Order_By = {
-  id?: InputMaybe<Order_By>;
-  workout_item_id?: InputMaybe<Order_By>;
+export type WorkoutItemScoresVarSampOrderBy = {
+  id?: InputMaybe<OrderBy>;
+  workout_item_id?: InputMaybe<OrderBy>;
 };
 
 /** aggregate variance on columns */
-export type Workout_Item_Scores_Variance_Fields = {
+export type WorkoutItemScoresVarianceFields = {
   __typename?: 'workout_item_scores_variance_fields';
-  id?: Maybe<Scalars['Float']['output']>;
-  workout_item_id?: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
+  workout_item_id: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by variance() on columns of table "workout_item_scores" */
-export type Workout_Item_Scores_Variance_Order_By = {
-  id?: InputMaybe<Order_By>;
-  workout_item_id?: InputMaybe<Order_By>;
+export type WorkoutItemScoresVarianceOrderBy = {
+  id?: InputMaybe<OrderBy>;
+  workout_item_id?: InputMaybe<OrderBy>;
 };
 
 /** columns and relationships of "workout_items" */
-export type Workout_Items = {
+export type WorkoutItems = {
   __typename?: 'workout_items';
-  created_at?: Maybe<Scalars['timestamp']['output']>;
+  created_at: Scalars['timestamp']['output'];
   /** An array relationship */
-  exercise_details: Array<Exercise_Details>;
+  exercise_details: Array<ExerciseDetails>;
   /** An aggregate relationship */
-  exercise_details_aggregate: Exercise_Details_Aggregate;
-  header?: Maybe<Scalars['String']['output']>;
+  exercise_details_aggregate: ExerciseDetailsAggregate;
+  header: Maybe<Scalars['String']['output']>;
   id: Scalars['bigint']['output'];
-  notes?: Maybe<Scalars['String']['output']>;
-  score?: Maybe<Scalars['String']['output']>;
+  notes: Maybe<Scalars['String']['output']>;
+  score: Maybe<Scalars['String']['output']>;
   /** An array relationship */
-  scores: Array<Workout_Item_Scores>;
+  scores: Array<WorkoutItemScores>;
   /** An aggregate relationship */
-  scores_aggregate: Workout_Item_Scores_Aggregate;
-  title?: Maybe<Scalars['String']['output']>;
-  updated_at?: Maybe<Scalars['timestamp']['output']>;
+  scores_aggregate: WorkoutItemScoresAggregate;
+  title: Maybe<Scalars['String']['output']>;
+  updated_at: Scalars['timestamp']['output'];
   /** An object relationship */
   workout: Workouts;
   workout_id: Scalars['bigint']['output'];
@@ -4938,282 +4952,282 @@ export type Workout_Items = {
 
 
 /** columns and relationships of "workout_items" */
-export type Workout_ItemsExercise_DetailsArgs = {
-  distinct_on?: InputMaybe<Array<Exercise_Details_Select_Column>>;
+export type WorkoutItemsExerciseDetailsArgs = {
+  distinct_on?: InputMaybe<Array<ExerciseDetailsSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Exercise_Details_Order_By>>;
-  where?: InputMaybe<Exercise_Details_Bool_Exp>;
+  order_by?: InputMaybe<Array<ExerciseDetailsOrderBy>>;
+  where?: InputMaybe<ExerciseDetailsBoolExp>;
 };
 
 
 /** columns and relationships of "workout_items" */
-export type Workout_ItemsExercise_Details_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Exercise_Details_Select_Column>>;
+export type WorkoutItemsExerciseDetailsAggregateArgs = {
+  distinct_on?: InputMaybe<Array<ExerciseDetailsSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Exercise_Details_Order_By>>;
-  where?: InputMaybe<Exercise_Details_Bool_Exp>;
+  order_by?: InputMaybe<Array<ExerciseDetailsOrderBy>>;
+  where?: InputMaybe<ExerciseDetailsBoolExp>;
 };
 
 
 /** columns and relationships of "workout_items" */
-export type Workout_ItemsScoresArgs = {
-  distinct_on?: InputMaybe<Array<Workout_Item_Scores_Select_Column>>;
+export type WorkoutItemsScoresArgs = {
+  distinct_on?: InputMaybe<Array<WorkoutItemScoresSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Workout_Item_Scores_Order_By>>;
-  where?: InputMaybe<Workout_Item_Scores_Bool_Exp>;
+  order_by?: InputMaybe<Array<WorkoutItemScoresOrderBy>>;
+  where?: InputMaybe<WorkoutItemScoresBoolExp>;
 };
 
 
 /** columns and relationships of "workout_items" */
-export type Workout_ItemsScores_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Workout_Item_Scores_Select_Column>>;
+export type WorkoutItemsScoresAggregateArgs = {
+  distinct_on?: InputMaybe<Array<WorkoutItemScoresSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Workout_Item_Scores_Order_By>>;
-  where?: InputMaybe<Workout_Item_Scores_Bool_Exp>;
+  order_by?: InputMaybe<Array<WorkoutItemScoresOrderBy>>;
+  where?: InputMaybe<WorkoutItemScoresBoolExp>;
 };
 
 /** aggregated selection of "workout_items" */
-export type Workout_Items_Aggregate = {
+export type WorkoutItemsAggregate = {
   __typename?: 'workout_items_aggregate';
-  aggregate?: Maybe<Workout_Items_Aggregate_Fields>;
-  nodes: Array<Workout_Items>;
+  aggregate: Maybe<WorkoutItemsAggregateFields>;
+  nodes: Array<WorkoutItems>;
 };
 
-export type Workout_Items_Aggregate_Bool_Exp = {
-  count?: InputMaybe<Workout_Items_Aggregate_Bool_Exp_Count>;
+export type WorkoutItemsAggregateBoolExp = {
+  count?: InputMaybe<WorkoutItemsAggregateBoolExpCount>;
 };
 
-export type Workout_Items_Aggregate_Bool_Exp_Count = {
-  arguments?: InputMaybe<Array<Workout_Items_Select_Column>>;
+export type WorkoutItemsAggregateBoolExpCount = {
+  arguments?: InputMaybe<Array<WorkoutItemsSelectColumn>>;
   distinct?: InputMaybe<Scalars['Boolean']['input']>;
-  filter?: InputMaybe<Workout_Items_Bool_Exp>;
-  predicate: Int_Comparison_Exp;
+  filter?: InputMaybe<WorkoutItemsBoolExp>;
+  predicate: IntComparisonExp;
 };
 
 /** aggregate fields of "workout_items" */
-export type Workout_Items_Aggregate_Fields = {
+export type WorkoutItemsAggregateFields = {
   __typename?: 'workout_items_aggregate_fields';
-  avg?: Maybe<Workout_Items_Avg_Fields>;
+  avg: Maybe<WorkoutItemsAvgFields>;
   count: Scalars['Int']['output'];
-  max?: Maybe<Workout_Items_Max_Fields>;
-  min?: Maybe<Workout_Items_Min_Fields>;
-  stddev?: Maybe<Workout_Items_Stddev_Fields>;
-  stddev_pop?: Maybe<Workout_Items_Stddev_Pop_Fields>;
-  stddev_samp?: Maybe<Workout_Items_Stddev_Samp_Fields>;
-  sum?: Maybe<Workout_Items_Sum_Fields>;
-  var_pop?: Maybe<Workout_Items_Var_Pop_Fields>;
-  var_samp?: Maybe<Workout_Items_Var_Samp_Fields>;
-  variance?: Maybe<Workout_Items_Variance_Fields>;
+  max: Maybe<WorkoutItemsMaxFields>;
+  min: Maybe<WorkoutItemsMinFields>;
+  stddev: Maybe<WorkoutItemsStddevFields>;
+  stddev_pop: Maybe<WorkoutItemsStddevPopFields>;
+  stddev_samp: Maybe<WorkoutItemsStddevSampFields>;
+  sum: Maybe<WorkoutItemsSumFields>;
+  var_pop: Maybe<WorkoutItemsVarPopFields>;
+  var_samp: Maybe<WorkoutItemsVarSampFields>;
+  variance: Maybe<WorkoutItemsVarianceFields>;
 };
 
 
 /** aggregate fields of "workout_items" */
-export type Workout_Items_Aggregate_FieldsCountArgs = {
-  columns?: InputMaybe<Array<Workout_Items_Select_Column>>;
+export type WorkoutItemsAggregateFieldsCountArgs = {
+  columns?: InputMaybe<Array<WorkoutItemsSelectColumn>>;
   distinct?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 /** order by aggregate values of table "workout_items" */
-export type Workout_Items_Aggregate_Order_By = {
-  avg?: InputMaybe<Workout_Items_Avg_Order_By>;
-  count?: InputMaybe<Order_By>;
-  max?: InputMaybe<Workout_Items_Max_Order_By>;
-  min?: InputMaybe<Workout_Items_Min_Order_By>;
-  stddev?: InputMaybe<Workout_Items_Stddev_Order_By>;
-  stddev_pop?: InputMaybe<Workout_Items_Stddev_Pop_Order_By>;
-  stddev_samp?: InputMaybe<Workout_Items_Stddev_Samp_Order_By>;
-  sum?: InputMaybe<Workout_Items_Sum_Order_By>;
-  var_pop?: InputMaybe<Workout_Items_Var_Pop_Order_By>;
-  var_samp?: InputMaybe<Workout_Items_Var_Samp_Order_By>;
-  variance?: InputMaybe<Workout_Items_Variance_Order_By>;
+export type WorkoutItemsAggregateOrderBy = {
+  avg?: InputMaybe<WorkoutItemsAvgOrderBy>;
+  count?: InputMaybe<OrderBy>;
+  max?: InputMaybe<WorkoutItemsMaxOrderBy>;
+  min?: InputMaybe<WorkoutItemsMinOrderBy>;
+  stddev?: InputMaybe<WorkoutItemsStddevOrderBy>;
+  stddev_pop?: InputMaybe<WorkoutItemsStddevPopOrderBy>;
+  stddev_samp?: InputMaybe<WorkoutItemsStddevSampOrderBy>;
+  sum?: InputMaybe<WorkoutItemsSumOrderBy>;
+  var_pop?: InputMaybe<WorkoutItemsVarPopOrderBy>;
+  var_samp?: InputMaybe<WorkoutItemsVarSampOrderBy>;
+  variance?: InputMaybe<WorkoutItemsVarianceOrderBy>;
 };
 
 /** input type for inserting array relation for remote table "workout_items" */
-export type Workout_Items_Arr_Rel_Insert_Input = {
-  data: Array<Workout_Items_Insert_Input>;
+export type WorkoutItemsArrRelInsertInput = {
+  data: Array<WorkoutItemsInsertInput>;
   /** upsert condition */
-  on_conflict?: InputMaybe<Workout_Items_On_Conflict>;
+  on_conflict?: InputMaybe<WorkoutItemsOnConflict>;
 };
 
 /** aggregate avg on columns */
-export type Workout_Items_Avg_Fields = {
+export type WorkoutItemsAvgFields = {
   __typename?: 'workout_items_avg_fields';
-  id?: Maybe<Scalars['Float']['output']>;
-  workout_id?: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
+  workout_id: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by avg() on columns of table "workout_items" */
-export type Workout_Items_Avg_Order_By = {
-  id?: InputMaybe<Order_By>;
-  workout_id?: InputMaybe<Order_By>;
+export type WorkoutItemsAvgOrderBy = {
+  id?: InputMaybe<OrderBy>;
+  workout_id?: InputMaybe<OrderBy>;
 };
 
 /** Boolean expression to filter rows from the table "workout_items". All fields are combined with a logical 'AND'. */
-export type Workout_Items_Bool_Exp = {
-  _and?: InputMaybe<Array<Workout_Items_Bool_Exp>>;
-  _not?: InputMaybe<Workout_Items_Bool_Exp>;
-  _or?: InputMaybe<Array<Workout_Items_Bool_Exp>>;
-  created_at?: InputMaybe<Timestamp_Comparison_Exp>;
-  exercise_details?: InputMaybe<Exercise_Details_Bool_Exp>;
-  exercise_details_aggregate?: InputMaybe<Exercise_Details_Aggregate_Bool_Exp>;
-  header?: InputMaybe<String_Comparison_Exp>;
-  id?: InputMaybe<Bigint_Comparison_Exp>;
-  notes?: InputMaybe<String_Comparison_Exp>;
-  score?: InputMaybe<String_Comparison_Exp>;
-  scores?: InputMaybe<Workout_Item_Scores_Bool_Exp>;
-  scores_aggregate?: InputMaybe<Workout_Item_Scores_Aggregate_Bool_Exp>;
-  title?: InputMaybe<String_Comparison_Exp>;
-  updated_at?: InputMaybe<Timestamp_Comparison_Exp>;
-  workout?: InputMaybe<Workouts_Bool_Exp>;
-  workout_id?: InputMaybe<Bigint_Comparison_Exp>;
+export type WorkoutItemsBoolExp = {
+  _and?: InputMaybe<Array<WorkoutItemsBoolExp>>;
+  _not?: InputMaybe<WorkoutItemsBoolExp>;
+  _or?: InputMaybe<Array<WorkoutItemsBoolExp>>;
+  created_at?: InputMaybe<TimestampComparisonExp>;
+  exercise_details?: InputMaybe<ExerciseDetailsBoolExp>;
+  exercise_details_aggregate?: InputMaybe<ExerciseDetailsAggregateBoolExp>;
+  header?: InputMaybe<StringComparisonExp>;
+  id?: InputMaybe<BigintComparisonExp>;
+  notes?: InputMaybe<StringComparisonExp>;
+  score?: InputMaybe<StringComparisonExp>;
+  scores?: InputMaybe<WorkoutItemScoresBoolExp>;
+  scores_aggregate?: InputMaybe<WorkoutItemScoresAggregateBoolExp>;
+  title?: InputMaybe<StringComparisonExp>;
+  updated_at?: InputMaybe<TimestampComparisonExp>;
+  workout?: InputMaybe<WorkoutsBoolExp>;
+  workout_id?: InputMaybe<BigintComparisonExp>;
 };
 
 /** unique or primary key constraints on table "workout_items" */
-export enum Workout_Items_Constraint {
+export enum WorkoutItemsConstraint {
   /** unique or primary key constraint on columns "id" */
-  WorkoutItemsPkey = 'workout_items_pkey'
+  WORKOUT_ITEMS_PKEY = 'workout_items_pkey'
 }
 
 /** input type for incrementing numeric columns in table "workout_items" */
-export type Workout_Items_Inc_Input = {
+export type WorkoutItemsIncInput = {
   id?: InputMaybe<Scalars['bigint']['input']>;
   workout_id?: InputMaybe<Scalars['bigint']['input']>;
 };
 
 /** input type for inserting data into table "workout_items" */
-export type Workout_Items_Insert_Input = {
+export type WorkoutItemsInsertInput = {
   created_at?: InputMaybe<Scalars['timestamp']['input']>;
-  exercise_details?: InputMaybe<Exercise_Details_Arr_Rel_Insert_Input>;
+  exercise_details?: InputMaybe<ExerciseDetailsArrRelInsertInput>;
   header?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
   notes?: InputMaybe<Scalars['String']['input']>;
   score?: InputMaybe<Scalars['String']['input']>;
-  scores?: InputMaybe<Workout_Item_Scores_Arr_Rel_Insert_Input>;
+  scores?: InputMaybe<WorkoutItemScoresArrRelInsertInput>;
   title?: InputMaybe<Scalars['String']['input']>;
   updated_at?: InputMaybe<Scalars['timestamp']['input']>;
-  workout?: InputMaybe<Workouts_Obj_Rel_Insert_Input>;
+  workout?: InputMaybe<WorkoutsObjRelInsertInput>;
   workout_id?: InputMaybe<Scalars['bigint']['input']>;
 };
 
 /** aggregate max on columns */
-export type Workout_Items_Max_Fields = {
+export type WorkoutItemsMaxFields = {
   __typename?: 'workout_items_max_fields';
-  created_at?: Maybe<Scalars['timestamp']['output']>;
-  header?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['bigint']['output']>;
-  notes?: Maybe<Scalars['String']['output']>;
-  score?: Maybe<Scalars['String']['output']>;
-  title?: Maybe<Scalars['String']['output']>;
-  updated_at?: Maybe<Scalars['timestamp']['output']>;
-  workout_id?: Maybe<Scalars['bigint']['output']>;
+  created_at: Maybe<Scalars['timestamp']['output']>;
+  header: Maybe<Scalars['String']['output']>;
+  id: Maybe<Scalars['bigint']['output']>;
+  notes: Maybe<Scalars['String']['output']>;
+  score: Maybe<Scalars['String']['output']>;
+  title: Maybe<Scalars['String']['output']>;
+  updated_at: Maybe<Scalars['timestamp']['output']>;
+  workout_id: Maybe<Scalars['bigint']['output']>;
 };
 
 /** order by max() on columns of table "workout_items" */
-export type Workout_Items_Max_Order_By = {
-  created_at?: InputMaybe<Order_By>;
-  header?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  notes?: InputMaybe<Order_By>;
-  score?: InputMaybe<Order_By>;
-  title?: InputMaybe<Order_By>;
-  updated_at?: InputMaybe<Order_By>;
-  workout_id?: InputMaybe<Order_By>;
+export type WorkoutItemsMaxOrderBy = {
+  created_at?: InputMaybe<OrderBy>;
+  header?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  notes?: InputMaybe<OrderBy>;
+  score?: InputMaybe<OrderBy>;
+  title?: InputMaybe<OrderBy>;
+  updated_at?: InputMaybe<OrderBy>;
+  workout_id?: InputMaybe<OrderBy>;
 };
 
 /** aggregate min on columns */
-export type Workout_Items_Min_Fields = {
+export type WorkoutItemsMinFields = {
   __typename?: 'workout_items_min_fields';
-  created_at?: Maybe<Scalars['timestamp']['output']>;
-  header?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['bigint']['output']>;
-  notes?: Maybe<Scalars['String']['output']>;
-  score?: Maybe<Scalars['String']['output']>;
-  title?: Maybe<Scalars['String']['output']>;
-  updated_at?: Maybe<Scalars['timestamp']['output']>;
-  workout_id?: Maybe<Scalars['bigint']['output']>;
+  created_at: Maybe<Scalars['timestamp']['output']>;
+  header: Maybe<Scalars['String']['output']>;
+  id: Maybe<Scalars['bigint']['output']>;
+  notes: Maybe<Scalars['String']['output']>;
+  score: Maybe<Scalars['String']['output']>;
+  title: Maybe<Scalars['String']['output']>;
+  updated_at: Maybe<Scalars['timestamp']['output']>;
+  workout_id: Maybe<Scalars['bigint']['output']>;
 };
 
 /** order by min() on columns of table "workout_items" */
-export type Workout_Items_Min_Order_By = {
-  created_at?: InputMaybe<Order_By>;
-  header?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  notes?: InputMaybe<Order_By>;
-  score?: InputMaybe<Order_By>;
-  title?: InputMaybe<Order_By>;
-  updated_at?: InputMaybe<Order_By>;
-  workout_id?: InputMaybe<Order_By>;
+export type WorkoutItemsMinOrderBy = {
+  created_at?: InputMaybe<OrderBy>;
+  header?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  notes?: InputMaybe<OrderBy>;
+  score?: InputMaybe<OrderBy>;
+  title?: InputMaybe<OrderBy>;
+  updated_at?: InputMaybe<OrderBy>;
+  workout_id?: InputMaybe<OrderBy>;
 };
 
 /** response of any mutation on the table "workout_items" */
-export type Workout_Items_Mutation_Response = {
+export type WorkoutItemsMutationResponse = {
   __typename?: 'workout_items_mutation_response';
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int']['output'];
   /** data from the rows affected by the mutation */
-  returning: Array<Workout_Items>;
+  returning: Array<WorkoutItems>;
 };
 
 /** input type for inserting object relation for remote table "workout_items" */
-export type Workout_Items_Obj_Rel_Insert_Input = {
-  data: Workout_Items_Insert_Input;
+export type WorkoutItemsObjRelInsertInput = {
+  data: WorkoutItemsInsertInput;
   /** upsert condition */
-  on_conflict?: InputMaybe<Workout_Items_On_Conflict>;
+  on_conflict?: InputMaybe<WorkoutItemsOnConflict>;
 };
 
 /** on_conflict condition type for table "workout_items" */
-export type Workout_Items_On_Conflict = {
-  constraint: Workout_Items_Constraint;
-  update_columns?: Array<Workout_Items_Update_Column>;
-  where?: InputMaybe<Workout_Items_Bool_Exp>;
+export type WorkoutItemsOnConflict = {
+  constraint: WorkoutItemsConstraint;
+  update_columns?: Array<WorkoutItemsUpdateColumn>;
+  where?: InputMaybe<WorkoutItemsBoolExp>;
 };
 
 /** Ordering options when selecting data from "workout_items". */
-export type Workout_Items_Order_By = {
-  created_at?: InputMaybe<Order_By>;
-  exercise_details_aggregate?: InputMaybe<Exercise_Details_Aggregate_Order_By>;
-  header?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  notes?: InputMaybe<Order_By>;
-  score?: InputMaybe<Order_By>;
-  scores_aggregate?: InputMaybe<Workout_Item_Scores_Aggregate_Order_By>;
-  title?: InputMaybe<Order_By>;
-  updated_at?: InputMaybe<Order_By>;
-  workout?: InputMaybe<Workouts_Order_By>;
-  workout_id?: InputMaybe<Order_By>;
+export type WorkoutItemsOrderBy = {
+  created_at?: InputMaybe<OrderBy>;
+  exercise_details_aggregate?: InputMaybe<ExerciseDetailsAggregateOrderBy>;
+  header?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  notes?: InputMaybe<OrderBy>;
+  score?: InputMaybe<OrderBy>;
+  scores_aggregate?: InputMaybe<WorkoutItemScoresAggregateOrderBy>;
+  title?: InputMaybe<OrderBy>;
+  updated_at?: InputMaybe<OrderBy>;
+  workout?: InputMaybe<WorkoutsOrderBy>;
+  workout_id?: InputMaybe<OrderBy>;
 };
 
 /** primary key columns input for table: workout_items */
-export type Workout_Items_Pk_Columns_Input = {
+export type WorkoutItemsPkColumnsInput = {
   id: Scalars['bigint']['input'];
 };
 
 /** select columns of table "workout_items" */
-export enum Workout_Items_Select_Column {
+export enum WorkoutItemsSelectColumn {
   /** column name */
-  CreatedAt = 'created_at',
+  CREATED_AT = 'created_at',
   /** column name */
-  Header = 'header',
+  HEADER = 'header',
   /** column name */
-  Id = 'id',
+  ID = 'id',
   /** column name */
-  Notes = 'notes',
+  NOTES = 'notes',
   /** column name */
-  Score = 'score',
+  SCORE = 'score',
   /** column name */
-  Title = 'title',
+  TITLE = 'title',
   /** column name */
-  UpdatedAt = 'updated_at',
+  UPDATED_AT = 'updated_at',
   /** column name */
-  WorkoutId = 'workout_id'
+  WORKOUT_ID = 'workout_id'
 }
 
 /** input type for updating data in table "workout_items" */
-export type Workout_Items_Set_Input = {
+export type WorkoutItemsSetInput = {
   created_at?: InputMaybe<Scalars['timestamp']['input']>;
   header?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
@@ -5225,54 +5239,54 @@ export type Workout_Items_Set_Input = {
 };
 
 /** aggregate stddev on columns */
-export type Workout_Items_Stddev_Fields = {
+export type WorkoutItemsStddevFields = {
   __typename?: 'workout_items_stddev_fields';
-  id?: Maybe<Scalars['Float']['output']>;
-  workout_id?: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
+  workout_id: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev() on columns of table "workout_items" */
-export type Workout_Items_Stddev_Order_By = {
-  id?: InputMaybe<Order_By>;
-  workout_id?: InputMaybe<Order_By>;
+export type WorkoutItemsStddevOrderBy = {
+  id?: InputMaybe<OrderBy>;
+  workout_id?: InputMaybe<OrderBy>;
 };
 
 /** aggregate stddev_pop on columns */
-export type Workout_Items_Stddev_Pop_Fields = {
+export type WorkoutItemsStddevPopFields = {
   __typename?: 'workout_items_stddev_pop_fields';
-  id?: Maybe<Scalars['Float']['output']>;
-  workout_id?: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
+  workout_id: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev_pop() on columns of table "workout_items" */
-export type Workout_Items_Stddev_Pop_Order_By = {
-  id?: InputMaybe<Order_By>;
-  workout_id?: InputMaybe<Order_By>;
+export type WorkoutItemsStddevPopOrderBy = {
+  id?: InputMaybe<OrderBy>;
+  workout_id?: InputMaybe<OrderBy>;
 };
 
 /** aggregate stddev_samp on columns */
-export type Workout_Items_Stddev_Samp_Fields = {
+export type WorkoutItemsStddevSampFields = {
   __typename?: 'workout_items_stddev_samp_fields';
-  id?: Maybe<Scalars['Float']['output']>;
-  workout_id?: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
+  workout_id: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev_samp() on columns of table "workout_items" */
-export type Workout_Items_Stddev_Samp_Order_By = {
-  id?: InputMaybe<Order_By>;
-  workout_id?: InputMaybe<Order_By>;
+export type WorkoutItemsStddevSampOrderBy = {
+  id?: InputMaybe<OrderBy>;
+  workout_id?: InputMaybe<OrderBy>;
 };
 
 /** Streaming cursor of the table "workout_items" */
-export type Workout_Items_Stream_Cursor_Input = {
+export type WorkoutItemsStreamCursorInput = {
   /** Stream column input with initial value */
-  initial_value: Workout_Items_Stream_Cursor_Value_Input;
+  initial_value: WorkoutItemsStreamCursorValueInput;
   /** cursor ordering */
-  ordering?: InputMaybe<Cursor_Ordering>;
+  ordering?: InputMaybe<CursorOrdering>;
 };
 
 /** Initial value of the column from where the streaming should start */
-export type Workout_Items_Stream_Cursor_Value_Input = {
+export type WorkoutItemsStreamCursorValueInput = {
   created_at?: InputMaybe<Scalars['timestamp']['input']>;
   header?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
@@ -5284,309 +5298,309 @@ export type Workout_Items_Stream_Cursor_Value_Input = {
 };
 
 /** aggregate sum on columns */
-export type Workout_Items_Sum_Fields = {
+export type WorkoutItemsSumFields = {
   __typename?: 'workout_items_sum_fields';
-  id?: Maybe<Scalars['bigint']['output']>;
-  workout_id?: Maybe<Scalars['bigint']['output']>;
+  id: Maybe<Scalars['bigint']['output']>;
+  workout_id: Maybe<Scalars['bigint']['output']>;
 };
 
 /** order by sum() on columns of table "workout_items" */
-export type Workout_Items_Sum_Order_By = {
-  id?: InputMaybe<Order_By>;
-  workout_id?: InputMaybe<Order_By>;
+export type WorkoutItemsSumOrderBy = {
+  id?: InputMaybe<OrderBy>;
+  workout_id?: InputMaybe<OrderBy>;
 };
 
 /** update columns of table "workout_items" */
-export enum Workout_Items_Update_Column {
+export enum WorkoutItemsUpdateColumn {
   /** column name */
-  CreatedAt = 'created_at',
+  CREATED_AT = 'created_at',
   /** column name */
-  Header = 'header',
+  HEADER = 'header',
   /** column name */
-  Id = 'id',
+  ID = 'id',
   /** column name */
-  Notes = 'notes',
+  NOTES = 'notes',
   /** column name */
-  Score = 'score',
+  SCORE = 'score',
   /** column name */
-  Title = 'title',
+  TITLE = 'title',
   /** column name */
-  UpdatedAt = 'updated_at',
+  UPDATED_AT = 'updated_at',
   /** column name */
-  WorkoutId = 'workout_id'
+  WORKOUT_ID = 'workout_id'
 }
 
-export type Workout_Items_Updates = {
+export type WorkoutItemsUpdates = {
   /** increments the numeric columns with given value of the filtered values */
-  _inc?: InputMaybe<Workout_Items_Inc_Input>;
+  _inc?: InputMaybe<WorkoutItemsIncInput>;
   /** sets the columns of the filtered rows to the given values */
-  _set?: InputMaybe<Workout_Items_Set_Input>;
+  _set?: InputMaybe<WorkoutItemsSetInput>;
   /** filter the rows which have to be updated */
-  where: Workout_Items_Bool_Exp;
+  where: WorkoutItemsBoolExp;
 };
 
 /** aggregate var_pop on columns */
-export type Workout_Items_Var_Pop_Fields = {
+export type WorkoutItemsVarPopFields = {
   __typename?: 'workout_items_var_pop_fields';
-  id?: Maybe<Scalars['Float']['output']>;
-  workout_id?: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
+  workout_id: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by var_pop() on columns of table "workout_items" */
-export type Workout_Items_Var_Pop_Order_By = {
-  id?: InputMaybe<Order_By>;
-  workout_id?: InputMaybe<Order_By>;
+export type WorkoutItemsVarPopOrderBy = {
+  id?: InputMaybe<OrderBy>;
+  workout_id?: InputMaybe<OrderBy>;
 };
 
 /** aggregate var_samp on columns */
-export type Workout_Items_Var_Samp_Fields = {
+export type WorkoutItemsVarSampFields = {
   __typename?: 'workout_items_var_samp_fields';
-  id?: Maybe<Scalars['Float']['output']>;
-  workout_id?: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
+  workout_id: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by var_samp() on columns of table "workout_items" */
-export type Workout_Items_Var_Samp_Order_By = {
-  id?: InputMaybe<Order_By>;
-  workout_id?: InputMaybe<Order_By>;
+export type WorkoutItemsVarSampOrderBy = {
+  id?: InputMaybe<OrderBy>;
+  workout_id?: InputMaybe<OrderBy>;
 };
 
 /** aggregate variance on columns */
-export type Workout_Items_Variance_Fields = {
+export type WorkoutItemsVarianceFields = {
   __typename?: 'workout_items_variance_fields';
-  id?: Maybe<Scalars['Float']['output']>;
-  workout_id?: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
+  workout_id: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by variance() on columns of table "workout_items" */
-export type Workout_Items_Variance_Order_By = {
-  id?: InputMaybe<Order_By>;
-  workout_id?: InputMaybe<Order_By>;
+export type WorkoutItemsVarianceOrderBy = {
+  id?: InputMaybe<OrderBy>;
+  workout_id?: InputMaybe<OrderBy>;
 };
 
 /** columns and relationships of "workouts" */
 export type Workouts = {
   __typename?: 'workouts';
-  created_at?: Maybe<Scalars['timestamp']['output']>;
+  created_at: Scalars['timestamp']['output'];
   /** An object relationship */
-  current_cycle?: Maybe<Cycles>;
-  cycle?: Maybe<Scalars['Int']['output']>;
-  date?: Maybe<Scalars['String']['output']>;
-  description?: Maybe<Scalars['String']['output']>;
+  current_cycle: Maybe<Cycles>;
+  cycle: Maybe<Scalars['Int']['output']>;
+  date: Maybe<Scalars['String']['output']>;
+  description: Maybe<Scalars['String']['output']>;
   id: Scalars['bigint']['output'];
   isActiveRecovery: Scalars['Boolean']['output'];
   isRestDay: Scalars['Boolean']['output'];
-  poster?: Maybe<Scalars['String']['output']>;
+  poster: Maybe<Scalars['String']['output']>;
   subtitle: Scalars['String']['output'];
   title: Scalars['String']['output'];
-  updated_at?: Maybe<Scalars['timestamp']['output']>;
+  updated_at: Scalars['timestamp']['output'];
   /** An array relationship */
-  user_cycles: Array<User_Cycles>;
+  user_cycles: Array<UserCycles>;
   /** An aggregate relationship */
-  user_cycles_aggregate: User_Cycles_Aggregate;
+  user_cycles_aggregate: UserCyclesAggregate;
   /** An array relationship */
-  user_workouts: Array<User_Workouts>;
+  user_workouts: Array<UserWorkouts>;
   /** An aggregate relationship */
-  user_workouts_aggregate: User_Workouts_Aggregate;
+  user_workouts_aggregate: UserWorkoutsAggregate;
   /** An array relationship */
-  workout_items: Array<Workout_Items>;
+  workout_items: Array<WorkoutItems>;
   /** An aggregate relationship */
-  workout_items_aggregate: Workout_Items_Aggregate;
+  workout_items_aggregate: WorkoutItemsAggregate;
 };
 
 
 /** columns and relationships of "workouts" */
-export type WorkoutsUser_CyclesArgs = {
-  distinct_on?: InputMaybe<Array<User_Cycles_Select_Column>>;
+export type WorkoutsUserCyclesArgs = {
+  distinct_on?: InputMaybe<Array<UserCyclesSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<User_Cycles_Order_By>>;
-  where?: InputMaybe<User_Cycles_Bool_Exp>;
+  order_by?: InputMaybe<Array<UserCyclesOrderBy>>;
+  where?: InputMaybe<UserCyclesBoolExp>;
 };
 
 
 /** columns and relationships of "workouts" */
-export type WorkoutsUser_Cycles_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<User_Cycles_Select_Column>>;
+export type WorkoutsUserCyclesAggregateArgs = {
+  distinct_on?: InputMaybe<Array<UserCyclesSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<User_Cycles_Order_By>>;
-  where?: InputMaybe<User_Cycles_Bool_Exp>;
+  order_by?: InputMaybe<Array<UserCyclesOrderBy>>;
+  where?: InputMaybe<UserCyclesBoolExp>;
 };
 
 
 /** columns and relationships of "workouts" */
-export type WorkoutsUser_WorkoutsArgs = {
-  distinct_on?: InputMaybe<Array<User_Workouts_Select_Column>>;
+export type WorkoutsUserWorkoutsArgs = {
+  distinct_on?: InputMaybe<Array<UserWorkoutsSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<User_Workouts_Order_By>>;
-  where?: InputMaybe<User_Workouts_Bool_Exp>;
+  order_by?: InputMaybe<Array<UserWorkoutsOrderBy>>;
+  where?: InputMaybe<UserWorkoutsBoolExp>;
 };
 
 
 /** columns and relationships of "workouts" */
-export type WorkoutsUser_Workouts_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<User_Workouts_Select_Column>>;
+export type WorkoutsUserWorkoutsAggregateArgs = {
+  distinct_on?: InputMaybe<Array<UserWorkoutsSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<User_Workouts_Order_By>>;
-  where?: InputMaybe<User_Workouts_Bool_Exp>;
+  order_by?: InputMaybe<Array<UserWorkoutsOrderBy>>;
+  where?: InputMaybe<UserWorkoutsBoolExp>;
 };
 
 
 /** columns and relationships of "workouts" */
-export type WorkoutsWorkout_ItemsArgs = {
-  distinct_on?: InputMaybe<Array<Workout_Items_Select_Column>>;
+export type WorkoutsWorkoutItemsArgs = {
+  distinct_on?: InputMaybe<Array<WorkoutItemsSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Workout_Items_Order_By>>;
-  where?: InputMaybe<Workout_Items_Bool_Exp>;
+  order_by?: InputMaybe<Array<WorkoutItemsOrderBy>>;
+  where?: InputMaybe<WorkoutItemsBoolExp>;
 };
 
 
 /** columns and relationships of "workouts" */
-export type WorkoutsWorkout_Items_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Workout_Items_Select_Column>>;
+export type WorkoutsWorkoutItemsAggregateArgs = {
+  distinct_on?: InputMaybe<Array<WorkoutItemsSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-  order_by?: InputMaybe<Array<Workout_Items_Order_By>>;
-  where?: InputMaybe<Workout_Items_Bool_Exp>;
+  order_by?: InputMaybe<Array<WorkoutItemsOrderBy>>;
+  where?: InputMaybe<WorkoutItemsBoolExp>;
 };
 
 /** aggregated selection of "workouts" */
-export type Workouts_Aggregate = {
+export type WorkoutsAggregate = {
   __typename?: 'workouts_aggregate';
-  aggregate?: Maybe<Workouts_Aggregate_Fields>;
+  aggregate: Maybe<WorkoutsAggregateFields>;
   nodes: Array<Workouts>;
 };
 
-export type Workouts_Aggregate_Bool_Exp = {
-  bool_and?: InputMaybe<Workouts_Aggregate_Bool_Exp_Bool_And>;
-  bool_or?: InputMaybe<Workouts_Aggregate_Bool_Exp_Bool_Or>;
-  count?: InputMaybe<Workouts_Aggregate_Bool_Exp_Count>;
+export type WorkoutsAggregateBoolExp = {
+  bool_and?: InputMaybe<WorkoutsAggregateBoolExpBoolAnd>;
+  bool_or?: InputMaybe<WorkoutsAggregateBoolExpBoolOr>;
+  count?: InputMaybe<WorkoutsAggregateBoolExpCount>;
 };
 
-export type Workouts_Aggregate_Bool_Exp_Bool_And = {
-  arguments: Workouts_Select_Column_Workouts_Aggregate_Bool_Exp_Bool_And_Arguments_Columns;
+export type WorkoutsAggregateBoolExpBoolAnd = {
+  arguments: WorkoutsSelectColumnWorkoutsAggregateBoolExpBoolAndArgumentsColumns;
   distinct?: InputMaybe<Scalars['Boolean']['input']>;
-  filter?: InputMaybe<Workouts_Bool_Exp>;
-  predicate: Boolean_Comparison_Exp;
+  filter?: InputMaybe<WorkoutsBoolExp>;
+  predicate: BooleanComparisonExp;
 };
 
-export type Workouts_Aggregate_Bool_Exp_Bool_Or = {
-  arguments: Workouts_Select_Column_Workouts_Aggregate_Bool_Exp_Bool_Or_Arguments_Columns;
+export type WorkoutsAggregateBoolExpBoolOr = {
+  arguments: WorkoutsSelectColumnWorkoutsAggregateBoolExpBoolOrArgumentsColumns;
   distinct?: InputMaybe<Scalars['Boolean']['input']>;
-  filter?: InputMaybe<Workouts_Bool_Exp>;
-  predicate: Boolean_Comparison_Exp;
+  filter?: InputMaybe<WorkoutsBoolExp>;
+  predicate: BooleanComparisonExp;
 };
 
-export type Workouts_Aggregate_Bool_Exp_Count = {
-  arguments?: InputMaybe<Array<Workouts_Select_Column>>;
+export type WorkoutsAggregateBoolExpCount = {
+  arguments?: InputMaybe<Array<WorkoutsSelectColumn>>;
   distinct?: InputMaybe<Scalars['Boolean']['input']>;
-  filter?: InputMaybe<Workouts_Bool_Exp>;
-  predicate: Int_Comparison_Exp;
+  filter?: InputMaybe<WorkoutsBoolExp>;
+  predicate: IntComparisonExp;
 };
 
 /** aggregate fields of "workouts" */
-export type Workouts_Aggregate_Fields = {
+export type WorkoutsAggregateFields = {
   __typename?: 'workouts_aggregate_fields';
-  avg?: Maybe<Workouts_Avg_Fields>;
+  avg: Maybe<WorkoutsAvgFields>;
   count: Scalars['Int']['output'];
-  max?: Maybe<Workouts_Max_Fields>;
-  min?: Maybe<Workouts_Min_Fields>;
-  stddev?: Maybe<Workouts_Stddev_Fields>;
-  stddev_pop?: Maybe<Workouts_Stddev_Pop_Fields>;
-  stddev_samp?: Maybe<Workouts_Stddev_Samp_Fields>;
-  sum?: Maybe<Workouts_Sum_Fields>;
-  var_pop?: Maybe<Workouts_Var_Pop_Fields>;
-  var_samp?: Maybe<Workouts_Var_Samp_Fields>;
-  variance?: Maybe<Workouts_Variance_Fields>;
+  max: Maybe<WorkoutsMaxFields>;
+  min: Maybe<WorkoutsMinFields>;
+  stddev: Maybe<WorkoutsStddevFields>;
+  stddev_pop: Maybe<WorkoutsStddevPopFields>;
+  stddev_samp: Maybe<WorkoutsStddevSampFields>;
+  sum: Maybe<WorkoutsSumFields>;
+  var_pop: Maybe<WorkoutsVarPopFields>;
+  var_samp: Maybe<WorkoutsVarSampFields>;
+  variance: Maybe<WorkoutsVarianceFields>;
 };
 
 
 /** aggregate fields of "workouts" */
-export type Workouts_Aggregate_FieldsCountArgs = {
-  columns?: InputMaybe<Array<Workouts_Select_Column>>;
+export type WorkoutsAggregateFieldsCountArgs = {
+  columns?: InputMaybe<Array<WorkoutsSelectColumn>>;
   distinct?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 /** order by aggregate values of table "workouts" */
-export type Workouts_Aggregate_Order_By = {
-  avg?: InputMaybe<Workouts_Avg_Order_By>;
-  count?: InputMaybe<Order_By>;
-  max?: InputMaybe<Workouts_Max_Order_By>;
-  min?: InputMaybe<Workouts_Min_Order_By>;
-  stddev?: InputMaybe<Workouts_Stddev_Order_By>;
-  stddev_pop?: InputMaybe<Workouts_Stddev_Pop_Order_By>;
-  stddev_samp?: InputMaybe<Workouts_Stddev_Samp_Order_By>;
-  sum?: InputMaybe<Workouts_Sum_Order_By>;
-  var_pop?: InputMaybe<Workouts_Var_Pop_Order_By>;
-  var_samp?: InputMaybe<Workouts_Var_Samp_Order_By>;
-  variance?: InputMaybe<Workouts_Variance_Order_By>;
+export type WorkoutsAggregateOrderBy = {
+  avg?: InputMaybe<WorkoutsAvgOrderBy>;
+  count?: InputMaybe<OrderBy>;
+  max?: InputMaybe<WorkoutsMaxOrderBy>;
+  min?: InputMaybe<WorkoutsMinOrderBy>;
+  stddev?: InputMaybe<WorkoutsStddevOrderBy>;
+  stddev_pop?: InputMaybe<WorkoutsStddevPopOrderBy>;
+  stddev_samp?: InputMaybe<WorkoutsStddevSampOrderBy>;
+  sum?: InputMaybe<WorkoutsSumOrderBy>;
+  var_pop?: InputMaybe<WorkoutsVarPopOrderBy>;
+  var_samp?: InputMaybe<WorkoutsVarSampOrderBy>;
+  variance?: InputMaybe<WorkoutsVarianceOrderBy>;
 };
 
 /** input type for inserting array relation for remote table "workouts" */
-export type Workouts_Arr_Rel_Insert_Input = {
-  data: Array<Workouts_Insert_Input>;
+export type WorkoutsArrRelInsertInput = {
+  data: Array<WorkoutsInsertInput>;
   /** upsert condition */
-  on_conflict?: InputMaybe<Workouts_On_Conflict>;
+  on_conflict?: InputMaybe<WorkoutsOnConflict>;
 };
 
 /** aggregate avg on columns */
-export type Workouts_Avg_Fields = {
+export type WorkoutsAvgFields = {
   __typename?: 'workouts_avg_fields';
-  cycle?: Maybe<Scalars['Float']['output']>;
-  id?: Maybe<Scalars['Float']['output']>;
+  cycle: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by avg() on columns of table "workouts" */
-export type Workouts_Avg_Order_By = {
-  cycle?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
+export type WorkoutsAvgOrderBy = {
+  cycle?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
 };
 
 /** Boolean expression to filter rows from the table "workouts". All fields are combined with a logical 'AND'. */
-export type Workouts_Bool_Exp = {
-  _and?: InputMaybe<Array<Workouts_Bool_Exp>>;
-  _not?: InputMaybe<Workouts_Bool_Exp>;
-  _or?: InputMaybe<Array<Workouts_Bool_Exp>>;
-  created_at?: InputMaybe<Timestamp_Comparison_Exp>;
-  current_cycle?: InputMaybe<Cycles_Bool_Exp>;
-  cycle?: InputMaybe<Int_Comparison_Exp>;
-  date?: InputMaybe<String_Comparison_Exp>;
-  description?: InputMaybe<String_Comparison_Exp>;
-  id?: InputMaybe<Bigint_Comparison_Exp>;
-  isActiveRecovery?: InputMaybe<Boolean_Comparison_Exp>;
-  isRestDay?: InputMaybe<Boolean_Comparison_Exp>;
-  poster?: InputMaybe<String_Comparison_Exp>;
-  subtitle?: InputMaybe<String_Comparison_Exp>;
-  title?: InputMaybe<String_Comparison_Exp>;
-  updated_at?: InputMaybe<Timestamp_Comparison_Exp>;
-  user_cycles?: InputMaybe<User_Cycles_Bool_Exp>;
-  user_cycles_aggregate?: InputMaybe<User_Cycles_Aggregate_Bool_Exp>;
-  user_workouts?: InputMaybe<User_Workouts_Bool_Exp>;
-  user_workouts_aggregate?: InputMaybe<User_Workouts_Aggregate_Bool_Exp>;
-  workout_items?: InputMaybe<Workout_Items_Bool_Exp>;
-  workout_items_aggregate?: InputMaybe<Workout_Items_Aggregate_Bool_Exp>;
+export type WorkoutsBoolExp = {
+  _and?: InputMaybe<Array<WorkoutsBoolExp>>;
+  _not?: InputMaybe<WorkoutsBoolExp>;
+  _or?: InputMaybe<Array<WorkoutsBoolExp>>;
+  created_at?: InputMaybe<TimestampComparisonExp>;
+  current_cycle?: InputMaybe<CyclesBoolExp>;
+  cycle?: InputMaybe<IntComparisonExp>;
+  date?: InputMaybe<StringComparisonExp>;
+  description?: InputMaybe<StringComparisonExp>;
+  id?: InputMaybe<BigintComparisonExp>;
+  isActiveRecovery?: InputMaybe<BooleanComparisonExp>;
+  isRestDay?: InputMaybe<BooleanComparisonExp>;
+  poster?: InputMaybe<StringComparisonExp>;
+  subtitle?: InputMaybe<StringComparisonExp>;
+  title?: InputMaybe<StringComparisonExp>;
+  updated_at?: InputMaybe<TimestampComparisonExp>;
+  user_cycles?: InputMaybe<UserCyclesBoolExp>;
+  user_cycles_aggregate?: InputMaybe<UserCyclesAggregateBoolExp>;
+  user_workouts?: InputMaybe<UserWorkoutsBoolExp>;
+  user_workouts_aggregate?: InputMaybe<UserWorkoutsAggregateBoolExp>;
+  workout_items?: InputMaybe<WorkoutItemsBoolExp>;
+  workout_items_aggregate?: InputMaybe<WorkoutItemsAggregateBoolExp>;
 };
 
 /** unique or primary key constraints on table "workouts" */
-export enum Workouts_Constraint {
+export enum WorkoutsConstraint {
   /** unique or primary key constraint on columns "id" */
-  WorkoutsPkey = 'workouts_pkey'
+  WORKOUTS_PKEY = 'workouts_pkey'
 }
 
 /** input type for incrementing numeric columns in table "workouts" */
-export type Workouts_Inc_Input = {
+export type WorkoutsIncInput = {
   cycle?: InputMaybe<Scalars['Int']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
 };
 
 /** input type for inserting data into table "workouts" */
-export type Workouts_Insert_Input = {
+export type WorkoutsInsertInput = {
   created_at?: InputMaybe<Scalars['timestamp']['input']>;
-  current_cycle?: InputMaybe<Cycles_Obj_Rel_Insert_Input>;
+  current_cycle?: InputMaybe<CyclesObjRelInsertInput>;
   cycle?: InputMaybe<Scalars['Int']['input']>;
   date?: InputMaybe<Scalars['String']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
@@ -5597,67 +5611,67 @@ export type Workouts_Insert_Input = {
   subtitle?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   updated_at?: InputMaybe<Scalars['timestamp']['input']>;
-  user_cycles?: InputMaybe<User_Cycles_Arr_Rel_Insert_Input>;
-  user_workouts?: InputMaybe<User_Workouts_Arr_Rel_Insert_Input>;
-  workout_items?: InputMaybe<Workout_Items_Arr_Rel_Insert_Input>;
+  user_cycles?: InputMaybe<UserCyclesArrRelInsertInput>;
+  user_workouts?: InputMaybe<UserWorkoutsArrRelInsertInput>;
+  workout_items?: InputMaybe<WorkoutItemsArrRelInsertInput>;
 };
 
 /** aggregate max on columns */
-export type Workouts_Max_Fields = {
+export type WorkoutsMaxFields = {
   __typename?: 'workouts_max_fields';
-  created_at?: Maybe<Scalars['timestamp']['output']>;
-  cycle?: Maybe<Scalars['Int']['output']>;
-  date?: Maybe<Scalars['String']['output']>;
-  description?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['bigint']['output']>;
-  poster?: Maybe<Scalars['String']['output']>;
-  subtitle?: Maybe<Scalars['String']['output']>;
-  title?: Maybe<Scalars['String']['output']>;
-  updated_at?: Maybe<Scalars['timestamp']['output']>;
+  created_at: Maybe<Scalars['timestamp']['output']>;
+  cycle: Maybe<Scalars['Int']['output']>;
+  date: Maybe<Scalars['String']['output']>;
+  description: Maybe<Scalars['String']['output']>;
+  id: Maybe<Scalars['bigint']['output']>;
+  poster: Maybe<Scalars['String']['output']>;
+  subtitle: Maybe<Scalars['String']['output']>;
+  title: Maybe<Scalars['String']['output']>;
+  updated_at: Maybe<Scalars['timestamp']['output']>;
 };
 
 /** order by max() on columns of table "workouts" */
-export type Workouts_Max_Order_By = {
-  created_at?: InputMaybe<Order_By>;
-  cycle?: InputMaybe<Order_By>;
-  date?: InputMaybe<Order_By>;
-  description?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  poster?: InputMaybe<Order_By>;
-  subtitle?: InputMaybe<Order_By>;
-  title?: InputMaybe<Order_By>;
-  updated_at?: InputMaybe<Order_By>;
+export type WorkoutsMaxOrderBy = {
+  created_at?: InputMaybe<OrderBy>;
+  cycle?: InputMaybe<OrderBy>;
+  date?: InputMaybe<OrderBy>;
+  description?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  poster?: InputMaybe<OrderBy>;
+  subtitle?: InputMaybe<OrderBy>;
+  title?: InputMaybe<OrderBy>;
+  updated_at?: InputMaybe<OrderBy>;
 };
 
 /** aggregate min on columns */
-export type Workouts_Min_Fields = {
+export type WorkoutsMinFields = {
   __typename?: 'workouts_min_fields';
-  created_at?: Maybe<Scalars['timestamp']['output']>;
-  cycle?: Maybe<Scalars['Int']['output']>;
-  date?: Maybe<Scalars['String']['output']>;
-  description?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['bigint']['output']>;
-  poster?: Maybe<Scalars['String']['output']>;
-  subtitle?: Maybe<Scalars['String']['output']>;
-  title?: Maybe<Scalars['String']['output']>;
-  updated_at?: Maybe<Scalars['timestamp']['output']>;
+  created_at: Maybe<Scalars['timestamp']['output']>;
+  cycle: Maybe<Scalars['Int']['output']>;
+  date: Maybe<Scalars['String']['output']>;
+  description: Maybe<Scalars['String']['output']>;
+  id: Maybe<Scalars['bigint']['output']>;
+  poster: Maybe<Scalars['String']['output']>;
+  subtitle: Maybe<Scalars['String']['output']>;
+  title: Maybe<Scalars['String']['output']>;
+  updated_at: Maybe<Scalars['timestamp']['output']>;
 };
 
 /** order by min() on columns of table "workouts" */
-export type Workouts_Min_Order_By = {
-  created_at?: InputMaybe<Order_By>;
-  cycle?: InputMaybe<Order_By>;
-  date?: InputMaybe<Order_By>;
-  description?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  poster?: InputMaybe<Order_By>;
-  subtitle?: InputMaybe<Order_By>;
-  title?: InputMaybe<Order_By>;
-  updated_at?: InputMaybe<Order_By>;
+export type WorkoutsMinOrderBy = {
+  created_at?: InputMaybe<OrderBy>;
+  cycle?: InputMaybe<OrderBy>;
+  date?: InputMaybe<OrderBy>;
+  description?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  poster?: InputMaybe<OrderBy>;
+  subtitle?: InputMaybe<OrderBy>;
+  title?: InputMaybe<OrderBy>;
+  updated_at?: InputMaybe<OrderBy>;
 };
 
 /** response of any mutation on the table "workouts" */
-export type Workouts_Mutation_Response = {
+export type WorkoutsMutationResponse = {
   __typename?: 'workouts_mutation_response';
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int']['output'];
@@ -5666,87 +5680,87 @@ export type Workouts_Mutation_Response = {
 };
 
 /** input type for inserting object relation for remote table "workouts" */
-export type Workouts_Obj_Rel_Insert_Input = {
-  data: Workouts_Insert_Input;
+export type WorkoutsObjRelInsertInput = {
+  data: WorkoutsInsertInput;
   /** upsert condition */
-  on_conflict?: InputMaybe<Workouts_On_Conflict>;
+  on_conflict?: InputMaybe<WorkoutsOnConflict>;
 };
 
 /** on_conflict condition type for table "workouts" */
-export type Workouts_On_Conflict = {
-  constraint: Workouts_Constraint;
-  update_columns?: Array<Workouts_Update_Column>;
-  where?: InputMaybe<Workouts_Bool_Exp>;
+export type WorkoutsOnConflict = {
+  constraint: WorkoutsConstraint;
+  update_columns?: Array<WorkoutsUpdateColumn>;
+  where?: InputMaybe<WorkoutsBoolExp>;
 };
 
 /** Ordering options when selecting data from "workouts". */
-export type Workouts_Order_By = {
-  created_at?: InputMaybe<Order_By>;
-  current_cycle?: InputMaybe<Cycles_Order_By>;
-  cycle?: InputMaybe<Order_By>;
-  date?: InputMaybe<Order_By>;
-  description?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-  isActiveRecovery?: InputMaybe<Order_By>;
-  isRestDay?: InputMaybe<Order_By>;
-  poster?: InputMaybe<Order_By>;
-  subtitle?: InputMaybe<Order_By>;
-  title?: InputMaybe<Order_By>;
-  updated_at?: InputMaybe<Order_By>;
-  user_cycles_aggregate?: InputMaybe<User_Cycles_Aggregate_Order_By>;
-  user_workouts_aggregate?: InputMaybe<User_Workouts_Aggregate_Order_By>;
-  workout_items_aggregate?: InputMaybe<Workout_Items_Aggregate_Order_By>;
+export type WorkoutsOrderBy = {
+  created_at?: InputMaybe<OrderBy>;
+  current_cycle?: InputMaybe<CyclesOrderBy>;
+  cycle?: InputMaybe<OrderBy>;
+  date?: InputMaybe<OrderBy>;
+  description?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  isActiveRecovery?: InputMaybe<OrderBy>;
+  isRestDay?: InputMaybe<OrderBy>;
+  poster?: InputMaybe<OrderBy>;
+  subtitle?: InputMaybe<OrderBy>;
+  title?: InputMaybe<OrderBy>;
+  updated_at?: InputMaybe<OrderBy>;
+  user_cycles_aggregate?: InputMaybe<UserCyclesAggregateOrderBy>;
+  user_workouts_aggregate?: InputMaybe<UserWorkoutsAggregateOrderBy>;
+  workout_items_aggregate?: InputMaybe<WorkoutItemsAggregateOrderBy>;
 };
 
 /** primary key columns input for table: workouts */
-export type Workouts_Pk_Columns_Input = {
+export type WorkoutsPkColumnsInput = {
   id: Scalars['bigint']['input'];
 };
 
 /** select columns of table "workouts" */
-export enum Workouts_Select_Column {
+export enum WorkoutsSelectColumn {
   /** column name */
-  CreatedAt = 'created_at',
+  CREATED_AT = 'created_at',
   /** column name */
-  Cycle = 'cycle',
+  CYCLE = 'cycle',
   /** column name */
-  Date = 'date',
+  DATE = 'date',
   /** column name */
-  Description = 'description',
+  DESCRIPTION = 'description',
   /** column name */
-  Id = 'id',
+  ID = 'id',
   /** column name */
-  IsActiveRecovery = 'isActiveRecovery',
+  ISACTIVERECOVERY = 'isActiveRecovery',
   /** column name */
-  IsRestDay = 'isRestDay',
+  ISRESTDAY = 'isRestDay',
   /** column name */
-  Poster = 'poster',
+  POSTER = 'poster',
   /** column name */
-  Subtitle = 'subtitle',
+  SUBTITLE = 'subtitle',
   /** column name */
-  Title = 'title',
+  TITLE = 'title',
   /** column name */
-  UpdatedAt = 'updated_at'
+  UPDATED_AT = 'updated_at'
 }
 
 /** select "workouts_aggregate_bool_exp_bool_and_arguments_columns" columns of table "workouts" */
-export enum Workouts_Select_Column_Workouts_Aggregate_Bool_Exp_Bool_And_Arguments_Columns {
+export enum WorkoutsSelectColumnWorkoutsAggregateBoolExpBoolAndArgumentsColumns {
   /** column name */
-  IsActiveRecovery = 'isActiveRecovery',
+  ISACTIVERECOVERY = 'isActiveRecovery',
   /** column name */
-  IsRestDay = 'isRestDay'
+  ISRESTDAY = 'isRestDay'
 }
 
 /** select "workouts_aggregate_bool_exp_bool_or_arguments_columns" columns of table "workouts" */
-export enum Workouts_Select_Column_Workouts_Aggregate_Bool_Exp_Bool_Or_Arguments_Columns {
+export enum WorkoutsSelectColumnWorkoutsAggregateBoolExpBoolOrArgumentsColumns {
   /** column name */
-  IsActiveRecovery = 'isActiveRecovery',
+  ISACTIVERECOVERY = 'isActiveRecovery',
   /** column name */
-  IsRestDay = 'isRestDay'
+  ISRESTDAY = 'isRestDay'
 }
 
 /** input type for updating data in table "workouts" */
-export type Workouts_Set_Input = {
+export type WorkoutsSetInput = {
   created_at?: InputMaybe<Scalars['timestamp']['input']>;
   cycle?: InputMaybe<Scalars['Int']['input']>;
   date?: InputMaybe<Scalars['String']['input']>;
@@ -5761,54 +5775,54 @@ export type Workouts_Set_Input = {
 };
 
 /** aggregate stddev on columns */
-export type Workouts_Stddev_Fields = {
+export type WorkoutsStddevFields = {
   __typename?: 'workouts_stddev_fields';
-  cycle?: Maybe<Scalars['Float']['output']>;
-  id?: Maybe<Scalars['Float']['output']>;
+  cycle: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev() on columns of table "workouts" */
-export type Workouts_Stddev_Order_By = {
-  cycle?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
+export type WorkoutsStddevOrderBy = {
+  cycle?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
 };
 
 /** aggregate stddev_pop on columns */
-export type Workouts_Stddev_Pop_Fields = {
+export type WorkoutsStddevPopFields = {
   __typename?: 'workouts_stddev_pop_fields';
-  cycle?: Maybe<Scalars['Float']['output']>;
-  id?: Maybe<Scalars['Float']['output']>;
+  cycle: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev_pop() on columns of table "workouts" */
-export type Workouts_Stddev_Pop_Order_By = {
-  cycle?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
+export type WorkoutsStddevPopOrderBy = {
+  cycle?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
 };
 
 /** aggregate stddev_samp on columns */
-export type Workouts_Stddev_Samp_Fields = {
+export type WorkoutsStddevSampFields = {
   __typename?: 'workouts_stddev_samp_fields';
-  cycle?: Maybe<Scalars['Float']['output']>;
-  id?: Maybe<Scalars['Float']['output']>;
+  cycle: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev_samp() on columns of table "workouts" */
-export type Workouts_Stddev_Samp_Order_By = {
-  cycle?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
+export type WorkoutsStddevSampOrderBy = {
+  cycle?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
 };
 
 /** Streaming cursor of the table "workouts" */
-export type Workouts_Stream_Cursor_Input = {
+export type WorkoutsStreamCursorInput = {
   /** Stream column input with initial value */
-  initial_value: Workouts_Stream_Cursor_Value_Input;
+  initial_value: WorkoutsStreamCursorValueInput;
   /** cursor ordering */
-  ordering?: InputMaybe<Cursor_Ordering>;
+  ordering?: InputMaybe<CursorOrdering>;
 };
 
 /** Initial value of the column from where the streaming should start */
-export type Workouts_Stream_Cursor_Value_Input = {
+export type WorkoutsStreamCursorValueInput = {
   created_at?: InputMaybe<Scalars['timestamp']['input']>;
   cycle?: InputMaybe<Scalars['Int']['input']>;
   date?: InputMaybe<Scalars['String']['input']>;
@@ -5823,174 +5837,189 @@ export type Workouts_Stream_Cursor_Value_Input = {
 };
 
 /** aggregate sum on columns */
-export type Workouts_Sum_Fields = {
+export type WorkoutsSumFields = {
   __typename?: 'workouts_sum_fields';
-  cycle?: Maybe<Scalars['Int']['output']>;
-  id?: Maybe<Scalars['bigint']['output']>;
+  cycle: Maybe<Scalars['Int']['output']>;
+  id: Maybe<Scalars['bigint']['output']>;
 };
 
 /** order by sum() on columns of table "workouts" */
-export type Workouts_Sum_Order_By = {
-  cycle?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
+export type WorkoutsSumOrderBy = {
+  cycle?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
 };
 
 /** update columns of table "workouts" */
-export enum Workouts_Update_Column {
+export enum WorkoutsUpdateColumn {
   /** column name */
-  CreatedAt = 'created_at',
+  CREATED_AT = 'created_at',
   /** column name */
-  Cycle = 'cycle',
+  CYCLE = 'cycle',
   /** column name */
-  Date = 'date',
+  DATE = 'date',
   /** column name */
-  Description = 'description',
+  DESCRIPTION = 'description',
   /** column name */
-  Id = 'id',
+  ID = 'id',
   /** column name */
-  IsActiveRecovery = 'isActiveRecovery',
+  ISACTIVERECOVERY = 'isActiveRecovery',
   /** column name */
-  IsRestDay = 'isRestDay',
+  ISRESTDAY = 'isRestDay',
   /** column name */
-  Poster = 'poster',
+  POSTER = 'poster',
   /** column name */
-  Subtitle = 'subtitle',
+  SUBTITLE = 'subtitle',
   /** column name */
-  Title = 'title',
+  TITLE = 'title',
   /** column name */
-  UpdatedAt = 'updated_at'
+  UPDATED_AT = 'updated_at'
 }
 
-export type Workouts_Updates = {
+export type WorkoutsUpdates = {
   /** increments the numeric columns with given value of the filtered values */
-  _inc?: InputMaybe<Workouts_Inc_Input>;
+  _inc?: InputMaybe<WorkoutsIncInput>;
   /** sets the columns of the filtered rows to the given values */
-  _set?: InputMaybe<Workouts_Set_Input>;
+  _set?: InputMaybe<WorkoutsSetInput>;
   /** filter the rows which have to be updated */
-  where: Workouts_Bool_Exp;
+  where: WorkoutsBoolExp;
 };
 
 /** aggregate var_pop on columns */
-export type Workouts_Var_Pop_Fields = {
+export type WorkoutsVarPopFields = {
   __typename?: 'workouts_var_pop_fields';
-  cycle?: Maybe<Scalars['Float']['output']>;
-  id?: Maybe<Scalars['Float']['output']>;
+  cycle: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by var_pop() on columns of table "workouts" */
-export type Workouts_Var_Pop_Order_By = {
-  cycle?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
+export type WorkoutsVarPopOrderBy = {
+  cycle?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
 };
 
 /** aggregate var_samp on columns */
-export type Workouts_Var_Samp_Fields = {
+export type WorkoutsVarSampFields = {
   __typename?: 'workouts_var_samp_fields';
-  cycle?: Maybe<Scalars['Float']['output']>;
-  id?: Maybe<Scalars['Float']['output']>;
+  cycle: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by var_samp() on columns of table "workouts" */
-export type Workouts_Var_Samp_Order_By = {
-  cycle?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
+export type WorkoutsVarSampOrderBy = {
+  cycle?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
 };
 
 /** aggregate variance on columns */
-export type Workouts_Variance_Fields = {
+export type WorkoutsVarianceFields = {
   __typename?: 'workouts_variance_fields';
-  cycle?: Maybe<Scalars['Float']['output']>;
-  id?: Maybe<Scalars['Float']['output']>;
+  cycle: Maybe<Scalars['Float']['output']>;
+  id: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by variance() on columns of table "workouts" */
-export type Workouts_Variance_Order_By = {
-  cycle?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
+export type WorkoutsVarianceOrderBy = {
+  cycle?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
 };
 
-export type UserFragment = { __typename?: 'user_cycles', user: { __typename?: 'users', id: any, name: string, email: string, image_url?: string | null } };
+export type User = { __typename?: 'user_cycles', user: { __typename?: 'users', id: string, name: string, email: string, image_url: string | null | undefined } };
 
-export type ProgramsFragment = { __typename?: 'programs', id: any, name: string, image?: string | null };
+export type Programs = { __typename?: 'programs', id: string, name: string, image: string | null | undefined };
 
-export type WorkoutFragment = { __typename?: 'user_cycles', workout: { __typename?: 'workouts', id: any, title: string, first: Array<{ __typename?: 'workout_items', id: any, header?: string | null, notes?: string | null }>, rest: Array<{ __typename?: 'workout_items', id: any, header?: string | null }> } };
+export type Workout = { __typename?: 'user_cycles', workout: { __typename?: 'workouts', id: string, title: string, first: Array<{ __typename?: 'workout_items', id: string, header: string | null | undefined, notes: string | null | undefined }>, rest: Array<{ __typename?: 'workout_items', id: string, header: string | null | undefined }>, titles: Array<{ __typename?: 'workout_items', id: string, title: string | null | undefined }> } };
 
-export type ProgramDetailsFragment = { __typename?: 'cycles', program?: { __typename?: 'programs', id: any, name: string, image?: string | null } | null };
+export type ProgramDetails = { __typename?: 'cycles', program: { __typename?: 'programs', id: string, name: string, image: string | null | undefined } };
 
-export type WorkoutIdsFragment = { __typename?: 'cycles', workouts: Array<{ __typename?: 'workouts', id: any }> };
+export type WorkoutIds = { __typename?: 'cycles', workouts: Array<{ __typename?: 'workouts', id: string }> };
 
-export type CompleteWorkoutMutationVariables = Exact<{
+export type CompleteWorkoutVariables = Exact<{
   completedWorkout: Scalars['bigint']['input'];
   cycleId: Scalars['bigint']['input'];
   nextWorkoutId: Scalars['Int']['input'];
 }>;
 
 
-export type CompleteWorkoutMutation = { __typename?: 'mutation_root', insert_user_workouts_one?: { __typename?: 'user_workouts', id: any, workout_id: any } | null, update_user_cycles?: { __typename?: 'user_cycles_mutation_response', affected_rows: number } | null };
+export type CompleteWorkout = { __typename?: 'mutation_root', insert_user_workouts_one: { __typename?: 'user_workouts', id: string, workout_id: string } | null | undefined, update_user_cycles: { __typename?: 'user_cycles_mutation_response', affected_rows: number } | null | undefined };
 
-export type UpsertWorkoutItemScoreMutationVariables = Exact<{
+export type FinishCycleVariables = Exact<{
+  completedWorkout: Scalars['bigint']['input'];
+  cycleId: Scalars['bigint']['input'];
+}>;
+
+
+export type FinishCycle = { __typename?: 'mutation_root', insert_user_workouts_one: { __typename?: 'user_workouts', id: string, workout_id: string } | null | undefined, update_user_cycles: { __typename?: 'user_cycles_mutation_response', affected_rows: number } | null | undefined };
+
+export type UpsertWorkoutItemScoreVariables = Exact<{
   workoutItemId: Scalars['bigint']['input'];
   score?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
-export type UpsertWorkoutItemScoreMutation = { __typename?: 'mutation_root', insert_workout_item_scores?: { __typename?: 'workout_item_scores_mutation_response', returning: Array<{ __typename?: 'workout_item_scores', id: any, value: string }> } | null };
+export type UpsertWorkoutItemScore = { __typename?: 'mutation_root', insert_workout_item_scores: { __typename?: 'workout_item_scores_mutation_response', returning: Array<{ __typename?: 'workout_item_scores', id: string, value: string }> } | null | undefined };
 
-export type GetWorkoutsQueryVariables = Exact<{
+export type GetWorkoutsVariables = Exact<{
   cycleId: Scalars['Int']['input'];
 }>;
 
 
-export type GetWorkoutsQuery = { __typename?: 'query_root', workouts: Array<{ __typename?: 'workouts', id: any, title: string, subtitle: string, poster?: string | null, isRestDay: boolean, isActiveRecovery: boolean, description?: string | null, date?: string | null, cycle?: number | null, workout_items: Array<{ __typename?: 'workout_items', notes?: string | null }> }> };
+export type GetWorkouts = { __typename?: 'query_root', workouts: Array<{ __typename?: 'workouts', id: string, title: string, subtitle: string, isRestDay: boolean, isActiveRecovery: boolean, date: string | null | undefined, cycle: number | null | undefined, items: { __typename?: 'workout_items_aggregate', aggregate: { __typename?: 'workout_items_aggregate_fields', count: number } | null | undefined } }> };
 
-export type WorkoutByIdQueryVariables = Exact<{
+export type WorkoutByIdVariables = Exact<{
   id: Scalars['bigint']['input'];
   cycleId: Scalars['bigint']['input'];
 }>;
 
 
-export type WorkoutByIdQuery = { __typename?: 'query_root', workout?: { __typename?: 'workouts', id: any, title: string, subtitle: string, poster?: string | null, isRestDay: boolean, isActiveRecovery: boolean, description?: string | null, date?: string | null, cycle?: number | null, workout_items: Array<{ __typename?: 'workout_items', id: any, title?: string | null, notes?: string | null, header?: string | null, scores: Array<{ __typename?: 'workout_item_scores', value: string }>, exercise_details: Array<{ __typename?: 'exercise_details', id: any, title?: string | null, subtitle?: string | null, levels?: any | null, exercise?: { __typename?: 'exercises', id: any, demo_video_url?: string | null, demo_video_title: string, demo_video_poster: string, demo_video_id: string } | null }> }>, user_workouts: Array<{ __typename?: 'user_workouts', id: any }>, current_cycle?: { __typename?: 'cycles', next_workout?: any | null } | null } | null };
+export type WorkoutById = { __typename?: 'query_root', workout: { __typename?: 'workouts', id: string, title: string, subtitle: string, poster: string | null | undefined, isRestDay: boolean, isActiveRecovery: boolean, description: string | null | undefined, date: string | null | undefined, cycle: number | null | undefined, workout_items: Array<{ __typename?: 'workout_items', id: string, title: string | null | undefined, notes: string | null | undefined, header: string | null | undefined, scores: Array<{ __typename?: 'workout_item_scores', value: string }>, exercise_details: Array<{ __typename?: 'exercise_details', id: string, title: string | null | undefined, subtitle: string | null | undefined, levels: any | null | undefined, exercise: { __typename?: 'exercises', id: string, demo_video_url: string | null | undefined, demo_video_title: string, demo_video_poster: string, demo_video_id: string } | null | undefined }> }>, user_workouts: Array<{ __typename?: 'user_workouts', id: string }>, current_cycle: { __typename?: 'cycles', next_workout: string | null | undefined } | null | undefined } | null | undefined };
 
-export type GetExercisesQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type GetExercisesQuery = { __typename?: 'query_root', exercises: Array<{ __typename?: 'exercises', id: any, demo_video_url?: string | null, demo_video_title: string, demo_video_poster: string, demo_video_id: string }> };
-
-export type GetProgramsQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetExercisesVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetProgramsQuery = { __typename?: 'query_root', programs: Array<{ __typename?: 'programs', id: any, name: string, description?: string | null, image?: string | null, cycles: Array<{ __typename?: 'cycles', workouts: Array<{ __typename?: 'workouts', id: any, cycle?: number | null }> }> }> };
+export type GetExercises = { __typename?: 'query_root', exercises: Array<{ __typename?: 'exercises', id: string, demo_video_url: string | null | undefined, demo_video_title: string, demo_video_poster: string, demo_video_id: string }> };
 
-export type GetUserQueryVariables = Exact<{
+export type GetProgramsVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetPrograms = { __typename?: 'query_root', programs: Array<{ __typename?: 'programs', id: string, name: string, description: string | null | undefined, image: string | null | undefined, cycles: Array<{ __typename?: 'cycles', workouts: Array<{ __typename?: 'workouts', id: string, cycle: number | null | undefined }> }> }> };
+
+export type GetUserVariables = Exact<{
   id: Scalars['bigint']['input'];
 }>;
 
 
-export type GetUserQuery = { __typename?: 'query_root', users_by_pk?: { __typename?: 'users', id: any, email: string, image_url?: string | null, created_at?: any | null, updated_at?: any | null, user_cycles: Array<{ __typename?: 'user_cycles', id: any, cycle_id: any, current_workout: number, start_date: any, completed: boolean, created_at?: any | null, updated_at?: any | null, cycle: { __typename?: 'cycles', id: any, cycle_number: number, date?: string | null, bridge_week: boolean, program?: { __typename?: 'programs', id: any, name: string, description?: string | null, image?: string | null } | null, workouts: Array<{ __typename?: 'workouts', id: any, title: string, subtitle: string, poster?: string | null, isRestDay: boolean, isActiveRecovery: boolean, description?: string | null, date?: string | null, cycle?: number | null }> } }> } | null };
+export type GetUser = { __typename?: 'query_root', users_by_pk: { __typename?: 'users', id: string, email: string, image_url: string | null | undefined, created_at: string, updated_at: string, user_cycles: Array<{ __typename?: 'user_cycles', id: string, cycle_id: string, current_workout: number, start_date: string, completed: boolean, created_at: string, updated_at: string, cycle: { __typename?: 'cycles', id: string, cycle_number: number, date: string | null | undefined, bridge_week: boolean, program: { __typename?: 'programs', id: string, name: string, description: string | null | undefined, image: string | null | undefined }, workouts: Array<{ __typename?: 'workouts', id: string, title: string, subtitle: string, poster: string | null | undefined, isRestDay: boolean, isActiveRecovery: boolean, description: string | null | undefined, date: string | null | undefined, cycle: number | null | undefined }> } }> } | null | undefined };
 
-export type GetDashboardDataForUserQueryVariables = Exact<{
+export type GetDashboardDataForUserVariables = Exact<{
   userId: Scalars['bigint']['input'];
 }>;
 
 
-export type GetDashboardDataForUserQuery = { __typename?: 'query_root', user_cycles: Array<{ __typename?: 'user_cycles', id: any, start_date: any, current_workout: number, user: { __typename?: 'users', id: any, name: string, email: string, image_url?: string | null }, workout: { __typename?: 'workouts', id: any, title: string, subtitle: string, poster?: string | null, isRestDay: boolean, isActiveRecovery: boolean, description?: string | null, date?: string | null, workout_items: Array<{ __typename?: 'workout_items', id: any, title?: string | null, header?: string | null, notes?: string | null }> }, cycle: { __typename?: 'cycles', workout_count: number, program?: { __typename?: 'programs', name: string, image?: string | null } | null, workouts: Array<{ __typename?: 'workouts', id: any }> } }> };
+export type GetDashboardDataForUser = { __typename?: 'query_root', user_cycles: Array<{ __typename?: 'user_cycles', id: string, start_date: string, current_workout: number, completed: boolean, user: { __typename?: 'users', id: string, name: string, email: string, image_url: string | null | undefined }, workout: { __typename?: 'workouts', id: string, title: string, subtitle: string, poster: string | null | undefined, isRestDay: boolean, isActiveRecovery: boolean, description: string | null | undefined, date: string | null | undefined, workout_items: Array<{ __typename?: 'workout_items', id: string, title: string | null | undefined, header: string | null | undefined, notes: string | null | undefined }> }, cycle: { __typename?: 'cycles', workout_count: number, program: { __typename?: 'programs', name: string, image: string | null | undefined }, workouts: Array<{ __typename?: 'workouts', id: string }> } }> };
 
-export type GetUserCycleProgressQueryVariables = Exact<{
+export type GetCurrentUserCycleVariables = Exact<{
   userId: Scalars['bigint']['input'];
 }>;
 
 
-export type GetUserCycleProgressQuery = { __typename?: 'query_root', userCycle?: { __typename?: 'user_cycles', id: any, start_date: any, current_workout: number, cycle: { __typename?: 'cycles', id: any, total: number, user_workouts_aggregate: { __typename?: 'user_workouts_aggregate', aggregate?: { __typename?: 'user_workouts_aggregate_fields', count: number } | null }, program?: { __typename?: 'programs', id: any, name: string, image?: string | null } | null }, workout: { __typename?: 'workouts', id: any, title: string, first: Array<{ __typename?: 'workout_items', id: any, header?: string | null, notes?: string | null }>, rest: Array<{ __typename?: 'workout_items', id: any, header?: string | null }> } } | null, programs: Array<{ __typename?: 'programs', id: any, name: string, image?: string | null }> };
+export type GetCurrentUserCycle = { __typename?: 'query_root', user: { __typename?: 'users', id: string, user_cycles: Array<{ __typename?: 'user_cycles', start_date: string, end_date: string, current_workout: number, completed: boolean, cycle: { __typename?: 'cycles', id: string, cycle_number: number, date: string | null | undefined, workouts: Array<{ __typename?: 'workouts', id: string, title: string, isRestDay: boolean, isActiveRecovery: boolean, items: { __typename?: 'workout_items_aggregate', aggregate: { __typename?: 'workout_items_aggregate_fields', count: number } | null | undefined } }> } }> } | null | undefined };
 
-export type CheckUserCredentialsQueryVariables = Exact<{
+export type GetUserCycleProgressVariables = Exact<{
+  userId: Scalars['bigint']['input'];
+}>;
+
+
+export type GetUserCycleProgress = { __typename?: 'query_root', userCycle: Array<{ __typename?: 'user_cycles', id: string, start_date: string, current_workout: number, cycle: { __typename?: 'cycles', id: string, total: number, user_workouts_aggregate: { __typename?: 'user_workouts_aggregate', aggregate: { __typename?: 'user_workouts_aggregate_fields', count: number } | null | undefined }, program: { __typename?: 'programs', id: string, name: string, image: string | null | undefined } }, workout: { __typename?: 'workouts', id: string, title: string, first: Array<{ __typename?: 'workout_items', id: string, header: string | null | undefined, notes: string | null | undefined }>, rest: Array<{ __typename?: 'workout_items', id: string, header: string | null | undefined }>, titles: Array<{ __typename?: 'workout_items', id: string, title: string | null | undefined }> } }>, programs: Array<{ __typename?: 'programs', id: string, name: string, image: string | null | undefined }> };
+
+export type CheckUserCredentialsVariables = Exact<{
   email: Scalars['String']['input'];
   password: Scalars['String']['input'];
 }>;
 
 
-export type CheckUserCredentialsQuery = { __typename?: 'query_root', users: Array<{ __typename?: 'users', id: any, email: string, name: string, image_url?: string | null, created_at?: any | null, updated_at?: any | null }> };
+export type CheckUserCredentials = { __typename?: 'query_root', users: Array<{ __typename?: 'users', id: string, email: string, name: string, image_url: string | null | undefined, created_at: string, updated_at: string }> };
 
-export const UserFragmentDoc = gql`
+export const User = gql`
     fragment User on user_cycles {
   user {
     id
@@ -6000,31 +6029,35 @@ export const UserFragmentDoc = gql`
   }
 }
     `;
-export const ProgramsFragmentDoc = gql`
+export const Programs = gql`
     fragment Programs on programs {
   id
   name
   image
 }
     `;
-export const WorkoutFragmentDoc = gql`
+export const Workout = gql`
     fragment Workout on user_cycles {
   workout {
     id
     title
-    first: workout_items(limit: 1) {
+    first: workout_items(limit: 1, order_by: {id: asc}) {
       id
       header
       notes
     }
-    rest: workout_items(offset: 1) {
+    rest: workout_items(offset: 1, order_by: {id: asc}, where: {header: {_neq: ""}}) {
       id
       header
+    }
+    titles: workout_items(order_by: {id: asc}, where: {title: {_ilike: "Part%"}}) {
+      id
+      title
     }
   }
 }
     `;
-export const ProgramDetailsFragmentDoc = gql`
+export const ProgramDetails = gql`
     fragment ProgramDetails on cycles {
   program {
     id
@@ -6033,7 +6066,7 @@ export const ProgramDetailsFragmentDoc = gql`
   }
 }
     `;
-export const WorkoutIdsFragmentDoc = gql`
+export const WorkoutIds = gql`
     fragment WorkoutIds on cycles {
   workouts(order_by: {id: asc}) {
     id
@@ -6056,20 +6089,20 @@ export const CompleteWorkoutDocument = gql`
   }
 }
     `;
-export type CompleteWorkoutMutationFn = Apollo.MutationFunction<CompleteWorkoutMutation, CompleteWorkoutMutationVariables>;
+export type CompleteWorkoutMutationFn = Apollo.MutationFunction<CompleteWorkout, CompleteWorkoutVariables>;
 
 /**
- * __useCompleteWorkoutMutation__
+ * __useCompleteWorkout__
  *
- * To run a mutation, you first call `useCompleteWorkoutMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCompleteWorkoutMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useCompleteWorkout` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCompleteWorkout` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [completeWorkoutMutation, { data, loading, error }] = useCompleteWorkoutMutation({
+ * const [completeWorkout, { data, loading, error }] = useCompleteWorkout({
  *   variables: {
  *      completedWorkout: // value for 'completedWorkout'
  *      cycleId: // value for 'cycleId'
@@ -6077,13 +6110,53 @@ export type CompleteWorkoutMutationFn = Apollo.MutationFunction<CompleteWorkoutM
  *   },
  * });
  */
-export function useCompleteWorkoutMutation(baseOptions?: Apollo.MutationHookOptions<CompleteWorkoutMutation, CompleteWorkoutMutationVariables>) {
+export function useCompleteWorkout(baseOptions?: Apollo.MutationHookOptions<CompleteWorkout, CompleteWorkoutVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CompleteWorkoutMutation, CompleteWorkoutMutationVariables>(CompleteWorkoutDocument, options);
+        return Apollo.useMutation<CompleteWorkout, CompleteWorkoutVariables>(CompleteWorkoutDocument, options);
       }
-export type CompleteWorkoutMutationHookResult = ReturnType<typeof useCompleteWorkoutMutation>;
-export type CompleteWorkoutMutationResult = Apollo.MutationResult<CompleteWorkoutMutation>;
-export type CompleteWorkoutMutationOptions = Apollo.BaseMutationOptions<CompleteWorkoutMutation, CompleteWorkoutMutationVariables>;
+export type CompleteWorkoutHookResult = ReturnType<typeof useCompleteWorkout>;
+export type CompleteWorkoutMutationResult = Apollo.MutationResult<CompleteWorkout>;
+export type CompleteWorkoutMutationOptions = Apollo.BaseMutationOptions<CompleteWorkout, CompleteWorkoutVariables>;
+export const FinishCycleDocument = gql`
+    mutation FinishCycle($completedWorkout: bigint!, $cycleId: bigint!) {
+  insert_user_workouts_one(
+    object: {workout_id: $completedWorkout, cycle_id: $cycleId}
+  ) {
+    id
+    workout_id
+  }
+  update_user_cycles(where: {cycle_id: {_eq: $cycleId}}, _set: {completed: true}) {
+    affected_rows
+  }
+}
+    `;
+export type FinishCycleMutationFn = Apollo.MutationFunction<FinishCycle, FinishCycleVariables>;
+
+/**
+ * __useFinishCycle__
+ *
+ * To run a mutation, you first call `useFinishCycle` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useFinishCycle` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [finishCycle, { data, loading, error }] = useFinishCycle({
+ *   variables: {
+ *      completedWorkout: // value for 'completedWorkout'
+ *      cycleId: // value for 'cycleId'
+ *   },
+ * });
+ */
+export function useFinishCycle(baseOptions?: Apollo.MutationHookOptions<FinishCycle, FinishCycleVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<FinishCycle, FinishCycleVariables>(FinishCycleDocument, options);
+      }
+export type FinishCycleHookResult = ReturnType<typeof useFinishCycle>;
+export type FinishCycleMutationResult = Apollo.MutationResult<FinishCycle>;
+export type FinishCycleMutationOptions = Apollo.BaseMutationOptions<FinishCycle, FinishCycleVariables>;
 export const UpsertWorkoutItemScoreDocument = gql`
     mutation UpsertWorkoutItemScore($workoutItemId: bigint!, $score: String = "") {
   insert_workout_item_scores(
@@ -6097,84 +6170,84 @@ export const UpsertWorkoutItemScoreDocument = gql`
   }
 }
     `;
-export type UpsertWorkoutItemScoreMutationFn = Apollo.MutationFunction<UpsertWorkoutItemScoreMutation, UpsertWorkoutItemScoreMutationVariables>;
+export type UpsertWorkoutItemScoreMutationFn = Apollo.MutationFunction<UpsertWorkoutItemScore, UpsertWorkoutItemScoreVariables>;
 
 /**
- * __useUpsertWorkoutItemScoreMutation__
+ * __useUpsertWorkoutItemScore__
  *
- * To run a mutation, you first call `useUpsertWorkoutItemScoreMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpsertWorkoutItemScoreMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useUpsertWorkoutItemScore` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpsertWorkoutItemScore` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [upsertWorkoutItemScoreMutation, { data, loading, error }] = useUpsertWorkoutItemScoreMutation({
+ * const [upsertWorkoutItemScore, { data, loading, error }] = useUpsertWorkoutItemScore({
  *   variables: {
  *      workoutItemId: // value for 'workoutItemId'
  *      score: // value for 'score'
  *   },
  * });
  */
-export function useUpsertWorkoutItemScoreMutation(baseOptions?: Apollo.MutationHookOptions<UpsertWorkoutItemScoreMutation, UpsertWorkoutItemScoreMutationVariables>) {
+export function useUpsertWorkoutItemScore(baseOptions?: Apollo.MutationHookOptions<UpsertWorkoutItemScore, UpsertWorkoutItemScoreVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<UpsertWorkoutItemScoreMutation, UpsertWorkoutItemScoreMutationVariables>(UpsertWorkoutItemScoreDocument, options);
+        return Apollo.useMutation<UpsertWorkoutItemScore, UpsertWorkoutItemScoreVariables>(UpsertWorkoutItemScoreDocument, options);
       }
-export type UpsertWorkoutItemScoreMutationHookResult = ReturnType<typeof useUpsertWorkoutItemScoreMutation>;
-export type UpsertWorkoutItemScoreMutationResult = Apollo.MutationResult<UpsertWorkoutItemScoreMutation>;
-export type UpsertWorkoutItemScoreMutationOptions = Apollo.BaseMutationOptions<UpsertWorkoutItemScoreMutation, UpsertWorkoutItemScoreMutationVariables>;
+export type UpsertWorkoutItemScoreHookResult = ReturnType<typeof useUpsertWorkoutItemScore>;
+export type UpsertWorkoutItemScoreMutationResult = Apollo.MutationResult<UpsertWorkoutItemScore>;
+export type UpsertWorkoutItemScoreMutationOptions = Apollo.BaseMutationOptions<UpsertWorkoutItemScore, UpsertWorkoutItemScoreVariables>;
 export const GetWorkoutsDocument = gql`
     query GetWorkouts($cycleId: Int!) {
   workouts(where: {cycle: {_eq: $cycleId}}, order_by: {subtitle: asc}) {
     id
     title
     subtitle
-    poster
     isRestDay
     isActiveRecovery
-    description
     date
     cycle
-    workout_items(limit: 1, order_by: {created_at: asc}) {
-      notes
+    items: workout_items_aggregate {
+      aggregate {
+        count
+      }
     }
   }
 }
     `;
 
 /**
- * __useGetWorkoutsQuery__
+ * __useGetWorkouts__
  *
- * To run a query within a React component, call `useGetWorkoutsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetWorkoutsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetWorkouts` and pass it any options that fit your needs.
+ * When your component renders, `useGetWorkouts` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetWorkoutsQuery({
+ * const { data, loading, error } = useGetWorkouts({
  *   variables: {
  *      cycleId: // value for 'cycleId'
  *   },
  * });
  */
-export function useGetWorkoutsQuery(baseOptions: Apollo.QueryHookOptions<GetWorkoutsQuery, GetWorkoutsQueryVariables> & ({ variables: GetWorkoutsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+export function useGetWorkouts(baseOptions: Apollo.QueryHookOptions<GetWorkouts, GetWorkoutsVariables> & ({ variables: GetWorkoutsVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetWorkoutsQuery, GetWorkoutsQueryVariables>(GetWorkoutsDocument, options);
+        return Apollo.useQuery<GetWorkouts, GetWorkoutsVariables>(GetWorkoutsDocument, options);
       }
-export function useGetWorkoutsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetWorkoutsQuery, GetWorkoutsQueryVariables>) {
+export function useGetWorkoutsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetWorkouts, GetWorkoutsVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetWorkoutsQuery, GetWorkoutsQueryVariables>(GetWorkoutsDocument, options);
+          return Apollo.useLazyQuery<GetWorkouts, GetWorkoutsVariables>(GetWorkoutsDocument, options);
         }
-export function useGetWorkoutsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetWorkoutsQuery, GetWorkoutsQueryVariables>) {
+export function useGetWorkoutsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetWorkouts, GetWorkoutsVariables>) {
           const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetWorkoutsQuery, GetWorkoutsQueryVariables>(GetWorkoutsDocument, options);
+          return Apollo.useSuspenseQuery<GetWorkouts, GetWorkoutsVariables>(GetWorkoutsDocument, options);
         }
-export type GetWorkoutsQueryHookResult = ReturnType<typeof useGetWorkoutsQuery>;
+export type GetWorkoutsHookResult = ReturnType<typeof useGetWorkouts>;
 export type GetWorkoutsLazyQueryHookResult = ReturnType<typeof useGetWorkoutsLazyQuery>;
 export type GetWorkoutsSuspenseQueryHookResult = ReturnType<typeof useGetWorkoutsSuspenseQuery>;
-export type GetWorkoutsQueryResult = Apollo.QueryResult<GetWorkoutsQuery, GetWorkoutsQueryVariables>;
+export type GetWorkoutsQueryResult = Apollo.QueryResult<GetWorkouts, GetWorkoutsVariables>;
 export const WorkoutByIdDocument = gql`
     query WorkoutById($id: bigint!, $cycleId: bigint!) {
   workout: workouts_by_pk(id: $id) {
@@ -6220,38 +6293,38 @@ export const WorkoutByIdDocument = gql`
     `;
 
 /**
- * __useWorkoutByIdQuery__
+ * __useWorkoutById__
  *
- * To run a query within a React component, call `useWorkoutByIdQuery` and pass it any options that fit your needs.
- * When your component renders, `useWorkoutByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useWorkoutById` and pass it any options that fit your needs.
+ * When your component renders, `useWorkoutById` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useWorkoutByIdQuery({
+ * const { data, loading, error } = useWorkoutById({
  *   variables: {
  *      id: // value for 'id'
  *      cycleId: // value for 'cycleId'
  *   },
  * });
  */
-export function useWorkoutByIdQuery(baseOptions: Apollo.QueryHookOptions<WorkoutByIdQuery, WorkoutByIdQueryVariables> & ({ variables: WorkoutByIdQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+export function useWorkoutById(baseOptions: Apollo.QueryHookOptions<WorkoutById, WorkoutByIdVariables> & ({ variables: WorkoutByIdVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<WorkoutByIdQuery, WorkoutByIdQueryVariables>(WorkoutByIdDocument, options);
+        return Apollo.useQuery<WorkoutById, WorkoutByIdVariables>(WorkoutByIdDocument, options);
       }
-export function useWorkoutByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<WorkoutByIdQuery, WorkoutByIdQueryVariables>) {
+export function useWorkoutByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<WorkoutById, WorkoutByIdVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<WorkoutByIdQuery, WorkoutByIdQueryVariables>(WorkoutByIdDocument, options);
+          return Apollo.useLazyQuery<WorkoutById, WorkoutByIdVariables>(WorkoutByIdDocument, options);
         }
-export function useWorkoutByIdSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<WorkoutByIdQuery, WorkoutByIdQueryVariables>) {
+export function useWorkoutByIdSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<WorkoutById, WorkoutByIdVariables>) {
           const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<WorkoutByIdQuery, WorkoutByIdQueryVariables>(WorkoutByIdDocument, options);
+          return Apollo.useSuspenseQuery<WorkoutById, WorkoutByIdVariables>(WorkoutByIdDocument, options);
         }
-export type WorkoutByIdQueryHookResult = ReturnType<typeof useWorkoutByIdQuery>;
+export type WorkoutByIdHookResult = ReturnType<typeof useWorkoutById>;
 export type WorkoutByIdLazyQueryHookResult = ReturnType<typeof useWorkoutByIdLazyQuery>;
 export type WorkoutByIdSuspenseQueryHookResult = ReturnType<typeof useWorkoutByIdSuspenseQuery>;
-export type WorkoutByIdQueryResult = Apollo.QueryResult<WorkoutByIdQuery, WorkoutByIdQueryVariables>;
+export type WorkoutByIdQueryResult = Apollo.QueryResult<WorkoutById, WorkoutByIdVariables>;
 export const GetExercisesDocument = gql`
     query GetExercises {
   exercises(order_by: [{demo_video_title: asc}]) {
@@ -6265,36 +6338,36 @@ export const GetExercisesDocument = gql`
     `;
 
 /**
- * __useGetExercisesQuery__
+ * __useGetExercises__
  *
- * To run a query within a React component, call `useGetExercisesQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetExercisesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetExercises` and pass it any options that fit your needs.
+ * When your component renders, `useGetExercises` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetExercisesQuery({
+ * const { data, loading, error } = useGetExercises({
  *   variables: {
  *   },
  * });
  */
-export function useGetExercisesQuery(baseOptions?: Apollo.QueryHookOptions<GetExercisesQuery, GetExercisesQueryVariables>) {
+export function useGetExercises(baseOptions?: Apollo.QueryHookOptions<GetExercises, GetExercisesVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetExercisesQuery, GetExercisesQueryVariables>(GetExercisesDocument, options);
+        return Apollo.useQuery<GetExercises, GetExercisesVariables>(GetExercisesDocument, options);
       }
-export function useGetExercisesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetExercisesQuery, GetExercisesQueryVariables>) {
+export function useGetExercisesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetExercises, GetExercisesVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetExercisesQuery, GetExercisesQueryVariables>(GetExercisesDocument, options);
+          return Apollo.useLazyQuery<GetExercises, GetExercisesVariables>(GetExercisesDocument, options);
         }
-export function useGetExercisesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetExercisesQuery, GetExercisesQueryVariables>) {
+export function useGetExercisesSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetExercises, GetExercisesVariables>) {
           const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetExercisesQuery, GetExercisesQueryVariables>(GetExercisesDocument, options);
+          return Apollo.useSuspenseQuery<GetExercises, GetExercisesVariables>(GetExercisesDocument, options);
         }
-export type GetExercisesQueryHookResult = ReturnType<typeof useGetExercisesQuery>;
+export type GetExercisesHookResult = ReturnType<typeof useGetExercises>;
 export type GetExercisesLazyQueryHookResult = ReturnType<typeof useGetExercisesLazyQuery>;
 export type GetExercisesSuspenseQueryHookResult = ReturnType<typeof useGetExercisesSuspenseQuery>;
-export type GetExercisesQueryResult = Apollo.QueryResult<GetExercisesQuery, GetExercisesQueryVariables>;
+export type GetExercisesQueryResult = Apollo.QueryResult<GetExercises, GetExercisesVariables>;
 export const GetProgramsDocument = gql`
     query GetPrograms {
   programs(order_by: [{id: asc}]) {
@@ -6313,36 +6386,36 @@ export const GetProgramsDocument = gql`
     `;
 
 /**
- * __useGetProgramsQuery__
+ * __useGetPrograms__
  *
- * To run a query within a React component, call `useGetProgramsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetProgramsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetPrograms` and pass it any options that fit your needs.
+ * When your component renders, `useGetPrograms` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetProgramsQuery({
+ * const { data, loading, error } = useGetPrograms({
  *   variables: {
  *   },
  * });
  */
-export function useGetProgramsQuery(baseOptions?: Apollo.QueryHookOptions<GetProgramsQuery, GetProgramsQueryVariables>) {
+export function useGetPrograms(baseOptions?: Apollo.QueryHookOptions<GetPrograms, GetProgramsVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetProgramsQuery, GetProgramsQueryVariables>(GetProgramsDocument, options);
+        return Apollo.useQuery<GetPrograms, GetProgramsVariables>(GetProgramsDocument, options);
       }
-export function useGetProgramsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetProgramsQuery, GetProgramsQueryVariables>) {
+export function useGetProgramsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPrograms, GetProgramsVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetProgramsQuery, GetProgramsQueryVariables>(GetProgramsDocument, options);
+          return Apollo.useLazyQuery<GetPrograms, GetProgramsVariables>(GetProgramsDocument, options);
         }
-export function useGetProgramsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetProgramsQuery, GetProgramsQueryVariables>) {
+export function useGetProgramsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetPrograms, GetProgramsVariables>) {
           const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetProgramsQuery, GetProgramsQueryVariables>(GetProgramsDocument, options);
+          return Apollo.useSuspenseQuery<GetPrograms, GetProgramsVariables>(GetProgramsDocument, options);
         }
-export type GetProgramsQueryHookResult = ReturnType<typeof useGetProgramsQuery>;
+export type GetProgramsHookResult = ReturnType<typeof useGetPrograms>;
 export type GetProgramsLazyQueryHookResult = ReturnType<typeof useGetProgramsLazyQuery>;
 export type GetProgramsSuspenseQueryHookResult = ReturnType<typeof useGetProgramsSuspenseQuery>;
-export type GetProgramsQueryResult = Apollo.QueryResult<GetProgramsQuery, GetProgramsQueryVariables>;
+export type GetProgramsQueryResult = Apollo.QueryResult<GetPrograms, GetProgramsVariables>;
 export const GetUserDocument = gql`
     query GetUser($id: bigint!) {
   users_by_pk(id: $id) {
@@ -6388,43 +6461,44 @@ export const GetUserDocument = gql`
     `;
 
 /**
- * __useGetUserQuery__
+ * __useGetUser__
  *
- * To run a query within a React component, call `useGetUserQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetUser` and pass it any options that fit your needs.
+ * When your component renders, `useGetUser` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetUserQuery({
+ * const { data, loading, error } = useGetUser({
  *   variables: {
  *      id: // value for 'id'
  *   },
  * });
  */
-export function useGetUserQuery(baseOptions: Apollo.QueryHookOptions<GetUserQuery, GetUserQueryVariables> & ({ variables: GetUserQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+export function useGetUser(baseOptions: Apollo.QueryHookOptions<GetUser, GetUserVariables> & ({ variables: GetUserVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetUserQuery, GetUserQueryVariables>(GetUserDocument, options);
+        return Apollo.useQuery<GetUser, GetUserVariables>(GetUserDocument, options);
       }
-export function useGetUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetUserQuery, GetUserQueryVariables>) {
+export function useGetUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetUser, GetUserVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetUserQuery, GetUserQueryVariables>(GetUserDocument, options);
+          return Apollo.useLazyQuery<GetUser, GetUserVariables>(GetUserDocument, options);
         }
-export function useGetUserSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetUserQuery, GetUserQueryVariables>) {
+export function useGetUserSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetUser, GetUserVariables>) {
           const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetUserQuery, GetUserQueryVariables>(GetUserDocument, options);
+          return Apollo.useSuspenseQuery<GetUser, GetUserVariables>(GetUserDocument, options);
         }
-export type GetUserQueryHookResult = ReturnType<typeof useGetUserQuery>;
+export type GetUserHookResult = ReturnType<typeof useGetUser>;
 export type GetUserLazyQueryHookResult = ReturnType<typeof useGetUserLazyQuery>;
 export type GetUserSuspenseQueryHookResult = ReturnType<typeof useGetUserSuspenseQuery>;
-export type GetUserQueryResult = Apollo.QueryResult<GetUserQuery, GetUserQueryVariables>;
+export type GetUserQueryResult = Apollo.QueryResult<GetUser, GetUserVariables>;
 export const GetDashboardDataForUserDocument = gql`
     query GetDashboardDataForUser($userId: bigint!) {
-  user_cycles(where: {user_id: {_eq: $userId}}) {
+  user_cycles(where: {user_id: {_eq: $userId}, completed: {_eq: false}}) {
     id
     start_date
     current_workout
+    completed
     user {
       id
       name
@@ -6462,40 +6536,104 @@ export const GetDashboardDataForUserDocument = gql`
     `;
 
 /**
- * __useGetDashboardDataForUserQuery__
+ * __useGetDashboardDataForUser__
  *
- * To run a query within a React component, call `useGetDashboardDataForUserQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetDashboardDataForUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetDashboardDataForUser` and pass it any options that fit your needs.
+ * When your component renders, `useGetDashboardDataForUser` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetDashboardDataForUserQuery({
+ * const { data, loading, error } = useGetDashboardDataForUser({
  *   variables: {
  *      userId: // value for 'userId'
  *   },
  * });
  */
-export function useGetDashboardDataForUserQuery(baseOptions: Apollo.QueryHookOptions<GetDashboardDataForUserQuery, GetDashboardDataForUserQueryVariables> & ({ variables: GetDashboardDataForUserQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+export function useGetDashboardDataForUser(baseOptions: Apollo.QueryHookOptions<GetDashboardDataForUser, GetDashboardDataForUserVariables> & ({ variables: GetDashboardDataForUserVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetDashboardDataForUserQuery, GetDashboardDataForUserQueryVariables>(GetDashboardDataForUserDocument, options);
+        return Apollo.useQuery<GetDashboardDataForUser, GetDashboardDataForUserVariables>(GetDashboardDataForUserDocument, options);
       }
-export function useGetDashboardDataForUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetDashboardDataForUserQuery, GetDashboardDataForUserQueryVariables>) {
+export function useGetDashboardDataForUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetDashboardDataForUser, GetDashboardDataForUserVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetDashboardDataForUserQuery, GetDashboardDataForUserQueryVariables>(GetDashboardDataForUserDocument, options);
+          return Apollo.useLazyQuery<GetDashboardDataForUser, GetDashboardDataForUserVariables>(GetDashboardDataForUserDocument, options);
         }
-export function useGetDashboardDataForUserSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetDashboardDataForUserQuery, GetDashboardDataForUserQueryVariables>) {
+export function useGetDashboardDataForUserSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetDashboardDataForUser, GetDashboardDataForUserVariables>) {
           const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetDashboardDataForUserQuery, GetDashboardDataForUserQueryVariables>(GetDashboardDataForUserDocument, options);
+          return Apollo.useSuspenseQuery<GetDashboardDataForUser, GetDashboardDataForUserVariables>(GetDashboardDataForUserDocument, options);
         }
-export type GetDashboardDataForUserQueryHookResult = ReturnType<typeof useGetDashboardDataForUserQuery>;
+export type GetDashboardDataForUserHookResult = ReturnType<typeof useGetDashboardDataForUser>;
 export type GetDashboardDataForUserLazyQueryHookResult = ReturnType<typeof useGetDashboardDataForUserLazyQuery>;
 export type GetDashboardDataForUserSuspenseQueryHookResult = ReturnType<typeof useGetDashboardDataForUserSuspenseQuery>;
-export type GetDashboardDataForUserQueryResult = Apollo.QueryResult<GetDashboardDataForUserQuery, GetDashboardDataForUserQueryVariables>;
+export type GetDashboardDataForUserQueryResult = Apollo.QueryResult<GetDashboardDataForUser, GetDashboardDataForUserVariables>;
+export const GetCurrentUserCycleDocument = gql`
+    query GetCurrentUserCycle($userId: bigint!) {
+  user: users_by_pk(id: $userId) {
+    id
+    user_cycles(where: {completed: {_eq: false}}) {
+      start_date
+      end_date
+      current_workout
+      completed
+      cycle {
+        id
+        cycle_number
+        date
+        workouts(order_by: {id: asc}) {
+          id
+          title
+          isRestDay
+          isActiveRecovery
+          items: workout_items_aggregate {
+            aggregate {
+              count
+            }
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetCurrentUserCycle__
+ *
+ * To run a query within a React component, call `useGetCurrentUserCycle` and pass it any options that fit your needs.
+ * When your component renders, `useGetCurrentUserCycle` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetCurrentUserCycle({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useGetCurrentUserCycle(baseOptions: Apollo.QueryHookOptions<GetCurrentUserCycle, GetCurrentUserCycleVariables> & ({ variables: GetCurrentUserCycleVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetCurrentUserCycle, GetCurrentUserCycleVariables>(GetCurrentUserCycleDocument, options);
+      }
+export function useGetCurrentUserCycleLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetCurrentUserCycle, GetCurrentUserCycleVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetCurrentUserCycle, GetCurrentUserCycleVariables>(GetCurrentUserCycleDocument, options);
+        }
+export function useGetCurrentUserCycleSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetCurrentUserCycle, GetCurrentUserCycleVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetCurrentUserCycle, GetCurrentUserCycleVariables>(GetCurrentUserCycleDocument, options);
+        }
+export type GetCurrentUserCycleHookResult = ReturnType<typeof useGetCurrentUserCycle>;
+export type GetCurrentUserCycleLazyQueryHookResult = ReturnType<typeof useGetCurrentUserCycleLazyQuery>;
+export type GetCurrentUserCycleSuspenseQueryHookResult = ReturnType<typeof useGetCurrentUserCycleSuspenseQuery>;
+export type GetCurrentUserCycleQueryResult = Apollo.QueryResult<GetCurrentUserCycle, GetCurrentUserCycleVariables>;
 export const GetUserCycleProgressDocument = gql`
     query GetUserCycleProgress($userId: bigint!) {
-  userCycle: user_cycles_by_pk(id: $userId) {
+  userCycle: user_cycles(
+    where: {user_id: {_eq: $userId}, completed: {_eq: false}}
+  ) {
     id
     start_date
     current_workout
@@ -6515,42 +6653,42 @@ export const GetUserCycleProgressDocument = gql`
     ...Programs
   }
 }
-    ${WorkoutFragmentDoc}
-${ProgramDetailsFragmentDoc}
-${ProgramsFragmentDoc}`;
+    ${Workout}
+${ProgramDetails}
+${Programs}`;
 
 /**
- * __useGetUserCycleProgressQuery__
+ * __useGetUserCycleProgress__
  *
- * To run a query within a React component, call `useGetUserCycleProgressQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetUserCycleProgressQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetUserCycleProgress` and pass it any options that fit your needs.
+ * When your component renders, `useGetUserCycleProgress` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetUserCycleProgressQuery({
+ * const { data, loading, error } = useGetUserCycleProgress({
  *   variables: {
  *      userId: // value for 'userId'
  *   },
  * });
  */
-export function useGetUserCycleProgressQuery(baseOptions: Apollo.QueryHookOptions<GetUserCycleProgressQuery, GetUserCycleProgressQueryVariables> & ({ variables: GetUserCycleProgressQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+export function useGetUserCycleProgress(baseOptions: Apollo.QueryHookOptions<GetUserCycleProgress, GetUserCycleProgressVariables> & ({ variables: GetUserCycleProgressVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetUserCycleProgressQuery, GetUserCycleProgressQueryVariables>(GetUserCycleProgressDocument, options);
+        return Apollo.useQuery<GetUserCycleProgress, GetUserCycleProgressVariables>(GetUserCycleProgressDocument, options);
       }
-export function useGetUserCycleProgressLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetUserCycleProgressQuery, GetUserCycleProgressQueryVariables>) {
+export function useGetUserCycleProgressLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetUserCycleProgress, GetUserCycleProgressVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetUserCycleProgressQuery, GetUserCycleProgressQueryVariables>(GetUserCycleProgressDocument, options);
+          return Apollo.useLazyQuery<GetUserCycleProgress, GetUserCycleProgressVariables>(GetUserCycleProgressDocument, options);
         }
-export function useGetUserCycleProgressSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetUserCycleProgressQuery, GetUserCycleProgressQueryVariables>) {
+export function useGetUserCycleProgressSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetUserCycleProgress, GetUserCycleProgressVariables>) {
           const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetUserCycleProgressQuery, GetUserCycleProgressQueryVariables>(GetUserCycleProgressDocument, options);
+          return Apollo.useSuspenseQuery<GetUserCycleProgress, GetUserCycleProgressVariables>(GetUserCycleProgressDocument, options);
         }
-export type GetUserCycleProgressQueryHookResult = ReturnType<typeof useGetUserCycleProgressQuery>;
+export type GetUserCycleProgressHookResult = ReturnType<typeof useGetUserCycleProgress>;
 export type GetUserCycleProgressLazyQueryHookResult = ReturnType<typeof useGetUserCycleProgressLazyQuery>;
 export type GetUserCycleProgressSuspenseQueryHookResult = ReturnType<typeof useGetUserCycleProgressSuspenseQuery>;
-export type GetUserCycleProgressQueryResult = Apollo.QueryResult<GetUserCycleProgressQuery, GetUserCycleProgressQueryVariables>;
+export type GetUserCycleProgressQueryResult = Apollo.QueryResult<GetUserCycleProgress, GetUserCycleProgressVariables>;
 export const CheckUserCredentialsDocument = gql`
     query CheckUserCredentials($email: String!, $password: String!) {
   users(where: {email: {_eq: $email}, password: {_eq: $password}}) {
@@ -6565,35 +6703,35 @@ export const CheckUserCredentialsDocument = gql`
     `;
 
 /**
- * __useCheckUserCredentialsQuery__
+ * __useCheckUserCredentials__
  *
- * To run a query within a React component, call `useCheckUserCredentialsQuery` and pass it any options that fit your needs.
- * When your component renders, `useCheckUserCredentialsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useCheckUserCredentials` and pass it any options that fit your needs.
+ * When your component renders, `useCheckUserCredentials` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useCheckUserCredentialsQuery({
+ * const { data, loading, error } = useCheckUserCredentials({
  *   variables: {
  *      email: // value for 'email'
  *      password: // value for 'password'
  *   },
  * });
  */
-export function useCheckUserCredentialsQuery(baseOptions: Apollo.QueryHookOptions<CheckUserCredentialsQuery, CheckUserCredentialsQueryVariables> & ({ variables: CheckUserCredentialsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+export function useCheckUserCredentials(baseOptions: Apollo.QueryHookOptions<CheckUserCredentials, CheckUserCredentialsVariables> & ({ variables: CheckUserCredentialsVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<CheckUserCredentialsQuery, CheckUserCredentialsQueryVariables>(CheckUserCredentialsDocument, options);
+        return Apollo.useQuery<CheckUserCredentials, CheckUserCredentialsVariables>(CheckUserCredentialsDocument, options);
       }
-export function useCheckUserCredentialsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<CheckUserCredentialsQuery, CheckUserCredentialsQueryVariables>) {
+export function useCheckUserCredentialsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<CheckUserCredentials, CheckUserCredentialsVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<CheckUserCredentialsQuery, CheckUserCredentialsQueryVariables>(CheckUserCredentialsDocument, options);
+          return Apollo.useLazyQuery<CheckUserCredentials, CheckUserCredentialsVariables>(CheckUserCredentialsDocument, options);
         }
-export function useCheckUserCredentialsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<CheckUserCredentialsQuery, CheckUserCredentialsQueryVariables>) {
+export function useCheckUserCredentialsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<CheckUserCredentials, CheckUserCredentialsVariables>) {
           const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<CheckUserCredentialsQuery, CheckUserCredentialsQueryVariables>(CheckUserCredentialsDocument, options);
+          return Apollo.useSuspenseQuery<CheckUserCredentials, CheckUserCredentialsVariables>(CheckUserCredentialsDocument, options);
         }
-export type CheckUserCredentialsQueryHookResult = ReturnType<typeof useCheckUserCredentialsQuery>;
+export type CheckUserCredentialsHookResult = ReturnType<typeof useCheckUserCredentials>;
 export type CheckUserCredentialsLazyQueryHookResult = ReturnType<typeof useCheckUserCredentialsLazyQuery>;
 export type CheckUserCredentialsSuspenseQueryHookResult = ReturnType<typeof useCheckUserCredentialsSuspenseQuery>;
-export type CheckUserCredentialsQueryResult = Apollo.QueryResult<CheckUserCredentialsQuery, CheckUserCredentialsQueryVariables>;
+export type CheckUserCredentialsQueryResult = Apollo.QueryResult<CheckUserCredentials, CheckUserCredentialsVariables>;
