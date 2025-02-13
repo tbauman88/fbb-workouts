@@ -14,6 +14,8 @@ export const PROGRAM_NAME_MAP: Record<string, string> = {
   'PUMP 40': 'Pump 40'
 }
 
+export const formatProgramName = (name: string): string => PROGRAM_NAME_MAP[name] || name
+
 export const usePrograms = () => {
   const { loading, error, data } = useQuery<{
     programs: ProgramEntity[]
@@ -21,7 +23,7 @@ export const usePrograms = () => {
 
   const programs = data?.programs.map((program) => ({
     ...program,
-    name: PROGRAM_NAME_MAP[program.name] || program.name,
+    name: formatProgramName(program.name),
     cycles: program.cycles.map((cycle) => ({
       id: cycle.workouts[0].cycle,
       firstWorkoutId: cycle.workouts[0].id

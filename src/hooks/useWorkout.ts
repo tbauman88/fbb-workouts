@@ -1,21 +1,33 @@
-import { useQuery, useMutation } from '@apollo/client'
-import { GET_WORKOUT_BY_ID } from '../graphql/queries'
-import { UPSERT_WORKOUT_ITEM_SCORE, COMPLETE_WORKOUT, FINISH_CYCLE } from '../graphql/mutations'
-import { WorkoutEntity } from '../types'
-import { useUserContext } from '../context/UserProvider'
+import { QueryResult } from '@apollo/client'
+import { CurrentProgram, useUserContext } from '../context/UserProvider'
+import {
+  useCompleteWorkoutMutation,
+  useFinishCycleMutation,
+  useUpsertWorkoutItemScoreMutation,
+  useWorkoutByIdQuery,
+  WorkoutByIdQuery
+} from '../generated/graphql'
 
-interface WorkoutData {
-  workout: WorkoutEntity
+type UseWorkout = {
+  workout: WorkoutByIdQuery['workout']
+  nextWorkoutId: string | null | undefined
+  completed: boolean
+  currentProgram: CurrentProgram | null
+  upsertWorkoutItemScore: ReturnType<typeof useUpsertWorkoutItemScoreMutation>[0]
+  completeWorkout: ReturnType<typeof useCompleteWorkoutMutation>[0]
+  finishCycle: ReturnType<typeof useFinishCycleMutation>[0]
+  loading: boolean
+  error: QueryResult['error']
 }
 
-export const useWorkout = (id: number) => {
+export const useWorkout = (id: number): UseWorkout => {
   const { currentProgram } = useUserContext()
 
-  const { data, loading, error } = useQuery<WorkoutData>(GET_WORKOUT_BY_ID, {
+  const { data, loading, error } = useWorkoutByIdQuery({
     variables: { id: String(id), cycleId: String(currentProgram?.cycleId) }
   })
 
-  const [upsertWorkoutItemScore] = useMutation(UPSERT_WORKOUT_ITEM_SCORE, {
+  const [upsertWorkoutItemScore] = useUpsertWorkoutItemScoreMutation({
     onCompleted: () => {
       console.log('Workout item score updated successfully:', data)
     },
@@ -24,7 +36,7 @@ export const useWorkout = (id: number) => {
     }
   })
 
-  const [completeWorkout] = useMutation(COMPLETE_WORKOUT, {
+  const [completeWorkout] = useCompleteWorkoutMutation({
     onCompleted: () => {
       console.log('Workout completed successfully:', data)
     },
@@ -33,7 +45,7 @@ export const useWorkout = (id: number) => {
     }
   })
 
-  const [finishCycle] = useMutation(FINISH_CYCLE, {
+  const [finishCycle] = useFinishCycleMutation({
     onCompleted: () => {
       console.log('Cycle finished successfully:', data)
     },
@@ -42,12 +54,12 @@ export const useWorkout = (id: number) => {
     }
   })
 
-  const workoutIds = data?.workout.user_workouts.map((workout) => workout.id)
+  const workoutIds = data?.workout?.user_workouts.map((workout) => workout.id)
 
   return {
     workout: data?.workout,
-    nextWorkoutId: data?.workout.current_cycle.next_workout,
-    completed: workoutIds?.includes(data?.workout.id) ?? false,
+    nextWorkoutId: data?.workout?.current_cycle?.next_workout,
+    completed: workoutIds?.includes(data?.workout?.id ?? '') ?? false,
     upsertWorkoutItemScore,
     completeWorkout,
     finishCycle,

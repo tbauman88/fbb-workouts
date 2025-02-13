@@ -1,48 +1,57 @@
-import React, { createContext, useContext } from 'react'
-import { useQuery } from '@apollo/client'
-import { GET_DASHBOARD_DATA_FOR_USER } from '../graphql/queries'
-import { PROGRAM_NAME_MAP } from '../hooks/usePrograms'
-import { GetUserCycleProgress } from '../generated/graphql'
+import { QueryResult } from '@apollo/client';
+import React, { createContext, useContext, useMemo } from 'react';
+import { GetUserCycleProgressQuery, useGetUserCycleProgressQuery } from '../generated/graphql';
+import { formatProgramName } from '../hooks/usePrograms';
 
-type Workout = GetUserCycleProgress['userCycle'][0]['workout']
-type Program = GetUserCycleProgress['userCycle'][0]['cycle']['program']
+type Workout = GetUserCycleProgressQuery['userCycle'][0]['workout']
+type Program = GetUserCycleProgressQuery['userCycle'][0]['cycle']['program']
 
-export type UserCycle = GetUserCycleProgress['userCycle'][0]
+export type UserCycle = GetUserCycleProgressQuery['userCycle'][0]
 export type CurrentWorkout = Workout & { items: Array<Workout['first'][0] | Workout['rest'][0] | Workout['titles'][0]> }
 export type CurrentProgram = Omit<Program, 'name'> & { cycleId: string, name: string | null }
-type Programs = GetUserCycleProgress['programs'][0]
+type Programs = GetUserCycleProgressQuery['programs'][0]
 
-type DashboardData = {
-  data: {
-    userCycle: UserCycle | undefined
-    currentProgram: CurrentProgram | undefined
-    currentWorkout: CurrentWorkout | undefined
-    cycleProgression: number | undefined
-    completedWorkouts: number | undefined
-    programs: Programs[] | undefined
-  }
+type DashboardContent = {
+  userCycle: UserCycle | null
+  currentProgram: CurrentProgram | null
+  currentWorkout: CurrentWorkout | null
+  cycleProgression: number | null
+  completedWorkouts: number | null
+  programs: Programs[] | null
+};
+
+type UseUserContext = DashboardContent & {
   loading: boolean
-  error: Error | undefined
+  error: QueryResult['error']
 }
 
-const UserContext = createContext<DashboardData | undefined>(undefined)
+const UserContext = createContext<UseUserContext | null>(null);
 
-const useDashboardData = (data: GetUserCycleProgress | undefined): DashboardData['data'] => {
-  if (!data) return {
-    userCycle: undefined,
-    currentProgram: undefined,
-    currentWorkout: undefined,
-    cycleProgression: undefined,
-    completedWorkouts: undefined,
-    programs: undefined,
+export const useUserContext = () => {
+  const context = useContext(UserContext);
+  if (!context) {
+    throw new Error('useUserContext must be used within a UserProvider');
   }
+  return context;
+};
 
-  const { cycle, workout } = data?.userCycle[0] || {}
+const getDashboardData = (data: GetUserCycleProgressQuery | undefined): DashboardContent => {
+  if (!data) return {
+    userCycle: null,
+    currentProgram: null,
+    currentWorkout: null,
+    cycleProgression: null,
+    completedWorkouts: null,
+    programs: null
+  };
+
+  const userCycle = data.userCycle[0] || null;
+  const { cycle, workout } = userCycle || {};
 
   const currentProgram = {
-    ...cycle?.program,
-    cycleId: cycle?.id,
-    name: cycle?.program ? PROGRAM_NAME_MAP[cycle.program.name] || cycle.program.name : null
+    ...cycle.program,
+    cycleId: cycle.id,
+    name: formatProgramName(cycle.program.name)
   }
 
   const items = workout ? [...workout.first, ...workout.rest, ...workout.titles] : []
@@ -56,40 +65,24 @@ const useDashboardData = (data: GetUserCycleProgress | undefined): DashboardData
   const cycleProgression = cycle?.total ? (completedWorkouts / cycle.total) * 100 : 0
 
   return {
-    userCycle: data?.userCycle[0],
+    userCycle,
     currentProgram,
     currentWorkout,
     cycleProgression,
     completedWorkouts,
-    programs: data?.programs,
+    programs: data.programs
   }
 }
 
-export const useUserContext = () => {
-  const context = useContext(UserContext)
-  if (!context) {
-    throw new Error('useUserContext must be used within a UserProvider')
-  }
-  return context
-}
-
-export const UserProvider: React.FC<{
-  user: { id: string | number }
-  children: React.ReactNode
-}> = ({ user, children }) => {
-  const { data, loading, error } = useQuery<GetUserCycleProgress>(GET_DASHBOARD_DATA_FOR_USER, {
+export const UserProvider: React.FC<{ user: { id: string | number }, children: React.ReactNode }> = ({ user, children }) => {
+  const { data, loading, error } = useGetUserCycleProgressQuery({
     variables: { userId: String(user.id) }
   })
 
-  const value: DashboardData = {
-    data: useDashboardData(data),
-    loading,
-    error
-  }
-
-  return (
-    <UserContext.Provider value={value}>
-      {children}
-    </UserContext.Provider>
+  const value: UseUserContext = useMemo(
+    () => ({ ...getDashboardData(data), loading, error }),
+    [data, loading, error]
   )
+
+  return <UserContext.Provider value={value}>{children}</UserContext.Provider>
 }

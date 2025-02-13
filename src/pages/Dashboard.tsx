@@ -70,9 +70,8 @@ const TimelineItem = ({ item }) => {
         {title && (
           <div className="flex items-baseline gap-x-3">
             <div
-              className={`min-w-[120px] text-sm font-semibold uppercase ${
-                item.title ? 'text-gray-500' : 'text-gray-900'
-              }`}
+              className={`min-w-[120px] text-sm font-semibold uppercase ${item.title ? 'text-gray-500' : 'text-gray-900'
+                }`}
               dangerouslySetInnerHTML={{ __html: marked(title) }}
             />
           </div>
@@ -160,10 +159,7 @@ const Divider = () => (
 )
 
 export const Dashboard = () => {
-  const {
-    data: { currentProgram, currentWorkout, cycleProgression, programs, userCycle },
-    loading
-  } = useUserContext()
+  const { currentProgram, currentWorkout, cycleProgression, programs, userCycle, loading } = useUserContext()
 
   const navigate = useNavigate()
 
