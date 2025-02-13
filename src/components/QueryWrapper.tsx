@@ -1,4 +1,4 @@
-import { QueryWrapperProps } from "../types";
+import { QueryWrapperProps } from '../types'
 
 const Loading: React.FC = () => {
   return (
@@ -8,8 +8,8 @@ const Loading: React.FC = () => {
         <p className="mt-4 text-lg text-gray-700">Loading...</p>
       </div>
     </div>
-  );
-};
+  )
+}
 
 const Error: React.FC<ErrorProps> = ({ message }) => {
   return (
@@ -39,19 +39,13 @@ const Error: React.FC<ErrorProps> = ({ message }) => {
         </button>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export const QueryWrapper = ({
-  loading,
-  error,
-  data,
-  emptyMessage,
-  children
-}: QueryWrapperProps) => {
-  if (loading) return <Loading />;
-  if (error) return <Error message={error.message} />;
-  if (!data || data.length === 0) return <div>{emptyMessage}</div>;
+export const QueryWrapper = ({ loading, error, data, emptyMessage, children }: QueryWrapperProps) => {
+  if (loading) return <Loading />
+  if (error) return <Error message={error.message} />
+  if (!data || data.length === 0) return <div>{emptyMessage}</div>
 
-  return <>{children}</>;
-};
+  return <>{children}</>
+}

@@ -4,12 +4,18 @@ schema {
   subscription: subscription_root
 }
 
-"""whether this query should be cached (Hasura Cloud only)"""
+"""
+whether this query should be cached (Hasura Cloud only)
+"""
 directive @cached(
-  """refresh the cache entry"""
+  """
+  refresh the cache entry
+  """
   refresh: Boolean! = false
 
-  """measured in seconds"""
+  """
+  measured in seconds
+  """
   ttl: Int! = 60
 ) on QUERY
 
@@ -51,7 +57,9 @@ input String_comparison_exp {
   _gt: String
   _gte: String
 
-  """does the column match the given case-insensitive pattern"""
+  """
+  does the column match the given case-insensitive pattern
+  """
   _ilike: String
   _in: [String!]
 
@@ -61,13 +69,17 @@ input String_comparison_exp {
   _iregex: String
   _is_null: Boolean
 
-  """does the column match the given pattern"""
+  """
+  does the column match the given pattern
+  """
   _like: String
   _lt: String
   _lte: String
   _neq: String
 
-  """does the column NOT match the given case-insensitive pattern"""
+  """
+  does the column NOT match the given case-insensitive pattern
+  """
   _nilike: String
   _nin: [String!]
 
@@ -76,7 +88,9 @@ input String_comparison_exp {
   """
   _niregex: String
 
-  """does the column NOT match the given pattern"""
+  """
+  does the column NOT match the given pattern
+  """
   _nlike: String
 
   """
@@ -84,7 +98,9 @@ input String_comparison_exp {
   """
   _nregex: String
 
-  """does the column NOT match the given SQL regular expression"""
+  """
+  does the column NOT match the given SQL regular expression
+  """
   _nsimilar: String
 
   """
@@ -92,7 +108,9 @@ input String_comparison_exp {
   """
   _regex: String
 
-  """does the column match the given SQL regular expression"""
+  """
+  does the column match the given SQL regular expression
+  """
   _similar: String
 }
 
@@ -113,12 +131,18 @@ input bigint_comparison_exp {
   _nin: [bigint!]
 }
 
-"""ordering argument of a cursor"""
+"""
+ordering argument of a cursor
+"""
 enum cursor_ordering {
-  """ascending ordering of the cursor"""
+  """
+  ascending ordering of the cursor
+  """
   ASC
 
-  """descending ordering of the cursor"""
+  """
+  descending ordering of the cursor
+  """
   DESC
 }
 
@@ -137,117 +161,191 @@ type cycles {
   """
   next_workout: bigint
 
-  """An object relationship"""
+  """
+  An object relationship
+  """
   program: programs!
   program_id: bigint!
   updated_at: timestamp!
 
-  """An array relationship"""
+  """
+  An array relationship
+  """
   user_cycles(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [user_cycles_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [user_cycles_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: user_cycles_bool_exp
   ): [user_cycles!]!
 
-  """An aggregate relationship"""
+  """
+  An aggregate relationship
+  """
   user_cycles_aggregate(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [user_cycles_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [user_cycles_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: user_cycles_bool_exp
   ): user_cycles_aggregate!
 
-  """An array relationship"""
+  """
+  An array relationship
+  """
   user_workouts(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [user_workouts_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [user_workouts_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: user_workouts_bool_exp
   ): [user_workouts!]!
 
-  """An aggregate relationship"""
+  """
+  An aggregate relationship
+  """
   user_workouts_aggregate(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [user_workouts_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [user_workouts_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: user_workouts_bool_exp
   ): user_workouts_aggregate!
   workout_count: Int!
 
-  """An array relationship"""
+  """
+  An array relationship
+  """
   workouts(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [workouts_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [workouts_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: workouts_bool_exp
   ): [workouts!]!
 
-  """An aggregate relationship"""
+  """
+  An aggregate relationship
+  """
   workouts_aggregate(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [workouts_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [workouts_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: workouts_bool_exp
   ): workouts_aggregate!
 }
@@ -327,11 +425,15 @@ input type for inserting array relation for remote table "cycles"
 input cycles_arr_rel_insert_input {
   data: [cycles_insert_input!]!
 
-  """upsert condition"""
+  """
+  upsert condition
+  """
   on_conflict: cycles_on_conflict
 }
 
-"""aggregate avg on columns"""
+"""
+aggregate avg on columns
+"""
 type cycles_avg_fields {
   cycle_number: Float
   id: Float
@@ -417,7 +519,9 @@ input cycles_insert_input {
   workouts: workouts_arr_rel_insert_input
 }
 
-"""aggregate max on columns"""
+"""
+aggregate max on columns
+"""
 type cycles_max_fields {
   created_at: timestamp
   cycle_number: Int
@@ -446,7 +550,9 @@ input cycles_max_order_by {
   workout_count: order_by
 }
 
-"""aggregate min on columns"""
+"""
+aggregate min on columns
+"""
 type cycles_min_fields {
   created_at: timestamp
   cycle_number: Int
@@ -479,10 +585,14 @@ input cycles_min_order_by {
 response of any mutation on the table "cycles"
 """
 type cycles_mutation_response {
-  """number of rows affected by the mutation"""
+  """
+  number of rows affected by the mutation
+  """
   affected_rows: Int!
 
-  """data from the rows affected by the mutation"""
+  """
+  data from the rows affected by the mutation
+  """
   returning: [cycles!]!
 }
 
@@ -492,7 +602,9 @@ input type for inserting object relation for remote table "cycles"
 input cycles_obj_rel_insert_input {
   data: cycles_insert_input!
 
-  """upsert condition"""
+  """
+  upsert condition
+  """
   on_conflict: cycles_on_conflict
 }
 
@@ -505,7 +617,9 @@ input cycles_on_conflict {
   where: cycles_bool_exp
 }
 
-"""Ordering options when selecting data from "cycles"."""
+"""
+Ordering options when selecting data from "cycles".
+"""
 input cycles_order_by {
   bridge_week: order_by
   created_at: order_by
@@ -522,7 +636,9 @@ input cycles_order_by {
   workouts_aggregate: workouts_aggregate_order_by
 }
 
-"""primary key columns input for table: cycles"""
+"""
+primary key columns input for table: cycles
+"""
 input cycles_pk_columns_input {
   id: bigint!
 }
@@ -531,28 +647,44 @@ input cycles_pk_columns_input {
 select columns of table "cycles"
 """
 enum cycles_select_column {
-  """column name"""
+  """
+  column name
+  """
   bridge_week
 
-  """column name"""
+  """
+  column name
+  """
   created_at
 
-  """column name"""
+  """
+  column name
+  """
   cycle_number
 
-  """column name"""
+  """
+  column name
+  """
   date
 
-  """column name"""
+  """
+  column name
+  """
   id
 
-  """column name"""
+  """
+  column name
+  """
   program_id
 
-  """column name"""
+  """
+  column name
+  """
   updated_at
 
-  """column name"""
+  """
+  column name
+  """
   workout_count
 }
 
@@ -560,7 +692,9 @@ enum cycles_select_column {
 select "cycles_aggregate_bool_exp_bool_and_arguments_columns" columns of table "cycles"
 """
 enum cycles_select_column_cycles_aggregate_bool_exp_bool_and_arguments_columns {
-  """column name"""
+  """
+  column name
+  """
   bridge_week
 }
 
@@ -568,7 +702,9 @@ enum cycles_select_column_cycles_aggregate_bool_exp_bool_and_arguments_columns {
 select "cycles_aggregate_bool_exp_bool_or_arguments_columns" columns of table "cycles"
 """
 enum cycles_select_column_cycles_aggregate_bool_exp_bool_or_arguments_columns {
-  """column name"""
+  """
+  column name
+  """
   bridge_week
 }
 
@@ -586,7 +722,9 @@ input cycles_set_input {
   workout_count: Int
 }
 
-"""aggregate stddev on columns"""
+"""
+aggregate stddev on columns
+"""
 type cycles_stddev_fields {
   cycle_number: Float
   id: Float
@@ -609,7 +747,9 @@ input cycles_stddev_order_by {
   workout_count: order_by
 }
 
-"""aggregate stddev_pop on columns"""
+"""
+aggregate stddev_pop on columns
+"""
 type cycles_stddev_pop_fields {
   cycle_number: Float
   id: Float
@@ -632,7 +772,9 @@ input cycles_stddev_pop_order_by {
   workout_count: order_by
 }
 
-"""aggregate stddev_samp on columns"""
+"""
+aggregate stddev_samp on columns
+"""
 type cycles_stddev_samp_fields {
   cycle_number: Float
   id: Float
@@ -659,14 +801,20 @@ input cycles_stddev_samp_order_by {
 Streaming cursor of the table "cycles"
 """
 input cycles_stream_cursor_input {
-  """Stream column input with initial value"""
+  """
+  Stream column input with initial value
+  """
   initial_value: cycles_stream_cursor_value_input!
 
-  """cursor ordering"""
+  """
+  cursor ordering
+  """
   ordering: cursor_ordering
 }
 
-"""Initial value of the column from where the streaming should start"""
+"""
+Initial value of the column from where the streaming should start
+"""
 input cycles_stream_cursor_value_input {
   bridge_week: Boolean
   created_at: timestamp
@@ -678,7 +826,9 @@ input cycles_stream_cursor_value_input {
   workout_count: Int
 }
 
-"""aggregate sum on columns"""
+"""
+aggregate sum on columns
+"""
 type cycles_sum_fields {
   cycle_number: Int
   id: bigint
@@ -705,43 +855,67 @@ input cycles_sum_order_by {
 update columns of table "cycles"
 """
 enum cycles_update_column {
-  """column name"""
+  """
+  column name
+  """
   bridge_week
 
-  """column name"""
+  """
+  column name
+  """
   created_at
 
-  """column name"""
+  """
+  column name
+  """
   cycle_number
 
-  """column name"""
+  """
+  column name
+  """
   date
 
-  """column name"""
+  """
+  column name
+  """
   id
 
-  """column name"""
+  """
+  column name
+  """
   program_id
 
-  """column name"""
+  """
+  column name
+  """
   updated_at
 
-  """column name"""
+  """
+  column name
+  """
   workout_count
 }
 
 input cycles_updates {
-  """increments the numeric columns with given value of the filtered values"""
+  """
+  increments the numeric columns with given value of the filtered values
+  """
   _inc: cycles_inc_input
 
-  """sets the columns of the filtered rows to the given values"""
+  """
+  sets the columns of the filtered rows to the given values
+  """
   _set: cycles_set_input
 
-  """filter the rows which have to be updated"""
+  """
+  filter the rows which have to be updated
+  """
   where: cycles_bool_exp!
 }
 
-"""aggregate var_pop on columns"""
+"""
+aggregate var_pop on columns
+"""
 type cycles_var_pop_fields {
   cycle_number: Float
   id: Float
@@ -764,7 +938,9 @@ input cycles_var_pop_order_by {
   workout_count: order_by
 }
 
-"""aggregate var_samp on columns"""
+"""
+aggregate var_samp on columns
+"""
 type cycles_var_samp_fields {
   cycle_number: Float
   id: Float
@@ -787,7 +963,9 @@ input cycles_var_samp_order_by {
   workout_count: order_by
 }
 
-"""aggregate variance on columns"""
+"""
+aggregate variance on columns
+"""
 type cycles_variance_fields {
   cycle_number: Float
   id: Float
@@ -833,19 +1011,25 @@ columns and relationships of "exercise_details"
 type exercise_details {
   created_at: timestamp!
 
-  """An object relationship"""
+  """
+  An object relationship
+  """
   exercise: exercises
   exercise_id: bigint
   id: bigint!
   levels(
-    """JSON select path"""
+    """
+    JSON select path
+    """
     path: String
   ): json
   subtitle: String
   title: String
   updated_at: timestamp!
 
-  """An object relationship"""
+  """
+  An object relationship
+  """
   workout_item: workout_items!
   workout_item_id: bigint!
 }
@@ -909,11 +1093,15 @@ input type for inserting array relation for remote table "exercise_details"
 input exercise_details_arr_rel_insert_input {
   data: [exercise_details_insert_input!]!
 
-  """upsert condition"""
+  """
+  upsert condition
+  """
   on_conflict: exercise_details_on_conflict
 }
 
-"""aggregate avg on columns"""
+"""
+aggregate avg on columns
+"""
 type exercise_details_avg_fields {
   exercise_id: Float
   id: Float
@@ -983,7 +1171,9 @@ input exercise_details_insert_input {
   workout_item_id: bigint
 }
 
-"""aggregate max on columns"""
+"""
+aggregate max on columns
+"""
 type exercise_details_max_fields {
   created_at: timestamp
   exercise_id: bigint
@@ -1007,7 +1197,9 @@ input exercise_details_max_order_by {
   workout_item_id: order_by
 }
 
-"""aggregate min on columns"""
+"""
+aggregate min on columns
+"""
 type exercise_details_min_fields {
   created_at: timestamp
   exercise_id: bigint
@@ -1035,10 +1227,14 @@ input exercise_details_min_order_by {
 response of any mutation on the table "exercise_details"
 """
 type exercise_details_mutation_response {
-  """number of rows affected by the mutation"""
+  """
+  number of rows affected by the mutation
+  """
   affected_rows: Int!
 
-  """data from the rows affected by the mutation"""
+  """
+  data from the rows affected by the mutation
+  """
   returning: [exercise_details!]!
 }
 
@@ -1051,7 +1247,9 @@ input exercise_details_on_conflict {
   where: exercise_details_bool_exp
 }
 
-"""Ordering options when selecting data from "exercise_details"."""
+"""
+Ordering options when selecting data from "exercise_details".
+"""
 input exercise_details_order_by {
   created_at: order_by
   exercise: exercises_order_by
@@ -1065,7 +1263,9 @@ input exercise_details_order_by {
   workout_item_id: order_by
 }
 
-"""primary key columns input for table: exercise_details"""
+"""
+primary key columns input for table: exercise_details
+"""
 input exercise_details_pk_columns_input {
   id: bigint!
 }
@@ -1074,28 +1274,44 @@ input exercise_details_pk_columns_input {
 select columns of table "exercise_details"
 """
 enum exercise_details_select_column {
-  """column name"""
+  """
+  column name
+  """
   created_at
 
-  """column name"""
+  """
+  column name
+  """
   exercise_id
 
-  """column name"""
+  """
+  column name
+  """
   id
 
-  """column name"""
+  """
+  column name
+  """
   levels
 
-  """column name"""
+  """
+  column name
+  """
   subtitle
 
-  """column name"""
+  """
+  column name
+  """
   title
 
-  """column name"""
+  """
+  column name
+  """
   updated_at
 
-  """column name"""
+  """
+  column name
+  """
   workout_item_id
 }
 
@@ -1113,7 +1329,9 @@ input exercise_details_set_input {
   workout_item_id: bigint
 }
 
-"""aggregate stddev on columns"""
+"""
+aggregate stddev on columns
+"""
 type exercise_details_stddev_fields {
   exercise_id: Float
   id: Float
@@ -1129,7 +1347,9 @@ input exercise_details_stddev_order_by {
   workout_item_id: order_by
 }
 
-"""aggregate stddev_pop on columns"""
+"""
+aggregate stddev_pop on columns
+"""
 type exercise_details_stddev_pop_fields {
   exercise_id: Float
   id: Float
@@ -1145,7 +1365,9 @@ input exercise_details_stddev_pop_order_by {
   workout_item_id: order_by
 }
 
-"""aggregate stddev_samp on columns"""
+"""
+aggregate stddev_samp on columns
+"""
 type exercise_details_stddev_samp_fields {
   exercise_id: Float
   id: Float
@@ -1165,14 +1387,20 @@ input exercise_details_stddev_samp_order_by {
 Streaming cursor of the table "exercise_details"
 """
 input exercise_details_stream_cursor_input {
-  """Stream column input with initial value"""
+  """
+  Stream column input with initial value
+  """
   initial_value: exercise_details_stream_cursor_value_input!
 
-  """cursor ordering"""
+  """
+  cursor ordering
+  """
   ordering: cursor_ordering
 }
 
-"""Initial value of the column from where the streaming should start"""
+"""
+Initial value of the column from where the streaming should start
+"""
 input exercise_details_stream_cursor_value_input {
   created_at: timestamp
   exercise_id: bigint
@@ -1184,7 +1412,9 @@ input exercise_details_stream_cursor_value_input {
   workout_item_id: bigint
 }
 
-"""aggregate sum on columns"""
+"""
+aggregate sum on columns
+"""
 type exercise_details_sum_fields {
   exercise_id: bigint
   id: bigint
@@ -1204,43 +1434,67 @@ input exercise_details_sum_order_by {
 update columns of table "exercise_details"
 """
 enum exercise_details_update_column {
-  """column name"""
+  """
+  column name
+  """
   created_at
 
-  """column name"""
+  """
+  column name
+  """
   exercise_id
 
-  """column name"""
+  """
+  column name
+  """
   id
 
-  """column name"""
+  """
+  column name
+  """
   levels
 
-  """column name"""
+  """
+  column name
+  """
   subtitle
 
-  """column name"""
+  """
+  column name
+  """
   title
 
-  """column name"""
+  """
+  column name
+  """
   updated_at
 
-  """column name"""
+  """
+  column name
+  """
   workout_item_id
 }
 
 input exercise_details_updates {
-  """increments the numeric columns with given value of the filtered values"""
+  """
+  increments the numeric columns with given value of the filtered values
+  """
   _inc: exercise_details_inc_input
 
-  """sets the columns of the filtered rows to the given values"""
+  """
+  sets the columns of the filtered rows to the given values
+  """
   _set: exercise_details_set_input
 
-  """filter the rows which have to be updated"""
+  """
+  filter the rows which have to be updated
+  """
   where: exercise_details_bool_exp!
 }
 
-"""aggregate var_pop on columns"""
+"""
+aggregate var_pop on columns
+"""
 type exercise_details_var_pop_fields {
   exercise_id: Float
   id: Float
@@ -1256,7 +1510,9 @@ input exercise_details_var_pop_order_by {
   workout_item_id: order_by
 }
 
-"""aggregate var_samp on columns"""
+"""
+aggregate var_samp on columns
+"""
 type exercise_details_var_samp_fields {
   exercise_id: Float
   id: Float
@@ -1272,7 +1528,9 @@ input exercise_details_var_samp_order_by {
   workout_item_id: order_by
 }
 
-"""aggregate variance on columns"""
+"""
+aggregate variance on columns
+"""
 type exercise_details_variance_fields {
   exercise_id: Float
   id: Float
@@ -1299,39 +1557,63 @@ type exercises {
   demo_video_title: String!
   demo_video_url: String
 
-  """An array relationship"""
+  """
+  An array relationship
+  """
   exercise_details(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [exercise_details_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [exercise_details_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: exercise_details_bool_exp
   ): [exercise_details!]!
 
-  """An aggregate relationship"""
+  """
+  An aggregate relationship
+  """
   exercise_details_aggregate(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [exercise_details_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [exercise_details_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: exercise_details_bool_exp
   ): exercise_details_aggregate!
   id: bigint!
@@ -1363,7 +1645,9 @@ type exercises_aggregate_fields {
   variance: exercises_variance_fields
 }
 
-"""aggregate avg on columns"""
+"""
+aggregate avg on columns
+"""
 type exercises_avg_fields {
   id: Float
 }
@@ -1424,7 +1708,9 @@ input exercises_insert_input {
   updated_at: timestamp
 }
 
-"""aggregate max on columns"""
+"""
+aggregate max on columns
+"""
 type exercises_max_fields {
   created_at: timestamp
   demo_video_id: String
@@ -1436,7 +1722,9 @@ type exercises_max_fields {
   updated_at: timestamp
 }
 
-"""aggregate min on columns"""
+"""
+aggregate min on columns
+"""
 type exercises_min_fields {
   created_at: timestamp
   demo_video_id: String
@@ -1452,10 +1740,14 @@ type exercises_min_fields {
 response of any mutation on the table "exercises"
 """
 type exercises_mutation_response {
-  """number of rows affected by the mutation"""
+  """
+  number of rows affected by the mutation
+  """
   affected_rows: Int!
 
-  """data from the rows affected by the mutation"""
+  """
+  data from the rows affected by the mutation
+  """
   returning: [exercises!]!
 }
 
@@ -1465,7 +1757,9 @@ input type for inserting object relation for remote table "exercises"
 input exercises_obj_rel_insert_input {
   data: exercises_insert_input!
 
-  """upsert condition"""
+  """
+  upsert condition
+  """
   on_conflict: exercises_on_conflict
 }
 
@@ -1478,7 +1772,9 @@ input exercises_on_conflict {
   where: exercises_bool_exp
 }
 
-"""Ordering options when selecting data from "exercises"."""
+"""
+Ordering options when selecting data from "exercises".
+"""
 input exercises_order_by {
   created_at: order_by
   demo_video_id: order_by
@@ -1491,7 +1787,9 @@ input exercises_order_by {
   updated_at: order_by
 }
 
-"""primary key columns input for table: exercises"""
+"""
+primary key columns input for table: exercises
+"""
 input exercises_pk_columns_input {
   id: bigint!
 }
@@ -1500,28 +1798,44 @@ input exercises_pk_columns_input {
 select columns of table "exercises"
 """
 enum exercises_select_column {
-  """column name"""
+  """
+  column name
+  """
   created_at
 
-  """column name"""
+  """
+  column name
+  """
   demo_video_id
 
-  """column name"""
+  """
+  column name
+  """
   demo_video_poster
 
-  """column name"""
+  """
+  column name
+  """
   demo_video_thumb
 
-  """column name"""
+  """
+  column name
+  """
   demo_video_title
 
-  """column name"""
+  """
+  column name
+  """
   demo_video_url
 
-  """column name"""
+  """
+  column name
+  """
   id
 
-  """column name"""
+  """
+  column name
+  """
   updated_at
 }
 
@@ -1539,17 +1853,23 @@ input exercises_set_input {
   updated_at: timestamp
 }
 
-"""aggregate stddev on columns"""
+"""
+aggregate stddev on columns
+"""
 type exercises_stddev_fields {
   id: Float
 }
 
-"""aggregate stddev_pop on columns"""
+"""
+aggregate stddev_pop on columns
+"""
 type exercises_stddev_pop_fields {
   id: Float
 }
 
-"""aggregate stddev_samp on columns"""
+"""
+aggregate stddev_samp on columns
+"""
 type exercises_stddev_samp_fields {
   id: Float
 }
@@ -1558,14 +1878,20 @@ type exercises_stddev_samp_fields {
 Streaming cursor of the table "exercises"
 """
 input exercises_stream_cursor_input {
-  """Stream column input with initial value"""
+  """
+  Stream column input with initial value
+  """
   initial_value: exercises_stream_cursor_value_input!
 
-  """cursor ordering"""
+  """
+  cursor ordering
+  """
   ordering: cursor_ordering
 }
 
-"""Initial value of the column from where the streaming should start"""
+"""
+Initial value of the column from where the streaming should start
+"""
 input exercises_stream_cursor_value_input {
   created_at: timestamp
   demo_video_id: String
@@ -1577,7 +1903,9 @@ input exercises_stream_cursor_value_input {
   updated_at: timestamp
 }
 
-"""aggregate sum on columns"""
+"""
+aggregate sum on columns
+"""
 type exercises_sum_fields {
   id: bigint
 }
@@ -1586,53 +1914,81 @@ type exercises_sum_fields {
 update columns of table "exercises"
 """
 enum exercises_update_column {
-  """column name"""
+  """
+  column name
+  """
   created_at
 
-  """column name"""
+  """
+  column name
+  """
   demo_video_id
 
-  """column name"""
+  """
+  column name
+  """
   demo_video_poster
 
-  """column name"""
+  """
+  column name
+  """
   demo_video_thumb
 
-  """column name"""
+  """
+  column name
+  """
   demo_video_title
 
-  """column name"""
+  """
+  column name
+  """
   demo_video_url
 
-  """column name"""
+  """
+  column name
+  """
   id
 
-  """column name"""
+  """
+  column name
+  """
   updated_at
 }
 
 input exercises_updates {
-  """increments the numeric columns with given value of the filtered values"""
+  """
+  increments the numeric columns with given value of the filtered values
+  """
   _inc: exercises_inc_input
 
-  """sets the columns of the filtered rows to the given values"""
+  """
+  sets the columns of the filtered rows to the given values
+  """
   _set: exercises_set_input
 
-  """filter the rows which have to be updated"""
+  """
+  filter the rows which have to be updated
+  """
   where: exercises_bool_exp!
 }
 
-"""aggregate var_pop on columns"""
+"""
+aggregate var_pop on columns
+"""
 type exercises_var_pop_fields {
   id: Float
 }
 
-"""aggregate var_samp on columns"""
+"""
+aggregate var_samp on columns
+"""
 type exercises_var_samp_fields {
   id: Float
 }
 
-"""aggregate variance on columns"""
+"""
+aggregate variance on columns
+"""
 type exercises_variance_fields {
   id: Float
 }
@@ -1654,13 +2010,17 @@ input json_comparison_exp {
   _nin: [json!]
 }
 
-"""mutation root"""
+"""
+mutation root
+"""
 type mutation_root {
   """
   delete data from the table: "cycles"
   """
   delete_cycles(
-    """filter the rows which have to be deleted"""
+    """
+    filter the rows which have to be deleted
+    """
     where: cycles_bool_exp!
   ): cycles_mutation_response
 
@@ -1673,7 +2033,9 @@ type mutation_root {
   delete data from the table: "exercise_details"
   """
   delete_exercise_details(
-    """filter the rows which have to be deleted"""
+    """
+    filter the rows which have to be deleted
+    """
     where: exercise_details_bool_exp!
   ): exercise_details_mutation_response
 
@@ -1686,7 +2048,9 @@ type mutation_root {
   delete data from the table: "exercises"
   """
   delete_exercises(
-    """filter the rows which have to be deleted"""
+    """
+    filter the rows which have to be deleted
+    """
     where: exercises_bool_exp!
   ): exercises_mutation_response
 
@@ -1699,7 +2063,9 @@ type mutation_root {
   delete data from the table: "programs"
   """
   delete_programs(
-    """filter the rows which have to be deleted"""
+    """
+    filter the rows which have to be deleted
+    """
     where: programs_bool_exp!
   ): programs_mutation_response
 
@@ -1712,7 +2078,9 @@ type mutation_root {
   delete data from the table: "scores"
   """
   delete_scores(
-    """filter the rows which have to be deleted"""
+    """
+    filter the rows which have to be deleted
+    """
     where: scores_bool_exp!
   ): scores_mutation_response
 
@@ -1725,7 +2093,9 @@ type mutation_root {
   delete data from the table: "user_cycles"
   """
   delete_user_cycles(
-    """filter the rows which have to be deleted"""
+    """
+    filter the rows which have to be deleted
+    """
     where: user_cycles_bool_exp!
   ): user_cycles_mutation_response
 
@@ -1738,7 +2108,9 @@ type mutation_root {
   delete data from the table: "user_workouts"
   """
   delete_user_workouts(
-    """filter the rows which have to be deleted"""
+    """
+    filter the rows which have to be deleted
+    """
     where: user_workouts_bool_exp!
   ): user_workouts_mutation_response
 
@@ -1751,7 +2123,9 @@ type mutation_root {
   delete data from the table: "users"
   """
   delete_users(
-    """filter the rows which have to be deleted"""
+    """
+    filter the rows which have to be deleted
+    """
     where: users_bool_exp!
   ): users_mutation_response
 
@@ -1764,7 +2138,9 @@ type mutation_root {
   delete data from the table: "workout_item_scores"
   """
   delete_workout_item_scores(
-    """filter the rows which have to be deleted"""
+    """
+    filter the rows which have to be deleted
+    """
     where: workout_item_scores_bool_exp!
   ): workout_item_scores_mutation_response
 
@@ -1777,7 +2153,9 @@ type mutation_root {
   delete data from the table: "workout_items"
   """
   delete_workout_items(
-    """filter the rows which have to be deleted"""
+    """
+    filter the rows which have to be deleted
+    """
     where: workout_items_bool_exp!
   ): workout_items_mutation_response
 
@@ -1790,7 +2168,9 @@ type mutation_root {
   delete data from the table: "workouts"
   """
   delete_workouts(
-    """filter the rows which have to be deleted"""
+    """
+    filter the rows which have to be deleted
+    """
     where: workouts_bool_exp!
   ): workouts_mutation_response
 
@@ -1803,10 +2183,14 @@ type mutation_root {
   insert data into the table: "cycles"
   """
   insert_cycles(
-    """the rows to be inserted"""
+    """
+    the rows to be inserted
+    """
     objects: [cycles_insert_input!]!
 
-    """upsert condition"""
+    """
+    upsert condition
+    """
     on_conflict: cycles_on_conflict
   ): cycles_mutation_response
 
@@ -1814,10 +2198,14 @@ type mutation_root {
   insert a single row into the table: "cycles"
   """
   insert_cycles_one(
-    """the row to be inserted"""
+    """
+    the row to be inserted
+    """
     object: cycles_insert_input!
 
-    """upsert condition"""
+    """
+    upsert condition
+    """
     on_conflict: cycles_on_conflict
   ): cycles
 
@@ -1825,10 +2213,14 @@ type mutation_root {
   insert data into the table: "exercise_details"
   """
   insert_exercise_details(
-    """the rows to be inserted"""
+    """
+    the rows to be inserted
+    """
     objects: [exercise_details_insert_input!]!
 
-    """upsert condition"""
+    """
+    upsert condition
+    """
     on_conflict: exercise_details_on_conflict
   ): exercise_details_mutation_response
 
@@ -1836,10 +2228,14 @@ type mutation_root {
   insert a single row into the table: "exercise_details"
   """
   insert_exercise_details_one(
-    """the row to be inserted"""
+    """
+    the row to be inserted
+    """
     object: exercise_details_insert_input!
 
-    """upsert condition"""
+    """
+    upsert condition
+    """
     on_conflict: exercise_details_on_conflict
   ): exercise_details
 
@@ -1847,10 +2243,14 @@ type mutation_root {
   insert data into the table: "exercises"
   """
   insert_exercises(
-    """the rows to be inserted"""
+    """
+    the rows to be inserted
+    """
     objects: [exercises_insert_input!]!
 
-    """upsert condition"""
+    """
+    upsert condition
+    """
     on_conflict: exercises_on_conflict
   ): exercises_mutation_response
 
@@ -1858,10 +2258,14 @@ type mutation_root {
   insert a single row into the table: "exercises"
   """
   insert_exercises_one(
-    """the row to be inserted"""
+    """
+    the row to be inserted
+    """
     object: exercises_insert_input!
 
-    """upsert condition"""
+    """
+    upsert condition
+    """
     on_conflict: exercises_on_conflict
   ): exercises
 
@@ -1869,10 +2273,14 @@ type mutation_root {
   insert data into the table: "programs"
   """
   insert_programs(
-    """the rows to be inserted"""
+    """
+    the rows to be inserted
+    """
     objects: [programs_insert_input!]!
 
-    """upsert condition"""
+    """
+    upsert condition
+    """
     on_conflict: programs_on_conflict
   ): programs_mutation_response
 
@@ -1880,10 +2288,14 @@ type mutation_root {
   insert a single row into the table: "programs"
   """
   insert_programs_one(
-    """the row to be inserted"""
+    """
+    the row to be inserted
+    """
     object: programs_insert_input!
 
-    """upsert condition"""
+    """
+    upsert condition
+    """
     on_conflict: programs_on_conflict
   ): programs
 
@@ -1891,10 +2303,14 @@ type mutation_root {
   insert data into the table: "scores"
   """
   insert_scores(
-    """the rows to be inserted"""
+    """
+    the rows to be inserted
+    """
     objects: [scores_insert_input!]!
 
-    """upsert condition"""
+    """
+    upsert condition
+    """
     on_conflict: scores_on_conflict
   ): scores_mutation_response
 
@@ -1902,10 +2318,14 @@ type mutation_root {
   insert a single row into the table: "scores"
   """
   insert_scores_one(
-    """the row to be inserted"""
+    """
+    the row to be inserted
+    """
     object: scores_insert_input!
 
-    """upsert condition"""
+    """
+    upsert condition
+    """
     on_conflict: scores_on_conflict
   ): scores
 
@@ -1913,10 +2333,14 @@ type mutation_root {
   insert data into the table: "user_cycles"
   """
   insert_user_cycles(
-    """the rows to be inserted"""
+    """
+    the rows to be inserted
+    """
     objects: [user_cycles_insert_input!]!
 
-    """upsert condition"""
+    """
+    upsert condition
+    """
     on_conflict: user_cycles_on_conflict
   ): user_cycles_mutation_response
 
@@ -1924,10 +2348,14 @@ type mutation_root {
   insert a single row into the table: "user_cycles"
   """
   insert_user_cycles_one(
-    """the row to be inserted"""
+    """
+    the row to be inserted
+    """
     object: user_cycles_insert_input!
 
-    """upsert condition"""
+    """
+    upsert condition
+    """
     on_conflict: user_cycles_on_conflict
   ): user_cycles
 
@@ -1935,10 +2363,14 @@ type mutation_root {
   insert data into the table: "user_workouts"
   """
   insert_user_workouts(
-    """the rows to be inserted"""
+    """
+    the rows to be inserted
+    """
     objects: [user_workouts_insert_input!]!
 
-    """upsert condition"""
+    """
+    upsert condition
+    """
     on_conflict: user_workouts_on_conflict
   ): user_workouts_mutation_response
 
@@ -1946,10 +2378,14 @@ type mutation_root {
   insert a single row into the table: "user_workouts"
   """
   insert_user_workouts_one(
-    """the row to be inserted"""
+    """
+    the row to be inserted
+    """
     object: user_workouts_insert_input!
 
-    """upsert condition"""
+    """
+    upsert condition
+    """
     on_conflict: user_workouts_on_conflict
   ): user_workouts
 
@@ -1957,10 +2393,14 @@ type mutation_root {
   insert data into the table: "users"
   """
   insert_users(
-    """the rows to be inserted"""
+    """
+    the rows to be inserted
+    """
     objects: [users_insert_input!]!
 
-    """upsert condition"""
+    """
+    upsert condition
+    """
     on_conflict: users_on_conflict
   ): users_mutation_response
 
@@ -1968,10 +2408,14 @@ type mutation_root {
   insert a single row into the table: "users"
   """
   insert_users_one(
-    """the row to be inserted"""
+    """
+    the row to be inserted
+    """
     object: users_insert_input!
 
-    """upsert condition"""
+    """
+    upsert condition
+    """
     on_conflict: users_on_conflict
   ): users
 
@@ -1979,10 +2423,14 @@ type mutation_root {
   insert data into the table: "workout_item_scores"
   """
   insert_workout_item_scores(
-    """the rows to be inserted"""
+    """
+    the rows to be inserted
+    """
     objects: [workout_item_scores_insert_input!]!
 
-    """upsert condition"""
+    """
+    upsert condition
+    """
     on_conflict: workout_item_scores_on_conflict
   ): workout_item_scores_mutation_response
 
@@ -1990,10 +2438,14 @@ type mutation_root {
   insert a single row into the table: "workout_item_scores"
   """
   insert_workout_item_scores_one(
-    """the row to be inserted"""
+    """
+    the row to be inserted
+    """
     object: workout_item_scores_insert_input!
 
-    """upsert condition"""
+    """
+    upsert condition
+    """
     on_conflict: workout_item_scores_on_conflict
   ): workout_item_scores
 
@@ -2001,10 +2453,14 @@ type mutation_root {
   insert data into the table: "workout_items"
   """
   insert_workout_items(
-    """the rows to be inserted"""
+    """
+    the rows to be inserted
+    """
     objects: [workout_items_insert_input!]!
 
-    """upsert condition"""
+    """
+    upsert condition
+    """
     on_conflict: workout_items_on_conflict
   ): workout_items_mutation_response
 
@@ -2012,10 +2468,14 @@ type mutation_root {
   insert a single row into the table: "workout_items"
   """
   insert_workout_items_one(
-    """the row to be inserted"""
+    """
+    the row to be inserted
+    """
     object: workout_items_insert_input!
 
-    """upsert condition"""
+    """
+    upsert condition
+    """
     on_conflict: workout_items_on_conflict
   ): workout_items
 
@@ -2023,10 +2483,14 @@ type mutation_root {
   insert data into the table: "workouts"
   """
   insert_workouts(
-    """the rows to be inserted"""
+    """
+    the rows to be inserted
+    """
     objects: [workouts_insert_input!]!
 
-    """upsert condition"""
+    """
+    upsert condition
+    """
     on_conflict: workouts_on_conflict
   ): workouts_mutation_response
 
@@ -2034,10 +2498,14 @@ type mutation_root {
   insert a single row into the table: "workouts"
   """
   insert_workouts_one(
-    """the row to be inserted"""
+    """
+    the row to be inserted
+    """
     object: workouts_insert_input!
 
-    """upsert condition"""
+    """
+    upsert condition
+    """
     on_conflict: workouts_on_conflict
   ): workouts
 
@@ -2045,13 +2513,19 @@ type mutation_root {
   update data of the table: "cycles"
   """
   update_cycles(
-    """increments the numeric columns with given value of the filtered values"""
+    """
+    increments the numeric columns with given value of the filtered values
+    """
     _inc: cycles_inc_input
 
-    """sets the columns of the filtered rows to the given values"""
+    """
+    sets the columns of the filtered rows to the given values
+    """
     _set: cycles_set_input
 
-    """filter the rows which have to be updated"""
+    """
+    filter the rows which have to be updated
+    """
     where: cycles_bool_exp!
   ): cycles_mutation_response
 
@@ -2059,10 +2533,14 @@ type mutation_root {
   update single row of the table: "cycles"
   """
   update_cycles_by_pk(
-    """increments the numeric columns with given value of the filtered values"""
+    """
+    increments the numeric columns with given value of the filtered values
+    """
     _inc: cycles_inc_input
 
-    """sets the columns of the filtered rows to the given values"""
+    """
+    sets the columns of the filtered rows to the given values
+    """
     _set: cycles_set_input
     pk_columns: cycles_pk_columns_input!
   ): cycles
@@ -2071,7 +2549,9 @@ type mutation_root {
   update multiples rows of table: "cycles"
   """
   update_cycles_many(
-    """updates to execute, in order"""
+    """
+    updates to execute, in order
+    """
     updates: [cycles_updates!]!
   ): [cycles_mutation_response]
 
@@ -2079,13 +2559,19 @@ type mutation_root {
   update data of the table: "exercise_details"
   """
   update_exercise_details(
-    """increments the numeric columns with given value of the filtered values"""
+    """
+    increments the numeric columns with given value of the filtered values
+    """
     _inc: exercise_details_inc_input
 
-    """sets the columns of the filtered rows to the given values"""
+    """
+    sets the columns of the filtered rows to the given values
+    """
     _set: exercise_details_set_input
 
-    """filter the rows which have to be updated"""
+    """
+    filter the rows which have to be updated
+    """
     where: exercise_details_bool_exp!
   ): exercise_details_mutation_response
 
@@ -2093,10 +2579,14 @@ type mutation_root {
   update single row of the table: "exercise_details"
   """
   update_exercise_details_by_pk(
-    """increments the numeric columns with given value of the filtered values"""
+    """
+    increments the numeric columns with given value of the filtered values
+    """
     _inc: exercise_details_inc_input
 
-    """sets the columns of the filtered rows to the given values"""
+    """
+    sets the columns of the filtered rows to the given values
+    """
     _set: exercise_details_set_input
     pk_columns: exercise_details_pk_columns_input!
   ): exercise_details
@@ -2105,7 +2595,9 @@ type mutation_root {
   update multiples rows of table: "exercise_details"
   """
   update_exercise_details_many(
-    """updates to execute, in order"""
+    """
+    updates to execute, in order
+    """
     updates: [exercise_details_updates!]!
   ): [exercise_details_mutation_response]
 
@@ -2113,13 +2605,19 @@ type mutation_root {
   update data of the table: "exercises"
   """
   update_exercises(
-    """increments the numeric columns with given value of the filtered values"""
+    """
+    increments the numeric columns with given value of the filtered values
+    """
     _inc: exercises_inc_input
 
-    """sets the columns of the filtered rows to the given values"""
+    """
+    sets the columns of the filtered rows to the given values
+    """
     _set: exercises_set_input
 
-    """filter the rows which have to be updated"""
+    """
+    filter the rows which have to be updated
+    """
     where: exercises_bool_exp!
   ): exercises_mutation_response
 
@@ -2127,10 +2625,14 @@ type mutation_root {
   update single row of the table: "exercises"
   """
   update_exercises_by_pk(
-    """increments the numeric columns with given value of the filtered values"""
+    """
+    increments the numeric columns with given value of the filtered values
+    """
     _inc: exercises_inc_input
 
-    """sets the columns of the filtered rows to the given values"""
+    """
+    sets the columns of the filtered rows to the given values
+    """
     _set: exercises_set_input
     pk_columns: exercises_pk_columns_input!
   ): exercises
@@ -2139,7 +2641,9 @@ type mutation_root {
   update multiples rows of table: "exercises"
   """
   update_exercises_many(
-    """updates to execute, in order"""
+    """
+    updates to execute, in order
+    """
     updates: [exercises_updates!]!
   ): [exercises_mutation_response]
 
@@ -2147,13 +2651,19 @@ type mutation_root {
   update data of the table: "programs"
   """
   update_programs(
-    """increments the numeric columns with given value of the filtered values"""
+    """
+    increments the numeric columns with given value of the filtered values
+    """
     _inc: programs_inc_input
 
-    """sets the columns of the filtered rows to the given values"""
+    """
+    sets the columns of the filtered rows to the given values
+    """
     _set: programs_set_input
 
-    """filter the rows which have to be updated"""
+    """
+    filter the rows which have to be updated
+    """
     where: programs_bool_exp!
   ): programs_mutation_response
 
@@ -2161,10 +2671,14 @@ type mutation_root {
   update single row of the table: "programs"
   """
   update_programs_by_pk(
-    """increments the numeric columns with given value of the filtered values"""
+    """
+    increments the numeric columns with given value of the filtered values
+    """
     _inc: programs_inc_input
 
-    """sets the columns of the filtered rows to the given values"""
+    """
+    sets the columns of the filtered rows to the given values
+    """
     _set: programs_set_input
     pk_columns: programs_pk_columns_input!
   ): programs
@@ -2173,7 +2687,9 @@ type mutation_root {
   update multiples rows of table: "programs"
   """
   update_programs_many(
-    """updates to execute, in order"""
+    """
+    updates to execute, in order
+    """
     updates: [programs_updates!]!
   ): [programs_mutation_response]
 
@@ -2181,13 +2697,19 @@ type mutation_root {
   update data of the table: "scores"
   """
   update_scores(
-    """increments the numeric columns with given value of the filtered values"""
+    """
+    increments the numeric columns with given value of the filtered values
+    """
     _inc: scores_inc_input
 
-    """sets the columns of the filtered rows to the given values"""
+    """
+    sets the columns of the filtered rows to the given values
+    """
     _set: scores_set_input
 
-    """filter the rows which have to be updated"""
+    """
+    filter the rows which have to be updated
+    """
     where: scores_bool_exp!
   ): scores_mutation_response
 
@@ -2195,10 +2717,14 @@ type mutation_root {
   update single row of the table: "scores"
   """
   update_scores_by_pk(
-    """increments the numeric columns with given value of the filtered values"""
+    """
+    increments the numeric columns with given value of the filtered values
+    """
     _inc: scores_inc_input
 
-    """sets the columns of the filtered rows to the given values"""
+    """
+    sets the columns of the filtered rows to the given values
+    """
     _set: scores_set_input
     pk_columns: scores_pk_columns_input!
   ): scores
@@ -2207,7 +2733,9 @@ type mutation_root {
   update multiples rows of table: "scores"
   """
   update_scores_many(
-    """updates to execute, in order"""
+    """
+    updates to execute, in order
+    """
     updates: [scores_updates!]!
   ): [scores_mutation_response]
 
@@ -2215,13 +2743,19 @@ type mutation_root {
   update data of the table: "user_cycles"
   """
   update_user_cycles(
-    """increments the numeric columns with given value of the filtered values"""
+    """
+    increments the numeric columns with given value of the filtered values
+    """
     _inc: user_cycles_inc_input
 
-    """sets the columns of the filtered rows to the given values"""
+    """
+    sets the columns of the filtered rows to the given values
+    """
     _set: user_cycles_set_input
 
-    """filter the rows which have to be updated"""
+    """
+    filter the rows which have to be updated
+    """
     where: user_cycles_bool_exp!
   ): user_cycles_mutation_response
 
@@ -2229,10 +2763,14 @@ type mutation_root {
   update single row of the table: "user_cycles"
   """
   update_user_cycles_by_pk(
-    """increments the numeric columns with given value of the filtered values"""
+    """
+    increments the numeric columns with given value of the filtered values
+    """
     _inc: user_cycles_inc_input
 
-    """sets the columns of the filtered rows to the given values"""
+    """
+    sets the columns of the filtered rows to the given values
+    """
     _set: user_cycles_set_input
     pk_columns: user_cycles_pk_columns_input!
   ): user_cycles
@@ -2241,7 +2779,9 @@ type mutation_root {
   update multiples rows of table: "user_cycles"
   """
   update_user_cycles_many(
-    """updates to execute, in order"""
+    """
+    updates to execute, in order
+    """
     updates: [user_cycles_updates!]!
   ): [user_cycles_mutation_response]
 
@@ -2249,13 +2789,19 @@ type mutation_root {
   update data of the table: "user_workouts"
   """
   update_user_workouts(
-    """increments the numeric columns with given value of the filtered values"""
+    """
+    increments the numeric columns with given value of the filtered values
+    """
     _inc: user_workouts_inc_input
 
-    """sets the columns of the filtered rows to the given values"""
+    """
+    sets the columns of the filtered rows to the given values
+    """
     _set: user_workouts_set_input
 
-    """filter the rows which have to be updated"""
+    """
+    filter the rows which have to be updated
+    """
     where: user_workouts_bool_exp!
   ): user_workouts_mutation_response
 
@@ -2263,10 +2809,14 @@ type mutation_root {
   update single row of the table: "user_workouts"
   """
   update_user_workouts_by_pk(
-    """increments the numeric columns with given value of the filtered values"""
+    """
+    increments the numeric columns with given value of the filtered values
+    """
     _inc: user_workouts_inc_input
 
-    """sets the columns of the filtered rows to the given values"""
+    """
+    sets the columns of the filtered rows to the given values
+    """
     _set: user_workouts_set_input
     pk_columns: user_workouts_pk_columns_input!
   ): user_workouts
@@ -2275,7 +2825,9 @@ type mutation_root {
   update multiples rows of table: "user_workouts"
   """
   update_user_workouts_many(
-    """updates to execute, in order"""
+    """
+    updates to execute, in order
+    """
     updates: [user_workouts_updates!]!
   ): [user_workouts_mutation_response]
 
@@ -2283,13 +2835,19 @@ type mutation_root {
   update data of the table: "users"
   """
   update_users(
-    """increments the numeric columns with given value of the filtered values"""
+    """
+    increments the numeric columns with given value of the filtered values
+    """
     _inc: users_inc_input
 
-    """sets the columns of the filtered rows to the given values"""
+    """
+    sets the columns of the filtered rows to the given values
+    """
     _set: users_set_input
 
-    """filter the rows which have to be updated"""
+    """
+    filter the rows which have to be updated
+    """
     where: users_bool_exp!
   ): users_mutation_response
 
@@ -2297,10 +2855,14 @@ type mutation_root {
   update single row of the table: "users"
   """
   update_users_by_pk(
-    """increments the numeric columns with given value of the filtered values"""
+    """
+    increments the numeric columns with given value of the filtered values
+    """
     _inc: users_inc_input
 
-    """sets the columns of the filtered rows to the given values"""
+    """
+    sets the columns of the filtered rows to the given values
+    """
     _set: users_set_input
     pk_columns: users_pk_columns_input!
   ): users
@@ -2309,7 +2871,9 @@ type mutation_root {
   update multiples rows of table: "users"
   """
   update_users_many(
-    """updates to execute, in order"""
+    """
+    updates to execute, in order
+    """
     updates: [users_updates!]!
   ): [users_mutation_response]
 
@@ -2317,13 +2881,19 @@ type mutation_root {
   update data of the table: "workout_item_scores"
   """
   update_workout_item_scores(
-    """increments the numeric columns with given value of the filtered values"""
+    """
+    increments the numeric columns with given value of the filtered values
+    """
     _inc: workout_item_scores_inc_input
 
-    """sets the columns of the filtered rows to the given values"""
+    """
+    sets the columns of the filtered rows to the given values
+    """
     _set: workout_item_scores_set_input
 
-    """filter the rows which have to be updated"""
+    """
+    filter the rows which have to be updated
+    """
     where: workout_item_scores_bool_exp!
   ): workout_item_scores_mutation_response
 
@@ -2331,10 +2901,14 @@ type mutation_root {
   update single row of the table: "workout_item_scores"
   """
   update_workout_item_scores_by_pk(
-    """increments the numeric columns with given value of the filtered values"""
+    """
+    increments the numeric columns with given value of the filtered values
+    """
     _inc: workout_item_scores_inc_input
 
-    """sets the columns of the filtered rows to the given values"""
+    """
+    sets the columns of the filtered rows to the given values
+    """
     _set: workout_item_scores_set_input
     pk_columns: workout_item_scores_pk_columns_input!
   ): workout_item_scores
@@ -2343,7 +2917,9 @@ type mutation_root {
   update multiples rows of table: "workout_item_scores"
   """
   update_workout_item_scores_many(
-    """updates to execute, in order"""
+    """
+    updates to execute, in order
+    """
     updates: [workout_item_scores_updates!]!
   ): [workout_item_scores_mutation_response]
 
@@ -2351,13 +2927,19 @@ type mutation_root {
   update data of the table: "workout_items"
   """
   update_workout_items(
-    """increments the numeric columns with given value of the filtered values"""
+    """
+    increments the numeric columns with given value of the filtered values
+    """
     _inc: workout_items_inc_input
 
-    """sets the columns of the filtered rows to the given values"""
+    """
+    sets the columns of the filtered rows to the given values
+    """
     _set: workout_items_set_input
 
-    """filter the rows which have to be updated"""
+    """
+    filter the rows which have to be updated
+    """
     where: workout_items_bool_exp!
   ): workout_items_mutation_response
 
@@ -2365,10 +2947,14 @@ type mutation_root {
   update single row of the table: "workout_items"
   """
   update_workout_items_by_pk(
-    """increments the numeric columns with given value of the filtered values"""
+    """
+    increments the numeric columns with given value of the filtered values
+    """
     _inc: workout_items_inc_input
 
-    """sets the columns of the filtered rows to the given values"""
+    """
+    sets the columns of the filtered rows to the given values
+    """
     _set: workout_items_set_input
     pk_columns: workout_items_pk_columns_input!
   ): workout_items
@@ -2377,7 +2963,9 @@ type mutation_root {
   update multiples rows of table: "workout_items"
   """
   update_workout_items_many(
-    """updates to execute, in order"""
+    """
+    updates to execute, in order
+    """
     updates: [workout_items_updates!]!
   ): [workout_items_mutation_response]
 
@@ -2385,13 +2973,19 @@ type mutation_root {
   update data of the table: "workouts"
   """
   update_workouts(
-    """increments the numeric columns with given value of the filtered values"""
+    """
+    increments the numeric columns with given value of the filtered values
+    """
     _inc: workouts_inc_input
 
-    """sets the columns of the filtered rows to the given values"""
+    """
+    sets the columns of the filtered rows to the given values
+    """
     _set: workouts_set_input
 
-    """filter the rows which have to be updated"""
+    """
+    filter the rows which have to be updated
+    """
     where: workouts_bool_exp!
   ): workouts_mutation_response
 
@@ -2399,10 +2993,14 @@ type mutation_root {
   update single row of the table: "workouts"
   """
   update_workouts_by_pk(
-    """increments the numeric columns with given value of the filtered values"""
+    """
+    increments the numeric columns with given value of the filtered values
+    """
     _inc: workouts_inc_input
 
-    """sets the columns of the filtered rows to the given values"""
+    """
+    sets the columns of the filtered rows to the given values
+    """
     _set: workouts_set_input
     pk_columns: workouts_pk_columns_input!
   ): workouts
@@ -2411,29 +3009,45 @@ type mutation_root {
   update multiples rows of table: "workouts"
   """
   update_workouts_many(
-    """updates to execute, in order"""
+    """
+    updates to execute, in order
+    """
     updates: [workouts_updates!]!
   ): [workouts_mutation_response]
 }
 
-"""column ordering options"""
+"""
+column ordering options
+"""
 enum order_by {
-  """in ascending order, nulls last"""
+  """
+  in ascending order, nulls last
+  """
   asc
 
-  """in ascending order, nulls first"""
+  """
+  in ascending order, nulls first
+  """
   asc_nulls_first
 
-  """in ascending order, nulls last"""
+  """
+  in ascending order, nulls last
+  """
   asc_nulls_last
 
-  """in descending order, nulls first"""
+  """
+  in descending order, nulls first
+  """
   desc
 
-  """in descending order, nulls first"""
+  """
+  in descending order, nulls first
+  """
   desc_nulls_first
 
-  """in descending order, nulls last"""
+  """
+  in descending order, nulls last
+  """
   desc_nulls_last
 }
 
@@ -2443,39 +3057,63 @@ columns and relationships of "programs"
 type programs {
   created_at: timestamp!
 
-  """An array relationship"""
+  """
+  An array relationship
+  """
   cycles(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [cycles_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [cycles_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: cycles_bool_exp
   ): [cycles!]!
 
-  """An aggregate relationship"""
+  """
+  An aggregate relationship
+  """
   cycles_aggregate(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [cycles_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [cycles_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: cycles_bool_exp
   ): cycles_aggregate!
   description: String
@@ -2510,7 +3148,9 @@ type programs_aggregate_fields {
   variance: programs_variance_fields
 }
 
-"""aggregate avg on columns"""
+"""
+aggregate avg on columns
+"""
 type programs_avg_fields {
   id: Float
 }
@@ -2562,7 +3202,9 @@ input programs_insert_input {
   updated_at: timestamp
 }
 
-"""aggregate max on columns"""
+"""
+aggregate max on columns
+"""
 type programs_max_fields {
   created_at: timestamp
   description: String
@@ -2572,7 +3214,9 @@ type programs_max_fields {
   updated_at: timestamp
 }
 
-"""aggregate min on columns"""
+"""
+aggregate min on columns
+"""
 type programs_min_fields {
   created_at: timestamp
   description: String
@@ -2586,10 +3230,14 @@ type programs_min_fields {
 response of any mutation on the table "programs"
 """
 type programs_mutation_response {
-  """number of rows affected by the mutation"""
+  """
+  number of rows affected by the mutation
+  """
   affected_rows: Int!
 
-  """data from the rows affected by the mutation"""
+  """
+  data from the rows affected by the mutation
+  """
   returning: [programs!]!
 }
 
@@ -2599,7 +3247,9 @@ input type for inserting object relation for remote table "programs"
 input programs_obj_rel_insert_input {
   data: programs_insert_input!
 
-  """upsert condition"""
+  """
+  upsert condition
+  """
   on_conflict: programs_on_conflict
 }
 
@@ -2612,7 +3262,9 @@ input programs_on_conflict {
   where: programs_bool_exp
 }
 
-"""Ordering options when selecting data from "programs"."""
+"""
+Ordering options when selecting data from "programs".
+"""
 input programs_order_by {
   created_at: order_by
   cycles_aggregate: cycles_aggregate_order_by
@@ -2623,7 +3275,9 @@ input programs_order_by {
   updated_at: order_by
 }
 
-"""primary key columns input for table: programs"""
+"""
+primary key columns input for table: programs
+"""
 input programs_pk_columns_input {
   id: bigint!
 }
@@ -2632,22 +3286,34 @@ input programs_pk_columns_input {
 select columns of table "programs"
 """
 enum programs_select_column {
-  """column name"""
+  """
+  column name
+  """
   created_at
 
-  """column name"""
+  """
+  column name
+  """
   description
 
-  """column name"""
+  """
+  column name
+  """
   id
 
-  """column name"""
+  """
+  column name
+  """
   image
 
-  """column name"""
+  """
+  column name
+  """
   name
 
-  """column name"""
+  """
+  column name
+  """
   updated_at
 }
 
@@ -2663,17 +3329,23 @@ input programs_set_input {
   updated_at: timestamp
 }
 
-"""aggregate stddev on columns"""
+"""
+aggregate stddev on columns
+"""
 type programs_stddev_fields {
   id: Float
 }
 
-"""aggregate stddev_pop on columns"""
+"""
+aggregate stddev_pop on columns
+"""
 type programs_stddev_pop_fields {
   id: Float
 }
 
-"""aggregate stddev_samp on columns"""
+"""
+aggregate stddev_samp on columns
+"""
 type programs_stddev_samp_fields {
   id: Float
 }
@@ -2682,14 +3354,20 @@ type programs_stddev_samp_fields {
 Streaming cursor of the table "programs"
 """
 input programs_stream_cursor_input {
-  """Stream column input with initial value"""
+  """
+  Stream column input with initial value
+  """
   initial_value: programs_stream_cursor_value_input!
 
-  """cursor ordering"""
+  """
+  cursor ordering
+  """
   ordering: cursor_ordering
 }
 
-"""Initial value of the column from where the streaming should start"""
+"""
+Initial value of the column from where the streaming should start
+"""
 input programs_stream_cursor_value_input {
   created_at: timestamp
   description: String
@@ -2699,7 +3377,9 @@ input programs_stream_cursor_value_input {
   updated_at: timestamp
 }
 
-"""aggregate sum on columns"""
+"""
+aggregate sum on columns
+"""
 type programs_sum_fields {
   id: bigint
 }
@@ -2708,124 +3388,198 @@ type programs_sum_fields {
 update columns of table "programs"
 """
 enum programs_update_column {
-  """column name"""
+  """
+  column name
+  """
   created_at
 
-  """column name"""
+  """
+  column name
+  """
   description
 
-  """column name"""
+  """
+  column name
+  """
   id
 
-  """column name"""
+  """
+  column name
+  """
   image
 
-  """column name"""
+  """
+  column name
+  """
   name
 
-  """column name"""
+  """
+  column name
+  """
   updated_at
 }
 
 input programs_updates {
-  """increments the numeric columns with given value of the filtered values"""
+  """
+  increments the numeric columns with given value of the filtered values
+  """
   _inc: programs_inc_input
 
-  """sets the columns of the filtered rows to the given values"""
+  """
+  sets the columns of the filtered rows to the given values
+  """
   _set: programs_set_input
 
-  """filter the rows which have to be updated"""
+  """
+  filter the rows which have to be updated
+  """
   where: programs_bool_exp!
 }
 
-"""aggregate var_pop on columns"""
+"""
+aggregate var_pop on columns
+"""
 type programs_var_pop_fields {
   id: Float
 }
 
-"""aggregate var_samp on columns"""
+"""
+aggregate var_samp on columns
+"""
 type programs_var_samp_fields {
   id: Float
 }
 
-"""aggregate variance on columns"""
+"""
+aggregate variance on columns
+"""
 type programs_variance_fields {
   id: Float
 }
 
 type query_root {
-  """An array relationship"""
+  """
+  An array relationship
+  """
   cycles(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [cycles_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [cycles_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: cycles_bool_exp
   ): [cycles!]!
 
-  """An aggregate relationship"""
+  """
+  An aggregate relationship
+  """
   cycles_aggregate(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [cycles_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [cycles_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: cycles_bool_exp
   ): cycles_aggregate!
 
-  """fetch data from the table: "cycles" using primary key columns"""
+  """
+  fetch data from the table: "cycles" using primary key columns
+  """
   cycles_by_pk(id: bigint!): cycles
 
-  """An array relationship"""
+  """
+  An array relationship
+  """
   exercise_details(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [exercise_details_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [exercise_details_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: exercise_details_bool_exp
   ): [exercise_details!]!
 
-  """An aggregate relationship"""
+  """
+  An aggregate relationship
+  """
   exercise_details_aggregate(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [exercise_details_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [exercise_details_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: exercise_details_bool_exp
   ): exercise_details_aggregate!
 
@@ -2838,19 +3592,29 @@ type query_root {
   fetch data from the table: "exercises"
   """
   exercises(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [exercises_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [exercises_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: exercises_bool_exp
   ): [exercises!]!
 
@@ -2858,42 +3622,64 @@ type query_root {
   fetch aggregated fields from the table: "exercises"
   """
   exercises_aggregate(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [exercises_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [exercises_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: exercises_bool_exp
   ): exercises_aggregate!
 
-  """fetch data from the table: "exercises" using primary key columns"""
+  """
+  fetch data from the table: "exercises" using primary key columns
+  """
   exercises_by_pk(id: bigint!): exercises
 
   """
   fetch data from the table: "programs"
   """
   programs(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [programs_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [programs_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: programs_bool_exp
   ): [programs!]!
 
@@ -2901,42 +3687,64 @@ type query_root {
   fetch aggregated fields from the table: "programs"
   """
   programs_aggregate(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [programs_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [programs_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: programs_bool_exp
   ): programs_aggregate!
 
-  """fetch data from the table: "programs" using primary key columns"""
+  """
+  fetch data from the table: "programs" using primary key columns
+  """
   programs_by_pk(id: bigint!): programs
 
   """
   fetch data from the table: "scores"
   """
   scores(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [scores_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [scores_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: scores_bool_exp
   ): [scores!]!
 
@@ -2944,120 +3752,194 @@ type query_root {
   fetch aggregated fields from the table: "scores"
   """
   scores_aggregate(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [scores_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [scores_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: scores_bool_exp
   ): scores_aggregate!
 
-  """fetch data from the table: "scores" using primary key columns"""
+  """
+  fetch data from the table: "scores" using primary key columns
+  """
   scores_by_pk(id: bigint!): scores
 
-  """An array relationship"""
+  """
+  An array relationship
+  """
   user_cycles(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [user_cycles_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [user_cycles_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: user_cycles_bool_exp
   ): [user_cycles!]!
 
-  """An aggregate relationship"""
+  """
+  An aggregate relationship
+  """
   user_cycles_aggregate(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [user_cycles_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [user_cycles_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: user_cycles_bool_exp
   ): user_cycles_aggregate!
 
-  """fetch data from the table: "user_cycles" using primary key columns"""
+  """
+  fetch data from the table: "user_cycles" using primary key columns
+  """
   user_cycles_by_pk(id: bigint!): user_cycles
 
-  """An array relationship"""
+  """
+  An array relationship
+  """
   user_workouts(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [user_workouts_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [user_workouts_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: user_workouts_bool_exp
   ): [user_workouts!]!
 
-  """An aggregate relationship"""
+  """
+  An aggregate relationship
+  """
   user_workouts_aggregate(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [user_workouts_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [user_workouts_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: user_workouts_bool_exp
   ): user_workouts_aggregate!
 
-  """fetch data from the table: "user_workouts" using primary key columns"""
+  """
+  fetch data from the table: "user_workouts" using primary key columns
+  """
   user_workouts_by_pk(id: uuid!): user_workouts
 
   """
   fetch data from the table: "users"
   """
   users(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [users_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [users_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: users_bool_exp
   ): [users!]!
 
@@ -3065,42 +3947,64 @@ type query_root {
   fetch aggregated fields from the table: "users"
   """
   users_aggregate(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [users_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [users_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: users_bool_exp
   ): users_aggregate!
 
-  """fetch data from the table: "users" using primary key columns"""
+  """
+  fetch data from the table: "users" using primary key columns
+  """
   users_by_pk(id: bigint!): users
 
   """
   fetch data from the table: "workout_item_scores"
   """
   workout_item_scores(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [workout_item_scores_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [workout_item_scores_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: workout_item_scores_bool_exp
   ): [workout_item_scores!]!
 
@@ -3108,19 +4012,29 @@ type query_root {
   fetch aggregated fields from the table: "workout_item_scores"
   """
   workout_item_scores_aggregate(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [workout_item_scores_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [workout_item_scores_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: workout_item_scores_bool_exp
   ): workout_item_scores_aggregate!
 
@@ -3129,82 +4043,134 @@ type query_root {
   """
   workout_item_scores_by_pk(id: bigint!): workout_item_scores
 
-  """An array relationship"""
+  """
+  An array relationship
+  """
   workout_items(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [workout_items_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [workout_items_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: workout_items_bool_exp
   ): [workout_items!]!
 
-  """An aggregate relationship"""
+  """
+  An aggregate relationship
+  """
   workout_items_aggregate(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [workout_items_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [workout_items_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: workout_items_bool_exp
   ): workout_items_aggregate!
 
-  """fetch data from the table: "workout_items" using primary key columns"""
+  """
+  fetch data from the table: "workout_items" using primary key columns
+  """
   workout_items_by_pk(id: bigint!): workout_items
 
-  """An array relationship"""
+  """
+  An array relationship
+  """
   workouts(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [workouts_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [workouts_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: workouts_bool_exp
   ): [workouts!]!
 
-  """An aggregate relationship"""
+  """
+  An aggregate relationship
+  """
   workouts_aggregate(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [workouts_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [workouts_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: workouts_bool_exp
   ): workouts_aggregate!
 
-  """fetch data from the table: "workouts" using primary key columns"""
+  """
+  fetch data from the table: "workouts" using primary key columns
+  """
   workouts_by_pk(id: bigint!): workouts
 }
 
@@ -3217,7 +4183,9 @@ type scores {
   notes: String
   program: String!
   section_notes(
-    """JSON select path"""
+    """
+    JSON select path
+    """
     path: String
   ): json
 }
@@ -3247,7 +4215,9 @@ type scores_aggregate_fields {
   variance: scores_variance_fields
 }
 
-"""aggregate avg on columns"""
+"""
+aggregate avg on columns
+"""
 type scores_avg_fields {
   id: Float
 }
@@ -3299,7 +4269,9 @@ input scores_insert_input {
   section_notes: json
 }
 
-"""aggregate max on columns"""
+"""
+aggregate max on columns
+"""
 type scores_max_fields {
   date: date
   id: bigint
@@ -3307,7 +4279,9 @@ type scores_max_fields {
   program: String
 }
 
-"""aggregate min on columns"""
+"""
+aggregate min on columns
+"""
 type scores_min_fields {
   date: date
   id: bigint
@@ -3319,10 +4293,14 @@ type scores_min_fields {
 response of any mutation on the table "scores"
 """
 type scores_mutation_response {
-  """number of rows affected by the mutation"""
+  """
+  number of rows affected by the mutation
+  """
   affected_rows: Int!
 
-  """data from the rows affected by the mutation"""
+  """
+  data from the rows affected by the mutation
+  """
   returning: [scores!]!
 }
 
@@ -3335,7 +4313,9 @@ input scores_on_conflict {
   where: scores_bool_exp
 }
 
-"""Ordering options when selecting data from "scores"."""
+"""
+Ordering options when selecting data from "scores".
+"""
 input scores_order_by {
   date: order_by
   id: order_by
@@ -3344,7 +4324,9 @@ input scores_order_by {
   section_notes: order_by
 }
 
-"""primary key columns input for table: scores"""
+"""
+primary key columns input for table: scores
+"""
 input scores_pk_columns_input {
   id: bigint!
 }
@@ -3353,19 +4335,29 @@ input scores_pk_columns_input {
 select columns of table "scores"
 """
 enum scores_select_column {
-  """column name"""
+  """
+  column name
+  """
   date
 
-  """column name"""
+  """
+  column name
+  """
   id
 
-  """column name"""
+  """
+  column name
+  """
   notes
 
-  """column name"""
+  """
+  column name
+  """
   program
 
-  """column name"""
+  """
+  column name
+  """
   section_notes
 }
 
@@ -3380,17 +4372,23 @@ input scores_set_input {
   section_notes: json
 }
 
-"""aggregate stddev on columns"""
+"""
+aggregate stddev on columns
+"""
 type scores_stddev_fields {
   id: Float
 }
 
-"""aggregate stddev_pop on columns"""
+"""
+aggregate stddev_pop on columns
+"""
 type scores_stddev_pop_fields {
   id: Float
 }
 
-"""aggregate stddev_samp on columns"""
+"""
+aggregate stddev_samp on columns
+"""
 type scores_stddev_samp_fields {
   id: Float
 }
@@ -3399,14 +4397,20 @@ type scores_stddev_samp_fields {
 Streaming cursor of the table "scores"
 """
 input scores_stream_cursor_input {
-  """Stream column input with initial value"""
+  """
+  Stream column input with initial value
+  """
   initial_value: scores_stream_cursor_value_input!
 
-  """cursor ordering"""
+  """
+  cursor ordering
+  """
   ordering: cursor_ordering
 }
 
-"""Initial value of the column from where the streaming should start"""
+"""
+Initial value of the column from where the streaming should start
+"""
 input scores_stream_cursor_value_input {
   date: date
   id: bigint
@@ -3415,7 +4419,9 @@ input scores_stream_cursor_value_input {
   section_notes: json
 }
 
-"""aggregate sum on columns"""
+"""
+aggregate sum on columns
+"""
 type scores_sum_fields {
   id: bigint
 }
@@ -3424,135 +4430,213 @@ type scores_sum_fields {
 update columns of table "scores"
 """
 enum scores_update_column {
-  """column name"""
+  """
+  column name
+  """
   date
 
-  """column name"""
+  """
+  column name
+  """
   id
 
-  """column name"""
+  """
+  column name
+  """
   notes
 
-  """column name"""
+  """
+  column name
+  """
   program
 
-  """column name"""
+  """
+  column name
+  """
   section_notes
 }
 
 input scores_updates {
-  """increments the numeric columns with given value of the filtered values"""
+  """
+  increments the numeric columns with given value of the filtered values
+  """
   _inc: scores_inc_input
 
-  """sets the columns of the filtered rows to the given values"""
+  """
+  sets the columns of the filtered rows to the given values
+  """
   _set: scores_set_input
 
-  """filter the rows which have to be updated"""
+  """
+  filter the rows which have to be updated
+  """
   where: scores_bool_exp!
 }
 
-"""aggregate var_pop on columns"""
+"""
+aggregate var_pop on columns
+"""
 type scores_var_pop_fields {
   id: Float
 }
 
-"""aggregate var_samp on columns"""
+"""
+aggregate var_samp on columns
+"""
 type scores_var_samp_fields {
   id: Float
 }
 
-"""aggregate variance on columns"""
+"""
+aggregate variance on columns
+"""
 type scores_variance_fields {
   id: Float
 }
 
 type subscription_root {
-  """An array relationship"""
+  """
+  An array relationship
+  """
   cycles(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [cycles_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [cycles_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: cycles_bool_exp
   ): [cycles!]!
 
-  """An aggregate relationship"""
+  """
+  An aggregate relationship
+  """
   cycles_aggregate(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [cycles_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [cycles_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: cycles_bool_exp
   ): cycles_aggregate!
 
-  """fetch data from the table: "cycles" using primary key columns"""
+  """
+  fetch data from the table: "cycles" using primary key columns
+  """
   cycles_by_pk(id: bigint!): cycles
 
   """
   fetch data from the table in a streaming manner: "cycles"
   """
   cycles_stream(
-    """maximum number of rows returned in a single batch"""
+    """
+    maximum number of rows returned in a single batch
+    """
     batch_size: Int!
 
-    """cursor to stream the results returned by the query"""
+    """
+    cursor to stream the results returned by the query
+    """
     cursor: [cycles_stream_cursor_input]!
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: cycles_bool_exp
   ): [cycles!]!
 
-  """An array relationship"""
+  """
+  An array relationship
+  """
   exercise_details(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [exercise_details_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [exercise_details_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: exercise_details_bool_exp
   ): [exercise_details!]!
 
-  """An aggregate relationship"""
+  """
+  An aggregate relationship
+  """
   exercise_details_aggregate(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [exercise_details_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [exercise_details_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: exercise_details_bool_exp
   ): exercise_details_aggregate!
 
@@ -3565,13 +4649,19 @@ type subscription_root {
   fetch data from the table in a streaming manner: "exercise_details"
   """
   exercise_details_stream(
-    """maximum number of rows returned in a single batch"""
+    """
+    maximum number of rows returned in a single batch
+    """
     batch_size: Int!
 
-    """cursor to stream the results returned by the query"""
+    """
+    cursor to stream the results returned by the query
+    """
     cursor: [exercise_details_stream_cursor_input]!
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: exercise_details_bool_exp
   ): [exercise_details!]!
 
@@ -3579,19 +4669,29 @@ type subscription_root {
   fetch data from the table: "exercises"
   """
   exercises(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [exercises_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [exercises_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: exercises_bool_exp
   ): [exercises!]!
 
@@ -3599,36 +4699,54 @@ type subscription_root {
   fetch aggregated fields from the table: "exercises"
   """
   exercises_aggregate(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [exercises_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [exercises_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: exercises_bool_exp
   ): exercises_aggregate!
 
-  """fetch data from the table: "exercises" using primary key columns"""
+  """
+  fetch data from the table: "exercises" using primary key columns
+  """
   exercises_by_pk(id: bigint!): exercises
 
   """
   fetch data from the table in a streaming manner: "exercises"
   """
   exercises_stream(
-    """maximum number of rows returned in a single batch"""
+    """
+    maximum number of rows returned in a single batch
+    """
     batch_size: Int!
 
-    """cursor to stream the results returned by the query"""
+    """
+    cursor to stream the results returned by the query
+    """
     cursor: [exercises_stream_cursor_input]!
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: exercises_bool_exp
   ): [exercises!]!
 
@@ -3636,19 +4754,29 @@ type subscription_root {
   fetch data from the table: "programs"
   """
   programs(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [programs_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [programs_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: programs_bool_exp
   ): [programs!]!
 
@@ -3656,36 +4784,54 @@ type subscription_root {
   fetch aggregated fields from the table: "programs"
   """
   programs_aggregate(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [programs_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [programs_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: programs_bool_exp
   ): programs_aggregate!
 
-  """fetch data from the table: "programs" using primary key columns"""
+  """
+  fetch data from the table: "programs" using primary key columns
+  """
   programs_by_pk(id: bigint!): programs
 
   """
   fetch data from the table in a streaming manner: "programs"
   """
   programs_stream(
-    """maximum number of rows returned in a single batch"""
+    """
+    maximum number of rows returned in a single batch
+    """
     batch_size: Int!
 
-    """cursor to stream the results returned by the query"""
+    """
+    cursor to stream the results returned by the query
+    """
     cursor: [programs_stream_cursor_input]!
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: programs_bool_exp
   ): [programs!]!
 
@@ -3693,19 +4839,29 @@ type subscription_root {
   fetch data from the table: "scores"
   """
   scores(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [scores_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [scores_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: scores_bool_exp
   ): [scores!]!
 
@@ -3713,142 +4869,224 @@ type subscription_root {
   fetch aggregated fields from the table: "scores"
   """
   scores_aggregate(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [scores_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [scores_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: scores_bool_exp
   ): scores_aggregate!
 
-  """fetch data from the table: "scores" using primary key columns"""
+  """
+  fetch data from the table: "scores" using primary key columns
+  """
   scores_by_pk(id: bigint!): scores
 
   """
   fetch data from the table in a streaming manner: "scores"
   """
   scores_stream(
-    """maximum number of rows returned in a single batch"""
+    """
+    maximum number of rows returned in a single batch
+    """
     batch_size: Int!
 
-    """cursor to stream the results returned by the query"""
+    """
+    cursor to stream the results returned by the query
+    """
     cursor: [scores_stream_cursor_input]!
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: scores_bool_exp
   ): [scores!]!
 
-  """An array relationship"""
+  """
+  An array relationship
+  """
   user_cycles(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [user_cycles_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [user_cycles_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: user_cycles_bool_exp
   ): [user_cycles!]!
 
-  """An aggregate relationship"""
+  """
+  An aggregate relationship
+  """
   user_cycles_aggregate(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [user_cycles_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [user_cycles_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: user_cycles_bool_exp
   ): user_cycles_aggregate!
 
-  """fetch data from the table: "user_cycles" using primary key columns"""
+  """
+  fetch data from the table: "user_cycles" using primary key columns
+  """
   user_cycles_by_pk(id: bigint!): user_cycles
 
   """
   fetch data from the table in a streaming manner: "user_cycles"
   """
   user_cycles_stream(
-    """maximum number of rows returned in a single batch"""
+    """
+    maximum number of rows returned in a single batch
+    """
     batch_size: Int!
 
-    """cursor to stream the results returned by the query"""
+    """
+    cursor to stream the results returned by the query
+    """
     cursor: [user_cycles_stream_cursor_input]!
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: user_cycles_bool_exp
   ): [user_cycles!]!
 
-  """An array relationship"""
+  """
+  An array relationship
+  """
   user_workouts(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [user_workouts_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [user_workouts_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: user_workouts_bool_exp
   ): [user_workouts!]!
 
-  """An aggregate relationship"""
+  """
+  An aggregate relationship
+  """
   user_workouts_aggregate(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [user_workouts_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [user_workouts_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: user_workouts_bool_exp
   ): user_workouts_aggregate!
 
-  """fetch data from the table: "user_workouts" using primary key columns"""
+  """
+  fetch data from the table: "user_workouts" using primary key columns
+  """
   user_workouts_by_pk(id: uuid!): user_workouts
 
   """
   fetch data from the table in a streaming manner: "user_workouts"
   """
   user_workouts_stream(
-    """maximum number of rows returned in a single batch"""
+    """
+    maximum number of rows returned in a single batch
+    """
     batch_size: Int!
 
-    """cursor to stream the results returned by the query"""
+    """
+    cursor to stream the results returned by the query
+    """
     cursor: [user_workouts_stream_cursor_input]!
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: user_workouts_bool_exp
   ): [user_workouts!]!
 
@@ -3856,19 +5094,29 @@ type subscription_root {
   fetch data from the table: "users"
   """
   users(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [users_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [users_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: users_bool_exp
   ): [users!]!
 
@@ -3876,36 +5124,54 @@ type subscription_root {
   fetch aggregated fields from the table: "users"
   """
   users_aggregate(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [users_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [users_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: users_bool_exp
   ): users_aggregate!
 
-  """fetch data from the table: "users" using primary key columns"""
+  """
+  fetch data from the table: "users" using primary key columns
+  """
   users_by_pk(id: bigint!): users
 
   """
   fetch data from the table in a streaming manner: "users"
   """
   users_stream(
-    """maximum number of rows returned in a single batch"""
+    """
+    maximum number of rows returned in a single batch
+    """
     batch_size: Int!
 
-    """cursor to stream the results returned by the query"""
+    """
+    cursor to stream the results returned by the query
+    """
     cursor: [users_stream_cursor_input]!
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: users_bool_exp
   ): [users!]!
 
@@ -3913,19 +5179,29 @@ type subscription_root {
   fetch data from the table: "workout_item_scores"
   """
   workout_item_scores(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [workout_item_scores_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [workout_item_scores_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: workout_item_scores_bool_exp
   ): [workout_item_scores!]!
 
@@ -3933,19 +5209,29 @@ type subscription_root {
   fetch aggregated fields from the table: "workout_item_scores"
   """
   workout_item_scores_aggregate(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [workout_item_scores_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [workout_item_scores_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: workout_item_scores_bool_exp
   ): workout_item_scores_aggregate!
 
@@ -3958,119 +5244,189 @@ type subscription_root {
   fetch data from the table in a streaming manner: "workout_item_scores"
   """
   workout_item_scores_stream(
-    """maximum number of rows returned in a single batch"""
+    """
+    maximum number of rows returned in a single batch
+    """
     batch_size: Int!
 
-    """cursor to stream the results returned by the query"""
+    """
+    cursor to stream the results returned by the query
+    """
     cursor: [workout_item_scores_stream_cursor_input]!
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: workout_item_scores_bool_exp
   ): [workout_item_scores!]!
 
-  """An array relationship"""
+  """
+  An array relationship
+  """
   workout_items(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [workout_items_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [workout_items_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: workout_items_bool_exp
   ): [workout_items!]!
 
-  """An aggregate relationship"""
+  """
+  An aggregate relationship
+  """
   workout_items_aggregate(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [workout_items_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [workout_items_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: workout_items_bool_exp
   ): workout_items_aggregate!
 
-  """fetch data from the table: "workout_items" using primary key columns"""
+  """
+  fetch data from the table: "workout_items" using primary key columns
+  """
   workout_items_by_pk(id: bigint!): workout_items
 
   """
   fetch data from the table in a streaming manner: "workout_items"
   """
   workout_items_stream(
-    """maximum number of rows returned in a single batch"""
+    """
+    maximum number of rows returned in a single batch
+    """
     batch_size: Int!
 
-    """cursor to stream the results returned by the query"""
+    """
+    cursor to stream the results returned by the query
+    """
     cursor: [workout_items_stream_cursor_input]!
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: workout_items_bool_exp
   ): [workout_items!]!
 
-  """An array relationship"""
+  """
+  An array relationship
+  """
   workouts(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [workouts_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [workouts_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: workouts_bool_exp
   ): [workouts!]!
 
-  """An aggregate relationship"""
+  """
+  An aggregate relationship
+  """
   workouts_aggregate(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [workouts_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [workouts_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: workouts_bool_exp
   ): workouts_aggregate!
 
-  """fetch data from the table: "workouts" using primary key columns"""
+  """
+  fetch data from the table: "workouts" using primary key columns
+  """
   workouts_by_pk(id: bigint!): workouts
 
   """
   fetch data from the table in a streaming manner: "workouts"
   """
   workouts_stream(
-    """maximum number of rows returned in a single batch"""
+    """
+    maximum number of rows returned in a single batch
+    """
     batch_size: Int!
 
-    """cursor to stream the results returned by the query"""
+    """
+    cursor to stream the results returned by the query
+    """
     cursor: [workouts_stream_cursor_input]!
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: workouts_bool_exp
   ): [workouts!]!
 }
@@ -4117,7 +5473,9 @@ type user_cycles {
   created_at: timestamp!
   current_workout: Int!
 
-  """An object relationship"""
+  """
+  An object relationship
+  """
   cycle: cycles!
   cycle_id: bigint!
   end_date: timestamp!
@@ -4125,11 +5483,15 @@ type user_cycles {
   start_date: timestamp!
   updated_at: timestamp!
 
-  """An object relationship"""
+  """
+  An object relationship
+  """
   user: users!
   user_id: bigint!
 
-  """An object relationship"""
+  """
+  An object relationship
+  """
   workout: workouts!
 }
 
@@ -4208,11 +5570,15 @@ input type for inserting array relation for remote table "user_cycles"
 input user_cycles_arr_rel_insert_input {
   data: [user_cycles_insert_input!]!
 
-  """upsert condition"""
+  """
+  upsert condition
+  """
   on_conflict: user_cycles_on_conflict
 }
 
-"""aggregate avg on columns"""
+"""
+aggregate avg on columns
+"""
 type user_cycles_avg_fields {
   current_workout: Float
   cycle_id: Float
@@ -4289,7 +5655,9 @@ input user_cycles_insert_input {
   workout: workouts_obj_rel_insert_input
 }
 
-"""aggregate max on columns"""
+"""
+aggregate max on columns
+"""
 type user_cycles_max_fields {
   created_at: timestamp
   current_workout: Int
@@ -4315,7 +5683,9 @@ input user_cycles_max_order_by {
   user_id: order_by
 }
 
-"""aggregate min on columns"""
+"""
+aggregate min on columns
+"""
 type user_cycles_min_fields {
   created_at: timestamp
   current_workout: Int
@@ -4345,10 +5715,14 @@ input user_cycles_min_order_by {
 response of any mutation on the table "user_cycles"
 """
 type user_cycles_mutation_response {
-  """number of rows affected by the mutation"""
+  """
+  number of rows affected by the mutation
+  """
   affected_rows: Int!
 
-  """data from the rows affected by the mutation"""
+  """
+  data from the rows affected by the mutation
+  """
   returning: [user_cycles!]!
 }
 
@@ -4361,7 +5735,9 @@ input user_cycles_on_conflict {
   where: user_cycles_bool_exp
 }
 
-"""Ordering options when selecting data from "user_cycles"."""
+"""
+Ordering options when selecting data from "user_cycles".
+"""
 input user_cycles_order_by {
   completed: order_by
   created_at: order_by
@@ -4377,7 +5753,9 @@ input user_cycles_order_by {
   workout: workouts_order_by
 }
 
-"""primary key columns input for table: user_cycles"""
+"""
+primary key columns input for table: user_cycles
+"""
 input user_cycles_pk_columns_input {
   id: bigint!
 }
@@ -4386,31 +5764,49 @@ input user_cycles_pk_columns_input {
 select columns of table "user_cycles"
 """
 enum user_cycles_select_column {
-  """column name"""
+  """
+  column name
+  """
   completed
 
-  """column name"""
+  """
+  column name
+  """
   created_at
 
-  """column name"""
+  """
+  column name
+  """
   current_workout
 
-  """column name"""
+  """
+  column name
+  """
   cycle_id
 
-  """column name"""
+  """
+  column name
+  """
   end_date
 
-  """column name"""
+  """
+  column name
+  """
   id
 
-  """column name"""
+  """
+  column name
+  """
   start_date
 
-  """column name"""
+  """
+  column name
+  """
   updated_at
 
-  """column name"""
+  """
+  column name
+  """
   user_id
 }
 
@@ -4418,7 +5814,9 @@ enum user_cycles_select_column {
 select "user_cycles_aggregate_bool_exp_bool_and_arguments_columns" columns of table "user_cycles"
 """
 enum user_cycles_select_column_user_cycles_aggregate_bool_exp_bool_and_arguments_columns {
-  """column name"""
+  """
+  column name
+  """
   completed
 }
 
@@ -4426,7 +5824,9 @@ enum user_cycles_select_column_user_cycles_aggregate_bool_exp_bool_and_arguments
 select "user_cycles_aggregate_bool_exp_bool_or_arguments_columns" columns of table "user_cycles"
 """
 enum user_cycles_select_column_user_cycles_aggregate_bool_exp_bool_or_arguments_columns {
-  """column name"""
+  """
+  column name
+  """
   completed
 }
 
@@ -4445,7 +5845,9 @@ input user_cycles_set_input {
   user_id: bigint
 }
 
-"""aggregate stddev on columns"""
+"""
+aggregate stddev on columns
+"""
 type user_cycles_stddev_fields {
   current_workout: Float
   cycle_id: Float
@@ -4463,7 +5865,9 @@ input user_cycles_stddev_order_by {
   user_id: order_by
 }
 
-"""aggregate stddev_pop on columns"""
+"""
+aggregate stddev_pop on columns
+"""
 type user_cycles_stddev_pop_fields {
   current_workout: Float
   cycle_id: Float
@@ -4481,7 +5885,9 @@ input user_cycles_stddev_pop_order_by {
   user_id: order_by
 }
 
-"""aggregate stddev_samp on columns"""
+"""
+aggregate stddev_samp on columns
+"""
 type user_cycles_stddev_samp_fields {
   current_workout: Float
   cycle_id: Float
@@ -4503,14 +5909,20 @@ input user_cycles_stddev_samp_order_by {
 Streaming cursor of the table "user_cycles"
 """
 input user_cycles_stream_cursor_input {
-  """Stream column input with initial value"""
+  """
+  Stream column input with initial value
+  """
   initial_value: user_cycles_stream_cursor_value_input!
 
-  """cursor ordering"""
+  """
+  cursor ordering
+  """
   ordering: cursor_ordering
 }
 
-"""Initial value of the column from where the streaming should start"""
+"""
+Initial value of the column from where the streaming should start
+"""
 input user_cycles_stream_cursor_value_input {
   completed: Boolean
   created_at: timestamp
@@ -4523,7 +5935,9 @@ input user_cycles_stream_cursor_value_input {
   user_id: bigint
 }
 
-"""aggregate sum on columns"""
+"""
+aggregate sum on columns
+"""
 type user_cycles_sum_fields {
   current_workout: Int
   cycle_id: bigint
@@ -4545,46 +5959,72 @@ input user_cycles_sum_order_by {
 update columns of table "user_cycles"
 """
 enum user_cycles_update_column {
-  """column name"""
+  """
+  column name
+  """
   completed
 
-  """column name"""
+  """
+  column name
+  """
   created_at
 
-  """column name"""
+  """
+  column name
+  """
   current_workout
 
-  """column name"""
+  """
+  column name
+  """
   cycle_id
 
-  """column name"""
+  """
+  column name
+  """
   end_date
 
-  """column name"""
+  """
+  column name
+  """
   id
 
-  """column name"""
+  """
+  column name
+  """
   start_date
 
-  """column name"""
+  """
+  column name
+  """
   updated_at
 
-  """column name"""
+  """
+  column name
+  """
   user_id
 }
 
 input user_cycles_updates {
-  """increments the numeric columns with given value of the filtered values"""
+  """
+  increments the numeric columns with given value of the filtered values
+  """
   _inc: user_cycles_inc_input
 
-  """sets the columns of the filtered rows to the given values"""
+  """
+  sets the columns of the filtered rows to the given values
+  """
   _set: user_cycles_set_input
 
-  """filter the rows which have to be updated"""
+  """
+  filter the rows which have to be updated
+  """
   where: user_cycles_bool_exp!
 }
 
-"""aggregate var_pop on columns"""
+"""
+aggregate var_pop on columns
+"""
 type user_cycles_var_pop_fields {
   current_workout: Float
   cycle_id: Float
@@ -4602,7 +6042,9 @@ input user_cycles_var_pop_order_by {
   user_id: order_by
 }
 
-"""aggregate var_samp on columns"""
+"""
+aggregate var_samp on columns
+"""
 type user_cycles_var_samp_fields {
   current_workout: Float
   cycle_id: Float
@@ -4620,7 +6062,9 @@ input user_cycles_var_samp_order_by {
   user_id: order_by
 }
 
-"""aggregate variance on columns"""
+"""
+aggregate variance on columns
+"""
 type user_cycles_variance_fields {
   current_workout: Float
   cycle_id: Float
@@ -4645,14 +6089,18 @@ type user_workouts {
   completed_at: date!
   created_at: timestamptz!
 
-  """An object relationship"""
+  """
+  An object relationship
+  """
   cycle: cycles!
   cycle_id: bigint!
   id: uuid!
   notes: String
   updated_at: timestamptz!
 
-  """An object relationship"""
+  """
+  An object relationship
+  """
   workout: workouts!
   workout_id: bigint!
 }
@@ -4716,11 +6164,15 @@ input type for inserting array relation for remote table "user_workouts"
 input user_workouts_arr_rel_insert_input {
   data: [user_workouts_insert_input!]!
 
-  """upsert condition"""
+  """
+  upsert condition
+  """
   on_conflict: user_workouts_on_conflict
 }
 
-"""aggregate avg on columns"""
+"""
+aggregate avg on columns
+"""
 type user_workouts_avg_fields {
   cycle_id: Float
   workout_id: Float
@@ -4785,7 +6237,9 @@ input user_workouts_insert_input {
   workout_id: bigint
 }
 
-"""aggregate max on columns"""
+"""
+aggregate max on columns
+"""
 type user_workouts_max_fields {
   completed_at: date
   created_at: timestamptz
@@ -4809,7 +6263,9 @@ input user_workouts_max_order_by {
   workout_id: order_by
 }
 
-"""aggregate min on columns"""
+"""
+aggregate min on columns
+"""
 type user_workouts_min_fields {
   completed_at: date
   created_at: timestamptz
@@ -4837,10 +6293,14 @@ input user_workouts_min_order_by {
 response of any mutation on the table "user_workouts"
 """
 type user_workouts_mutation_response {
-  """number of rows affected by the mutation"""
+  """
+  number of rows affected by the mutation
+  """
   affected_rows: Int!
 
-  """data from the rows affected by the mutation"""
+  """
+  data from the rows affected by the mutation
+  """
   returning: [user_workouts!]!
 }
 
@@ -4853,7 +6313,9 @@ input user_workouts_on_conflict {
   where: user_workouts_bool_exp
 }
 
-"""Ordering options when selecting data from "user_workouts"."""
+"""
+Ordering options when selecting data from "user_workouts".
+"""
 input user_workouts_order_by {
   completed_at: order_by
   created_at: order_by
@@ -4866,7 +6328,9 @@ input user_workouts_order_by {
   workout_id: order_by
 }
 
-"""primary key columns input for table: user_workouts"""
+"""
+primary key columns input for table: user_workouts
+"""
 input user_workouts_pk_columns_input {
   id: uuid!
 }
@@ -4875,25 +6339,39 @@ input user_workouts_pk_columns_input {
 select columns of table "user_workouts"
 """
 enum user_workouts_select_column {
-  """column name"""
+  """
+  column name
+  """
   completed_at
 
-  """column name"""
+  """
+  column name
+  """
   created_at
 
-  """column name"""
+  """
+  column name
+  """
   cycle_id
 
-  """column name"""
+  """
+  column name
+  """
   id
 
-  """column name"""
+  """
+  column name
+  """
   notes
 
-  """column name"""
+  """
+  column name
+  """
   updated_at
 
-  """column name"""
+  """
+  column name
+  """
   workout_id
 }
 
@@ -4910,7 +6388,9 @@ input user_workouts_set_input {
   workout_id: bigint
 }
 
-"""aggregate stddev on columns"""
+"""
+aggregate stddev on columns
+"""
 type user_workouts_stddev_fields {
   cycle_id: Float
   workout_id: Float
@@ -4924,7 +6404,9 @@ input user_workouts_stddev_order_by {
   workout_id: order_by
 }
 
-"""aggregate stddev_pop on columns"""
+"""
+aggregate stddev_pop on columns
+"""
 type user_workouts_stddev_pop_fields {
   cycle_id: Float
   workout_id: Float
@@ -4938,7 +6420,9 @@ input user_workouts_stddev_pop_order_by {
   workout_id: order_by
 }
 
-"""aggregate stddev_samp on columns"""
+"""
+aggregate stddev_samp on columns
+"""
 type user_workouts_stddev_samp_fields {
   cycle_id: Float
   workout_id: Float
@@ -4956,14 +6440,20 @@ input user_workouts_stddev_samp_order_by {
 Streaming cursor of the table "user_workouts"
 """
 input user_workouts_stream_cursor_input {
-  """Stream column input with initial value"""
+  """
+  Stream column input with initial value
+  """
   initial_value: user_workouts_stream_cursor_value_input!
 
-  """cursor ordering"""
+  """
+  cursor ordering
+  """
   ordering: cursor_ordering
 }
 
-"""Initial value of the column from where the streaming should start"""
+"""
+Initial value of the column from where the streaming should start
+"""
 input user_workouts_stream_cursor_value_input {
   completed_at: date
   created_at: timestamptz
@@ -4974,7 +6464,9 @@ input user_workouts_stream_cursor_value_input {
   workout_id: bigint
 }
 
-"""aggregate sum on columns"""
+"""
+aggregate sum on columns
+"""
 type user_workouts_sum_fields {
   cycle_id: bigint
   workout_id: bigint
@@ -4992,40 +6484,62 @@ input user_workouts_sum_order_by {
 update columns of table "user_workouts"
 """
 enum user_workouts_update_column {
-  """column name"""
+  """
+  column name
+  """
   completed_at
 
-  """column name"""
+  """
+  column name
+  """
   created_at
 
-  """column name"""
+  """
+  column name
+  """
   cycle_id
 
-  """column name"""
+  """
+  column name
+  """
   id
 
-  """column name"""
+  """
+  column name
+  """
   notes
 
-  """column name"""
+  """
+  column name
+  """
   updated_at
 
-  """column name"""
+  """
+  column name
+  """
   workout_id
 }
 
 input user_workouts_updates {
-  """increments the numeric columns with given value of the filtered values"""
+  """
+  increments the numeric columns with given value of the filtered values
+  """
   _inc: user_workouts_inc_input
 
-  """sets the columns of the filtered rows to the given values"""
+  """
+  sets the columns of the filtered rows to the given values
+  """
   _set: user_workouts_set_input
 
-  """filter the rows which have to be updated"""
+  """
+  filter the rows which have to be updated
+  """
   where: user_workouts_bool_exp!
 }
 
-"""aggregate var_pop on columns"""
+"""
+aggregate var_pop on columns
+"""
 type user_workouts_var_pop_fields {
   cycle_id: Float
   workout_id: Float
@@ -5039,7 +6553,9 @@ input user_workouts_var_pop_order_by {
   workout_id: order_by
 }
 
-"""aggregate var_samp on columns"""
+"""
+aggregate var_samp on columns
+"""
 type user_workouts_var_samp_fields {
   cycle_id: Float
   workout_id: Float
@@ -5053,7 +6569,9 @@ input user_workouts_var_samp_order_by {
   workout_id: order_by
 }
 
-"""aggregate variance on columns"""
+"""
+aggregate variance on columns
+"""
 type user_workouts_variance_fields {
   cycle_id: Float
   workout_id: Float
@@ -5081,39 +6599,63 @@ type users {
   remember_token: String
   updated_at: timestamp!
 
-  """An array relationship"""
+  """
+  An array relationship
+  """
   user_cycles(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [user_cycles_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [user_cycles_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: user_cycles_bool_exp
   ): [user_cycles!]!
 
-  """An aggregate relationship"""
+  """
+  An aggregate relationship
+  """
   user_cycles_aggregate(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [user_cycles_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [user_cycles_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: user_cycles_bool_exp
   ): user_cycles_aggregate!
 }
@@ -5143,7 +6685,9 @@ type users_aggregate_fields {
   variance: users_variance_fields
 }
 
-"""aggregate avg on columns"""
+"""
+aggregate avg on columns
+"""
 type users_avg_fields {
   id: Float
 }
@@ -5206,7 +6750,9 @@ input users_insert_input {
   user_cycles: user_cycles_arr_rel_insert_input
 }
 
-"""aggregate max on columns"""
+"""
+aggregate max on columns
+"""
 type users_max_fields {
   created_at: timestamp
   email: String
@@ -5219,7 +6765,9 @@ type users_max_fields {
   updated_at: timestamp
 }
 
-"""aggregate min on columns"""
+"""
+aggregate min on columns
+"""
 type users_min_fields {
   created_at: timestamp
   email: String
@@ -5236,10 +6784,14 @@ type users_min_fields {
 response of any mutation on the table "users"
 """
 type users_mutation_response {
-  """number of rows affected by the mutation"""
+  """
+  number of rows affected by the mutation
+  """
   affected_rows: Int!
 
-  """data from the rows affected by the mutation"""
+  """
+  data from the rows affected by the mutation
+  """
   returning: [users!]!
 }
 
@@ -5249,7 +6801,9 @@ input type for inserting object relation for remote table "users"
 input users_obj_rel_insert_input {
   data: users_insert_input!
 
-  """upsert condition"""
+  """
+  upsert condition
+  """
   on_conflict: users_on_conflict
 }
 
@@ -5262,7 +6816,9 @@ input users_on_conflict {
   where: users_bool_exp
 }
 
-"""Ordering options when selecting data from "users"."""
+"""
+Ordering options when selecting data from "users".
+"""
 input users_order_by {
   created_at: order_by
   email: order_by
@@ -5276,7 +6832,9 @@ input users_order_by {
   user_cycles_aggregate: user_cycles_aggregate_order_by
 }
 
-"""primary key columns input for table: users"""
+"""
+primary key columns input for table: users
+"""
 input users_pk_columns_input {
   id: bigint!
 }
@@ -5285,31 +6843,49 @@ input users_pk_columns_input {
 select columns of table "users"
 """
 enum users_select_column {
-  """column name"""
+  """
+  column name
+  """
   created_at
 
-  """column name"""
+  """
+  column name
+  """
   email
 
-  """column name"""
+  """
+  column name
+  """
   email_verified_at
 
-  """column name"""
+  """
+  column name
+  """
   id
 
-  """column name"""
+  """
+  column name
+  """
   image_url
 
-  """column name"""
+  """
+  column name
+  """
   name
 
-  """column name"""
+  """
+  column name
+  """
   password
 
-  """column name"""
+  """
+  column name
+  """
   remember_token
 
-  """column name"""
+  """
+  column name
+  """
   updated_at
 }
 
@@ -5328,17 +6904,23 @@ input users_set_input {
   updated_at: timestamp
 }
 
-"""aggregate stddev on columns"""
+"""
+aggregate stddev on columns
+"""
 type users_stddev_fields {
   id: Float
 }
 
-"""aggregate stddev_pop on columns"""
+"""
+aggregate stddev_pop on columns
+"""
 type users_stddev_pop_fields {
   id: Float
 }
 
-"""aggregate stddev_samp on columns"""
+"""
+aggregate stddev_samp on columns
+"""
 type users_stddev_samp_fields {
   id: Float
 }
@@ -5347,14 +6929,20 @@ type users_stddev_samp_fields {
 Streaming cursor of the table "users"
 """
 input users_stream_cursor_input {
-  """Stream column input with initial value"""
+  """
+  Stream column input with initial value
+  """
   initial_value: users_stream_cursor_value_input!
 
-  """cursor ordering"""
+  """
+  cursor ordering
+  """
   ordering: cursor_ordering
 }
 
-"""Initial value of the column from where the streaming should start"""
+"""
+Initial value of the column from where the streaming should start
+"""
 input users_stream_cursor_value_input {
   created_at: timestamp
   email: String
@@ -5367,7 +6955,9 @@ input users_stream_cursor_value_input {
   updated_at: timestamp
 }
 
-"""aggregate sum on columns"""
+"""
+aggregate sum on columns
+"""
 type users_sum_fields {
   id: bigint
 }
@@ -5376,56 +6966,86 @@ type users_sum_fields {
 update columns of table "users"
 """
 enum users_update_column {
-  """column name"""
+  """
+  column name
+  """
   created_at
 
-  """column name"""
+  """
+  column name
+  """
   email
 
-  """column name"""
+  """
+  column name
+  """
   email_verified_at
 
-  """column name"""
+  """
+  column name
+  """
   id
 
-  """column name"""
+  """
+  column name
+  """
   image_url
 
-  """column name"""
+  """
+  column name
+  """
   name
 
-  """column name"""
+  """
+  column name
+  """
   password
 
-  """column name"""
+  """
+  column name
+  """
   remember_token
 
-  """column name"""
+  """
+  column name
+  """
   updated_at
 }
 
 input users_updates {
-  """increments the numeric columns with given value of the filtered values"""
+  """
+  increments the numeric columns with given value of the filtered values
+  """
   _inc: users_inc_input
 
-  """sets the columns of the filtered rows to the given values"""
+  """
+  sets the columns of the filtered rows to the given values
+  """
   _set: users_set_input
 
-  """filter the rows which have to be updated"""
+  """
+  filter the rows which have to be updated
+  """
   where: users_bool_exp!
 }
 
-"""aggregate var_pop on columns"""
+"""
+aggregate var_pop on columns
+"""
 type users_var_pop_fields {
   id: Float
 }
 
-"""aggregate var_samp on columns"""
+"""
+aggregate var_samp on columns
+"""
 type users_var_samp_fields {
   id: Float
 }
 
-"""aggregate variance on columns"""
+"""
+aggregate variance on columns
+"""
 type users_variance_fields {
   id: Float
 }
@@ -5456,7 +7076,9 @@ type workout_item_scores {
   updated_at: date!
   value: String!
 
-  """An object relationship"""
+  """
+  An object relationship
+  """
   workout_item: workout_items!
   workout_item_id: bigint!
 }
@@ -5520,11 +7142,15 @@ input type for inserting array relation for remote table "workout_item_scores"
 input workout_item_scores_arr_rel_insert_input {
   data: [workout_item_scores_insert_input!]!
 
-  """upsert condition"""
+  """
+  upsert condition
+  """
   on_conflict: workout_item_scores_on_conflict
 }
 
-"""aggregate avg on columns"""
+"""
+aggregate avg on columns
+"""
 type workout_item_scores_avg_fields {
   id: Float
   workout_item_id: Float
@@ -5583,7 +7209,9 @@ input workout_item_scores_insert_input {
   workout_item_id: bigint
 }
 
-"""aggregate max on columns"""
+"""
+aggregate max on columns
+"""
 type workout_item_scores_max_fields {
   created_at: date
   id: bigint
@@ -5603,7 +7231,9 @@ input workout_item_scores_max_order_by {
   workout_item_id: order_by
 }
 
-"""aggregate min on columns"""
+"""
+aggregate min on columns
+"""
 type workout_item_scores_min_fields {
   created_at: date
   id: bigint
@@ -5627,10 +7257,14 @@ input workout_item_scores_min_order_by {
 response of any mutation on the table "workout_item_scores"
 """
 type workout_item_scores_mutation_response {
-  """number of rows affected by the mutation"""
+  """
+  number of rows affected by the mutation
+  """
   affected_rows: Int!
 
-  """data from the rows affected by the mutation"""
+  """
+  data from the rows affected by the mutation
+  """
   returning: [workout_item_scores!]!
 }
 
@@ -5643,7 +7277,9 @@ input workout_item_scores_on_conflict {
   where: workout_item_scores_bool_exp
 }
 
-"""Ordering options when selecting data from "workout_item_scores"."""
+"""
+Ordering options when selecting data from "workout_item_scores".
+"""
 input workout_item_scores_order_by {
   created_at: order_by
   id: order_by
@@ -5653,7 +7289,9 @@ input workout_item_scores_order_by {
   workout_item_id: order_by
 }
 
-"""primary key columns input for table: workout_item_scores"""
+"""
+primary key columns input for table: workout_item_scores
+"""
 input workout_item_scores_pk_columns_input {
   id: bigint!
 }
@@ -5662,19 +7300,29 @@ input workout_item_scores_pk_columns_input {
 select columns of table "workout_item_scores"
 """
 enum workout_item_scores_select_column {
-  """column name"""
+  """
+  column name
+  """
   created_at
 
-  """column name"""
+  """
+  column name
+  """
   id
 
-  """column name"""
+  """
+  column name
+  """
   updated_at
 
-  """column name"""
+  """
+  column name
+  """
   value
 
-  """column name"""
+  """
+  column name
+  """
   workout_item_id
 }
 
@@ -5689,7 +7337,9 @@ input workout_item_scores_set_input {
   workout_item_id: bigint
 }
 
-"""aggregate stddev on columns"""
+"""
+aggregate stddev on columns
+"""
 type workout_item_scores_stddev_fields {
   id: Float
   workout_item_id: Float
@@ -5703,7 +7353,9 @@ input workout_item_scores_stddev_order_by {
   workout_item_id: order_by
 }
 
-"""aggregate stddev_pop on columns"""
+"""
+aggregate stddev_pop on columns
+"""
 type workout_item_scores_stddev_pop_fields {
   id: Float
   workout_item_id: Float
@@ -5717,7 +7369,9 @@ input workout_item_scores_stddev_pop_order_by {
   workout_item_id: order_by
 }
 
-"""aggregate stddev_samp on columns"""
+"""
+aggregate stddev_samp on columns
+"""
 type workout_item_scores_stddev_samp_fields {
   id: Float
   workout_item_id: Float
@@ -5735,14 +7389,20 @@ input workout_item_scores_stddev_samp_order_by {
 Streaming cursor of the table "workout_item_scores"
 """
 input workout_item_scores_stream_cursor_input {
-  """Stream column input with initial value"""
+  """
+  Stream column input with initial value
+  """
   initial_value: workout_item_scores_stream_cursor_value_input!
 
-  """cursor ordering"""
+  """
+  cursor ordering
+  """
   ordering: cursor_ordering
 }
 
-"""Initial value of the column from where the streaming should start"""
+"""
+Initial value of the column from where the streaming should start
+"""
 input workout_item_scores_stream_cursor_value_input {
   created_at: date
   id: bigint
@@ -5751,7 +7411,9 @@ input workout_item_scores_stream_cursor_value_input {
   workout_item_id: bigint
 }
 
-"""aggregate sum on columns"""
+"""
+aggregate sum on columns
+"""
 type workout_item_scores_sum_fields {
   id: bigint
   workout_item_id: bigint
@@ -5769,34 +7431,52 @@ input workout_item_scores_sum_order_by {
 update columns of table "workout_item_scores"
 """
 enum workout_item_scores_update_column {
-  """column name"""
+  """
+  column name
+  """
   created_at
 
-  """column name"""
+  """
+  column name
+  """
   id
 
-  """column name"""
+  """
+  column name
+  """
   updated_at
 
-  """column name"""
+  """
+  column name
+  """
   value
 
-  """column name"""
+  """
+  column name
+  """
   workout_item_id
 }
 
 input workout_item_scores_updates {
-  """increments the numeric columns with given value of the filtered values"""
+  """
+  increments the numeric columns with given value of the filtered values
+  """
   _inc: workout_item_scores_inc_input
 
-  """sets the columns of the filtered rows to the given values"""
+  """
+  sets the columns of the filtered rows to the given values
+  """
   _set: workout_item_scores_set_input
 
-  """filter the rows which have to be updated"""
+  """
+  filter the rows which have to be updated
+  """
   where: workout_item_scores_bool_exp!
 }
 
-"""aggregate var_pop on columns"""
+"""
+aggregate var_pop on columns
+"""
 type workout_item_scores_var_pop_fields {
   id: Float
   workout_item_id: Float
@@ -5810,7 +7490,9 @@ input workout_item_scores_var_pop_order_by {
   workout_item_id: order_by
 }
 
-"""aggregate var_samp on columns"""
+"""
+aggregate var_samp on columns
+"""
 type workout_item_scores_var_samp_fields {
   id: Float
   workout_item_id: Float
@@ -5824,7 +7506,9 @@ input workout_item_scores_var_samp_order_by {
   workout_item_id: order_by
 }
 
-"""aggregate variance on columns"""
+"""
+aggregate variance on columns
+"""
 type workout_item_scores_variance_fields {
   id: Float
   workout_item_id: Float
@@ -5844,39 +7528,63 @@ columns and relationships of "workout_items"
 type workout_items {
   created_at: timestamp!
 
-  """An array relationship"""
+  """
+  An array relationship
+  """
   exercise_details(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [exercise_details_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [exercise_details_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: exercise_details_bool_exp
   ): [exercise_details!]!
 
-  """An aggregate relationship"""
+  """
+  An aggregate relationship
+  """
   exercise_details_aggregate(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [exercise_details_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [exercise_details_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: exercise_details_bool_exp
   ): exercise_details_aggregate!
   header: String
@@ -5884,45 +7592,71 @@ type workout_items {
   notes: String
   score: String
 
-  """An array relationship"""
+  """
+  An array relationship
+  """
   scores(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [workout_item_scores_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [workout_item_scores_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: workout_item_scores_bool_exp
   ): [workout_item_scores!]!
 
-  """An aggregate relationship"""
+  """
+  An aggregate relationship
+  """
   scores_aggregate(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [workout_item_scores_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [workout_item_scores_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: workout_item_scores_bool_exp
   ): workout_item_scores_aggregate!
   title: String
   updated_at: timestamp!
 
-  """An object relationship"""
+  """
+  An object relationship
+  """
   workout: workouts!
   workout_id: bigint!
 }
@@ -5986,11 +7720,15 @@ input type for inserting array relation for remote table "workout_items"
 input workout_items_arr_rel_insert_input {
   data: [workout_items_insert_input!]!
 
-  """upsert condition"""
+  """
+  upsert condition
+  """
   on_conflict: workout_items_on_conflict
 }
 
-"""aggregate avg on columns"""
+"""
+aggregate avg on columns
+"""
 type workout_items_avg_fields {
   id: Float
   workout_id: Float
@@ -6061,7 +7799,9 @@ input workout_items_insert_input {
   workout_id: bigint
 }
 
-"""aggregate max on columns"""
+"""
+aggregate max on columns
+"""
 type workout_items_max_fields {
   created_at: timestamp
   header: String
@@ -6087,7 +7827,9 @@ input workout_items_max_order_by {
   workout_id: order_by
 }
 
-"""aggregate min on columns"""
+"""
+aggregate min on columns
+"""
 type workout_items_min_fields {
   created_at: timestamp
   header: String
@@ -6117,10 +7859,14 @@ input workout_items_min_order_by {
 response of any mutation on the table "workout_items"
 """
 type workout_items_mutation_response {
-  """number of rows affected by the mutation"""
+  """
+  number of rows affected by the mutation
+  """
   affected_rows: Int!
 
-  """data from the rows affected by the mutation"""
+  """
+  data from the rows affected by the mutation
+  """
   returning: [workout_items!]!
 }
 
@@ -6130,7 +7876,9 @@ input type for inserting object relation for remote table "workout_items"
 input workout_items_obj_rel_insert_input {
   data: workout_items_insert_input!
 
-  """upsert condition"""
+  """
+  upsert condition
+  """
   on_conflict: workout_items_on_conflict
 }
 
@@ -6143,7 +7891,9 @@ input workout_items_on_conflict {
   where: workout_items_bool_exp
 }
 
-"""Ordering options when selecting data from "workout_items"."""
+"""
+Ordering options when selecting data from "workout_items".
+"""
 input workout_items_order_by {
   created_at: order_by
   exercise_details_aggregate: exercise_details_aggregate_order_by
@@ -6158,7 +7908,9 @@ input workout_items_order_by {
   workout_id: order_by
 }
 
-"""primary key columns input for table: workout_items"""
+"""
+primary key columns input for table: workout_items
+"""
 input workout_items_pk_columns_input {
   id: bigint!
 }
@@ -6167,28 +7919,44 @@ input workout_items_pk_columns_input {
 select columns of table "workout_items"
 """
 enum workout_items_select_column {
-  """column name"""
+  """
+  column name
+  """
   created_at
 
-  """column name"""
+  """
+  column name
+  """
   header
 
-  """column name"""
+  """
+  column name
+  """
   id
 
-  """column name"""
+  """
+  column name
+  """
   notes
 
-  """column name"""
+  """
+  column name
+  """
   score
 
-  """column name"""
+  """
+  column name
+  """
   title
 
-  """column name"""
+  """
+  column name
+  """
   updated_at
 
-  """column name"""
+  """
+  column name
+  """
   workout_id
 }
 
@@ -6206,7 +7974,9 @@ input workout_items_set_input {
   workout_id: bigint
 }
 
-"""aggregate stddev on columns"""
+"""
+aggregate stddev on columns
+"""
 type workout_items_stddev_fields {
   id: Float
   workout_id: Float
@@ -6220,7 +7990,9 @@ input workout_items_stddev_order_by {
   workout_id: order_by
 }
 
-"""aggregate stddev_pop on columns"""
+"""
+aggregate stddev_pop on columns
+"""
 type workout_items_stddev_pop_fields {
   id: Float
   workout_id: Float
@@ -6234,7 +8006,9 @@ input workout_items_stddev_pop_order_by {
   workout_id: order_by
 }
 
-"""aggregate stddev_samp on columns"""
+"""
+aggregate stddev_samp on columns
+"""
 type workout_items_stddev_samp_fields {
   id: Float
   workout_id: Float
@@ -6252,14 +8026,20 @@ input workout_items_stddev_samp_order_by {
 Streaming cursor of the table "workout_items"
 """
 input workout_items_stream_cursor_input {
-  """Stream column input with initial value"""
+  """
+  Stream column input with initial value
+  """
   initial_value: workout_items_stream_cursor_value_input!
 
-  """cursor ordering"""
+  """
+  cursor ordering
+  """
   ordering: cursor_ordering
 }
 
-"""Initial value of the column from where the streaming should start"""
+"""
+Initial value of the column from where the streaming should start
+"""
 input workout_items_stream_cursor_value_input {
   created_at: timestamp
   header: String
@@ -6271,7 +8051,9 @@ input workout_items_stream_cursor_value_input {
   workout_id: bigint
 }
 
-"""aggregate sum on columns"""
+"""
+aggregate sum on columns
+"""
 type workout_items_sum_fields {
   id: bigint
   workout_id: bigint
@@ -6289,43 +8071,67 @@ input workout_items_sum_order_by {
 update columns of table "workout_items"
 """
 enum workout_items_update_column {
-  """column name"""
+  """
+  column name
+  """
   created_at
 
-  """column name"""
+  """
+  column name
+  """
   header
 
-  """column name"""
+  """
+  column name
+  """
   id
 
-  """column name"""
+  """
+  column name
+  """
   notes
 
-  """column name"""
+  """
+  column name
+  """
   score
 
-  """column name"""
+  """
+  column name
+  """
   title
 
-  """column name"""
+  """
+  column name
+  """
   updated_at
 
-  """column name"""
+  """
+  column name
+  """
   workout_id
 }
 
 input workout_items_updates {
-  """increments the numeric columns with given value of the filtered values"""
+  """
+  increments the numeric columns with given value of the filtered values
+  """
   _inc: workout_items_inc_input
 
-  """sets the columns of the filtered rows to the given values"""
+  """
+  sets the columns of the filtered rows to the given values
+  """
   _set: workout_items_set_input
 
-  """filter the rows which have to be updated"""
+  """
+  filter the rows which have to be updated
+  """
   where: workout_items_bool_exp!
 }
 
-"""aggregate var_pop on columns"""
+"""
+aggregate var_pop on columns
+"""
 type workout_items_var_pop_fields {
   id: Float
   workout_id: Float
@@ -6339,7 +8145,9 @@ input workout_items_var_pop_order_by {
   workout_id: order_by
 }
 
-"""aggregate var_samp on columns"""
+"""
+aggregate var_samp on columns
+"""
 type workout_items_var_samp_fields {
   id: Float
   workout_id: Float
@@ -6353,7 +8161,9 @@ input workout_items_var_samp_order_by {
   workout_id: order_by
 }
 
-"""aggregate variance on columns"""
+"""
+aggregate variance on columns
+"""
 type workout_items_variance_fields {
   id: Float
   workout_id: Float
@@ -6373,7 +8183,9 @@ columns and relationships of "workouts"
 type workouts {
   created_at: timestamp!
 
-  """An object relationship"""
+  """
+  An object relationship
+  """
   current_cycle: cycles
   cycle: Int
   date: String
@@ -6386,111 +8198,183 @@ type workouts {
   title: String!
   updated_at: timestamp!
 
-  """An array relationship"""
+  """
+  An array relationship
+  """
   user_cycles(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [user_cycles_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [user_cycles_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: user_cycles_bool_exp
   ): [user_cycles!]!
 
-  """An aggregate relationship"""
+  """
+  An aggregate relationship
+  """
   user_cycles_aggregate(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [user_cycles_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [user_cycles_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: user_cycles_bool_exp
   ): user_cycles_aggregate!
 
-  """An array relationship"""
+  """
+  An array relationship
+  """
   user_workouts(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [user_workouts_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [user_workouts_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: user_workouts_bool_exp
   ): [user_workouts!]!
 
-  """An aggregate relationship"""
+  """
+  An aggregate relationship
+  """
   user_workouts_aggregate(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [user_workouts_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [user_workouts_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: user_workouts_bool_exp
   ): user_workouts_aggregate!
 
-  """An array relationship"""
+  """
+  An array relationship
+  """
   workout_items(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [workout_items_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [workout_items_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: workout_items_bool_exp
   ): [workout_items!]!
 
-  """An aggregate relationship"""
+  """
+  An aggregate relationship
+  """
   workout_items_aggregate(
-    """distinct select on columns"""
+    """
+    distinct select on columns
+    """
     distinct_on: [workout_items_select_column!]
 
-    """limit the number of rows returned"""
+    """
+    limit the number of rows returned
+    """
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    """
+    skip the first n rows. Use only with order_by
+    """
     offset: Int
 
-    """sort the rows by one or more columns"""
+    """
+    sort the rows by one or more columns
+    """
     order_by: [workout_items_order_by!]
 
-    """filter the rows returned"""
+    """
+    filter the rows returned
+    """
     where: workout_items_bool_exp
   ): workout_items_aggregate!
 }
@@ -6570,11 +8454,15 @@ input type for inserting array relation for remote table "workouts"
 input workouts_arr_rel_insert_input {
   data: [workouts_insert_input!]!
 
-  """upsert condition"""
+  """
+  upsert condition
+  """
   on_conflict: workouts_on_conflict
 }
 
-"""aggregate avg on columns"""
+"""
+aggregate avg on columns
+"""
 type workouts_avg_fields {
   cycle: Float
   id: Float
@@ -6654,7 +8542,9 @@ input workouts_insert_input {
   workout_items: workout_items_arr_rel_insert_input
 }
 
-"""aggregate max on columns"""
+"""
+aggregate max on columns
+"""
 type workouts_max_fields {
   created_at: timestamp
   cycle: Int
@@ -6682,7 +8572,9 @@ input workouts_max_order_by {
   updated_at: order_by
 }
 
-"""aggregate min on columns"""
+"""
+aggregate min on columns
+"""
 type workouts_min_fields {
   created_at: timestamp
   cycle: Int
@@ -6714,10 +8606,14 @@ input workouts_min_order_by {
 response of any mutation on the table "workouts"
 """
 type workouts_mutation_response {
-  """number of rows affected by the mutation"""
+  """
+  number of rows affected by the mutation
+  """
   affected_rows: Int!
 
-  """data from the rows affected by the mutation"""
+  """
+  data from the rows affected by the mutation
+  """
   returning: [workouts!]!
 }
 
@@ -6727,7 +8623,9 @@ input type for inserting object relation for remote table "workouts"
 input workouts_obj_rel_insert_input {
   data: workouts_insert_input!
 
-  """upsert condition"""
+  """
+  upsert condition
+  """
   on_conflict: workouts_on_conflict
 }
 
@@ -6740,7 +8638,9 @@ input workouts_on_conflict {
   where: workouts_bool_exp
 }
 
-"""Ordering options when selecting data from "workouts"."""
+"""
+Ordering options when selecting data from "workouts".
+"""
 input workouts_order_by {
   created_at: order_by
   current_cycle: cycles_order_by
@@ -6759,7 +8659,9 @@ input workouts_order_by {
   workout_items_aggregate: workout_items_aggregate_order_by
 }
 
-"""primary key columns input for table: workouts"""
+"""
+primary key columns input for table: workouts
+"""
 input workouts_pk_columns_input {
   id: bigint!
 }
@@ -6768,37 +8670,59 @@ input workouts_pk_columns_input {
 select columns of table "workouts"
 """
 enum workouts_select_column {
-  """column name"""
+  """
+  column name
+  """
   created_at
 
-  """column name"""
+  """
+  column name
+  """
   cycle
 
-  """column name"""
+  """
+  column name
+  """
   date
 
-  """column name"""
+  """
+  column name
+  """
   description
 
-  """column name"""
+  """
+  column name
+  """
   id
 
-  """column name"""
+  """
+  column name
+  """
   isActiveRecovery
 
-  """column name"""
+  """
+  column name
+  """
   isRestDay
 
-  """column name"""
+  """
+  column name
+  """
   poster
 
-  """column name"""
+  """
+  column name
+  """
   subtitle
 
-  """column name"""
+  """
+  column name
+  """
   title
 
-  """column name"""
+  """
+  column name
+  """
   updated_at
 }
 
@@ -6806,10 +8730,14 @@ enum workouts_select_column {
 select "workouts_aggregate_bool_exp_bool_and_arguments_columns" columns of table "workouts"
 """
 enum workouts_select_column_workouts_aggregate_bool_exp_bool_and_arguments_columns {
-  """column name"""
+  """
+  column name
+  """
   isActiveRecovery
 
-  """column name"""
+  """
+  column name
+  """
   isRestDay
 }
 
@@ -6817,10 +8745,14 @@ enum workouts_select_column_workouts_aggregate_bool_exp_bool_and_arguments_colum
 select "workouts_aggregate_bool_exp_bool_or_arguments_columns" columns of table "workouts"
 """
 enum workouts_select_column_workouts_aggregate_bool_exp_bool_or_arguments_columns {
-  """column name"""
+  """
+  column name
+  """
   isActiveRecovery
 
-  """column name"""
+  """
+  column name
+  """
   isRestDay
 }
 
@@ -6841,7 +8773,9 @@ input workouts_set_input {
   updated_at: timestamp
 }
 
-"""aggregate stddev on columns"""
+"""
+aggregate stddev on columns
+"""
 type workouts_stddev_fields {
   cycle: Float
   id: Float
@@ -6855,7 +8789,9 @@ input workouts_stddev_order_by {
   id: order_by
 }
 
-"""aggregate stddev_pop on columns"""
+"""
+aggregate stddev_pop on columns
+"""
 type workouts_stddev_pop_fields {
   cycle: Float
   id: Float
@@ -6869,7 +8805,9 @@ input workouts_stddev_pop_order_by {
   id: order_by
 }
 
-"""aggregate stddev_samp on columns"""
+"""
+aggregate stddev_samp on columns
+"""
 type workouts_stddev_samp_fields {
   cycle: Float
   id: Float
@@ -6887,14 +8825,20 @@ input workouts_stddev_samp_order_by {
 Streaming cursor of the table "workouts"
 """
 input workouts_stream_cursor_input {
-  """Stream column input with initial value"""
+  """
+  Stream column input with initial value
+  """
   initial_value: workouts_stream_cursor_value_input!
 
-  """cursor ordering"""
+  """
+  cursor ordering
+  """
   ordering: cursor_ordering
 }
 
-"""Initial value of the column from where the streaming should start"""
+"""
+Initial value of the column from where the streaming should start
+"""
 input workouts_stream_cursor_value_input {
   created_at: timestamp
   cycle: Int
@@ -6909,7 +8853,9 @@ input workouts_stream_cursor_value_input {
   updated_at: timestamp
 }
 
-"""aggregate sum on columns"""
+"""
+aggregate sum on columns
+"""
 type workouts_sum_fields {
   cycle: Int
   id: bigint
@@ -6927,52 +8873,82 @@ input workouts_sum_order_by {
 update columns of table "workouts"
 """
 enum workouts_update_column {
-  """column name"""
+  """
+  column name
+  """
   created_at
 
-  """column name"""
+  """
+  column name
+  """
   cycle
 
-  """column name"""
+  """
+  column name
+  """
   date
 
-  """column name"""
+  """
+  column name
+  """
   description
 
-  """column name"""
+  """
+  column name
+  """
   id
 
-  """column name"""
+  """
+  column name
+  """
   isActiveRecovery
 
-  """column name"""
+  """
+  column name
+  """
   isRestDay
 
-  """column name"""
+  """
+  column name
+  """
   poster
 
-  """column name"""
+  """
+  column name
+  """
   subtitle
 
-  """column name"""
+  """
+  column name
+  """
   title
 
-  """column name"""
+  """
+  column name
+  """
   updated_at
 }
 
 input workouts_updates {
-  """increments the numeric columns with given value of the filtered values"""
+  """
+  increments the numeric columns with given value of the filtered values
+  """
   _inc: workouts_inc_input
 
-  """sets the columns of the filtered rows to the given values"""
+  """
+  sets the columns of the filtered rows to the given values
+  """
   _set: workouts_set_input
 
-  """filter the rows which have to be updated"""
+  """
+  filter the rows which have to be updated
+  """
   where: workouts_bool_exp!
 }
 
-"""aggregate var_pop on columns"""
+"""
+aggregate var_pop on columns
+"""
 type workouts_var_pop_fields {
   cycle: Float
   id: Float
@@ -6986,7 +8962,9 @@ input workouts_var_pop_order_by {
   id: order_by
 }
 
-"""aggregate var_samp on columns"""
+"""
+aggregate var_samp on columns
+"""
 type workouts_var_samp_fields {
   cycle: Float
   id: Float
@@ -7000,7 +8978,9 @@ input workouts_var_samp_order_by {
   id: order_by
 }
 
-"""aggregate variance on columns"""
+"""
+aggregate variance on columns
+"""
 type workouts_variance_fields {
   cycle: Float
   id: Float

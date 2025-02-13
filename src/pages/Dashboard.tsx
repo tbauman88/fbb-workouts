@@ -70,8 +70,9 @@ const TimelineItem = ({ item }) => {
         {title && (
           <div className="flex items-baseline gap-x-3">
             <div
-              className={`min-w-[120px] text-sm font-semibold uppercase ${item.title ? 'text-gray-500' : 'text-gray-900'
-                }`}
+              className={`min-w-[120px] text-sm font-semibold uppercase ${
+                item.title ? 'text-gray-500' : 'text-gray-900'
+              }`}
               dangerouslySetInnerHTML={{ __html: marked(title) }}
             />
           </div>
@@ -110,9 +111,7 @@ const CurrentWorkoutCard = ({ currentWorkout, onClick, loading }) => {
           </div>
 
           <ul role="list" className="mt-6 space-y-4 px-6 w-full">
-            {currentWorkout?.items?.map((item, index) => (
-              <TimelineItem key={`${item.id}-${index}`} item={item} />
-            ))}
+            {currentWorkout?.items?.map((item, index) => <TimelineItem key={`${item.id}-${index}`} item={item} />)}
           </ul>
         </dl>
 
@@ -161,7 +160,10 @@ const Divider = () => (
 )
 
 export const Dashboard = () => {
-  const { data: { currentProgram, currentWorkout, cycleProgression, programs, userCycle }, loading } = useUserContext()
+  const {
+    data: { currentProgram, currentWorkout, cycleProgression, programs, userCycle },
+    loading
+  } = useUserContext()
 
   const navigate = useNavigate()
 
@@ -175,7 +177,12 @@ export const Dashboard = () => {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <section className="mx-auto grid max-w-2xl grid-cols-1 grid-rows-1 items-start gap-x-8 gap-y-8 lg:mx-0 lg:max-w-none lg:grid-cols-3">
           <CurrentWorkoutCard loading={loading} onClick={navigateToWorkout} currentWorkout={currentWorkout} />
-          <CurrentProgramCard loading={loading} currentProgram={currentProgram} cycleProgression={cycleProgression} userCycle={userCycle} />
+          <CurrentProgramCard
+            loading={loading}
+            currentProgram={currentProgram}
+            cycleProgression={cycleProgression}
+            userCycle={userCycle}
+          />
         </section>
 
         <Divider />
