@@ -1,11 +1,20 @@
 import { marked } from 'marked'
 import { useNavigate } from 'react-router-dom'
-import { useUserContext } from '../context/UserProvider'
+import { DashboardContent, useUserContext } from '../context/UserProvider'
 import { ProgressBar } from '../components'
 import { Loading } from './Loading'
 
-const CurrentProgramCard = ({ currentProgram, cycleProgression, loading, userCycle }) => {
+const CurrentProgramCard = ({ currentProgram, cycleProgression, loading, userCycle }: {
+  currentProgram: DashboardContent['currentProgram'],
+  cycleProgression: DashboardContent['cycleProgression'],
+  loading: boolean,
+  userCycle: DashboardContent['userCycle']
+}) => {
   if (loading) {
+    return <Loading page="dashboard" component="current-program-card" />
+  }
+
+  if (!currentProgram || !userCycle) {
     return <Loading page="dashboard" component="current-program-card" />
   }
 
@@ -14,7 +23,7 @@ const CurrentProgramCard = ({ currentProgram, cycleProgression, loading, userCyc
       <h2 className="sr-only">Current Program</h2>
 
       <div className="rounded-lg bg-gray-50 shadow-sm ring-1 ring-gray-900/5 space-y-6 pb-6">
-        <img src={currentProgram?.image} alt="" />
+        <img src={currentProgram.image ?? ''} alt="" />
         <dl className="flex flex-wrap px-6">
           <div className="flex-auto">
             <dt className="text-sm font-semibold leading-6 text-gray-900 uppercase">Current Program:</dt>
@@ -27,13 +36,13 @@ const CurrentProgramCard = ({ currentProgram, cycleProgression, loading, userCyc
             </dd>
           </div>
         </dl>
-        <ProgressBar progress={cycleProgression} />
+        <ProgressBar progress={cycleProgression ?? 0} />
       </div>
     </div>
   )
 }
 
-const WorkoutStatusBadge = ({ isActiveRecovery, isRestDay }) => {
+const WorkoutStatusBadge = ({ isActiveRecovery, isRestDay }: { isActiveRecovery: boolean, isRestDay: boolean }) => {
   if (isActiveRecovery) {
     return (
       <dd className="rounded-md bg-teal-50 px-2 py-1 text-xs font-medium text-teal-700 ring-1 ring-inset ring-teal-600/20">
@@ -52,7 +61,15 @@ const WorkoutStatusBadge = ({ isActiveRecovery, isRestDay }) => {
   return null
 }
 
-const TimelineItem = ({ item }) => {
+const TimelineItem = ({ item }: {
+  item: {
+    id: string,
+    header?: string | null | undefined,
+    notes?: string | null | undefined,
+    title?: string | null | undefined
+  }
+}) => {
+
   if (item.header === '') return null
 
   const title = item.header || item.title
@@ -87,8 +104,12 @@ const TimelineItem = ({ item }) => {
   )
 }
 
-const CurrentWorkoutCard = ({ currentWorkout, onClick, loading }) => {
-  if (loading) {
+const CurrentWorkoutCard = ({ currentWorkout, onClick, loading }: {
+  currentWorkout: DashboardContent['currentWorkout'],
+  onClick: (id: string) => void,
+  loading: boolean
+}) => {
+  if (loading || !currentWorkout) {
     return <Loading page="dashboard" component="current-workout-card" />
   }
 
@@ -104,19 +125,19 @@ const CurrentWorkoutCard = ({ currentWorkout, onClick, loading }) => {
           <div className="flex-none self-end px-6 pt-4 pb-6 mt-6 border-b border-gray-900/5">
             <dt className="sr-only">Is Rest Day?</dt>
             <WorkoutStatusBadge
-              isActiveRecovery={currentWorkout?.isActiveRecovery}
-              isRestDay={currentWorkout?.isRestDay}
+              isActiveRecovery={currentWorkout.isActiveRecovery}
+              isRestDay={currentWorkout.isRestDay}
             />
           </div>
 
           <ul role="list" className="mt-6 space-y-4 px-6 w-full">
-            {currentWorkout?.items?.map((item, index) => <TimelineItem key={`${item.id}-${index}`} item={item} />)}
+            {currentWorkout.items.map((item, index) => <TimelineItem key={`${item.id}-${index}`} item={item} />)}
           </ul>
         </dl>
 
         <div className="mt-6 border-t border-gray-900/5 px-6 py-6">
           <a
-            onClick={() => onClick(currentWorkout?.id)}
+            onClick={() => onClick(currentWorkout.id)}
             className="text-sm font-semibold leading-6 text-gray-900 cursor-pointer"
           >
             Proceed to workout <span aria-hidden="true">&rarr;</span>
@@ -127,8 +148,8 @@ const CurrentWorkoutCard = ({ currentWorkout, onClick, loading }) => {
   )
 }
 
-const ProgramsList = ({ programs, loading }) => {
-  if (loading) {
+const ProgramsList = ({ programs, loading }: { programs: DashboardContent['programs'], loading: boolean }) => {
+  if (loading || !programs) {
     return <Loading page="dashboard" component="programs-list" />
   }
 
@@ -137,10 +158,10 @@ const ProgramsList = ({ programs, loading }) => {
       <h2 className="flex pb-5 font-medium text-2xl text-gray-900 uppercase">Programs</h2>
       <div className="flex overflow-x-scroll pb-10 hide-scroll-bar">
         <div className="flex flex-nowrap">
-          {programs?.map((program, index) => (
+          {programs.map((program, index) => (
             <div key={program.name} className={`inline-block ${index === programs.length - 1 ? 'pr-0' : 'pr-6'}`}>
               <div className="min-w-[300px] max-w-xs overflow-hidden rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out">
-                <img src={program.image} alt="" />
+                <img src={program.image ?? ''} alt="" />
               </div>
             </div>
           ))}
@@ -163,7 +184,7 @@ export const Dashboard = () => {
 
   const navigate = useNavigate()
 
-  const navigateToWorkout = (id: number | undefined) => {
+  const navigateToWorkout = (id: string | undefined) => {
     if (!id) return
     navigate(`/workouts/${id}`)
   }

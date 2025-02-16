@@ -1,4 +1,4 @@
-export const ProgressBar = ({ progress }: { number: string }) => {
+export const ProgressBar = ({ progress }: { progress: number }) => {
   return (
     <div className="px-6">
       <div className="overflow-hidden rounded-full bg-gray-200">

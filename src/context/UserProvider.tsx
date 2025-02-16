@@ -5,13 +5,14 @@ import { formatProgramName } from '../hooks/usePrograms';
 
 type Workout = GetUserCycleProgressQuery['userCycle'][0]['workout']
 type Program = GetUserCycleProgressQuery['userCycle'][0]['cycle']['program']
+type CurrentWorkoutItems = Array<Workout['first'][0] | Workout['rest'][0] | Workout['titles'][0]>
 
-export type UserCycle = GetUserCycleProgressQuery['userCycle'][0]
-export type CurrentWorkout = Workout & { items: Array<Workout['first'][0] | Workout['rest'][0] | Workout['titles'][0]> }
-export type CurrentProgram = Omit<Program, 'name'> & { cycleId: string, name: string | null }
+type UserCycle = GetUserCycleProgressQuery['userCycle'][0]
+type CurrentWorkout = Workout & { items: CurrentWorkoutItems }
+type CurrentProgram = Omit<Program, 'name'> & { cycleId: string, name: string | null }
 type Programs = GetUserCycleProgressQuery['programs'][0]
 
-type DashboardContent = {
+export type DashboardContent = {
   userCycle: UserCycle | null
   currentProgram: CurrentProgram | null
   currentWorkout: CurrentWorkout | null

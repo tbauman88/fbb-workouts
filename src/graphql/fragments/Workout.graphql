@@ -2,6 +2,8 @@ fragment Workout on user_cycles {
   workout {
     id
     title
+    isActiveRecovery
+    isRestDay
     first: workout_items(limit: 1, order_by: { id: asc }) {
       id
       header
