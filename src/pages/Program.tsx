@@ -1,24 +1,19 @@
-import { usePrograms } from '../hooks/usePrograms'
+import { usePrograms, Program as ProgramType } from '../hooks/usePrograms'
 import { useNavigate } from 'react-router-dom'
 import { useCallback } from 'react'
 import { Loading } from './Loading'
+
 export const Program = () => {
   const { programs, loading, error } = usePrograms()
   const navigate = useNavigate()
 
-  const handleClick = useCallback(
-    (program: Program) => {
-      navigate(`/programs/${program.id}`)
-    },
-    [navigate]
-  )
+  const handleClick = useCallback((program: ProgramType) => {
+    navigate(`/programs/${program.id}`)
+  }, [navigate])
 
-  const viewCycle = useCallback(
-    (program: Program, cycle: number) => {
-      navigate(`/workouts/${cycle}`)
-    },
-    [navigate]
-  )
+  const viewCycle = useCallback((program: ProgramType, cycle: number) => {
+    navigate(`/workouts/${cycle}`)
+  }, [navigate])
 
   const getCycleClasses = (cycleId: number) =>
     cycleId === 13 ? 'bg-green-50 text-green-700 ring-green-600/20' : 'bg-gray-50 text-gray-600 ring-gray-500/10'
@@ -40,7 +35,7 @@ export const Program = () => {
                 >
                   <img
                     alt=""
-                    src={program.image}
+                    src={program.image ?? ''}
                     className="absolute inset-0 size-full rounded-2xl bg-gray-800 object-cover shadow-2xl transition-transform group-hover:scale-125 group-hover:opacity-80 cursor-pointer"
                   />
                 </div>

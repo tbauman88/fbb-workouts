@@ -1,6 +1,21 @@
-import { useQuery } from '@apollo/client'
-import { GET_PROGRAMS } from '../graphql/queries'
-import { ProgramEntity } from '../types'
+import { QueryResult } from '@apollo/client'
+import { GetProgramsQuery, useGetProgramsQuery } from '../generated/graphql'
+
+
+type Programs = GetProgramsQuery['programs']
+
+export type Program = Omit<Programs[number], 'cycles'> & {
+  cycles: {
+    id: number
+    firstWorkoutId: number
+  }[]
+}
+
+type UsePrograms = {
+  programs: Program[] | undefined
+  loading: boolean
+  error: QueryResult['error']
+}
 
 export const PROGRAM_NAME_MAP: Record<string, string> = {
   PERSIST_PUMP_HYPERTROPHY: 'Full Body Pump Lift',
@@ -16,19 +31,23 @@ export const PROGRAM_NAME_MAP: Record<string, string> = {
 
 export const formatProgramName = (name: string): string => PROGRAM_NAME_MAP[name] || name
 
-export const usePrograms = () => {
-  const { loading, error, data } = useQuery<{
-    programs: ProgramEntity[]
-  }>(GET_PROGRAMS)
+export const usePrograms = (): UsePrograms => {
+  const { data, loading, error } = useGetProgramsQuery()
 
-  const programs = data?.programs.map((program) => ({
+  return {
+    programs: data?.programs ? processPrograms(data.programs) : undefined,
+    loading,
+    error
+  }
+}
+
+const processPrograms = (programs: Programs): Snickers[] => {
+  return programs.map((program) => ({
     ...program,
     name: formatProgramName(program.name),
     cycles: program.cycles.map((cycle) => ({
-      id: cycle.workouts[0].cycle,
-      firstWorkoutId: cycle.workouts[0].id
+      id: Number(cycle.workouts?.[0]?.cycle),
+      firstWorkoutId: Number(cycle.workouts?.[0]?.id)
     }))
   }))
-
-  return { programs, loading, error }
 }

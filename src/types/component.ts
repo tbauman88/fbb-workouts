@@ -1,5 +1,5 @@
 import { WorkoutByIdQuery } from "../generated/graphql"
-
+import { Program } from "../hooks/usePrograms"
 export interface QueryWrapperProps {
   loading?: boolean
   error?: Error | null
@@ -14,7 +14,7 @@ export interface CardWrapperProps {
 }
 
 export interface ProgramCardProps {
-  program: ProgramEntity
+  program: Program
   handleClick: () => void
   title: string
   includeFooter?: boolean
