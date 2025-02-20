@@ -1,14 +1,17 @@
 import { useState, useRef, useCallback } from 'react'
+import { useWorkout } from '../hooks/useWorkout'
 
 export const Score: React.FC<{
   workoutItemId: string
   showInput: boolean
-  updateScore: (variables: { variables: { workoutItemId: string; score: string } }) => Promise<void>
-  values?: ScoreEntity[]
-}> = ({ workoutItemId, showInput, updateScore, values = [] }) => {
+  values?: { value: string }[]
+}> = ({ workoutItemId, showInput, values = [] }) => {
+  const { upsertWorkoutItemScore } = useWorkout(workoutItemId)
+
   const [value, setScore] = useState(values.map((v) => v.value).join('\n'))
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const inputRef = useRef<HTMLInputElement | HTMLTextAreaElement>(null)
+  const textareaRef = useRef<HTMLTextAreaElement>(null)
+  const inputRef = useRef<HTMLInputElement>(null)
   const initialValue = useRef(value)
 
   const handleUpdate = useCallback(
@@ -17,7 +20,7 @@ export const Score: React.FC<{
 
       try {
         setIsSubmitting(true)
-        await updateScore({
+        await upsertWorkoutItemScore({
           variables: {
             workoutItemId,
             score: newValue.trim()
@@ -31,7 +34,7 @@ export const Score: React.FC<{
         setIsSubmitting(false)
       }
     },
-    [isSubmitting, workoutItemId, updateScore]
+    [isSubmitting, workoutItemId, upsertWorkoutItemScore]
   )
 
   const handleChange = useCallback(
@@ -61,7 +64,7 @@ export const Score: React.FC<{
         </label>
         {values.length > 1 ? (
           <textarea
-            ref={inputRef}
+            ref={textareaRef}
             id="score"
             name="score"
             required

@@ -1,3 +1,5 @@
+import { WorkoutByIdQuery } from "../generated/graphql"
+
 export interface QueryWrapperProps {
   loading?: boolean
   error?: Error | null
@@ -23,9 +25,11 @@ export interface WorkoutCardProps {
   workout: Workout
 }
 
+type Workout = NonNullable<WorkoutByIdQuery['workout']>
+type WorkoutItem = NonNullable<Workout>['workout_items']
+
 export interface WorkoutItemProps {
-  item: WorkoutItem
-  updateScore: (variables: { variables: { workoutItemId: string; score: string } }) => Promise<void>
+  item: WorkoutItem[number]
 }
 
 export interface NavigationProps {

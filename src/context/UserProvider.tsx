@@ -9,7 +9,7 @@ type CurrentWorkoutItems = Array<Workout['first'][0] | Workout['rest'][0] | Work
 
 type UserCycle = GetUserCycleProgressQuery['userCycle'][0]
 type CurrentWorkout = Workout & { items: CurrentWorkoutItems }
-type CurrentProgram = Omit<Program, 'name'> & { cycleId: string, name: string | null }
+export type CurrentProgram = Omit<Program, 'name'> & { cycleId: string, name: string | null }
 type Programs = GetUserCycleProgressQuery['programs'][0]
 
 export type DashboardContent = {

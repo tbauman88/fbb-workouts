@@ -3,10 +3,10 @@ import { Exercises } from './Exercises'
 import { Score } from './Score'
 import { WorkoutItemProps } from '../types'
 
-const Header = ({ header }: { header?: string }) =>
+const Header = ({ header }: { header: string | null | undefined }) =>
   header && <h2 className="w-full text-xl text-gray-900 font-bold tracking-tight">{header}</h2>
 
-const Title = ({ title }: { title?: string }) =>
+const Title = ({ title }: { title: string | null | undefined }) =>
   title && (
     <h4
       className="mb-4 w-full flex-none text-lg text-gray-900 font-light"
@@ -14,7 +14,7 @@ const Title = ({ title }: { title?: string }) =>
     />
   )
 
-const Notes = ({ notes }: { notes?: string }) =>
+const Notes = ({ notes }: { notes: string | null | undefined }) =>
   notes && (
     <section
       className="prose mt-4 text-base text-gray-600 font-light"
@@ -22,10 +22,10 @@ const Notes = ({ notes }: { notes?: string }) =>
     />
   )
 
-export const WorkoutItem: React.FC<WorkoutItemProps> = ({ item, updateScore }) => {
+export const WorkoutItem: React.FC<WorkoutItemProps> = ({ item }) => {
   const excludedHeaders = ['Coach Note', 'Short on Time', 'Warm-up', 'Cool Down']
 
-  const needsScore = !excludedHeaders.some((header) => item.header.toLowerCase().includes(header.toLowerCase()))
+  const needsScore = !excludedHeaders.some((header) => item.header?.toLowerCase().includes(header.toLowerCase()))
 
   return (
     <article className="py-6 flex flex-wrap w-full">
@@ -33,7 +33,11 @@ export const WorkoutItem: React.FC<WorkoutItemProps> = ({ item, updateScore }) =
       <Title title={item.title} />
       <Exercises exercise_details={item.exercise_details} />
       <Notes notes={item.notes} />
-      <Score values={item.scores} showInput={needsScore} workoutItemId={item.id} {...{ updateScore }} />
+      <Score
+        values={item.scores}
+        showInput={needsScore}
+        workoutItemId={item.id}
+      />
     </article>
   )
 }

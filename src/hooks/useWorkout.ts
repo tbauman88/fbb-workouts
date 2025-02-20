@@ -8,7 +8,7 @@ import {
   WorkoutByIdQuery
 } from '../generated/graphql'
 
-type UseWorkout = {
+export type UseWorkout = {
   workout: WorkoutByIdQuery['workout']
   nextWorkoutId: string | null | undefined
   completed: boolean
@@ -20,11 +20,16 @@ type UseWorkout = {
   error: QueryResult['error']
 }
 
-export const useWorkout = (id: number): UseWorkout => {
+export const useWorkout = (id: string | undefined): UseWorkout => {
   const { currentProgram } = useUserContext()
 
+  if (!id) throw new Error('No workout id provided');
+
   const { data, loading, error } = useWorkoutByIdQuery({
-    variables: { id: String(id), cycleId: String(currentProgram?.cycleId) }
+    variables: {
+      id,
+      cycleId: String(currentProgram?.cycleId ?? '')
+    }
   })
 
   const [upsertWorkoutItemScore] = useUpsertWorkoutItemScoreMutation({
@@ -64,7 +69,7 @@ export const useWorkout = (id: number): UseWorkout => {
     completeWorkout,
     finishCycle,
     currentProgram,
-    loading,
+    loading: loading,
     error
   }
 }
