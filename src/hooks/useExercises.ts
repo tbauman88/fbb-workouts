@@ -1,32 +1,56 @@
-import { useQuery } from '@apollo/client'
-import { GET_EXERCISES } from '../graphql/queries'
+import { QueryResult } from "@apollo/client"
+import { GetExercisesQuery, useGetExercisesQuery } from "../generated/graphql"
 
-export const useExercises = () => {
-  const { data, loading, error } = useQuery(GET_EXERCISES)
+export type Exercise = GetExercisesQuery['exercises'][number]
+type ExerciseGroups = Record<string, Exercise[]>
 
-  const groupedExercises = data?.exercises.reduce<Record<string, Exercise[]>>((acc, exercise) => {
-    const { demo_video_title } = exercise
+type UseExercises = {
+  exercises: Record<string, GetExercisesQuery['exercises'][number][]>
+  loading: boolean
+  error: QueryResult['error']
+}
 
-    const firstChar = demo_video_title?.charAt(0).toUpperCase() || '#'
-    const group = /^\d/.test(firstChar) ? '#' : firstChar
-
-    acc[group] = acc[group] || []
-    acc[group].push(exercise)
-
-    return acc
-  }, {})
-
-  // Sort groups alphabetically, ensuring '#' comes first, and sort exercises within each group
-  const sortedGroups = Object.entries(groupedExercises || {})
-    .sort(([a], [b]) => (a === '#' ? -1 : b === '#' ? 1 : a.localeCompare(b)))
-    .reduce<Record<string, Exercise[]>>((acc, [key, exercises]) => {
-      acc[key] = exercises.sort((a, b) => a.demo_video_title.localeCompare(b.demo_video_title))
-      return acc
-    }, {})
+export const useExercises = (): UseExercises => {
+  const { data, loading, error } = useGetExercisesQuery()
 
   return {
-    groupedExercises: sortedGroups,
+    exercises: data?.exercises ? Exercises.process(data.exercises) : {},
     loading,
     error
+  }
+}
+
+class Exercises {
+  private static getGroupKey(title: string | null | undefined): string {
+    if (!title) return '#'
+
+    const firstChar = title.charAt(0).toUpperCase()
+    return /^\d/.test(firstChar) ? '#' : firstChar
+  }
+
+  private static groupExercises(exercises: Exercise[]): ExerciseGroups {
+    return exercises.reduce<ExerciseGroups>((groups, exercise) => {
+      const groupKey = this.getGroupKey(exercise.demo_video_title)
+
+      return {
+        ...groups,
+        [groupKey]: [...(groups[groupKey] || []), exercise]
+      }
+    }, {})
+  }
+
+  private static sortExerciseGroups(groups: ExerciseGroups): ExerciseGroups {
+    return Object.entries(groups)
+      .sort(([a], [b]) => (a === '#' ? -1 : b === '#' ? 1 : a.localeCompare(b)))
+      .reduce<ExerciseGroups>((sortedGroups, [key, exercises]) => ({
+        ...sortedGroups,
+        [key]: exercises.sort((a, b) => a.demo_video_title.localeCompare(b.demo_video_title))
+      }), {})
+  }
+
+
+  public static process(exercises: Exercise[]): ExerciseGroups {
+    if (!exercises) return {}
+    return this.sortExerciseGroups(this.groupExercises(exercises))
   }
 }

@@ -2,17 +2,19 @@ import { useExercises } from '../hooks/useExercises'
 import { PlayCircleIcon } from '@heroicons/react/16/solid'
 import { useState } from 'react'
 import { Loading } from './Loading'
+import { Exercise } from '../hooks/useExercises'
+
 export const Exercises = () => {
-  const { groupedExercises, loading, error } = useExercises()
+  const { exercises, loading, error } = useExercises()
   const [selectedLetter, setSelectedLetter] = useState<string>('#')
 
   const letters = ['#', ...Array.from({ length: 26 }, (_, i) => String.fromCharCode(65 + i))]
 
   if (error) return <div>Error: {error.message}</div>
 
-  const openExerciseVideo = (url: string | null) => {
-    if (!url) return
-    window.open(url, 'newWindow', 'noopener,noreferrer,scrollbars=yes,resizable=yes')
+  const openExerciseVideo = (exercise: Exercise) => {
+    if (!exercise.demo_video_url) return
+    window.open(exercise.demo_video_url, 'newWindow', 'noopener,noreferrer,scrollbars=yes,resizable=yes')
   }
 
   return (
@@ -22,11 +24,10 @@ export const Exercises = () => {
           <button
             key={letter}
             onClick={() => setSelectedLetter(letter)}
-            className={`px-4 py-4 text-sm font-medium ${
-              selectedLetter === letter
-                ? 'border-b-4 border-indigo-500 text-indigo-500'
-                : 'border-b-4 border-transparent text-gray-500 hover:text-indigo-700 hover:border-indigo-700'
-            } transition`}
+            className={`px-4 py-4 text-sm font-medium ${selectedLetter === letter
+              ? 'border-b-4 border-indigo-500 text-indigo-500'
+              : 'border-b-4 border-transparent text-gray-500 hover:text-indigo-700 hover:border-indigo-700'
+              } transition`}
           >
             {letter}
           </button>
@@ -40,10 +41,10 @@ export const Exercises = () => {
         {loading ? (
           <Loading page="exercises" />
         ) : (
-          groupedExercises[selectedLetter]?.map((e: Exercise) => (
+          exercises[selectedLetter]?.map((e: Exercise) => (
             <li key={e.demo_video_id} className="relative">
               <div className="mb-2 group overflow-hidden rounded-lg focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 bg-gray-100">
-                <button className="block w-full h-full relative" onClick={() => openExerciseVideo(e.demo_video_url)}>
+                <button className="block w-full h-full relative" onClick={() => openExerciseVideo(e)}>
                   <img
                     alt=""
                     src={`https://delta.trainatom.rpmtraining.com${e.demo_video_poster}`}
