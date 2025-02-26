@@ -1,0 +1,27 @@
+mutation UpsertWhoopIntegration(
+  $id: uuid! = "72ff3642-bbd5-48f9-951e-8fe2a0e4b43f",
+  $accessToken: String!,
+  $refreshToken: String!,
+  $expiresAt: Int!
+) {
+  insert_integrations_one(
+    object: {
+      id: $id,
+      access_token: $accessToken,
+      refresh_token: $refreshToken,
+      expires_at: $expiresAt
+    },
+    on_conflict: {
+      constraint: integrations_pkey,
+      update_columns: [access_token, refresh_token, expires_at, updated_at]
+    }
+  ) {
+    id
+    name
+    access_token
+    refresh_token
+    expires_at
+    created_at
+    updated_at
+  }
+}

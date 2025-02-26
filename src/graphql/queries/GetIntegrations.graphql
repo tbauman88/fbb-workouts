@@ -1,0 +1,10 @@
+query GetIntegrations($id: uuid! = "72ff3642-bbd5-48f9-951e-8fe2a0e4b43f") {
+  integration(id: $id) {
+    name
+    access_token
+    refresh_token
+    expires_at
+    created_at
+    updated_at
+  }
+}

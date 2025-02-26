@@ -1395,6 +1395,289 @@ export type ExercisesVarianceFields = {
   id: Maybe<Scalars['Float']['output']>;
 };
 
+/** columns and relationships of "integrations" */
+export type Integrations = {
+  __typename?: 'integrations';
+  access_token: Scalars['String']['output'];
+  created_at: Scalars['timestamptz']['output'];
+  expires_at: Scalars['Int']['output'];
+  id: Scalars['uuid']['output'];
+  name: Scalars['String']['output'];
+  refresh_token: Scalars['String']['output'];
+  updated_at: Scalars['timestamptz']['output'];
+  /** An object relationship */
+  user: Maybe<Users>;
+  user_id: Scalars['bigint']['output'];
+};
+
+/** aggregated selection of "integrations" */
+export type IntegrationsAggregate = {
+  __typename?: 'integrations_aggregate';
+  aggregate: Maybe<IntegrationsAggregateFields>;
+  nodes: Array<Integrations>;
+};
+
+/** aggregate fields of "integrations" */
+export type IntegrationsAggregateFields = {
+  __typename?: 'integrations_aggregate_fields';
+  avg: Maybe<IntegrationsAvgFields>;
+  count: Scalars['Int']['output'];
+  max: Maybe<IntegrationsMaxFields>;
+  min: Maybe<IntegrationsMinFields>;
+  stddev: Maybe<IntegrationsStddevFields>;
+  stddev_pop: Maybe<IntegrationsStddevPopFields>;
+  stddev_samp: Maybe<IntegrationsStddevSampFields>;
+  sum: Maybe<IntegrationsSumFields>;
+  var_pop: Maybe<IntegrationsVarPopFields>;
+  var_samp: Maybe<IntegrationsVarSampFields>;
+  variance: Maybe<IntegrationsVarianceFields>;
+};
+
+
+/** aggregate fields of "integrations" */
+export type IntegrationsAggregateFieldsCountArgs = {
+  columns?: InputMaybe<Array<IntegrationsSelectColumn>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** aggregate avg on columns */
+export type IntegrationsAvgFields = {
+  __typename?: 'integrations_avg_fields';
+  expires_at: Maybe<Scalars['Float']['output']>;
+  user_id: Maybe<Scalars['Float']['output']>;
+};
+
+/** Boolean expression to filter rows from the table "integrations". All fields are combined with a logical 'AND'. */
+export type IntegrationsBoolExp = {
+  _and?: InputMaybe<Array<IntegrationsBoolExp>>;
+  _not?: InputMaybe<IntegrationsBoolExp>;
+  _or?: InputMaybe<Array<IntegrationsBoolExp>>;
+  access_token?: InputMaybe<StringComparisonExp>;
+  created_at?: InputMaybe<TimestamptzComparisonExp>;
+  expires_at?: InputMaybe<IntComparisonExp>;
+  id?: InputMaybe<UuidComparisonExp>;
+  name?: InputMaybe<StringComparisonExp>;
+  refresh_token?: InputMaybe<StringComparisonExp>;
+  updated_at?: InputMaybe<TimestamptzComparisonExp>;
+  user?: InputMaybe<UsersBoolExp>;
+  user_id?: InputMaybe<BigintComparisonExp>;
+};
+
+/** unique or primary key constraints on table "integrations" */
+export enum IntegrationsConstraint {
+  /** unique or primary key constraint on columns "id" */
+  INTEGRATIONS_PKEY = 'integrations_pkey'
+}
+
+/** input type for incrementing numeric columns in table "integrations" */
+export type IntegrationsIncInput = {
+  expires_at?: InputMaybe<Scalars['Int']['input']>;
+  user_id?: InputMaybe<Scalars['bigint']['input']>;
+};
+
+/** input type for inserting data into table "integrations" */
+export type IntegrationsInsertInput = {
+  access_token?: InputMaybe<Scalars['String']['input']>;
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  expires_at?: InputMaybe<Scalars['Int']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  refresh_token?: InputMaybe<Scalars['String']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  user?: InputMaybe<UsersObjRelInsertInput>;
+  user_id?: InputMaybe<Scalars['bigint']['input']>;
+};
+
+/** aggregate max on columns */
+export type IntegrationsMaxFields = {
+  __typename?: 'integrations_max_fields';
+  access_token: Maybe<Scalars['String']['output']>;
+  created_at: Maybe<Scalars['timestamptz']['output']>;
+  expires_at: Maybe<Scalars['Int']['output']>;
+  id: Maybe<Scalars['uuid']['output']>;
+  name: Maybe<Scalars['String']['output']>;
+  refresh_token: Maybe<Scalars['String']['output']>;
+  updated_at: Maybe<Scalars['timestamptz']['output']>;
+  user_id: Maybe<Scalars['bigint']['output']>;
+};
+
+/** aggregate min on columns */
+export type IntegrationsMinFields = {
+  __typename?: 'integrations_min_fields';
+  access_token: Maybe<Scalars['String']['output']>;
+  created_at: Maybe<Scalars['timestamptz']['output']>;
+  expires_at: Maybe<Scalars['Int']['output']>;
+  id: Maybe<Scalars['uuid']['output']>;
+  name: Maybe<Scalars['String']['output']>;
+  refresh_token: Maybe<Scalars['String']['output']>;
+  updated_at: Maybe<Scalars['timestamptz']['output']>;
+  user_id: Maybe<Scalars['bigint']['output']>;
+};
+
+/** response of any mutation on the table "integrations" */
+export type IntegrationsMutationResponse = {
+  __typename?: 'integrations_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']['output'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Integrations>;
+};
+
+/** on_conflict condition type for table "integrations" */
+export type IntegrationsOnConflict = {
+  constraint: IntegrationsConstraint;
+  update_columns?: Array<IntegrationsUpdateColumn>;
+  where?: InputMaybe<IntegrationsBoolExp>;
+};
+
+/** Ordering options when selecting data from "integrations". */
+export type IntegrationsOrderBy = {
+  access_token?: InputMaybe<OrderBy>;
+  created_at?: InputMaybe<OrderBy>;
+  expires_at?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  name?: InputMaybe<OrderBy>;
+  refresh_token?: InputMaybe<OrderBy>;
+  updated_at?: InputMaybe<OrderBy>;
+  user?: InputMaybe<UsersOrderBy>;
+  user_id?: InputMaybe<OrderBy>;
+};
+
+/** primary key columns input for table: integrations */
+export type IntegrationsPkColumnsInput = {
+  id: Scalars['uuid']['input'];
+};
+
+/** select columns of table "integrations" */
+export enum IntegrationsSelectColumn {
+  /** column name */
+  ACCESS_TOKEN = 'access_token',
+  /** column name */
+  CREATED_AT = 'created_at',
+  /** column name */
+  EXPIRES_AT = 'expires_at',
+  /** column name */
+  ID = 'id',
+  /** column name */
+  NAME = 'name',
+  /** column name */
+  REFRESH_TOKEN = 'refresh_token',
+  /** column name */
+  UPDATED_AT = 'updated_at',
+  /** column name */
+  USER_ID = 'user_id'
+}
+
+/** input type for updating data in table "integrations" */
+export type IntegrationsSetInput = {
+  access_token?: InputMaybe<Scalars['String']['input']>;
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  expires_at?: InputMaybe<Scalars['Int']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  refresh_token?: InputMaybe<Scalars['String']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  user_id?: InputMaybe<Scalars['bigint']['input']>;
+};
+
+/** aggregate stddev on columns */
+export type IntegrationsStddevFields = {
+  __typename?: 'integrations_stddev_fields';
+  expires_at: Maybe<Scalars['Float']['output']>;
+  user_id: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate stddev_pop on columns */
+export type IntegrationsStddevPopFields = {
+  __typename?: 'integrations_stddev_pop_fields';
+  expires_at: Maybe<Scalars['Float']['output']>;
+  user_id: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate stddev_samp on columns */
+export type IntegrationsStddevSampFields = {
+  __typename?: 'integrations_stddev_samp_fields';
+  expires_at: Maybe<Scalars['Float']['output']>;
+  user_id: Maybe<Scalars['Float']['output']>;
+};
+
+/** Streaming cursor of the table "integrations" */
+export type IntegrationsStreamCursorInput = {
+  /** Stream column input with initial value */
+  initial_value: IntegrationsStreamCursorValueInput;
+  /** cursor ordering */
+  ordering?: InputMaybe<CursorOrdering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type IntegrationsStreamCursorValueInput = {
+  access_token?: InputMaybe<Scalars['String']['input']>;
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  expires_at?: InputMaybe<Scalars['Int']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  refresh_token?: InputMaybe<Scalars['String']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  user_id?: InputMaybe<Scalars['bigint']['input']>;
+};
+
+/** aggregate sum on columns */
+export type IntegrationsSumFields = {
+  __typename?: 'integrations_sum_fields';
+  expires_at: Maybe<Scalars['Int']['output']>;
+  user_id: Maybe<Scalars['bigint']['output']>;
+};
+
+/** update columns of table "integrations" */
+export enum IntegrationsUpdateColumn {
+  /** column name */
+  ACCESS_TOKEN = 'access_token',
+  /** column name */
+  CREATED_AT = 'created_at',
+  /** column name */
+  EXPIRES_AT = 'expires_at',
+  /** column name */
+  ID = 'id',
+  /** column name */
+  NAME = 'name',
+  /** column name */
+  REFRESH_TOKEN = 'refresh_token',
+  /** column name */
+  UPDATED_AT = 'updated_at',
+  /** column name */
+  USER_ID = 'user_id'
+}
+
+export type IntegrationsUpdates = {
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<IntegrationsIncInput>;
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<IntegrationsSetInput>;
+  /** filter the rows which have to be updated */
+  where: IntegrationsBoolExp;
+};
+
+/** aggregate var_pop on columns */
+export type IntegrationsVarPopFields = {
+  __typename?: 'integrations_var_pop_fields';
+  expires_at: Maybe<Scalars['Float']['output']>;
+  user_id: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate var_samp on columns */
+export type IntegrationsVarSampFields = {
+  __typename?: 'integrations_var_samp_fields';
+  expires_at: Maybe<Scalars['Float']['output']>;
+  user_id: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate variance on columns */
+export type IntegrationsVarianceFields = {
+  __typename?: 'integrations_variance_fields';
+  expires_at: Maybe<Scalars['Float']['output']>;
+  user_id: Maybe<Scalars['Float']['output']>;
+};
+
 /** Boolean expression to compare columns of type "json". All fields are combined with logical 'AND'. */
 export type JsonComparisonExp = {
   _eq?: InputMaybe<Scalars['json']['input']>;
@@ -1423,6 +1706,10 @@ export type MutationRoot = {
   delete_exercises: Maybe<ExercisesMutationResponse>;
   /** delete single row from the table: "exercises" */
   delete_exercises_by_pk: Maybe<Exercises>;
+  /** delete data from the table: "integrations" */
+  delete_integrations: Maybe<IntegrationsMutationResponse>;
+  /** delete single row from the table: "integrations" */
+  delete_integrations_by_pk: Maybe<Integrations>;
   /** delete data from the table: "programs" */
   delete_programs: Maybe<ProgramsMutationResponse>;
   /** delete single row from the table: "programs" */
@@ -1467,6 +1754,10 @@ export type MutationRoot = {
   insert_exercises: Maybe<ExercisesMutationResponse>;
   /** insert a single row into the table: "exercises" */
   insert_exercises_one: Maybe<Exercises>;
+  /** insert data into the table: "integrations" */
+  insert_integrations: Maybe<IntegrationsMutationResponse>;
+  /** insert a single row into the table: "integrations" */
+  insert_integrations_one: Maybe<Integrations>;
   /** insert data into the table: "programs" */
   insert_programs: Maybe<ProgramsMutationResponse>;
   /** insert a single row into the table: "programs" */
@@ -1517,6 +1808,12 @@ export type MutationRoot = {
   update_exercises_by_pk: Maybe<Exercises>;
   /** update multiples rows of table: "exercises" */
   update_exercises_many: Maybe<Array<Maybe<ExercisesMutationResponse>>>;
+  /** update data of the table: "integrations" */
+  update_integrations: Maybe<IntegrationsMutationResponse>;
+  /** update single row of the table: "integrations" */
+  update_integrations_by_pk: Maybe<Integrations>;
+  /** update multiples rows of table: "integrations" */
+  update_integrations_many: Maybe<Array<Maybe<IntegrationsMutationResponse>>>;
   /** update data of the table: "programs" */
   update_programs: Maybe<ProgramsMutationResponse>;
   /** update single row of the table: "programs" */
@@ -1601,6 +1898,18 @@ export type MutationRootDeleteExercisesArgs = {
 /** mutation root */
 export type MutationRootDeleteExercisesByPkArgs = {
   id: Scalars['bigint']['input'];
+};
+
+
+/** mutation root */
+export type MutationRootDeleteIntegrationsArgs = {
+  where: IntegrationsBoolExp;
+};
+
+
+/** mutation root */
+export type MutationRootDeleteIntegrationsByPkArgs = {
+  id: Scalars['uuid']['input'];
 };
 
 
@@ -1739,6 +2048,20 @@ export type MutationRootInsertExercisesArgs = {
 export type MutationRootInsertExercisesOneArgs = {
   object: ExercisesInsertInput;
   on_conflict?: InputMaybe<ExercisesOnConflict>;
+};
+
+
+/** mutation root */
+export type MutationRootInsertIntegrationsArgs = {
+  objects: Array<IntegrationsInsertInput>;
+  on_conflict?: InputMaybe<IntegrationsOnConflict>;
+};
+
+
+/** mutation root */
+export type MutationRootInsertIntegrationsOneArgs = {
+  object: IntegrationsInsertInput;
+  on_conflict?: InputMaybe<IntegrationsOnConflict>;
 };
 
 
@@ -1917,6 +2240,28 @@ export type MutationRootUpdateExercisesByPkArgs = {
 /** mutation root */
 export type MutationRootUpdateExercisesManyArgs = {
   updates: Array<ExercisesUpdates>;
+};
+
+
+/** mutation root */
+export type MutationRootUpdateIntegrationsArgs = {
+  _inc?: InputMaybe<IntegrationsIncInput>;
+  _set?: InputMaybe<IntegrationsSetInput>;
+  where: IntegrationsBoolExp;
+};
+
+
+/** mutation root */
+export type MutationRootUpdateIntegrationsByPkArgs = {
+  _inc?: InputMaybe<IntegrationsIncInput>;
+  _set?: InputMaybe<IntegrationsSetInput>;
+  pk_columns: IntegrationsPkColumnsInput;
+};
+
+
+/** mutation root */
+export type MutationRootUpdateIntegrationsManyArgs = {
+  updates: Array<IntegrationsUpdates>;
 };
 
 
@@ -2411,6 +2756,12 @@ export type QueryRoot = {
   exercises_aggregate: ExercisesAggregate;
   /** fetch data from the table: "exercises" using primary key columns */
   exercises_by_pk: Maybe<Exercises>;
+  /** fetch data from the table: "integrations" using primary key columns */
+  integration: Maybe<Integrations>;
+  /** fetch data from the table: "integrations" */
+  integrations: Array<Integrations>;
+  /** fetch aggregated fields from the table: "integrations" */
+  integrations_aggregate: IntegrationsAggregate;
   /** fetch data from the table: "programs" */
   programs: Array<Programs>;
   /** fetch aggregated fields from the table: "programs" */
@@ -2528,6 +2879,29 @@ export type QueryRootExercisesAggregateArgs = {
 
 export type QueryRootExercisesByPkArgs = {
   id: Scalars['bigint']['input'];
+};
+
+
+export type QueryRootIntegrationArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
+export type QueryRootIntegrationsArgs = {
+  distinct_on?: InputMaybe<Array<IntegrationsSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<IntegrationsOrderBy>>;
+  where?: InputMaybe<IntegrationsBoolExp>;
+};
+
+
+export type QueryRootIntegrationsAggregateArgs = {
+  distinct_on?: InputMaybe<Array<IntegrationsSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<IntegrationsOrderBy>>;
+  where?: InputMaybe<IntegrationsBoolExp>;
 };
 
 
@@ -2979,6 +3353,14 @@ export type SubscriptionRoot = {
   exercises_by_pk: Maybe<Exercises>;
   /** fetch data from the table in a streaming manner: "exercises" */
   exercises_stream: Array<Exercises>;
+  /** fetch data from the table: "integrations" using primary key columns */
+  integration: Maybe<Integrations>;
+  /** fetch data from the table: "integrations" */
+  integrations: Array<Integrations>;
+  /** fetch aggregated fields from the table: "integrations" */
+  integrations_aggregate: IntegrationsAggregate;
+  /** fetch data from the table in a streaming manner: "integrations" */
+  integrations_stream: Array<Integrations>;
   /** fetch data from the table: "programs" */
   programs: Array<Programs>;
   /** fetch aggregated fields from the table: "programs" */
@@ -3133,6 +3515,36 @@ export type SubscriptionRootExercisesStreamArgs = {
   batch_size: Scalars['Int']['input'];
   cursor: Array<InputMaybe<ExercisesStreamCursorInput>>;
   where?: InputMaybe<ExercisesBoolExp>;
+};
+
+
+export type SubscriptionRootIntegrationArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
+export type SubscriptionRootIntegrationsArgs = {
+  distinct_on?: InputMaybe<Array<IntegrationsSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<IntegrationsOrderBy>>;
+  where?: InputMaybe<IntegrationsBoolExp>;
+};
+
+
+export type SubscriptionRootIntegrationsAggregateArgs = {
+  distinct_on?: InputMaybe<Array<IntegrationsSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<IntegrationsOrderBy>>;
+  where?: InputMaybe<IntegrationsBoolExp>;
+};
+
+
+export type SubscriptionRootIntegrationsStreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<IntegrationsStreamCursorInput>>;
+  where?: InputMaybe<IntegrationsBoolExp>;
 };
 
 
@@ -5950,6 +6362,16 @@ export type FinishCycleMutationVariables = Exact<{
 
 export type FinishCycleMutation = { __typename?: 'mutation_root', insert_user_workouts_one: { __typename?: 'user_workouts', id: string, workout_id: string } | null | undefined, update_user_cycles: { __typename?: 'user_cycles_mutation_response', affected_rows: number } | null | undefined };
 
+export type UpsertWhoopIntegrationMutationVariables = Exact<{
+  id?: Scalars['uuid']['input'];
+  accessToken: Scalars['String']['input'];
+  refreshToken: Scalars['String']['input'];
+  expiresAt: Scalars['Int']['input'];
+}>;
+
+
+export type UpsertWhoopIntegrationMutation = { __typename?: 'mutation_root', insert_integrations_one: { __typename?: 'integrations', id: string, name: string, access_token: string, refresh_token: string, expires_at: number, created_at: string, updated_at: string } | null | undefined };
+
 export type UpsertWorkoutItemScoreMutationVariables = Exact<{
   workoutItemId: Scalars['bigint']['input'];
   score?: InputMaybe<Scalars['String']['input']>;
@@ -5984,6 +6406,13 @@ export type GetExercisesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetExercisesQuery = { __typename?: 'query_root', exercises: Array<{ __typename?: 'exercises', id: string, demo_video_url: string | null | undefined, demo_video_title: string, demo_video_poster: string, demo_video_id: string }> };
+
+export type GetIntegrationsQueryVariables = Exact<{
+  id?: Scalars['uuid']['input'];
+}>;
+
+
+export type GetIntegrationsQuery = { __typename?: 'query_root', integration: { __typename?: 'integrations', name: string, access_token: string, refresh_token: string, expires_at: number, created_at: string, updated_at: string } | null | undefined };
 
 export type GetProgramsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -6159,6 +6588,51 @@ export function useFinishCycleMutation(baseOptions?: Apollo.MutationHookOptions<
 export type FinishCycleMutationHookResult = ReturnType<typeof useFinishCycleMutation>;
 export type FinishCycleMutationResult = Apollo.MutationResult<FinishCycleMutation>;
 export type FinishCycleMutationOptions = Apollo.BaseMutationOptions<FinishCycleMutation, FinishCycleMutationVariables>;
+export const UpsertWhoopIntegration = gql`
+    mutation UpsertWhoopIntegration($id: uuid! = "72ff3642-bbd5-48f9-951e-8fe2a0e4b43f", $accessToken: String!, $refreshToken: String!, $expiresAt: Int!) {
+  insert_integrations_one(
+    object: {id: $id, access_token: $accessToken, refresh_token: $refreshToken, expires_at: $expiresAt}
+    on_conflict: {constraint: integrations_pkey, update_columns: [access_token, refresh_token, expires_at, updated_at]}
+  ) {
+    id
+    name
+    access_token
+    refresh_token
+    expires_at
+    created_at
+    updated_at
+  }
+}
+    `;
+export type UpsertWhoopIntegrationMutationFn = Apollo.MutationFunction<UpsertWhoopIntegrationMutation, UpsertWhoopIntegrationMutationVariables>;
+
+/**
+ * __useUpsertWhoopIntegrationMutation__
+ *
+ * To run a mutation, you first call `useUpsertWhoopIntegrationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpsertWhoopIntegrationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [upsertWhoopIntegrationMutation, { data, loading, error }] = useUpsertWhoopIntegrationMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      accessToken: // value for 'accessToken'
+ *      refreshToken: // value for 'refreshToken'
+ *      expiresAt: // value for 'expiresAt'
+ *   },
+ * });
+ */
+export function useUpsertWhoopIntegrationMutation(baseOptions?: Apollo.MutationHookOptions<UpsertWhoopIntegrationMutation, UpsertWhoopIntegrationMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpsertWhoopIntegrationMutation, UpsertWhoopIntegrationMutationVariables>(UpsertWhoopIntegration, options);
+      }
+export type UpsertWhoopIntegrationMutationHookResult = ReturnType<typeof useUpsertWhoopIntegrationMutation>;
+export type UpsertWhoopIntegrationMutationResult = Apollo.MutationResult<UpsertWhoopIntegrationMutation>;
+export type UpsertWhoopIntegrationMutationOptions = Apollo.BaseMutationOptions<UpsertWhoopIntegrationMutation, UpsertWhoopIntegrationMutationVariables>;
 export const UpsertWorkoutItemScore = gql`
     mutation UpsertWorkoutItemScore($workoutItemId: bigint!, $score: String = "") {
   insert_workout_item_scores(
@@ -6425,6 +6899,51 @@ export type GetExercisesQueryHookResult = ReturnType<typeof useGetExercisesQuery
 export type GetExercisesLazyQueryHookResult = ReturnType<typeof useGetExercisesLazyQuery>;
 export type GetExercisesSuspenseQueryHookResult = ReturnType<typeof useGetExercisesSuspenseQuery>;
 export type GetExercisesQueryResult = Apollo.QueryResult<GetExercisesQuery, GetExercisesQueryVariables>;
+export const GetIntegrations = gql`
+    query GetIntegrations($id: uuid! = "72ff3642-bbd5-48f9-951e-8fe2a0e4b43f") {
+  integration(id: $id) {
+    name
+    access_token
+    refresh_token
+    expires_at
+    created_at
+    updated_at
+  }
+}
+    `;
+
+/**
+ * __useGetIntegrationsQuery__
+ *
+ * To run a query within a React component, call `useGetIntegrationsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetIntegrationsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetIntegrationsQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useGetIntegrationsQuery(baseOptions?: Apollo.QueryHookOptions<GetIntegrationsQuery, GetIntegrationsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetIntegrationsQuery, GetIntegrationsQueryVariables>(GetIntegrations, options);
+      }
+export function useGetIntegrationsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetIntegrationsQuery, GetIntegrationsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetIntegrationsQuery, GetIntegrationsQueryVariables>(GetIntegrations, options);
+        }
+export function useGetIntegrationsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetIntegrationsQuery, GetIntegrationsQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetIntegrationsQuery, GetIntegrationsQueryVariables>(GetIntegrations, options);
+        }
+export type GetIntegrationsQueryHookResult = ReturnType<typeof useGetIntegrationsQuery>;
+export type GetIntegrationsLazyQueryHookResult = ReturnType<typeof useGetIntegrationsLazyQuery>;
+export type GetIntegrationsSuspenseQueryHookResult = ReturnType<typeof useGetIntegrationsSuspenseQuery>;
+export type GetIntegrationsQueryResult = Apollo.QueryResult<GetIntegrationsQuery, GetIntegrationsQueryVariables>;
 export const GetPrograms = gql`
     query GetPrograms {
   programs(order_by: [{id: asc}]) {

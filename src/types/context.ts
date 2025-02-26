@@ -1,5 +1,8 @@
+import { UserEntity } from "./entities"
+
 export interface AuthContextType {
   isAuthenticated: boolean
-  login: (password: string) => boolean
-  logout: () => void
+  user: UserEntity
+  login: (email: string, password: string) => Promise<boolean>
+  logout: () => Promise<void>
 }

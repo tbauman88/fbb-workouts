@@ -1,13 +1,13 @@
 import { createContext, useState, useContext } from 'react'
 import { useLazyQuery } from '@apollo/client'
-import { AuthContextType, User } from '../types'
+import { AuthContextType, UserEntity } from '../types'
 import { CHECK_USER_CREDENTIALS } from '../graphql/queries'
 
 const AuthContext = createContext<AuthContextType>({
   isAuthenticated: false,
-  user: null,
+  user: {} as UserEntity,
   login: async () => false,
-  logout: () => {}
+  logout: async () => { }
 })
 
 const ONE_WEEK = 7 * 24 * 60 * 60 * 1000 // 7 days in milliseconds
@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     return user
   }
 
-  const [user, setUser] = useState<User | null>(getStoredAuth())
+  const [user, setUser] = useState<UserEntity>(getStoredAuth())
   const isAuthenticated = !!user
 
   const [checkCredentials] = useLazyQuery(CHECK_USER_CREDENTIALS, {
@@ -65,7 +65,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }
 
-  const logout = () => {
+  const logout = async () => {
     localStorage.removeItem('auth')
     setUser(null)
   }
