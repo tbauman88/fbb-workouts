@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react'
 import { marked } from 'marked'
-import { ExerciseDetails } from '../types'
+import { ExerciseDetailsEntity as ExerciseDetails } from '../types'
 import { PlayCircleIcon } from '@heroicons/react/24/solid'
 import { ChevronDownIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
 
@@ -39,7 +39,7 @@ const ExerciseGroup: React.FC<{
   index: number
   selectedExercises: ExerciseSelectionState
   onSelectExercise: (groupIndex: number, type: 'recommended' | 'alternative') => void
-}> = ({ group, index, selectedExercises, onSelectExercise }) => {
+}> = ({ group, index, onSelectExercise }) => {
   const [showAlternative, setShowAlternative] = useState(false)
 
   return (
@@ -47,7 +47,6 @@ const ExerciseGroup: React.FC<{
       <div className="flex items-center justify-between">
         <ExerciseTitle
           exercise={group.recommended}
-          isSelected={selectedExercises[index] === 'recommended'}
           onClick={() => onSelectExercise(index, 'recommended')}
         />
         {group.alternative && (
@@ -64,7 +63,6 @@ const ExerciseGroup: React.FC<{
       {showAlternative && group.alternative && (
         <ExerciseTitle
           exercise={group.alternative}
-          isSelected={selectedExercises[index] === 'alternative'}
           onClick={() => onSelectExercise(index, 'alternative')}
         />
       )}
@@ -130,15 +128,21 @@ export const Exercises: React.FC<{ exercise_details: ExerciseDetails[] }> = ({ e
   const [selectedExercises, setSelectedExercises] = useState<ExerciseSelectionState>({})
 
   const groupedExercises = useMemo(() => {
+    if (!exercise_details) return []
+
     return exercise_details.reduce<ExerciseGroup[]>((groups, exercise) => {
       const { levels } = exercise
 
       if (levels.includes('l1')) {
         groups.push({ recommended: exercise, followUps: [] })
       } else if (levels.includes('l3') && !levels.includes('l1')) {
-        groups[groups.length - 1].alternative = exercise
+        if (groups.length > 0) {
+          groups[groups.length - 1].alternative = exercise
+        }
       } else if (['l1', 'l2', 'l3', 'l4'].some((level) => levels.includes(level))) {
-        groups[groups.length - 1].followUps.push(exercise)
+        if (groups.length > 0) {
+          groups[groups.length - 1].followUps.push(exercise)
+        }
       }
 
       return groups
