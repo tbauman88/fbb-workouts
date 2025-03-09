@@ -3,6 +3,7 @@ import { Cycle, Recovery, Sleep, Workout } from '../types/';
 import { INTEGRATION_ID } from '../consts';
 import { useGetIntegrationsQuery } from '../generated/graphql';
 import { WhoopService } from '../services';
+import { fromUnixTime, isAfter } from 'date-fns';
 
 interface WhoopOverview {
   cycle: Cycle;
@@ -22,6 +23,11 @@ interface WhoopState {
   error?: Error;
 }
 
+interface WhoopExpiresData {
+  expiresAt: Date | null;
+  updatedAt: Date | null;
+}
+
 export const useWhoop = () => {
   const [state, setState] = useState<WhoopState>({
     stats: null,
@@ -33,11 +39,22 @@ export const useWhoop = () => {
     refreshToken: null,
   });
 
+  const [expiresData, setExpiresData] = useState<WhoopExpiresData>({
+    expiresAt: null,
+    updatedAt: null,
+  });
+
   const { data } = useGetIntegrationsQuery({ variables: { id: INTEGRATION_ID } });
-  const { fetchWithAuth } = WhoopService();
+  const { fetchWithAuth, refreshAccessToken } = WhoopService();
 
   useEffect(() => {
     if (!data?.integration?.access_token) return;
+
+
+    setExpiresData({
+      expiresAt: fromUnixTime(data.integration.expires_at),
+      updatedAt: new Date(data.integration.updated_at),
+    });
 
     setTokens({
       accessToken: data.integration.access_token,
@@ -48,6 +65,11 @@ export const useWhoop = () => {
   useEffect(() => {
     if (!tokens.accessToken || !tokens.refreshToken) return;
     const { accessToken, refreshToken } = tokens;
+    const { expiresAt, updatedAt } = expiresData;
+
+    if (expiresAt && updatedAt && isAfter(expiresAt, updatedAt)) {
+      refreshAccessToken(refreshToken);
+    }
 
     const fetchData = async () => {
       try {

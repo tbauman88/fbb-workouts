@@ -55,5 +55,5 @@ export const WhoopService = () => {
     }
   };
 
-  return { fetchWithAuth };
+  return { fetchWithAuth, refreshAccessToken };
 };

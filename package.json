@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "dev": "vite",
+    "dev": "concurrently \"npm run start --prefix api\" \"vite\"",
     "preview": "vite preview",
     "build": "tsc && vite build",
     "codegen": "graphql-codegen --config codegen.ts",
@@ -37,6 +37,7 @@
     "@types/react-dom": "^18.3.5",
     "@vitejs/plugin-react": "^4.3.4",
     "autoprefixer": "^10.4.20",
+    "concurrently": "^9.1.2",
     "dotenv": "^16.4.7",
     "eslint": "^9.17.0",
     "eslint-plugin-react-hooks": "^5.0.0",

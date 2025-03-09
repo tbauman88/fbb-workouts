@@ -26,6 +26,18 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api\/whoop/, ''),
         secure: false,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+        },
+      },
+      '/delta.trainatom.rpmtraining.com': {
+        target: 'https://delta.trainatom.rpmtraining.com',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/delta\.trainatom\.rpmtraining\.com/, ''),
+        secure: false,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+        },
       },
     },
   },

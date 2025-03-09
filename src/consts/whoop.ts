@@ -1,5 +1,7 @@
-export const BASE_API_URL = 'api/whoop/developer/v1';
-export const OAUTH_URL = 'api/whoop/oauth/oauth2/token';
+
+const API_URL = 'api/whoop';
+export const BASE_API_URL = `${API_URL}/developer/v1`;
+export const OAUTH_URL = `${API_URL}/oauth/oauth2/token`;
 
 export const endpoints = {
   cycle: `${BASE_API_URL}/cycle`,
