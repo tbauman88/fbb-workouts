@@ -50,7 +50,6 @@ export const useWhoop = () => {
   useEffect(() => {
     if (!data?.integration?.access_token) return;
 
-
     setExpiresData({
       expiresAt: fromUnixTime(data.integration.expires_at),
       updatedAt: new Date(data.integration.updated_at),
@@ -64,14 +63,15 @@ export const useWhoop = () => {
 
   useEffect(() => {
     if (!tokens.accessToken || !tokens.refreshToken) return;
+
     const { accessToken, refreshToken } = tokens;
     const { expiresAt, updatedAt } = expiresData;
 
-    if (expiresAt && updatedAt && isAfter(expiresAt, updatedAt)) {
-      refreshAccessToken(refreshToken);
-    }
-
     const fetchData = async () => {
+      if (expiresAt && updatedAt && isAfter(expiresAt, updatedAt)) {
+        await refreshAccessToken(refreshToken);
+      }
+
       try {
         const [cycle, recovery, sleep, workout] = await Promise.all([
           fetchWithAuth('cycle', accessToken, refreshToken),
