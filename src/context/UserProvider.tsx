@@ -2,6 +2,7 @@ import { QueryResult } from '@apollo/client';
 import React, { createContext, useContext, useMemo } from 'react';
 import { GetUserCycleProgressQuery, useGetUserCycleProgressQuery } from '../generated/graphql';
 import { formatProgramName } from '../hooks/usePrograms';
+import { WorkoutStatus } from '../types';
 
 type Workout = GetUserCycleProgressQuery['userCycle'][0]['workout']
 type Program = GetUserCycleProgressQuery['userCycle'][0]['cycle']['program']
@@ -62,8 +63,12 @@ const getDashboardData = (data: GetUserCycleProgressQuery | undefined): Dashboar
     items: items.sort((a, b) => parseInt(a.id) - parseInt(b.id))
   }
 
-  const completedWorkouts = cycle?.user_workouts_aggregate?.aggregate?.count ?? 0
-  const cycleProgression = cycle?.total ? (completedWorkouts / cycle.total) * 100 : 0
+  const userWorkouts = cycle?.user_workouts
+
+  const totalWorkouts = userWorkouts?.length ?? 0
+  const completedWorkouts = userWorkouts?.filter((w) => w.status !== WorkoutStatus.PENDING).length ?? 0
+
+  const cycleProgression = cycle?.total ? (completedWorkouts / totalWorkouts) * 100 : 0
 
   return {
     userCycle,

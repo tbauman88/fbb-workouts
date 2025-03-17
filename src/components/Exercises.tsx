@@ -96,6 +96,8 @@ const VideoSection: React.FC<{
         return visibleExercises.map((exercise) => {
           if (!exercise?.exercise?.demo_video_poster) return null
 
+          const videoUrl = `${exercise.exercise.base_url}${exercise.exercise.demo_video_poster}`
+
           return (
             <div className="min-w-[300px] snap-start relative" key={`video-${exercise.id}`}>
               {exercise.exercise.demo_video_url ? (
@@ -105,7 +107,7 @@ const VideoSection: React.FC<{
                 >
                   <img
                     alt={exercise.exercise.demo_video_title || 'Exercise Thumbnail'}
-                    src={`https://delta.trainatom.rpmtraining.com${exercise.exercise.demo_video_poster}`}
+                    src={videoUrl}
                     className="h-auto object-contain rounded-lg bg-white max-h-[165px]"
                   />
                   <PlayCircleIcon className="absolute bottom-1 left-1 h-8 w-8 text-gray-200 opacity-80 group-hover:opacity-100 transition" />
@@ -113,7 +115,7 @@ const VideoSection: React.FC<{
               ) : (
                 <img
                   alt={exercise.exercise.demo_video_title || 'Exercise Thumbnail'}
-                  src={`https://delta.trainatom.rpmtraining.com${exercise.exercise.demo_video_poster}`}
+                  src={videoUrl}
                   className="h-auto object-contain rounded-lg bg-white max-h-[165px]"
                 />
               )}

@@ -47,7 +47,7 @@ export const Exercises = () => {
                 <button className="block w-full h-full relative" onClick={() => openExerciseVideo(e)}>
                   <img
                     alt=""
-                    src={`https://delta.trainatom.rpmtraining.com${e.demo_video_poster}`}
+                    src={`${e.base_url}${e.demo_video_poster}`}
                     className="w-full aspect-[10/7] object-cover transition-transform group-hover:scale-125 group-hover:opacity-80"
                   />
                   {e.demo_video_url && (

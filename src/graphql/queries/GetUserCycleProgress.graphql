@@ -8,10 +8,8 @@ query GetUserCycleProgress($userId: bigint!) {
     cycle {
       id
       total: workout_count
-      user_workouts_aggregate {
-        aggregate {
-          count
-        }
+      user_workouts {
+        status
       }
       ...ProgramDetails
     }

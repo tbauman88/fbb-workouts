@@ -5,13 +5,16 @@ import {
   useFinishCycleMutation,
   useUpsertWorkoutItemScoreMutation,
   useWorkoutByIdQuery,
-  WorkoutByIdQuery
+  WorkoutByIdQuery,
 } from '../generated/graphql'
+import { WorkoutStatus } from '../types'
+
+export type Workout = WorkoutByIdQuery['workout']
 
 export type UseWorkout = {
-  workout: WorkoutByIdQuery['workout']
+  workout: Workout
   nextWorkoutId: string | null | undefined
-  completed: boolean
+  status: WorkoutStatus
   currentProgram: CurrentProgram | null
   upsertWorkoutItemScore: ReturnType<typeof useUpsertWorkoutItemScoreMutation>[0]
   completeWorkout: ReturnType<typeof useCompleteWorkoutMutation>[0]
@@ -59,12 +62,10 @@ export const useWorkout = (id: string | undefined): UseWorkout => {
     }
   })
 
-  const workoutIds = data?.workout?.user_workouts.map((workout) => workout.id)
-
   return {
     workout: data?.workout,
-    nextWorkoutId: data?.workout?.current_cycle?.next_workout,
-    completed: workoutIds?.includes(data?.workout?.id ?? '') ?? false,
+    nextWorkoutId: data?.next_workout[0]?.id,
+    status: data?.user_workouts[0]?.status ?? WorkoutStatus.PENDING,
     upsertWorkoutItemScore,
     completeWorkout,
     finishCycle,

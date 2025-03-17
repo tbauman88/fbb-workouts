@@ -1,11 +1,12 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { useWindowSize } from 'react-use'
 import { useWorkout } from '../hooks/useWorkout'
-import { Button, WorkoutItem, Logo } from '../components'
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid'
+import { ButtonGroup, WorkoutItem, Logo, Badge } from '../components'
+import { ChevronLeftIcon, ChevronRightIcon, ForwardIcon } from '@heroicons/react/24/solid'
 import { useNavigate } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import { Loading } from './Loading'
+import { WorkoutStatus } from '../types'
 
 type Direction = 'next' | 'prev' | 'home'
 
@@ -70,20 +71,26 @@ export const Workout = () => {
     loading,
     error,
     currentProgram,
-    completed,
+    status,
     completeWorkout,
     finishCycle,
     nextWorkoutId
   } = useWorkout(id)
 
-  const [isWorkoutCompleted, setIsWorkoutCompleted] = useState<boolean>(false)
+  const [workoutStatus, setWorkoutStatus] = useState<WorkoutStatus>(WorkoutStatus.PENDING)
+  const [isCompleted, setIsCompleted] = useState<boolean>(false)
+
   const { width } = useWindowSize()
   const navigate = useNavigate()
   const isLargeScreen = useMemo(() => width > 1280, [width])
 
   useEffect(() => {
-    setIsWorkoutCompleted(completed)
-  }, [completed])
+    if (status !== WorkoutStatus.PENDING) {
+      setIsCompleted(true)
+    }
+
+    setWorkoutStatus(status)
+  }, [status])
 
   const [coachingItems, workoutItems] = useMemo(() => {
     if (!workout || !workout.workout_items) {
@@ -108,7 +115,7 @@ export const Workout = () => {
     navigate(pages[direction])
   }
 
-  const handleComplete = async () => {
+  const handleSubmit = async (status: WorkoutStatus) => {
     try {
       if (!workout || !currentProgram) return;
 
@@ -121,6 +128,7 @@ export const Workout = () => {
         await completeWorkout({
           variables: {
             ...variables,
+            status,
             nextWorkoutId: Number(nextWorkoutId)
           }
         })
@@ -128,7 +136,7 @@ export const Workout = () => {
         await finishCycle({ variables })
       }
 
-      setIsWorkoutCompleted(true)
+      setWorkoutStatus(status)
     } catch (err) {
       console.error('Error completing workout:', err)
     }
@@ -149,11 +157,8 @@ export const Workout = () => {
                 <h4 className="text-pretty text-xl tracking-tight text-gray-400">{workout.subtitle}</h4>
               </div>
 
-              {isWorkoutCompleted && (
-                <p className="md:hidden text-green-700 bg-green-50 ring-green-600/20 rounded-md px-1.5 py-0.5 text-xs font-medium ring-1 ring-inset uppercase mb-2">
-                  Workout Completed
-                </p>
-              )}
+              {workoutStatus === WorkoutStatus.COMPLETED && <Badge status={workoutStatus} />}
+              {workoutStatus === WorkoutStatus.SKIPPED && <Badge status={workoutStatus} />}
             </div>
             <img
               alt="Workout main image"
@@ -161,24 +166,24 @@ export const Workout = () => {
               className="hidden sm:block mt-8 aspect-[4/3] w-full rounded-2xl bg-gray-50 object-cover lg:aspect-auto lg:h-[34.5rem]"
             />
             {coachingItems.map((item) => (
-              <WorkoutItem key={item.id} item={item} />
+              <WorkoutItem key={item.id} item={item} status={workoutStatus} />
             ))}
           </div>
 
           <div className="w-full lg:max-w-2xl lg:flex-auto lg:mt-24">
             <section className="-my-6 divide-y divide-gray-100">
               {workoutItems.map((item) => (
-                <WorkoutItem key={item.id} item={item} />
+                <WorkoutItem key={item.id} item={item} status={workoutStatus} />
               ))}
             </section>
 
-            <div className="my-8">
-              <Button
-                text={isWorkoutCompleted ? 'Workout Completed' : 'Mark as Complete'}
-                onClick={handleComplete}
-                disabled={isWorkoutCompleted}
-              />
-            </div>
+            <ButtonGroup
+              buttonText={isCompleted ? `Workout ${workoutStatus}` : 'Mark as Complete'}
+              icon={ForwardIcon}
+              onButtonClick={() => handleSubmit(WorkoutStatus.COMPLETED)}
+              onIconClick={() => handleSubmit(WorkoutStatus.SKIPPED)}
+              disabled={isCompleted}
+            />
           </div>
         </>
       )}

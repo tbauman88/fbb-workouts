@@ -1,11 +1,24 @@
-mutation CompleteWorkout($completedWorkout: bigint!, $cycleId: bigint!, $nextWorkoutId: Int!) {
-  insert_user_workouts_one(object: { workout_id: $completedWorkout, cycle_id: $cycleId }) {
-    id
-    workout_id
+mutation CompleteWorkout(
+  $completedWorkout: bigint!, 
+  $cycleId: bigint!, 
+  $nextWorkoutId: Int!, 
+  $status: workout_status_enum_enum!
+) {
+  update_user_workouts(
+    where: {
+      workout_id: {_eq: $completedWorkout}, 
+      cycle_id: {_eq: $cycleId}
+    }, 
+    _set: {status: $status}
+  ) {
+    affected_rows
   }
   update_user_cycles(
+    where: { 
+      cycle_id: { _eq: $cycleId }, 
+      completed: { _eq: false } 
+    }, 
     _set: { current_workout: $nextWorkoutId }
-    where: { cycle_id: { _eq: $cycleId }, completed: { _eq: false } }
   ) {
     affected_rows
   }

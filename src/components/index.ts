@@ -4,7 +4,9 @@ export * from './Layout'
 export * from './QueryWrapper'
 
 // Components
+export * from './Badge'
 export * from './Button'
+export * from './ButtonGroup'
 export * from './Exercises'
 export * from './Logo'
 export * from './ProgramCard'

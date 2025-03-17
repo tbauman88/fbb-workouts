@@ -18,6 +18,7 @@ export type Scalars = {
   bigint: { input: string; output: string; }
   date: { input: string; output: string; }
   json: { input: any; output: any; }
+  jsonb: { input: any; output: any; }
   timestamp: { input: string; output: string; }
   timestamptz: { input: string; output: string; }
   uuid: { input: string; output: string; }
@@ -1092,6 +1093,7 @@ export type ExerciseDetailsVarianceOrderBy = {
 /** columns and relationships of "exercises" */
 export type Exercises = {
   __typename?: 'exercises';
+  base_url: Scalars['String']['output'];
   created_at: Scalars['timestamp']['output'];
   demo_video_id: Scalars['String']['output'];
   demo_video_poster: Scalars['String']['output'];
@@ -1167,6 +1169,7 @@ export type ExercisesBoolExp = {
   _and?: InputMaybe<Array<ExercisesBoolExp>>;
   _not?: InputMaybe<ExercisesBoolExp>;
   _or?: InputMaybe<Array<ExercisesBoolExp>>;
+  base_url?: InputMaybe<StringComparisonExp>;
   created_at?: InputMaybe<TimestampComparisonExp>;
   demo_video_id?: InputMaybe<StringComparisonExp>;
   demo_video_poster?: InputMaybe<StringComparisonExp>;
@@ -1194,6 +1197,7 @@ export type ExercisesIncInput = {
 
 /** input type for inserting data into table "exercises" */
 export type ExercisesInsertInput = {
+  base_url?: InputMaybe<Scalars['String']['input']>;
   created_at?: InputMaybe<Scalars['timestamp']['input']>;
   demo_video_id?: InputMaybe<Scalars['String']['input']>;
   demo_video_poster?: InputMaybe<Scalars['String']['input']>;
@@ -1208,6 +1212,7 @@ export type ExercisesInsertInput = {
 /** aggregate max on columns */
 export type ExercisesMaxFields = {
   __typename?: 'exercises_max_fields';
+  base_url: Maybe<Scalars['String']['output']>;
   created_at: Maybe<Scalars['timestamp']['output']>;
   demo_video_id: Maybe<Scalars['String']['output']>;
   demo_video_poster: Maybe<Scalars['String']['output']>;
@@ -1221,6 +1226,7 @@ export type ExercisesMaxFields = {
 /** aggregate min on columns */
 export type ExercisesMinFields = {
   __typename?: 'exercises_min_fields';
+  base_url: Maybe<Scalars['String']['output']>;
   created_at: Maybe<Scalars['timestamp']['output']>;
   demo_video_id: Maybe<Scalars['String']['output']>;
   demo_video_poster: Maybe<Scalars['String']['output']>;
@@ -1256,6 +1262,7 @@ export type ExercisesOnConflict = {
 
 /** Ordering options when selecting data from "exercises". */
 export type ExercisesOrderBy = {
+  base_url?: InputMaybe<OrderBy>;
   created_at?: InputMaybe<OrderBy>;
   demo_video_id?: InputMaybe<OrderBy>;
   demo_video_poster?: InputMaybe<OrderBy>;
@@ -1274,6 +1281,8 @@ export type ExercisesPkColumnsInput = {
 
 /** select columns of table "exercises" */
 export enum ExercisesSelectColumn {
+  /** column name */
+  BASE_URL = 'base_url',
   /** column name */
   CREATED_AT = 'created_at',
   /** column name */
@@ -1294,6 +1303,7 @@ export enum ExercisesSelectColumn {
 
 /** input type for updating data in table "exercises" */
 export type ExercisesSetInput = {
+  base_url?: InputMaybe<Scalars['String']['input']>;
   created_at?: InputMaybe<Scalars['timestamp']['input']>;
   demo_video_id?: InputMaybe<Scalars['String']['input']>;
   demo_video_poster?: InputMaybe<Scalars['String']['input']>;
@@ -1332,6 +1342,7 @@ export type ExercisesStreamCursorInput = {
 
 /** Initial value of the column from where the streaming should start */
 export type ExercisesStreamCursorValueInput = {
+  base_url?: InputMaybe<Scalars['String']['input']>;
   created_at?: InputMaybe<Scalars['timestamp']['input']>;
   demo_video_id?: InputMaybe<Scalars['String']['input']>;
   demo_video_poster?: InputMaybe<Scalars['String']['input']>;
@@ -1350,6 +1361,8 @@ export type ExercisesSumFields = {
 
 /** update columns of table "exercises" */
 export enum ExercisesUpdateColumn {
+  /** column name */
+  BASE_URL = 'base_url',
   /** column name */
   CREATED_AT = 'created_at',
   /** column name */
@@ -1523,6 +1536,13 @@ export type IntegrationsMutationResponse = {
   returning: Array<Integrations>;
 };
 
+/** input type for inserting object relation for remote table "integrations" */
+export type IntegrationsObjRelInsertInput = {
+  data: IntegrationsInsertInput;
+  /** upsert condition */
+  on_conflict?: InputMaybe<IntegrationsOnConflict>;
+};
+
 /** on_conflict condition type for table "integrations" */
 export type IntegrationsOnConflict = {
   constraint: IntegrationsConstraint;
@@ -1691,6 +1711,34 @@ export type JsonComparisonExp = {
   _nin?: InputMaybe<Array<Scalars['json']['input']>>;
 };
 
+export type JsonbCastExp = {
+  String?: InputMaybe<StringComparisonExp>;
+};
+
+/** Boolean expression to compare columns of type "jsonb". All fields are combined with logical 'AND'. */
+export type JsonbComparisonExp = {
+  _cast?: InputMaybe<JsonbCastExp>;
+  /** is the column contained in the given json value */
+  _contained_in?: InputMaybe<Scalars['jsonb']['input']>;
+  /** does the column contain the given json value at the top level */
+  _contains?: InputMaybe<Scalars['jsonb']['input']>;
+  _eq?: InputMaybe<Scalars['jsonb']['input']>;
+  _gt?: InputMaybe<Scalars['jsonb']['input']>;
+  _gte?: InputMaybe<Scalars['jsonb']['input']>;
+  /** does the string exist as a top-level key in the column */
+  _has_key?: InputMaybe<Scalars['String']['input']>;
+  /** do all of these strings exist as top-level keys in the column */
+  _has_keys_all?: InputMaybe<Array<Scalars['String']['input']>>;
+  /** do any of these strings exist as top-level keys in the column */
+  _has_keys_any?: InputMaybe<Array<Scalars['String']['input']>>;
+  _in?: InputMaybe<Array<Scalars['jsonb']['input']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']['input']>;
+  _lt?: InputMaybe<Scalars['jsonb']['input']>;
+  _lte?: InputMaybe<Scalars['jsonb']['input']>;
+  _neq?: InputMaybe<Scalars['jsonb']['input']>;
+  _nin?: InputMaybe<Array<Scalars['jsonb']['input']>>;
+};
+
 /** mutation root */
 export type MutationRoot = {
   __typename?: 'mutation_root';
@@ -1730,6 +1778,10 @@ export type MutationRoot = {
   delete_users: Maybe<UsersMutationResponse>;
   /** delete single row from the table: "users" */
   delete_users_by_pk: Maybe<Users>;
+  /** delete data from the table: "webhooks" */
+  delete_webhooks: Maybe<WebhooksMutationResponse>;
+  /** delete single row from the table: "webhooks" */
+  delete_webhooks_by_pk: Maybe<Webhooks>;
   /** delete data from the table: "workout_item_scores" */
   delete_workout_item_scores: Maybe<WorkoutItemScoresMutationResponse>;
   /** delete single row from the table: "workout_item_scores" */
@@ -1738,6 +1790,10 @@ export type MutationRoot = {
   delete_workout_items: Maybe<WorkoutItemsMutationResponse>;
   /** delete single row from the table: "workout_items" */
   delete_workout_items_by_pk: Maybe<WorkoutItems>;
+  /** delete data from the table: "workout_status_enum" */
+  delete_workout_status_enum: Maybe<WorkoutStatusEnumMutationResponse>;
+  /** delete single row from the table: "workout_status_enum" */
+  delete_workout_status_enum_by_pk: Maybe<WorkoutStatusEnum>;
   /** delete data from the table: "workouts" */
   delete_workouts: Maybe<WorkoutsMutationResponse>;
   /** delete single row from the table: "workouts" */
@@ -1778,6 +1834,10 @@ export type MutationRoot = {
   insert_users: Maybe<UsersMutationResponse>;
   /** insert a single row into the table: "users" */
   insert_users_one: Maybe<Users>;
+  /** insert data into the table: "webhooks" */
+  insert_webhooks: Maybe<WebhooksMutationResponse>;
+  /** insert a single row into the table: "webhooks" */
+  insert_webhooks_one: Maybe<Webhooks>;
   /** insert data into the table: "workout_item_scores" */
   insert_workout_item_scores: Maybe<WorkoutItemScoresMutationResponse>;
   /** insert a single row into the table: "workout_item_scores" */
@@ -1786,6 +1846,10 @@ export type MutationRoot = {
   insert_workout_items: Maybe<WorkoutItemsMutationResponse>;
   /** insert a single row into the table: "workout_items" */
   insert_workout_items_one: Maybe<WorkoutItems>;
+  /** insert data into the table: "workout_status_enum" */
+  insert_workout_status_enum: Maybe<WorkoutStatusEnumMutationResponse>;
+  /** insert a single row into the table: "workout_status_enum" */
+  insert_workout_status_enum_one: Maybe<WorkoutStatusEnum>;
   /** insert data into the table: "workouts" */
   insert_workouts: Maybe<WorkoutsMutationResponse>;
   /** insert a single row into the table: "workouts" */
@@ -1844,6 +1908,12 @@ export type MutationRoot = {
   update_users_by_pk: Maybe<Users>;
   /** update multiples rows of table: "users" */
   update_users_many: Maybe<Array<Maybe<UsersMutationResponse>>>;
+  /** update data of the table: "webhooks" */
+  update_webhooks: Maybe<WebhooksMutationResponse>;
+  /** update single row of the table: "webhooks" */
+  update_webhooks_by_pk: Maybe<Webhooks>;
+  /** update multiples rows of table: "webhooks" */
+  update_webhooks_many: Maybe<Array<Maybe<WebhooksMutationResponse>>>;
   /** update data of the table: "workout_item_scores" */
   update_workout_item_scores: Maybe<WorkoutItemScoresMutationResponse>;
   /** update single row of the table: "workout_item_scores" */
@@ -1856,6 +1926,12 @@ export type MutationRoot = {
   update_workout_items_by_pk: Maybe<WorkoutItems>;
   /** update multiples rows of table: "workout_items" */
   update_workout_items_many: Maybe<Array<Maybe<WorkoutItemsMutationResponse>>>;
+  /** update data of the table: "workout_status_enum" */
+  update_workout_status_enum: Maybe<WorkoutStatusEnumMutationResponse>;
+  /** update single row of the table: "workout_status_enum" */
+  update_workout_status_enum_by_pk: Maybe<WorkoutStatusEnum>;
+  /** update multiples rows of table: "workout_status_enum" */
+  update_workout_status_enum_many: Maybe<Array<Maybe<WorkoutStatusEnumMutationResponse>>>;
   /** update data of the table: "workouts" */
   update_workouts: Maybe<WorkoutsMutationResponse>;
   /** update single row of the table: "workouts" */
@@ -1974,6 +2050,18 @@ export type MutationRootDeleteUsersByPkArgs = {
 
 
 /** mutation root */
+export type MutationRootDeleteWebhooksArgs = {
+  where: WebhooksBoolExp;
+};
+
+
+/** mutation root */
+export type MutationRootDeleteWebhooksByPkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
+/** mutation root */
 export type MutationRootDeleteWorkoutItemScoresArgs = {
   where: WorkoutItemScoresBoolExp;
 };
@@ -1994,6 +2082,18 @@ export type MutationRootDeleteWorkoutItemsArgs = {
 /** mutation root */
 export type MutationRootDeleteWorkoutItemsByPkArgs = {
   id: Scalars['bigint']['input'];
+};
+
+
+/** mutation root */
+export type MutationRootDeleteWorkoutStatusEnumArgs = {
+  where: WorkoutStatusEnumBoolExp;
+};
+
+
+/** mutation root */
+export type MutationRootDeleteWorkoutStatusEnumByPkArgs = {
+  value: Scalars['String']['input'];
 };
 
 
@@ -2136,6 +2236,20 @@ export type MutationRootInsertUsersOneArgs = {
 
 
 /** mutation root */
+export type MutationRootInsertWebhooksArgs = {
+  objects: Array<WebhooksInsertInput>;
+  on_conflict?: InputMaybe<WebhooksOnConflict>;
+};
+
+
+/** mutation root */
+export type MutationRootInsertWebhooksOneArgs = {
+  object: WebhooksInsertInput;
+  on_conflict?: InputMaybe<WebhooksOnConflict>;
+};
+
+
+/** mutation root */
 export type MutationRootInsertWorkoutItemScoresArgs = {
   objects: Array<WorkoutItemScoresInsertInput>;
   on_conflict?: InputMaybe<WorkoutItemScoresOnConflict>;
@@ -2160,6 +2274,20 @@ export type MutationRootInsertWorkoutItemsArgs = {
 export type MutationRootInsertWorkoutItemsOneArgs = {
   object: WorkoutItemsInsertInput;
   on_conflict?: InputMaybe<WorkoutItemsOnConflict>;
+};
+
+
+/** mutation root */
+export type MutationRootInsertWorkoutStatusEnumArgs = {
+  objects: Array<WorkoutStatusEnumInsertInput>;
+  on_conflict?: InputMaybe<WorkoutStatusEnumOnConflict>;
+};
+
+
+/** mutation root */
+export type MutationRootInsertWorkoutStatusEnumOneArgs = {
+  object: WorkoutStatusEnumInsertInput;
+  on_conflict?: InputMaybe<WorkoutStatusEnumOnConflict>;
 };
 
 
@@ -2376,6 +2504,36 @@ export type MutationRootUpdateUsersManyArgs = {
 
 
 /** mutation root */
+export type MutationRootUpdateWebhooksArgs = {
+  _append?: InputMaybe<WebhooksAppendInput>;
+  _delete_at_path?: InputMaybe<WebhooksDeleteAtPathInput>;
+  _delete_elem?: InputMaybe<WebhooksDeleteElemInput>;
+  _delete_key?: InputMaybe<WebhooksDeleteKeyInput>;
+  _prepend?: InputMaybe<WebhooksPrependInput>;
+  _set?: InputMaybe<WebhooksSetInput>;
+  where: WebhooksBoolExp;
+};
+
+
+/** mutation root */
+export type MutationRootUpdateWebhooksByPkArgs = {
+  _append?: InputMaybe<WebhooksAppendInput>;
+  _delete_at_path?: InputMaybe<WebhooksDeleteAtPathInput>;
+  _delete_elem?: InputMaybe<WebhooksDeleteElemInput>;
+  _delete_key?: InputMaybe<WebhooksDeleteKeyInput>;
+  _prepend?: InputMaybe<WebhooksPrependInput>;
+  _set?: InputMaybe<WebhooksSetInput>;
+  pk_columns: WebhooksPkColumnsInput;
+};
+
+
+/** mutation root */
+export type MutationRootUpdateWebhooksManyArgs = {
+  updates: Array<WebhooksUpdates>;
+};
+
+
+/** mutation root */
 export type MutationRootUpdateWorkoutItemScoresArgs = {
   _inc?: InputMaybe<WorkoutItemScoresIncInput>;
   _set?: InputMaybe<WorkoutItemScoresSetInput>;
@@ -2416,6 +2574,26 @@ export type MutationRootUpdateWorkoutItemsByPkArgs = {
 /** mutation root */
 export type MutationRootUpdateWorkoutItemsManyArgs = {
   updates: Array<WorkoutItemsUpdates>;
+};
+
+
+/** mutation root */
+export type MutationRootUpdateWorkoutStatusEnumArgs = {
+  _set?: InputMaybe<WorkoutStatusEnumSetInput>;
+  where: WorkoutStatusEnumBoolExp;
+};
+
+
+/** mutation root */
+export type MutationRootUpdateWorkoutStatusEnumByPkArgs = {
+  _set?: InputMaybe<WorkoutStatusEnumSetInput>;
+  pk_columns: WorkoutStatusEnumPkColumnsInput;
+};
+
+
+/** mutation root */
+export type MutationRootUpdateWorkoutStatusEnumManyArgs = {
+  updates: Array<WorkoutStatusEnumUpdates>;
 };
 
 
@@ -2792,6 +2970,12 @@ export type QueryRoot = {
   users_aggregate: UsersAggregate;
   /** fetch data from the table: "users" using primary key columns */
   users_by_pk: Maybe<Users>;
+  /** fetch data from the table: "webhooks" */
+  webhooks: Array<Webhooks>;
+  /** fetch aggregated fields from the table: "webhooks" */
+  webhooks_aggregate: WebhooksAggregate;
+  /** fetch data from the table: "webhooks" using primary key columns */
+  webhooks_by_pk: Maybe<Webhooks>;
   /** fetch data from the table: "workout_item_scores" */
   workout_item_scores: Array<WorkoutItemScores>;
   /** fetch aggregated fields from the table: "workout_item_scores" */
@@ -2804,6 +2988,12 @@ export type QueryRoot = {
   workout_items_aggregate: WorkoutItemsAggregate;
   /** fetch data from the table: "workout_items" using primary key columns */
   workout_items_by_pk: Maybe<WorkoutItems>;
+  /** fetch data from the table: "workout_status_enum" */
+  workout_status_enum: Array<WorkoutStatusEnum>;
+  /** fetch aggregated fields from the table: "workout_status_enum" */
+  workout_status_enum_aggregate: WorkoutStatusEnumAggregate;
+  /** fetch data from the table: "workout_status_enum" using primary key columns */
+  workout_status_enum_by_pk: Maybe<WorkoutStatusEnum>;
   /** An array relationship */
   workouts: Array<Workouts>;
   /** An aggregate relationship */
@@ -3020,6 +3210,29 @@ export type QueryRootUsersByPkArgs = {
 };
 
 
+export type QueryRootWebhooksArgs = {
+  distinct_on?: InputMaybe<Array<WebhooksSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<WebhooksOrderBy>>;
+  where?: InputMaybe<WebhooksBoolExp>;
+};
+
+
+export type QueryRootWebhooksAggregateArgs = {
+  distinct_on?: InputMaybe<Array<WebhooksSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<WebhooksOrderBy>>;
+  where?: InputMaybe<WebhooksBoolExp>;
+};
+
+
+export type QueryRootWebhooksByPkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
 export type QueryRootWorkoutItemScoresArgs = {
   distinct_on?: InputMaybe<Array<WorkoutItemScoresSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -3063,6 +3276,29 @@ export type QueryRootWorkoutItemsAggregateArgs = {
 
 export type QueryRootWorkoutItemsByPkArgs = {
   id: Scalars['bigint']['input'];
+};
+
+
+export type QueryRootWorkoutStatusEnumArgs = {
+  distinct_on?: InputMaybe<Array<WorkoutStatusEnumSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<WorkoutStatusEnumOrderBy>>;
+  where?: InputMaybe<WorkoutStatusEnumBoolExp>;
+};
+
+
+export type QueryRootWorkoutStatusEnumAggregateArgs = {
+  distinct_on?: InputMaybe<Array<WorkoutStatusEnumSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<WorkoutStatusEnumOrderBy>>;
+  where?: InputMaybe<WorkoutStatusEnumBoolExp>;
+};
+
+
+export type QueryRootWorkoutStatusEnumByPkArgs = {
+  value: Scalars['String']['input'];
 };
 
 
@@ -3401,6 +3637,14 @@ export type SubscriptionRoot = {
   users_by_pk: Maybe<Users>;
   /** fetch data from the table in a streaming manner: "users" */
   users_stream: Array<Users>;
+  /** fetch data from the table: "webhooks" */
+  webhooks: Array<Webhooks>;
+  /** fetch aggregated fields from the table: "webhooks" */
+  webhooks_aggregate: WebhooksAggregate;
+  /** fetch data from the table: "webhooks" using primary key columns */
+  webhooks_by_pk: Maybe<Webhooks>;
+  /** fetch data from the table in a streaming manner: "webhooks" */
+  webhooks_stream: Array<Webhooks>;
   /** fetch data from the table: "workout_item_scores" */
   workout_item_scores: Array<WorkoutItemScores>;
   /** fetch aggregated fields from the table: "workout_item_scores" */
@@ -3417,6 +3661,14 @@ export type SubscriptionRoot = {
   workout_items_by_pk: Maybe<WorkoutItems>;
   /** fetch data from the table in a streaming manner: "workout_items" */
   workout_items_stream: Array<WorkoutItems>;
+  /** fetch data from the table: "workout_status_enum" */
+  workout_status_enum: Array<WorkoutStatusEnum>;
+  /** fetch aggregated fields from the table: "workout_status_enum" */
+  workout_status_enum_aggregate: WorkoutStatusEnumAggregate;
+  /** fetch data from the table: "workout_status_enum" using primary key columns */
+  workout_status_enum_by_pk: Maybe<WorkoutStatusEnum>;
+  /** fetch data from the table in a streaming manner: "workout_status_enum" */
+  workout_status_enum_stream: Array<WorkoutStatusEnum>;
   /** An array relationship */
   workouts: Array<Workouts>;
   /** An aggregate relationship */
@@ -3698,6 +3950,36 @@ export type SubscriptionRootUsersStreamArgs = {
 };
 
 
+export type SubscriptionRootWebhooksArgs = {
+  distinct_on?: InputMaybe<Array<WebhooksSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<WebhooksOrderBy>>;
+  where?: InputMaybe<WebhooksBoolExp>;
+};
+
+
+export type SubscriptionRootWebhooksAggregateArgs = {
+  distinct_on?: InputMaybe<Array<WebhooksSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<WebhooksOrderBy>>;
+  where?: InputMaybe<WebhooksBoolExp>;
+};
+
+
+export type SubscriptionRootWebhooksByPkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
+export type SubscriptionRootWebhooksStreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<WebhooksStreamCursorInput>>;
+  where?: InputMaybe<WebhooksBoolExp>;
+};
+
+
 export type SubscriptionRootWorkoutItemScoresArgs = {
   distinct_on?: InputMaybe<Array<WorkoutItemScoresSelectColumn>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -3755,6 +4037,36 @@ export type SubscriptionRootWorkoutItemsStreamArgs = {
   batch_size: Scalars['Int']['input'];
   cursor: Array<InputMaybe<WorkoutItemsStreamCursorInput>>;
   where?: InputMaybe<WorkoutItemsBoolExp>;
+};
+
+
+export type SubscriptionRootWorkoutStatusEnumArgs = {
+  distinct_on?: InputMaybe<Array<WorkoutStatusEnumSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<WorkoutStatusEnumOrderBy>>;
+  where?: InputMaybe<WorkoutStatusEnumBoolExp>;
+};
+
+
+export type SubscriptionRootWorkoutStatusEnumAggregateArgs = {
+  distinct_on?: InputMaybe<Array<WorkoutStatusEnumSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<WorkoutStatusEnumOrderBy>>;
+  where?: InputMaybe<WorkoutStatusEnumBoolExp>;
+};
+
+
+export type SubscriptionRootWorkoutStatusEnumByPkArgs = {
+  value: Scalars['String']['input'];
+};
+
+
+export type SubscriptionRootWorkoutStatusEnumStreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<WorkoutStatusEnumStreamCursorInput>>;
+  where?: InputMaybe<WorkoutStatusEnumBoolExp>;
 };
 
 
@@ -4286,13 +4598,14 @@ export type UserCyclesVarianceOrderBy = {
 /** columns and relationships of "user_workouts" */
 export type UserWorkouts = {
   __typename?: 'user_workouts';
-  completed_at: Scalars['date']['output'];
+  completed_at: Maybe<Scalars['date']['output']>;
   created_at: Scalars['timestamptz']['output'];
   /** An object relationship */
   cycle: Cycles;
   cycle_id: Scalars['bigint']['output'];
   id: Scalars['uuid']['output'];
   notes: Maybe<Scalars['String']['output']>;
+  status: Maybe<WorkoutStatusEnumEnum>;
   updated_at: Scalars['timestamptz']['output'];
   /** An object relationship */
   workout: Workouts;
@@ -4386,6 +4699,7 @@ export type UserWorkoutsBoolExp = {
   cycle_id?: InputMaybe<BigintComparisonExp>;
   id?: InputMaybe<UuidComparisonExp>;
   notes?: InputMaybe<StringComparisonExp>;
+  status?: InputMaybe<WorkoutStatusEnumEnumComparisonExp>;
   updated_at?: InputMaybe<TimestamptzComparisonExp>;
   workout?: InputMaybe<WorkoutsBoolExp>;
   workout_id?: InputMaybe<BigintComparisonExp>;
@@ -4411,6 +4725,7 @@ export type UserWorkoutsInsertInput = {
   cycle_id?: InputMaybe<Scalars['bigint']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   notes?: InputMaybe<Scalars['String']['input']>;
+  status?: InputMaybe<WorkoutStatusEnumEnum>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
   workout?: InputMaybe<WorkoutsObjRelInsertInput>;
   workout_id?: InputMaybe<Scalars['bigint']['input']>;
@@ -4486,6 +4801,7 @@ export type UserWorkoutsOrderBy = {
   cycle_id?: InputMaybe<OrderBy>;
   id?: InputMaybe<OrderBy>;
   notes?: InputMaybe<OrderBy>;
+  status?: InputMaybe<OrderBy>;
   updated_at?: InputMaybe<OrderBy>;
   workout?: InputMaybe<WorkoutsOrderBy>;
   workout_id?: InputMaybe<OrderBy>;
@@ -4509,6 +4825,8 @@ export enum UserWorkoutsSelectColumn {
   /** column name */
   NOTES = 'notes',
   /** column name */
+  STATUS = 'status',
+  /** column name */
   UPDATED_AT = 'updated_at',
   /** column name */
   WORKOUT_ID = 'workout_id'
@@ -4521,6 +4839,7 @@ export type UserWorkoutsSetInput = {
   cycle_id?: InputMaybe<Scalars['bigint']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   notes?: InputMaybe<Scalars['String']['input']>;
+  status?: InputMaybe<WorkoutStatusEnumEnum>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
   workout_id?: InputMaybe<Scalars['bigint']['input']>;
 };
@@ -4579,6 +4898,7 @@ export type UserWorkoutsStreamCursorValueInput = {
   cycle_id?: InputMaybe<Scalars['bigint']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   notes?: InputMaybe<Scalars['String']['input']>;
+  status?: InputMaybe<WorkoutStatusEnumEnum>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
   workout_id?: InputMaybe<Scalars['bigint']['input']>;
 };
@@ -4608,6 +4928,8 @@ export enum UserWorkoutsUpdateColumn {
   ID = 'id',
   /** column name */
   NOTES = 'notes',
+  /** column name */
+  STATUS = 'status',
   /** column name */
   UPDATED_AT = 'updated_at',
   /** column name */
@@ -4991,6 +5313,230 @@ export type UuidComparisonExp = {
   _lte?: InputMaybe<Scalars['uuid']['input']>;
   _neq?: InputMaybe<Scalars['uuid']['input']>;
   _nin?: InputMaybe<Array<Scalars['uuid']['input']>>;
+};
+
+/** columns and relationships of "webhooks" */
+export type Webhooks = {
+  __typename?: 'webhooks';
+  created_at: Scalars['timestamptz']['output'];
+  event: Scalars['String']['output'];
+  id: Scalars['uuid']['output'];
+  /** An object relationship */
+  integration: Maybe<Integrations>;
+  integration_id: Scalars['uuid']['output'];
+  payload: Scalars['jsonb']['output'];
+  processed: Scalars['Boolean']['output'];
+};
+
+
+/** columns and relationships of "webhooks" */
+export type WebhooksPayloadArgs = {
+  path?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** aggregated selection of "webhooks" */
+export type WebhooksAggregate = {
+  __typename?: 'webhooks_aggregate';
+  aggregate: Maybe<WebhooksAggregateFields>;
+  nodes: Array<Webhooks>;
+};
+
+/** aggregate fields of "webhooks" */
+export type WebhooksAggregateFields = {
+  __typename?: 'webhooks_aggregate_fields';
+  count: Scalars['Int']['output'];
+  max: Maybe<WebhooksMaxFields>;
+  min: Maybe<WebhooksMinFields>;
+};
+
+
+/** aggregate fields of "webhooks" */
+export type WebhooksAggregateFieldsCountArgs = {
+  columns?: InputMaybe<Array<WebhooksSelectColumn>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** append existing jsonb value of filtered columns with new jsonb value */
+export type WebhooksAppendInput = {
+  payload?: InputMaybe<Scalars['jsonb']['input']>;
+};
+
+/** Boolean expression to filter rows from the table "webhooks". All fields are combined with a logical 'AND'. */
+export type WebhooksBoolExp = {
+  _and?: InputMaybe<Array<WebhooksBoolExp>>;
+  _not?: InputMaybe<WebhooksBoolExp>;
+  _or?: InputMaybe<Array<WebhooksBoolExp>>;
+  created_at?: InputMaybe<TimestamptzComparisonExp>;
+  event?: InputMaybe<StringComparisonExp>;
+  id?: InputMaybe<UuidComparisonExp>;
+  integration?: InputMaybe<IntegrationsBoolExp>;
+  integration_id?: InputMaybe<UuidComparisonExp>;
+  payload?: InputMaybe<JsonbComparisonExp>;
+  processed?: InputMaybe<BooleanComparisonExp>;
+};
+
+/** unique or primary key constraints on table "webhooks" */
+export enum WebhooksConstraint {
+  /** unique or primary key constraint on columns "id" */
+  WEBHOOKS_PKEY = 'webhooks_pkey'
+}
+
+/** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+export type WebhooksDeleteAtPathInput = {
+  payload?: InputMaybe<Array<Scalars['String']['input']>>;
+};
+
+/** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+export type WebhooksDeleteElemInput = {
+  payload?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** delete key/value pair or string element. key/value pairs are matched based on their key value */
+export type WebhooksDeleteKeyInput = {
+  payload?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** input type for inserting data into table "webhooks" */
+export type WebhooksInsertInput = {
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  event?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  integration?: InputMaybe<IntegrationsObjRelInsertInput>;
+  integration_id?: InputMaybe<Scalars['uuid']['input']>;
+  payload?: InputMaybe<Scalars['jsonb']['input']>;
+  processed?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** aggregate max on columns */
+export type WebhooksMaxFields = {
+  __typename?: 'webhooks_max_fields';
+  created_at: Maybe<Scalars['timestamptz']['output']>;
+  event: Maybe<Scalars['String']['output']>;
+  id: Maybe<Scalars['uuid']['output']>;
+  integration_id: Maybe<Scalars['uuid']['output']>;
+};
+
+/** aggregate min on columns */
+export type WebhooksMinFields = {
+  __typename?: 'webhooks_min_fields';
+  created_at: Maybe<Scalars['timestamptz']['output']>;
+  event: Maybe<Scalars['String']['output']>;
+  id: Maybe<Scalars['uuid']['output']>;
+  integration_id: Maybe<Scalars['uuid']['output']>;
+};
+
+/** response of any mutation on the table "webhooks" */
+export type WebhooksMutationResponse = {
+  __typename?: 'webhooks_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']['output'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Webhooks>;
+};
+
+/** on_conflict condition type for table "webhooks" */
+export type WebhooksOnConflict = {
+  constraint: WebhooksConstraint;
+  update_columns?: Array<WebhooksUpdateColumn>;
+  where?: InputMaybe<WebhooksBoolExp>;
+};
+
+/** Ordering options when selecting data from "webhooks". */
+export type WebhooksOrderBy = {
+  created_at?: InputMaybe<OrderBy>;
+  event?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  integration?: InputMaybe<IntegrationsOrderBy>;
+  integration_id?: InputMaybe<OrderBy>;
+  payload?: InputMaybe<OrderBy>;
+  processed?: InputMaybe<OrderBy>;
+};
+
+/** primary key columns input for table: webhooks */
+export type WebhooksPkColumnsInput = {
+  id: Scalars['uuid']['input'];
+};
+
+/** prepend existing jsonb value of filtered columns with new jsonb value */
+export type WebhooksPrependInput = {
+  payload?: InputMaybe<Scalars['jsonb']['input']>;
+};
+
+/** select columns of table "webhooks" */
+export enum WebhooksSelectColumn {
+  /** column name */
+  CREATED_AT = 'created_at',
+  /** column name */
+  EVENT = 'event',
+  /** column name */
+  ID = 'id',
+  /** column name */
+  INTEGRATION_ID = 'integration_id',
+  /** column name */
+  PAYLOAD = 'payload',
+  /** column name */
+  PROCESSED = 'processed'
+}
+
+/** input type for updating data in table "webhooks" */
+export type WebhooksSetInput = {
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  event?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  integration_id?: InputMaybe<Scalars['uuid']['input']>;
+  payload?: InputMaybe<Scalars['jsonb']['input']>;
+  processed?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** Streaming cursor of the table "webhooks" */
+export type WebhooksStreamCursorInput = {
+  /** Stream column input with initial value */
+  initial_value: WebhooksStreamCursorValueInput;
+  /** cursor ordering */
+  ordering?: InputMaybe<CursorOrdering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type WebhooksStreamCursorValueInput = {
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  event?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  integration_id?: InputMaybe<Scalars['uuid']['input']>;
+  payload?: InputMaybe<Scalars['jsonb']['input']>;
+  processed?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** update columns of table "webhooks" */
+export enum WebhooksUpdateColumn {
+  /** column name */
+  CREATED_AT = 'created_at',
+  /** column name */
+  EVENT = 'event',
+  /** column name */
+  ID = 'id',
+  /** column name */
+  INTEGRATION_ID = 'integration_id',
+  /** column name */
+  PAYLOAD = 'payload',
+  /** column name */
+  PROCESSED = 'processed'
+}
+
+export type WebhooksUpdates = {
+  /** append existing jsonb value of filtered columns with new jsonb value */
+  _append?: InputMaybe<WebhooksAppendInput>;
+  /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+  _delete_at_path?: InputMaybe<WebhooksDeleteAtPathInput>;
+  /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+  _delete_elem?: InputMaybe<WebhooksDeleteElemInput>;
+  /** delete key/value pair or string element. key/value pairs are matched based on their key value */
+  _delete_key?: InputMaybe<WebhooksDeleteKeyInput>;
+  /** prepend existing jsonb value of filtered columns with new jsonb value */
+  _prepend?: InputMaybe<WebhooksPrependInput>;
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<WebhooksSetInput>;
+  /** filter the rows which have to be updated */
+  where: WebhooksBoolExp;
 };
 
 /** columns and relationships of "workout_item_scores" */
@@ -5790,6 +6336,143 @@ export type WorkoutItemsVarianceOrderBy = {
   workout_id?: InputMaybe<OrderBy>;
 };
 
+/** Workout Statuses */
+export type WorkoutStatusEnum = {
+  __typename?: 'workout_status_enum';
+  value: Scalars['String']['output'];
+};
+
+/** aggregated selection of "workout_status_enum" */
+export type WorkoutStatusEnumAggregate = {
+  __typename?: 'workout_status_enum_aggregate';
+  aggregate: Maybe<WorkoutStatusEnumAggregateFields>;
+  nodes: Array<WorkoutStatusEnum>;
+};
+
+/** aggregate fields of "workout_status_enum" */
+export type WorkoutStatusEnumAggregateFields = {
+  __typename?: 'workout_status_enum_aggregate_fields';
+  count: Scalars['Int']['output'];
+  max: Maybe<WorkoutStatusEnumMaxFields>;
+  min: Maybe<WorkoutStatusEnumMinFields>;
+};
+
+
+/** aggregate fields of "workout_status_enum" */
+export type WorkoutStatusEnumAggregateFieldsCountArgs = {
+  columns?: InputMaybe<Array<WorkoutStatusEnumSelectColumn>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** Boolean expression to filter rows from the table "workout_status_enum". All fields are combined with a logical 'AND'. */
+export type WorkoutStatusEnumBoolExp = {
+  _and?: InputMaybe<Array<WorkoutStatusEnumBoolExp>>;
+  _not?: InputMaybe<WorkoutStatusEnumBoolExp>;
+  _or?: InputMaybe<Array<WorkoutStatusEnumBoolExp>>;
+  value?: InputMaybe<StringComparisonExp>;
+};
+
+/** unique or primary key constraints on table "workout_status_enum" */
+export enum WorkoutStatusEnumConstraint {
+  /** unique or primary key constraint on columns "value" */
+  WORKOUT_STATUS_ENUM_PKEY = 'workout_status_enum_pkey'
+}
+
+export enum WorkoutStatusEnumEnum {
+  COMPLETED = 'completed',
+  PENDING = 'pending',
+  SKIPPED = 'skipped'
+}
+
+/** Boolean expression to compare columns of type "workout_status_enum_enum". All fields are combined with logical 'AND'. */
+export type WorkoutStatusEnumEnumComparisonExp = {
+  _eq?: InputMaybe<WorkoutStatusEnumEnum>;
+  _in?: InputMaybe<Array<WorkoutStatusEnumEnum>>;
+  _is_null?: InputMaybe<Scalars['Boolean']['input']>;
+  _neq?: InputMaybe<WorkoutStatusEnumEnum>;
+  _nin?: InputMaybe<Array<WorkoutStatusEnumEnum>>;
+};
+
+/** input type for inserting data into table "workout_status_enum" */
+export type WorkoutStatusEnumInsertInput = {
+  value?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** aggregate max on columns */
+export type WorkoutStatusEnumMaxFields = {
+  __typename?: 'workout_status_enum_max_fields';
+  value: Maybe<Scalars['String']['output']>;
+};
+
+/** aggregate min on columns */
+export type WorkoutStatusEnumMinFields = {
+  __typename?: 'workout_status_enum_min_fields';
+  value: Maybe<Scalars['String']['output']>;
+};
+
+/** response of any mutation on the table "workout_status_enum" */
+export type WorkoutStatusEnumMutationResponse = {
+  __typename?: 'workout_status_enum_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']['output'];
+  /** data from the rows affected by the mutation */
+  returning: Array<WorkoutStatusEnum>;
+};
+
+/** on_conflict condition type for table "workout_status_enum" */
+export type WorkoutStatusEnumOnConflict = {
+  constraint: WorkoutStatusEnumConstraint;
+  update_columns?: Array<WorkoutStatusEnumUpdateColumn>;
+  where?: InputMaybe<WorkoutStatusEnumBoolExp>;
+};
+
+/** Ordering options when selecting data from "workout_status_enum". */
+export type WorkoutStatusEnumOrderBy = {
+  value?: InputMaybe<OrderBy>;
+};
+
+/** primary key columns input for table: workout_status_enum */
+export type WorkoutStatusEnumPkColumnsInput = {
+  value: Scalars['String']['input'];
+};
+
+/** select columns of table "workout_status_enum" */
+export enum WorkoutStatusEnumSelectColumn {
+  /** column name */
+  VALUE = 'value'
+}
+
+/** input type for updating data in table "workout_status_enum" */
+export type WorkoutStatusEnumSetInput = {
+  value?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** Streaming cursor of the table "workout_status_enum" */
+export type WorkoutStatusEnumStreamCursorInput = {
+  /** Stream column input with initial value */
+  initial_value: WorkoutStatusEnumStreamCursorValueInput;
+  /** cursor ordering */
+  ordering?: InputMaybe<CursorOrdering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type WorkoutStatusEnumStreamCursorValueInput = {
+  value?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** update columns of table "workout_status_enum" */
+export enum WorkoutStatusEnumUpdateColumn {
+  /** column name */
+  VALUE = 'value'
+}
+
+export type WorkoutStatusEnumUpdates = {
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<WorkoutStatusEnumSetInput>;
+  /** filter the rows which have to be updated */
+  where: WorkoutStatusEnumBoolExp;
+};
+
 /** columns and relationships of "workouts" */
 export type Workouts = {
   __typename?: 'workouts';
@@ -6335,6 +7018,8 @@ export type WorkoutsVarianceOrderBy = {
   id?: InputMaybe<OrderBy>;
 };
 
+export type ExerciseFragment = { __typename?: 'exercises', id: string, base_url: string, demo_video_url: string | null | undefined, demo_video_title: string, demo_video_poster: string, demo_video_id: string };
+
 export type ProgramDetailsFragment = { __typename?: 'cycles', program: { __typename?: 'programs', id: string, name: string, image: string | null | undefined } };
 
 export type ProgramsFragment = { __typename?: 'programs', id: string, name: string, image: string | null | undefined };
@@ -6349,10 +7034,11 @@ export type CompleteWorkoutMutationVariables = Exact<{
   completedWorkout: Scalars['bigint']['input'];
   cycleId: Scalars['bigint']['input'];
   nextWorkoutId: Scalars['Int']['input'];
+  status: WorkoutStatusEnumEnum;
 }>;
 
 
-export type CompleteWorkoutMutation = { __typename?: 'mutation_root', insert_user_workouts_one: { __typename?: 'user_workouts', id: string, workout_id: string } | null | undefined, update_user_cycles: { __typename?: 'user_cycles_mutation_response', affected_rows: number } | null | undefined };
+export type CompleteWorkoutMutation = { __typename?: 'mutation_root', update_user_workouts: { __typename?: 'user_workouts_mutation_response', affected_rows: number } | null | undefined, update_user_cycles: { __typename?: 'user_cycles_mutation_response', affected_rows: number } | null | undefined };
 
 export type FinishCycleMutationVariables = Exact<{
   completedWorkout: Scalars['bigint']['input'];
@@ -6405,7 +7091,7 @@ export type GetDashboardDataForUserQuery = { __typename?: 'query_root', user_cyc
 export type GetExercisesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetExercisesQuery = { __typename?: 'query_root', exercises: Array<{ __typename?: 'exercises', id: string, demo_video_url: string | null | undefined, demo_video_title: string, demo_video_poster: string, demo_video_id: string }> };
+export type GetExercisesQuery = { __typename?: 'query_root', exercises: Array<{ __typename?: 'exercises', id: string, base_url: string, demo_video_url: string | null | undefined, demo_video_title: string, demo_video_poster: string, demo_video_id: string }> };
 
 export type GetIntegrationsQueryVariables = Exact<{
   id?: Scalars['uuid']['input'];
@@ -6431,7 +7117,7 @@ export type GetUserCycleProgressQueryVariables = Exact<{
 }>;
 
 
-export type GetUserCycleProgressQuery = { __typename?: 'query_root', userCycle: Array<{ __typename?: 'user_cycles', id: string, start_date: string, completed: boolean, current_workout: number, cycle: { __typename?: 'cycles', id: string, total: number, user_workouts_aggregate: { __typename?: 'user_workouts_aggregate', aggregate: { __typename?: 'user_workouts_aggregate_fields', count: number } | null | undefined }, program: { __typename?: 'programs', id: string, name: string, image: string | null | undefined } }, workout: { __typename?: 'workouts', id: string, title: string, isActiveRecovery: boolean, isRestDay: boolean, first: Array<{ __typename?: 'workout_items', id: string, header: string | null | undefined, notes: string | null | undefined }>, rest: Array<{ __typename?: 'workout_items', id: string, header: string | null | undefined }>, titles: Array<{ __typename?: 'workout_items', id: string, title: string | null | undefined }> } }>, programs: Array<{ __typename?: 'programs', id: string, name: string, image: string | null | undefined }> };
+export type GetUserCycleProgressQuery = { __typename?: 'query_root', userCycle: Array<{ __typename?: 'user_cycles', id: string, start_date: string, completed: boolean, current_workout: number, cycle: { __typename?: 'cycles', id: string, total: number, user_workouts: Array<{ __typename?: 'user_workouts', status: WorkoutStatusEnumEnum | null | undefined }>, program: { __typename?: 'programs', id: string, name: string, image: string | null | undefined } }, workout: { __typename?: 'workouts', id: string, title: string, isActiveRecovery: boolean, isRestDay: boolean, first: Array<{ __typename?: 'workout_items', id: string, header: string | null | undefined, notes: string | null | undefined }>, rest: Array<{ __typename?: 'workout_items', id: string, header: string | null | undefined }>, titles: Array<{ __typename?: 'workout_items', id: string, title: string | null | undefined }> } }>, programs: Array<{ __typename?: 'programs', id: string, name: string, image: string | null | undefined }> };
 
 export type GetWorkoutsQueryVariables = Exact<{
   cycleId: Scalars['Int']['input'];
@@ -6446,8 +7132,18 @@ export type WorkoutByIdQueryVariables = Exact<{
 }>;
 
 
-export type WorkoutByIdQuery = { __typename?: 'query_root', workout: { __typename?: 'workouts', id: string, title: string, subtitle: string, poster: string | null | undefined, isRestDay: boolean, isActiveRecovery: boolean, description: string | null | undefined, date: string | null | undefined, cycle: number | null | undefined, workout_items: Array<{ __typename?: 'workout_items', id: string, title: string | null | undefined, notes: string | null | undefined, header: string | null | undefined, scores: Array<{ __typename?: 'workout_item_scores', value: string }>, exercise_details: Array<{ __typename?: 'exercise_details', id: string, title: string | null | undefined, subtitle: string | null | undefined, levels: any | null | undefined, exercise: { __typename?: 'exercises', id: string, demo_video_url: string | null | undefined, demo_video_title: string, demo_video_poster: string, demo_video_id: string } | null | undefined }> }>, user_workouts: Array<{ __typename?: 'user_workouts', id: string }>, current_cycle: { __typename?: 'cycles', next_workout: string | null | undefined } | null | undefined } | null | undefined };
+export type WorkoutByIdQuery = { __typename?: 'query_root', workout: { __typename?: 'workouts', id: string, title: string, subtitle: string, poster: string | null | undefined, isRestDay: boolean, isActiveRecovery: boolean, description: string | null | undefined, date: string | null | undefined, cycle: number | null | undefined, workout_items: Array<{ __typename?: 'workout_items', id: string, title: string | null | undefined, notes: string | null | undefined, header: string | null | undefined, scores: Array<{ __typename?: 'workout_item_scores', id: string, value: string, created_at: string }>, exercise_details: Array<{ __typename?: 'exercise_details', id: string, title: string | null | undefined, subtitle: string | null | undefined, levels: any | null | undefined, exercise: { __typename?: 'exercises', id: string, base_url: string, demo_video_url: string | null | undefined, demo_video_title: string, demo_video_poster: string, demo_video_id: string } | null | undefined }> }> } | null | undefined, user_workouts: Array<{ __typename?: 'user_workouts', status: WorkoutStatusEnumEnum | null | undefined, id: string }>, next_workout: Array<{ __typename?: 'user_workouts', id: string }> };
 
+export const ExerciseFragmentDoc = gql`
+    fragment Exercise on exercises {
+  id
+  base_url
+  demo_video_url
+  demo_video_title
+  demo_video_poster
+  demo_video_id
+}
+    `;
 export const ProgramDetailsFragmentDoc = gql`
     fragment ProgramDetails on cycles {
   program {
@@ -6505,16 +7201,16 @@ export const WorkoutIdsFragmentDoc = gql`
 }
     `;
 export const CompleteWorkout = gql`
-    mutation CompleteWorkout($completedWorkout: bigint!, $cycleId: bigint!, $nextWorkoutId: Int!) {
-  insert_user_workouts_one(
-    object: {workout_id: $completedWorkout, cycle_id: $cycleId}
+    mutation CompleteWorkout($completedWorkout: bigint!, $cycleId: bigint!, $nextWorkoutId: Int!, $status: workout_status_enum_enum!) {
+  update_user_workouts(
+    where: {workout_id: {_eq: $completedWorkout}, cycle_id: {_eq: $cycleId}}
+    _set: {status: $status}
   ) {
-    id
-    workout_id
+    affected_rows
   }
   update_user_cycles(
-    _set: {current_workout: $nextWorkoutId}
     where: {cycle_id: {_eq: $cycleId}, completed: {_eq: false}}
+    _set: {current_workout: $nextWorkoutId}
   ) {
     affected_rows
   }
@@ -6538,6 +7234,7 @@ export type CompleteWorkoutMutationFn = Apollo.MutationFunction<CompleteWorkoutM
  *      completedWorkout: // value for 'completedWorkout'
  *      cycleId: // value for 'cycleId'
  *      nextWorkoutId: // value for 'nextWorkoutId'
+ *      status: // value for 'status'
  *   },
  * });
  */
@@ -6859,14 +7556,10 @@ export type GetDashboardDataForUserQueryResult = Apollo.QueryResult<GetDashboard
 export const GetExercises = gql`
     query GetExercises {
   exercises(order_by: [{demo_video_title: asc}]) {
-    id
-    demo_video_url
-    demo_video_title
-    demo_video_poster
-    demo_video_id
+    ...Exercise
   }
 }
-    `;
+    ${ExerciseFragmentDoc}`;
 
 /**
  * __useGetExercisesQuery__
@@ -7081,10 +7774,8 @@ export const GetUserCycleProgress = gql`
     cycle {
       id
       total: workout_count
-      user_workouts_aggregate {
-        aggregate {
-          count
-        }
+      user_workouts {
+        status
       }
       ...ProgramDetails
     }
@@ -7198,7 +7889,9 @@ export const WorkoutById = gql`
       notes
       header
       scores {
+        id
         value
+        created_at
       }
       exercise_details {
         id
@@ -7206,23 +7899,25 @@ export const WorkoutById = gql`
         subtitle
         levels
         exercise {
-          id
-          demo_video_url
-          demo_video_title
-          demo_video_poster
-          demo_video_id
+          ...Exercise
         }
       }
     }
-    user_workouts(where: {workout_id: {_eq: $id}, cycle_id: {_eq: $cycleId}}) {
-      id: workout_id
-    }
-    current_cycle {
-      next_workout
-    }
+  }
+  user_workouts(where: {workout_id: {_eq: $id}, cycle_id: {_eq: $cycleId}}) {
+    id: workout_id
+    status
+  }
+  next_workout: user_workouts(
+    where: {status: {_eq: pending}}
+    order_by: {workout_id: asc}
+    limit: 1
+    offset: 1
+  ) {
+    id: workout_id
   }
 }
-    `;
+    ${ExerciseFragmentDoc}`;
 
 /**
  * __useWorkoutByIdQuery__

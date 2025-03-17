@@ -14,8 +14,10 @@ query WorkoutById($id: bigint!, $cycleId: bigint!) {
       title
       notes
       header
-      scores {
+      scores(order_by: { created_at: desc }) {
+        id
         value
+        created_at
       }
       exercise_details {
         id
@@ -23,19 +25,16 @@ query WorkoutById($id: bigint!, $cycleId: bigint!) {
         subtitle
         levels
         exercise {
-          id
-          demo_video_url
-          demo_video_title
-          demo_video_poster
-          demo_video_id
+          ...Exercise
         }
       }
     }
-    user_workouts(where: { workout_id: { _eq: $id }, cycle_id: { _eq: $cycleId } }) {
-      id: workout_id
-    }
-    current_cycle {
-      next_workout
-    }
+  }
+  user_workouts(where: { workout_id: { _eq: $id }, cycle_id: { _eq: $cycleId } }) {
+    id: workout_id,
+    status
+  }
+  next_workout: user_workouts(where: { status: {_eq: pending}}, order_by: {workout_id: asc}, limit: 1, offset: 1) {
+    id: workout_id
   }
 }

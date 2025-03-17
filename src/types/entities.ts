@@ -1,4 +1,4 @@
-export interface ExerciseEntity {
+interface ExerciseEntity {
   demo_video_id: string
   demo_video_title: string
   demo_video_url: string | null
@@ -9,6 +9,7 @@ export interface ExerciseEntity {
   title: string
   subtitle?: string
   notes?: string | null
+  base_url: string
 }
 
 export interface ExerciseDetailsEntity {

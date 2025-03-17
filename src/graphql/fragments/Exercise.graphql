@@ -1,0 +1,8 @@
+fragment Exercise on exercises {
+  id
+  base_url
+  demo_video_url
+  demo_video_title
+  demo_video_poster
+  demo_video_id
+}
