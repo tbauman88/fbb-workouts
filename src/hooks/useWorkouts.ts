@@ -1,20 +1,18 @@
-import { useQuery } from '@apollo/client'
-import { GET_WORKOUTS } from '../graphql/queries'
-import { WorkoutEntity } from '../types'
+import { useGetWorkoutsQuery } from '../generated/graphql'
 
 export const useWorkouts = (cycleId: number) => {
-  const { data, loading, error } = useQuery<{ workouts: WorkoutEntity[] }>(GET_WORKOUTS, {
+  const { data, loading, error } = useGetWorkoutsQuery({
     variables: { cycleId }
   })
 
-  const transformedWorkouts =
-    data?.workouts.map(({ workout_items, ...workout }) => ({
-      ...workout,
-      notes: workout_items[0]?.notes || null
-    })) || []
+  // const transformedWorkouts =
+  //   data?.workouts.map(({ items, ...workout }) => ({
+  //     ...workout,
+  //     notes: items[0]?.notes || null
+  //   })) || []
 
   return {
-    workouts: transformedWorkouts,
+    workouts: data?.workouts,
     loading,
     error
   }

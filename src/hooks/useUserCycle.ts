@@ -1,8 +1,7 @@
-import { useQuery } from '@apollo/client'
-import { GET_CURRENT_USER_CYCLE } from '../graphql/queries'
+import { useGetCurrentUserCycleQuery } from '../generated/graphql'
 
-export const useUserCycle = (userId: number) => {
-  const { data, loading, error } = useQuery(GET_CURRENT_USER_CYCLE, {
+export const useUserCycle = (userId: string) => {
+  const { data, loading, error } = useGetCurrentUserCycleQuery({
     variables: { userId }
   })
 
