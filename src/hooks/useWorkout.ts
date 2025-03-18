@@ -1,5 +1,4 @@
 import { QueryResult } from '@apollo/client'
-import { CurrentProgram, useDashboard } from './useDashboard'
 import {
   useCompleteWorkoutMutation,
   useFinishCycleMutation,
@@ -8,6 +7,7 @@ import {
   WorkoutByIdQuery,
 } from '../generated/graphql'
 import { WorkoutStatus } from '../types'
+import { useParams } from 'react-router-dom'
 
 export type Workout = WorkoutByIdQuery['workout']
 
@@ -15,7 +15,7 @@ export type UseWorkout = {
   workout: Workout
   nextWorkoutId: string | null | undefined
   status: WorkoutStatus
-  currentProgram: CurrentProgram | null
+  currentCycleId: string | null | undefined
   upsertWorkoutItemScore: ReturnType<typeof useUpsertWorkoutItemScoreMutation>[0]
   completeWorkout: ReturnType<typeof useCompleteWorkoutMutation>[0]
   finishCycle: ReturnType<typeof useFinishCycleMutation>[0]
@@ -23,16 +23,14 @@ export type UseWorkout = {
   error: QueryResult['error']
 }
 
-export const useWorkout = (id: string | undefined): UseWorkout => {
-  const { currentProgram } = useDashboard()
+export const useWorkout = (): UseWorkout => {
+  const { id: workoutId } = useParams<{ id: string }>()
 
-  if (!id) throw new Error('No workout id provided');
+  if (!workoutId) throw new Error('No workout id provided');
 
   const { data, loading, error } = useWorkoutByIdQuery({
-    variables: {
-      id,
-      cycleId: String(currentProgram?.cycleId ?? '')
-    }
+    variables: { id: workoutId },
+    fetchPolicy: 'cache-first'
   })
 
   const [upsertWorkoutItemScore] = useUpsertWorkoutItemScoreMutation({
@@ -67,9 +65,9 @@ export const useWorkout = (id: string | undefined): UseWorkout => {
     nextWorkoutId: data?.next_workout[0]?.id,
     status: data?.user_workouts[0]?.status ?? WorkoutStatus.PENDING,
     upsertWorkoutItemScore,
+    currentCycleId: data?.user_workouts[0]?.cycleId,
     completeWorkout,
     finishCycle,
-    currentProgram,
     loading: loading,
     error
   }

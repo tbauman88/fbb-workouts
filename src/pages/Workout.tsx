@@ -4,7 +4,6 @@ import { useWorkout } from '../hooks/useWorkout'
 import { ButtonGroup, WorkoutItem, Logo, Badge } from '../components'
 import { ChevronLeftIcon, ChevronRightIcon, ForwardIcon } from '@heroicons/react/24/solid'
 import { useNavigate } from 'react-router-dom'
-import { useParams } from 'react-router-dom'
 import { Loading } from './Loading'
 import { WorkoutStatus } from '../types'
 
@@ -65,17 +64,16 @@ const Wrapper = ({ children, loading, handleClick }: {
 )
 
 export const Workout = () => {
-  const { id } = useParams<{ id: string }>()
   const {
     workout,
+    nextWorkoutId,
+    currentCycleId,
+    status,
     loading,
     error,
-    currentProgram,
-    status,
     completeWorkout,
     finishCycle,
-    nextWorkoutId
-  } = useWorkout(id)
+  } = useWorkout()
 
   const [workoutStatus, setWorkoutStatus] = useState<WorkoutStatus>(WorkoutStatus.PENDING)
   const [isCompleted, setIsCompleted] = useState<boolean>(false)
@@ -117,11 +115,11 @@ export const Workout = () => {
 
   const handleSubmit = async (status: WorkoutStatus) => {
     try {
-      if (!workout || !currentProgram) return;
+      if (!workout || !currentCycleId) return;
 
       const variables = {
         completedWorkout: workout.id,
-        cycleId: currentProgram.cycleId
+        cycleId: currentCycleId
       }
 
       if (nextWorkoutId) {
@@ -146,7 +144,7 @@ export const Workout = () => {
 
   return (
     <Wrapper loading={loading} handleClick={handleClick}>
-      {(workout && currentProgram) && (
+      {(workout && currentCycleId) && (
         <>
           <div className="w-full mt-8 lg:mt-0 lg:max-w-lg lg:flex-auto lg:sticky lg:top-16 lg:self-start lg:h-screen">
             <div className="flex items-start gap-x-3 items-end">
@@ -166,14 +164,14 @@ export const Workout = () => {
               className="hidden sm:block mt-8 aspect-[4/3] w-full rounded-2xl bg-gray-50 object-cover lg:aspect-auto lg:h-[34.5rem]"
             />
             {coachingItems.map((item) => (
-              <WorkoutItem key={item.id} item={item} status={workoutStatus} />
+              <WorkoutItem key={item.id} item={item} />
             ))}
           </div>
 
           <div className="w-full lg:max-w-2xl lg:flex-auto lg:mt-24">
             <section className="-my-6 divide-y divide-gray-100">
               {workoutItems.map((item) => (
-                <WorkoutItem key={item.id} item={item} status={workoutStatus} />
+                <WorkoutItem key={item.id} item={item} />
               ))}
             </section>
 

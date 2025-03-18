@@ -13,47 +13,32 @@ import { Exercises } from './pages/Exercises'
 import { NotFound } from './pages/NotFound'
 import { Settings } from './pages/Settings'
 
-const ProtectedRoute = ({ children, isAuthenticated }: { children: React.ReactNode, isAuthenticated: boolean }) => {
-  if (!isAuthenticated) {
-    return <Navigate to="/login" />
-  }
+const ProtectedRoute = ({ component: Component }: { component: React.ComponentType }) => {
+  const { isAuthenticated } = useAuth()
 
-  return children
+  console.log('ProtectedRoute::', isAuthenticated)
+  return isAuthenticated ? <Component /> : <Navigate to="/login" replace />
 }
 
 const App = () => {
-  const { isAuthenticated, user } = useAuth()
-
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<Login />} />
 
-        <Route
-          path="/"
-          element={
-            <ProtectedRoute isAuthenticated={isAuthenticated}>
-              <Layout />
-            </ProtectedRoute>
-          }
-        >
-          <Route index path="/" element={<Dashboard />} />
+        <Route element={<ProtectedRoute component={Layout} />}>
+          <Route index element={<Dashboard />} />
           <Route path="programs" element={<Program />} />
           <Route path="programs/:id" element={<Programs />} />
           <Route path="workouts" element={<Workouts />} />
           <Route path="exercises" element={<Exercises />} />
           <Route path="settings" element={<Settings />} />
-
           <Route path="*" element={<NotFound />} />
         </Route>
 
         <Route
           path="/workouts/:id"
-          element={
-            <ProtectedRoute isAuthenticated={isAuthenticated}>
-              <Workout />
-            </ProtectedRoute>
-          }
+          element={<ProtectedRoute component={Workout} />}
         />
       </Routes>
     </BrowserRouter>

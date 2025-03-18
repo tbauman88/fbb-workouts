@@ -7128,11 +7128,10 @@ export type GetWorkoutsQuery = { __typename?: 'query_root', workouts: Array<{ __
 
 export type WorkoutByIdQueryVariables = Exact<{
   id: Scalars['bigint']['input'];
-  cycleId: Scalars['bigint']['input'];
 }>;
 
 
-export type WorkoutByIdQuery = { __typename?: 'query_root', workout: { __typename?: 'workouts', id: string, title: string, subtitle: string, poster: string | null | undefined, isRestDay: boolean, isActiveRecovery: boolean, description: string | null | undefined, date: string | null | undefined, cycle: number | null | undefined, workout_items: Array<{ __typename?: 'workout_items', id: string, title: string | null | undefined, notes: string | null | undefined, header: string | null | undefined, scores: Array<{ __typename?: 'workout_item_scores', id: string, value: string, created_at: string }>, exercise_details: Array<{ __typename?: 'exercise_details', id: string, title: string | null | undefined, subtitle: string | null | undefined, levels: any | null | undefined, exercise: { __typename?: 'exercises', id: string, base_url: string, demo_video_url: string | null | undefined, demo_video_title: string, demo_video_poster: string, demo_video_id: string } | null | undefined }> }> } | null | undefined, user_workouts: Array<{ __typename?: 'user_workouts', status: WorkoutStatusEnumEnum | null | undefined, id: string }>, next_workout: Array<{ __typename?: 'user_workouts', id: string }> };
+export type WorkoutByIdQuery = { __typename?: 'query_root', workout: { __typename?: 'workouts', id: string, title: string, subtitle: string, poster: string | null | undefined, isRestDay: boolean, isActiveRecovery: boolean, description: string | null | undefined, date: string | null | undefined, cycle: number | null | undefined, workout_items: Array<{ __typename?: 'workout_items', id: string, title: string | null | undefined, notes: string | null | undefined, header: string | null | undefined, scores: Array<{ __typename?: 'workout_item_scores', id: string, value: string, created_at: string }>, exercise_details: Array<{ __typename?: 'exercise_details', id: string, title: string | null | undefined, subtitle: string | null | undefined, levels: any | null | undefined, exercise: { __typename?: 'exercises', id: string, base_url: string, demo_video_url: string | null | undefined, demo_video_title: string, demo_video_poster: string, demo_video_id: string } | null | undefined }> }> } | null | undefined, user_workouts: Array<{ __typename?: 'user_workouts', status: WorkoutStatusEnumEnum | null | undefined, id: string, cycleId: string }>, next_workout: Array<{ __typename?: 'user_workouts', id: string }> };
 
 export const ExerciseFragmentDoc = gql`
     fragment Exercise on exercises {
@@ -7872,7 +7871,7 @@ export type GetWorkoutsLazyQueryHookResult = ReturnType<typeof useGetWorkoutsLaz
 export type GetWorkoutsSuspenseQueryHookResult = ReturnType<typeof useGetWorkoutsSuspenseQuery>;
 export type GetWorkoutsQueryResult = Apollo.QueryResult<GetWorkoutsQuery, GetWorkoutsQueryVariables>;
 export const WorkoutById = gql`
-    query WorkoutById($id: bigint!, $cycleId: bigint!) {
+    query WorkoutById($id: bigint!) {
   workout: workouts_by_pk(id: $id) {
     id
     title
@@ -7888,7 +7887,7 @@ export const WorkoutById = gql`
       title
       notes
       header
-      scores {
+      scores(order_by: {created_at: desc}) {
         id
         value
         created_at
@@ -7904,8 +7903,9 @@ export const WorkoutById = gql`
       }
     }
   }
-  user_workouts(where: {workout_id: {_eq: $id}, cycle_id: {_eq: $cycleId}}) {
+  user_workouts(where: {workout_id: {_eq: $id}}) {
     id: workout_id
+    cycleId: cycle_id
     status
   }
   next_workout: user_workouts(
@@ -7932,7 +7932,6 @@ export const WorkoutById = gql`
  * const { data, loading, error } = useWorkoutByIdQuery({
  *   variables: {
  *      id: // value for 'id'
- *      cycleId: // value for 'cycleId'
  *   },
  * });
  */

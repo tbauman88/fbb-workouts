@@ -3,6 +3,7 @@ import { useWorkout } from '../hooks/useWorkout'
 import { ArchiveBoxArrowDownIcon } from '@heroicons/react/24/outline'
 import { isToday } from 'date-fns'
 import { WorkoutItem } from '../types/component'
+import { WorkoutStatus } from '../types'
 
 const PLACEHOLDER = 'Add score'
 const KEY_HINT = 'done'
@@ -13,11 +14,11 @@ export const Score: React.FC<{
   workoutItemId: string
   showInput: boolean
   values?: Score[]
-  isCompleted: boolean
-}> = ({ workoutItemId, showInput, values = [], isCompleted }) => {
-  const { upsertWorkoutItemScore } = useWorkout(workoutItemId)
+}> = ({ workoutItemId, showInput, values = [] }) => {
+  const { status, upsertWorkoutItemScore } = useWorkout()
 
   const [score, setScore] = useState<string>('')
+  const [isCompleted, setIsCompleted] = useState(false)
 
   const [hasScoreHistory, setHasScoreHistory] = useState(false)
   const [isScoreHistoryVisible, setIsScoreHistoryVisible] = useState(false)
@@ -28,8 +29,9 @@ export const Score: React.FC<{
 
   useEffect(() => {
     const scores = values.filter((v) => !isToday(new Date(v?.created_at ?? '')))
+    setIsCompleted(status !== WorkoutStatus.PENDING)
     setHasScoreHistory(scores.length > 0)
-  }, [values])
+  }, [values, status])
 
   const handleUpdate = useCallback(
     async (newValue: string) => {

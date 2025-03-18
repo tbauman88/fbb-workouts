@@ -1,7 +1,7 @@
 import { marked } from 'marked'
 import { Exercises } from './Exercises'
 import { Score } from './Score'
-import { WorkoutItemProps, WorkoutStatus } from '../types'
+import { WorkoutItemProps } from '../types'
 
 const Header = ({ header }: { header: string | null | undefined }) =>
   header && <h2 className="w-full text-xl text-gray-900 font-bold tracking-tight">{header}</h2>
@@ -22,7 +22,7 @@ const Notes = ({ notes }: { notes: string | null | undefined }) =>
     />
   )
 
-export const WorkoutItem: React.FC<WorkoutItemProps> = ({ item, status }) => {
+export const WorkoutItem: React.FC<WorkoutItemProps> = ({ item }) => {
   const excludedHeaders = ['Coach Note', 'Short on Time', 'Warm-up', 'Cool Down']
 
   const needsScore = !excludedHeaders.some((header) => item.header?.toLowerCase().includes(header.toLowerCase()))
@@ -37,7 +37,6 @@ export const WorkoutItem: React.FC<WorkoutItemProps> = ({ item, status }) => {
         workoutItemId={item.id}
         values={item.scores}
         showInput={needsScore}
-        isCompleted={status !== WorkoutStatus.PENDING}
       />
     </article>
   )

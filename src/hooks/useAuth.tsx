@@ -17,25 +17,26 @@ const AuthContext = createContext<{
 
 const ONE_WEEK = 7 * 24 * 60 * 60 * 1000
 
-export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const getStoredAuth = (): User => {
-    if (typeof window === 'undefined') return null
+const getStoredAuth = (): User => {
+  if (typeof window === 'undefined') return null
 
-    const stored = localStorage.getItem('auth')
-    if (!stored) return null
+  const stored = localStorage.getItem('auth')
+  if (!stored) return null
 
-    const { expiry, user } = JSON.parse(stored)
+  const { expiry, user } = JSON.parse(stored)
 
-    if (Date.now() > expiry) {
-      localStorage.removeItem('auth')
-      return null
-    }
-
-    return user
+  if (Date.now() > expiry) {
+    localStorage.removeItem('auth')
+    return null
   }
 
+  return user
+}
+
+export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User>(getStoredAuth())
   const isAuthenticated = !!user
+
 
   const [checkCredentials] = useCheckUserCredentialsLazyQuery({
     onCompleted: (data) => {
@@ -63,6 +64,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           password
         }
       })
+
       return true
     } catch (error) {
       console.error('Login error:', error)
