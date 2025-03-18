@@ -1,9 +1,8 @@
 import { marked } from 'marked'
 import { useNavigate } from 'react-router-dom'
-import { DashboardContent, useUserContext } from '../context/UserProvider'
+import { DashboardContent, useDashboard } from '../hooks/useDashboard'
 import { ProgressBar } from '../components'
 import { Loading } from './Loading'
-import { useWhoop } from '../hooks/useWhoop'
 import { DailyOverview } from '../components/Whoop'
 
 const CurrentProgramCard = ({ currentProgram, cycleProgression, loading, userCycle }: {
@@ -182,8 +181,7 @@ const Divider = () => (
 )
 
 export const Dashboard = () => {
-  const { currentProgram, currentWorkout, cycleProgression, programs, userCycle, loading } = useUserContext()
-  const { stats } = useWhoop()
+  const { currentProgram, currentWorkout, cycleProgression, programs, userCycle, loading } = useDashboard()
 
   const navigate = useNavigate()
 
@@ -209,7 +207,7 @@ export const Dashboard = () => {
 
         <ProgramsList loading={loading} programs={programs} />
 
-        <DailyOverview />
+        {/* <DailyOverview /> */}
       </div>
     </main>
   )

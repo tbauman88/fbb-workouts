@@ -2,7 +2,6 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 
 import { useAuth } from './hooks/useAuth'
 import { Layout } from './components/Layout'
-import { UserProvider } from './context/UserProvider'
 
 import { Login } from './pages/Login'
 import { Workout } from './pages/Workout'
@@ -14,17 +13,17 @@ import { Exercises } from './pages/Exercises'
 import { NotFound } from './pages/NotFound'
 import { Settings } from './pages/Settings'
 
-const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-  const { isAuthenticated, user } = useAuth()
-
+const ProtectedRoute = ({ children, isAuthenticated }: { children: React.ReactNode, isAuthenticated: boolean }) => {
   if (!isAuthenticated) {
     return <Navigate to="/login" />
   }
 
-  return <UserProvider user={user}>{children}</UserProvider>
+  return children
 }
 
-function App() {
+const App = () => {
+  const { isAuthenticated, user } = useAuth()
+
   return (
     <BrowserRouter>
       <Routes>
@@ -33,7 +32,7 @@ function App() {
         <Route
           path="/"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
               <Layout />
             </ProtectedRoute>
           }
@@ -51,7 +50,7 @@ function App() {
         <Route
           path="/workouts/:id"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
               <Workout />
             </ProtectedRoute>
           }

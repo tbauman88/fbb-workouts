@@ -1,5 +1,5 @@
 import { QueryResult } from '@apollo/client'
-import { CurrentProgram, useUserContext } from '../context/UserProvider'
+import { CurrentProgram, useDashboard } from './useDashboard'
 import {
   useCompleteWorkoutMutation,
   useFinishCycleMutation,
@@ -24,7 +24,7 @@ export type UseWorkout = {
 }
 
 export const useWorkout = (id: string | undefined): UseWorkout => {
-  const { currentProgram } = useUserContext()
+  const { currentProgram } = useDashboard()
 
   if (!id) throw new Error('No workout id provided');
 

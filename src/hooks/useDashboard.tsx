@@ -1,8 +1,8 @@
 import { QueryResult } from '@apollo/client';
-import React, { createContext, useContext, useMemo } from 'react';
 import { GetUserCycleProgressQuery, useGetUserCycleProgressQuery } from '../generated/graphql';
-import { formatProgramName } from '../hooks/usePrograms';
+import { formatProgramName } from './usePrograms';
 import { WorkoutStatus } from '../types';
+import { useAuth } from './useAuth';
 
 type Workout = GetUserCycleProgressQuery['userCycle'][0]['workout']
 type Program = GetUserCycleProgressQuery['userCycle'][0]['cycle']['program']
@@ -27,15 +27,6 @@ type UseUserContext = DashboardContent & {
   error: QueryResult['error']
 }
 
-const UserContext = createContext<UseUserContext | null>(null);
-
-export const useUserContext = () => {
-  const context = useContext(UserContext);
-  if (!context) {
-    throw new Error('useUserContext must be used within a UserProvider');
-  }
-  return context;
-};
 
 const getDashboardData = (data: GetUserCycleProgressQuery | undefined): DashboardContent => {
   if (!data) return {
@@ -80,15 +71,17 @@ const getDashboardData = (data: GetUserCycleProgressQuery | undefined): Dashboar
   }
 }
 
-export const UserProvider: React.FC<{ user: { id: string | number }, children: React.ReactNode }> = ({ user, children }) => {
+export const useDashboard = (): UseUserContext => {
+  const { user } = useAuth()
+
   const { data, loading, error } = useGetUserCycleProgressQuery({
-    variables: { userId: String(user.id) }
+    variables: { userId: String(user?.id) }
   })
 
-  const value: UseUserContext = useMemo(
-    () => ({ ...getDashboardData(data), loading, error }),
-    [data, loading, error]
-  )
 
-  return <UserContext.Provider value={value}>{children}</UserContext.Provider>
+  return ({
+    ...getDashboardData(data),
+    loading,
+    error
+  })
 }
