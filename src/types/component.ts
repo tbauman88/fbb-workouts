@@ -38,3 +38,9 @@ export interface NavigationProps {
   href: string
   current: boolean
 }
+
+export enum Role {
+  ADMIN = 'admin',
+  GUEST = 'guest',
+  USER = 'user'
+}

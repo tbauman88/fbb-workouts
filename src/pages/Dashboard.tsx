@@ -1,10 +1,11 @@
 import { marked } from 'marked'
-import { useNavigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
 import { DashboardContent, useDashboard } from '../hooks/useDashboard'
 import { ProgressBar } from '../components'
 import { Loading } from './Loading'
 import { DailyOverview } from '../components/Whoop'
-
+import { useAuth } from '../hooks/useAuth'
+import { useEffect } from 'react'
 const CurrentProgramCard = ({ currentProgram, cycleProgression, loading, userCycle }: {
   currentProgram: DashboardContent['currentProgram'],
   cycleProgression: DashboardContent['cycleProgression'],
@@ -181,9 +182,15 @@ const Divider = () => (
 )
 
 export const Dashboard = () => {
-  const { currentProgram, currentWorkout, cycleProgression, programs, userCycle, loading } = useDashboard()
-
   const navigate = useNavigate()
+  const { user } = useAuth()
+
+  useEffect(() => {
+    if (!user?.is_guest) return;
+    navigate('/workouts/106')
+  }, [user])
+
+  const { currentProgram, currentWorkout, cycleProgression, programs, userCycle, loading } = useDashboard()
 
   const navigateToWorkout = (id: string | undefined) => {
     if (!id) return

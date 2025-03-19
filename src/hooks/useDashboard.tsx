@@ -27,7 +27,6 @@ type UseUserContext = DashboardContent & {
   error: QueryResult['error']
 }
 
-
 const getDashboardData = (data: GetUserCycleProgressQuery | undefined): DashboardContent => {
   if (!data) return {
     userCycle: null,
@@ -71,13 +70,13 @@ const getDashboardData = (data: GetUserCycleProgressQuery | undefined): Dashboar
   }
 }
 
+
 export const useDashboard = (): UseUserContext => {
   const { user } = useAuth()
 
   const { data, loading, error } = useGetUserCycleProgressQuery({
     variables: { userId: String(user?.id) }
   })
-
 
   return ({
     ...getDashboardData(data),

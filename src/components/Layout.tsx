@@ -6,6 +6,12 @@ import { useAuth } from '../hooks/useAuth'
 import { Logo } from './'
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Role } from '../types'
+
+const guestNavigation: NavigationProps[] = [
+  { name: 'Home', href: '/', current: false },
+  { name: 'Exercises', href: '/exercises', current: false }
+]
 
 const navigation: NavigationProps[] = [
   { name: 'Home', href: '/', current: false },
@@ -44,15 +50,17 @@ const Navigation = ({ navigation }: { navigation: NavigationProps[] }) => {
   )
 }
 
-const Header = ({ user, onClick }: { user: User; onClick: () => void }) => {
+const Header = ({ user, onClick, isAdmin }: { user: User; onClick: () => void; isAdmin: boolean }) => {
   const location = useLocation()
 
   const updatedNavigation = useMemo(() => {
-    return navigation.map((item) => ({
+    const nav = isAdmin ? navigation : guestNavigation
+
+    return nav.map((item) => ({
       ...item,
       current: location.pathname === item.href
     }))
-  }, [location.pathname])
+  }, [location.pathname, isAdmin])
 
   return (
     <div className="bg-gray-800 pb-32">
@@ -99,10 +107,12 @@ const Header = ({ user, onClick }: { user: User; onClick: () => void }) => {
                   </svg>
                 </button>
 
-                <Link key="settings" to="/settings" aria-current={false} className="relative ml-3">
-                  <span className="sr-only">Open user menu</span>
-                  <img alt="" src={user?.image_url} className="size-8 rounded-full" />
-                </Link>
+                {isAdmin && (
+                  <Link key="settings" to="/settings" aria-current={false} className="relative ml-3">
+                    <span className="sr-only">Open user menu</span>
+                    <img alt="" src={user?.image_url} className="size-8 rounded-full" />
+                  </Link>
+                )}
               </div>
             </div>
 
@@ -170,12 +180,12 @@ const Header = ({ user, onClick }: { user: User; onClick: () => void }) => {
   )
 }
 
-export const Layout: React.FC = () => {
+export const Layout: React.FC<{ role: Role }> = ({ role }) => {
   const { user, logout } = useAuth()
 
   return (
     <div className="min-h-full">
-      <Header user={user} onClick={logout} />
+      <Header user={user} onClick={logout} isAdmin={role === Role.ADMIN} />
 
       <main className="-mt-32">
         <div className="mx-auto max-w-full lg:px-16">

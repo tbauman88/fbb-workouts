@@ -4992,6 +4992,7 @@ export type Users = {
   email_verified_at: Maybe<Scalars['timestamp']['output']>;
   id: Scalars['bigint']['output'];
   image_url: Maybe<Scalars['String']['output']>;
+  is_guest: Scalars['Boolean']['output'];
   name: Scalars['String']['output'];
   password: Scalars['String']['output'];
   remember_token: Maybe<Scalars['String']['output']>;
@@ -5068,6 +5069,7 @@ export type UsersBoolExp = {
   email_verified_at?: InputMaybe<TimestampComparisonExp>;
   id?: InputMaybe<BigintComparisonExp>;
   image_url?: InputMaybe<StringComparisonExp>;
+  is_guest?: InputMaybe<BooleanComparisonExp>;
   name?: InputMaybe<StringComparisonExp>;
   password?: InputMaybe<StringComparisonExp>;
   remember_token?: InputMaybe<StringComparisonExp>;
@@ -5096,6 +5098,7 @@ export type UsersInsertInput = {
   email_verified_at?: InputMaybe<Scalars['timestamp']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
   image_url?: InputMaybe<Scalars['String']['input']>;
+  is_guest?: InputMaybe<Scalars['Boolean']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   password?: InputMaybe<Scalars['String']['input']>;
   remember_token?: InputMaybe<Scalars['String']['input']>;
@@ -5161,6 +5164,7 @@ export type UsersOrderBy = {
   email_verified_at?: InputMaybe<OrderBy>;
   id?: InputMaybe<OrderBy>;
   image_url?: InputMaybe<OrderBy>;
+  is_guest?: InputMaybe<OrderBy>;
   name?: InputMaybe<OrderBy>;
   password?: InputMaybe<OrderBy>;
   remember_token?: InputMaybe<OrderBy>;
@@ -5186,6 +5190,8 @@ export enum UsersSelectColumn {
   /** column name */
   IMAGE_URL = 'image_url',
   /** column name */
+  IS_GUEST = 'is_guest',
+  /** column name */
   NAME = 'name',
   /** column name */
   PASSWORD = 'password',
@@ -5202,6 +5208,7 @@ export type UsersSetInput = {
   email_verified_at?: InputMaybe<Scalars['timestamp']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
   image_url?: InputMaybe<Scalars['String']['input']>;
+  is_guest?: InputMaybe<Scalars['Boolean']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   password?: InputMaybe<Scalars['String']['input']>;
   remember_token?: InputMaybe<Scalars['String']['input']>;
@@ -5241,6 +5248,7 @@ export type UsersStreamCursorValueInput = {
   email_verified_at?: InputMaybe<Scalars['timestamp']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
   image_url?: InputMaybe<Scalars['String']['input']>;
+  is_guest?: InputMaybe<Scalars['Boolean']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   password?: InputMaybe<Scalars['String']['input']>;
   remember_token?: InputMaybe<Scalars['String']['input']>;
@@ -5265,6 +5273,8 @@ export enum UsersUpdateColumn {
   ID = 'id',
   /** column name */
   IMAGE_URL = 'image_url',
+  /** column name */
+  IS_GUEST = 'is_guest',
   /** column name */
   NAME = 'name',
   /** column name */
@@ -7072,7 +7082,7 @@ export type CheckUserCredentialsQueryVariables = Exact<{
 }>;
 
 
-export type CheckUserCredentialsQuery = { __typename?: 'query_root', users: Array<{ __typename?: 'users', id: string, email: string, name: string, image_url: string | null | undefined, created_at: string, updated_at: string }> };
+export type CheckUserCredentialsQuery = { __typename?: 'query_root', users: Array<{ __typename?: 'users', id: string, email: string, name: string, is_guest: boolean, image_url: string | null | undefined, created_at: string, updated_at: string }> };
 
 export type GetCurrentUserCycleQueryVariables = Exact<{
   userId: Scalars['bigint']['input'];
@@ -7375,6 +7385,7 @@ export const CheckUserCredentials = gql`
     id
     email
     name
+    is_guest
     image_url
     created_at
     updated_at

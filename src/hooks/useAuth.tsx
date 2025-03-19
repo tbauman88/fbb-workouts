@@ -37,7 +37,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User>(getStoredAuth())
   const isAuthenticated = !!user
 
-
   const [checkCredentials] = useCheckUserCredentialsLazyQuery({
     onCompleted: (data) => {
       const user = data.users[0]
