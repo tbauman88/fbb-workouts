@@ -52,7 +52,7 @@ const App = () => {
                   <Route path="exercises" element={<Exercises />} />
                 </Route>
                 <Route path="/workouts/:id" element={<Workout />} />
-                <Route path="*" element={<Navigate to="/workouts/106" replace />} />
+                <Route path="*" element={<Navigate to="/workouts/107" replace />} />
               </>
             )}
           </>

@@ -1,8 +1,8 @@
 import { marked } from 'marked'
 import { Exercises } from './Exercises'
 import { Score } from './Score'
-import { WorkoutItemProps } from '../types'
 import { useAuth } from '../hooks/useAuth'
+import { WorkoutItemFragment } from '../generated/graphql'
 
 const Header = ({ header }: { header: string | null | undefined }) =>
   header && <h2 className="w-full text-xl text-gray-900 font-bold tracking-tight">{header}</h2>
@@ -23,7 +23,7 @@ const Notes = ({ notes }: { notes: string | null | undefined }) =>
     />
   )
 
-export const WorkoutItem: React.FC<WorkoutItemProps> = ({ item }) => {
+export const WorkoutItem: React.FC<{ item: WorkoutItemFragment }> = ({ item }) => {
   const { user } = useAuth()
 
   const excludedHeaders = ['Coach Note', 'Short on Time', 'Warm-up', 'Cool Down']
@@ -35,7 +35,7 @@ export const WorkoutItem: React.FC<WorkoutItemProps> = ({ item }) => {
       <article className="py-6 flex flex-wrap w-full">
         <Header header={item.header} />
         <Title title={item.title} />
-        <Exercises exercise_details={item.exercise_details} />
+        <Exercises details={item.exercise_details} />
         <Notes notes={item.notes} />
       </article>
     )
@@ -45,7 +45,7 @@ export const WorkoutItem: React.FC<WorkoutItemProps> = ({ item }) => {
     <article className="py-6 flex flex-wrap w-full">
       <Header header={item.header} />
       <Title title={item.title} />
-      <Exercises exercise_details={item.exercise_details} />
+      <Exercises details={item.exercise_details} />
       <Notes notes={item.notes} />
       <Score
         workoutItemId={item.id}

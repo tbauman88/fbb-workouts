@@ -68,6 +68,7 @@ export const Workout = () => {
     workout,
     nextWorkoutId,
     currentCycleId,
+    muscleGroups,
     status,
     loading,
     error,
@@ -152,11 +153,16 @@ export const Workout = () => {
                 <h2 className="text-pretty text-3xl font-semibold tracking-tight text-gray-900">
                   {workout.title}
                 </h2>
-                <h4 className="text-pretty text-xl tracking-tight text-gray-400">{workout.subtitle}</h4>
+                <div className="flex flex-wrap gap-2 mt-2">
+                  {muscleGroups && muscleGroups.map((muscleGroup) => (
+                    <Badge key={muscleGroup.id} muscleGroup={muscleGroup.type} />
+                  ))}
+                </div>
               </div>
 
               {workoutStatus === WorkoutStatus.COMPLETED && <Badge status={workoutStatus} />}
               {workoutStatus === WorkoutStatus.SKIPPED && <Badge status={workoutStatus} />}
+
             </div>
             <img
               alt="Workout main image"

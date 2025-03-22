@@ -4,18 +4,19 @@ import {
   useFinishCycleMutation,
   useUpsertWorkoutItemScoreMutation,
   useWorkoutByIdQuery,
-  WorkoutByIdQuery,
+  WorkoutPageFragment,
+  MuscleGroupFragment
 } from '../generated/graphql'
 import { WorkoutStatus } from '../types'
 import { useParams } from 'react-router-dom'
-
-export type Workout = WorkoutByIdQuery['workout']
+import { useMemo } from 'react'
 
 export type UseWorkout = {
-  workout: Workout
+  workout: WorkoutPageFragment | null | undefined
   nextWorkoutId: string | null | undefined
   status: WorkoutStatus
   currentCycleId: string | null | undefined
+  muscleGroups: MuscleGroupFragment[] | null | undefined
   upsertWorkoutItemScore: ReturnType<typeof useUpsertWorkoutItemScoreMutation>[0]
   completeWorkout: ReturnType<typeof useCompleteWorkoutMutation>[0]
   finishCycle: ReturnType<typeof useFinishCycleMutation>[0]
@@ -60,12 +61,27 @@ export const useWorkout = (): UseWorkout => {
     }
   })
 
+  const mapped = data?.workout?.workout_items
+    .flatMap(({ exercise_details }) => exercise_details.map(({ exercise }) => exercise?.muscle_group))
+    .filter((muscleGroup) => muscleGroup)
+    .filter((muscleGroup, index, self) => self.indexOf(muscleGroup) === index)
+    .sort((a, b) => (a?.type ?? '').localeCompare(b?.type ?? ''))
+    .filter((muscleGroup) => muscleGroup?.type !== 'Mobility')
+
+  const muscleGroups = useMemo(() => {
+    if (!mapped) return []
+
+    return mapped.filter((muscleGroup) => muscleGroup) as MuscleGroupFragment[]
+  }, [mapped])
+
+
   return {
     workout: data?.workout,
     nextWorkoutId: data?.next_workout[0]?.id,
     status: data?.user_workouts[0]?.status ?? WorkoutStatus.PENDING,
-    upsertWorkoutItemScore,
     currentCycleId: data?.user_workouts[0]?.cycleId,
+    muscleGroups,
+    upsertWorkoutItemScore,
     completeWorkout,
     finishCycle,
     loading: loading,

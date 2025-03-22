@@ -1105,6 +1105,9 @@ export type Exercises = {
   /** An aggregate relationship */
   exercise_details_aggregate: ExerciseDetailsAggregate;
   id: Scalars['bigint']['output'];
+  /** An object relationship */
+  muscle_group: Maybe<MuscleGroups>;
+  muscle_group_id: Maybe<Scalars['uuid']['output']>;
   updated_at: Scalars['timestamp']['output'];
 };
 
@@ -1179,6 +1182,8 @@ export type ExercisesBoolExp = {
   exercise_details?: InputMaybe<ExerciseDetailsBoolExp>;
   exercise_details_aggregate?: InputMaybe<ExerciseDetailsAggregateBoolExp>;
   id?: InputMaybe<BigintComparisonExp>;
+  muscle_group?: InputMaybe<MuscleGroupsBoolExp>;
+  muscle_group_id?: InputMaybe<UuidComparisonExp>;
   updated_at?: InputMaybe<TimestampComparisonExp>;
 };
 
@@ -1206,6 +1211,8 @@ export type ExercisesInsertInput = {
   demo_video_url?: InputMaybe<Scalars['String']['input']>;
   exercise_details?: InputMaybe<ExerciseDetailsArrRelInsertInput>;
   id?: InputMaybe<Scalars['bigint']['input']>;
+  muscle_group?: InputMaybe<MuscleGroupsObjRelInsertInput>;
+  muscle_group_id?: InputMaybe<Scalars['uuid']['input']>;
   updated_at?: InputMaybe<Scalars['timestamp']['input']>;
 };
 
@@ -1220,6 +1227,7 @@ export type ExercisesMaxFields = {
   demo_video_title: Maybe<Scalars['String']['output']>;
   demo_video_url: Maybe<Scalars['String']['output']>;
   id: Maybe<Scalars['bigint']['output']>;
+  muscle_group_id: Maybe<Scalars['uuid']['output']>;
   updated_at: Maybe<Scalars['timestamp']['output']>;
 };
 
@@ -1234,6 +1242,7 @@ export type ExercisesMinFields = {
   demo_video_title: Maybe<Scalars['String']['output']>;
   demo_video_url: Maybe<Scalars['String']['output']>;
   id: Maybe<Scalars['bigint']['output']>;
+  muscle_group_id: Maybe<Scalars['uuid']['output']>;
   updated_at: Maybe<Scalars['timestamp']['output']>;
 };
 
@@ -1271,6 +1280,8 @@ export type ExercisesOrderBy = {
   demo_video_url?: InputMaybe<OrderBy>;
   exercise_details_aggregate?: InputMaybe<ExerciseDetailsAggregateOrderBy>;
   id?: InputMaybe<OrderBy>;
+  muscle_group?: InputMaybe<MuscleGroupsOrderBy>;
+  muscle_group_id?: InputMaybe<OrderBy>;
   updated_at?: InputMaybe<OrderBy>;
 };
 
@@ -1298,6 +1309,8 @@ export enum ExercisesSelectColumn {
   /** column name */
   ID = 'id',
   /** column name */
+  MUSCLE_GROUP_ID = 'muscle_group_id',
+  /** column name */
   UPDATED_AT = 'updated_at'
 }
 
@@ -1311,6 +1324,7 @@ export type ExercisesSetInput = {
   demo_video_title?: InputMaybe<Scalars['String']['input']>;
   demo_video_url?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
+  muscle_group_id?: InputMaybe<Scalars['uuid']['input']>;
   updated_at?: InputMaybe<Scalars['timestamp']['input']>;
 };
 
@@ -1350,6 +1364,7 @@ export type ExercisesStreamCursorValueInput = {
   demo_video_title?: InputMaybe<Scalars['String']['input']>;
   demo_video_url?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
+  muscle_group_id?: InputMaybe<Scalars['uuid']['input']>;
   updated_at?: InputMaybe<Scalars['timestamp']['input']>;
 };
 
@@ -1377,6 +1392,8 @@ export enum ExercisesUpdateColumn {
   DEMO_VIDEO_URL = 'demo_video_url',
   /** column name */
   ID = 'id',
+  /** column name */
+  MUSCLE_GROUP_ID = 'muscle_group_id',
   /** column name */
   UPDATED_AT = 'updated_at'
 }
@@ -1739,6 +1756,159 @@ export type JsonbComparisonExp = {
   _nin?: InputMaybe<Array<Scalars['jsonb']['input']>>;
 };
 
+/** columns and relationships of "muscle_groups" */
+export type MuscleGroups = {
+  __typename?: 'muscle_groups';
+  created_at: Scalars['timestamptz']['output'];
+  id: Scalars['uuid']['output'];
+  type: Scalars['String']['output'];
+};
+
+/** aggregated selection of "muscle_groups" */
+export type MuscleGroupsAggregate = {
+  __typename?: 'muscle_groups_aggregate';
+  aggregate: Maybe<MuscleGroupsAggregateFields>;
+  nodes: Array<MuscleGroups>;
+};
+
+/** aggregate fields of "muscle_groups" */
+export type MuscleGroupsAggregateFields = {
+  __typename?: 'muscle_groups_aggregate_fields';
+  count: Scalars['Int']['output'];
+  max: Maybe<MuscleGroupsMaxFields>;
+  min: Maybe<MuscleGroupsMinFields>;
+};
+
+
+/** aggregate fields of "muscle_groups" */
+export type MuscleGroupsAggregateFieldsCountArgs = {
+  columns?: InputMaybe<Array<MuscleGroupsSelectColumn>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** Boolean expression to filter rows from the table "muscle_groups". All fields are combined with a logical 'AND'. */
+export type MuscleGroupsBoolExp = {
+  _and?: InputMaybe<Array<MuscleGroupsBoolExp>>;
+  _not?: InputMaybe<MuscleGroupsBoolExp>;
+  _or?: InputMaybe<Array<MuscleGroupsBoolExp>>;
+  created_at?: InputMaybe<TimestamptzComparisonExp>;
+  id?: InputMaybe<UuidComparisonExp>;
+  type?: InputMaybe<StringComparisonExp>;
+};
+
+/** unique or primary key constraints on table "muscle_groups" */
+export enum MuscleGroupsConstraint {
+  /** unique or primary key constraint on columns "id" */
+  MUSCLE_GROUPS_PKEY = 'muscle_groups_pkey'
+}
+
+/** input type for inserting data into table "muscle_groups" */
+export type MuscleGroupsInsertInput = {
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  type?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** aggregate max on columns */
+export type MuscleGroupsMaxFields = {
+  __typename?: 'muscle_groups_max_fields';
+  created_at: Maybe<Scalars['timestamptz']['output']>;
+  id: Maybe<Scalars['uuid']['output']>;
+  type: Maybe<Scalars['String']['output']>;
+};
+
+/** aggregate min on columns */
+export type MuscleGroupsMinFields = {
+  __typename?: 'muscle_groups_min_fields';
+  created_at: Maybe<Scalars['timestamptz']['output']>;
+  id: Maybe<Scalars['uuid']['output']>;
+  type: Maybe<Scalars['String']['output']>;
+};
+
+/** response of any mutation on the table "muscle_groups" */
+export type MuscleGroupsMutationResponse = {
+  __typename?: 'muscle_groups_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']['output'];
+  /** data from the rows affected by the mutation */
+  returning: Array<MuscleGroups>;
+};
+
+/** input type for inserting object relation for remote table "muscle_groups" */
+export type MuscleGroupsObjRelInsertInput = {
+  data: MuscleGroupsInsertInput;
+  /** upsert condition */
+  on_conflict?: InputMaybe<MuscleGroupsOnConflict>;
+};
+
+/** on_conflict condition type for table "muscle_groups" */
+export type MuscleGroupsOnConflict = {
+  constraint: MuscleGroupsConstraint;
+  update_columns?: Array<MuscleGroupsUpdateColumn>;
+  where?: InputMaybe<MuscleGroupsBoolExp>;
+};
+
+/** Ordering options when selecting data from "muscle_groups". */
+export type MuscleGroupsOrderBy = {
+  created_at?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  type?: InputMaybe<OrderBy>;
+};
+
+/** primary key columns input for table: muscle_groups */
+export type MuscleGroupsPkColumnsInput = {
+  id: Scalars['uuid']['input'];
+};
+
+/** select columns of table "muscle_groups" */
+export enum MuscleGroupsSelectColumn {
+  /** column name */
+  CREATED_AT = 'created_at',
+  /** column name */
+  ID = 'id',
+  /** column name */
+  TYPE = 'type'
+}
+
+/** input type for updating data in table "muscle_groups" */
+export type MuscleGroupsSetInput = {
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  type?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** Streaming cursor of the table "muscle_groups" */
+export type MuscleGroupsStreamCursorInput = {
+  /** Stream column input with initial value */
+  initial_value: MuscleGroupsStreamCursorValueInput;
+  /** cursor ordering */
+  ordering?: InputMaybe<CursorOrdering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type MuscleGroupsStreamCursorValueInput = {
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  type?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** update columns of table "muscle_groups" */
+export enum MuscleGroupsUpdateColumn {
+  /** column name */
+  CREATED_AT = 'created_at',
+  /** column name */
+  ID = 'id',
+  /** column name */
+  TYPE = 'type'
+}
+
+export type MuscleGroupsUpdates = {
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<MuscleGroupsSetInput>;
+  /** filter the rows which have to be updated */
+  where: MuscleGroupsBoolExp;
+};
+
 /** mutation root */
 export type MutationRoot = {
   __typename?: 'mutation_root';
@@ -1758,6 +1928,10 @@ export type MutationRoot = {
   delete_integrations: Maybe<IntegrationsMutationResponse>;
   /** delete single row from the table: "integrations" */
   delete_integrations_by_pk: Maybe<Integrations>;
+  /** delete data from the table: "muscle_groups" */
+  delete_muscle_groups: Maybe<MuscleGroupsMutationResponse>;
+  /** delete single row from the table: "muscle_groups" */
+  delete_muscle_groups_by_pk: Maybe<MuscleGroups>;
   /** delete data from the table: "programs" */
   delete_programs: Maybe<ProgramsMutationResponse>;
   /** delete single row from the table: "programs" */
@@ -1814,6 +1988,10 @@ export type MutationRoot = {
   insert_integrations: Maybe<IntegrationsMutationResponse>;
   /** insert a single row into the table: "integrations" */
   insert_integrations_one: Maybe<Integrations>;
+  /** insert data into the table: "muscle_groups" */
+  insert_muscle_groups: Maybe<MuscleGroupsMutationResponse>;
+  /** insert a single row into the table: "muscle_groups" */
+  insert_muscle_groups_one: Maybe<MuscleGroups>;
   /** insert data into the table: "programs" */
   insert_programs: Maybe<ProgramsMutationResponse>;
   /** insert a single row into the table: "programs" */
@@ -1878,6 +2056,12 @@ export type MutationRoot = {
   update_integrations_by_pk: Maybe<Integrations>;
   /** update multiples rows of table: "integrations" */
   update_integrations_many: Maybe<Array<Maybe<IntegrationsMutationResponse>>>;
+  /** update data of the table: "muscle_groups" */
+  update_muscle_groups: Maybe<MuscleGroupsMutationResponse>;
+  /** update single row of the table: "muscle_groups" */
+  update_muscle_groups_by_pk: Maybe<MuscleGroups>;
+  /** update multiples rows of table: "muscle_groups" */
+  update_muscle_groups_many: Maybe<Array<Maybe<MuscleGroupsMutationResponse>>>;
   /** update data of the table: "programs" */
   update_programs: Maybe<ProgramsMutationResponse>;
   /** update single row of the table: "programs" */
@@ -1985,6 +2169,18 @@ export type MutationRootDeleteIntegrationsArgs = {
 
 /** mutation root */
 export type MutationRootDeleteIntegrationsByPkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
+/** mutation root */
+export type MutationRootDeleteMuscleGroupsArgs = {
+  where: MuscleGroupsBoolExp;
+};
+
+
+/** mutation root */
+export type MutationRootDeleteMuscleGroupsByPkArgs = {
   id: Scalars['uuid']['input'];
 };
 
@@ -2162,6 +2358,20 @@ export type MutationRootInsertIntegrationsArgs = {
 export type MutationRootInsertIntegrationsOneArgs = {
   object: IntegrationsInsertInput;
   on_conflict?: InputMaybe<IntegrationsOnConflict>;
+};
+
+
+/** mutation root */
+export type MutationRootInsertMuscleGroupsArgs = {
+  objects: Array<MuscleGroupsInsertInput>;
+  on_conflict?: InputMaybe<MuscleGroupsOnConflict>;
+};
+
+
+/** mutation root */
+export type MutationRootInsertMuscleGroupsOneArgs = {
+  object: MuscleGroupsInsertInput;
+  on_conflict?: InputMaybe<MuscleGroupsOnConflict>;
 };
 
 
@@ -2390,6 +2600,26 @@ export type MutationRootUpdateIntegrationsByPkArgs = {
 /** mutation root */
 export type MutationRootUpdateIntegrationsManyArgs = {
   updates: Array<IntegrationsUpdates>;
+};
+
+
+/** mutation root */
+export type MutationRootUpdateMuscleGroupsArgs = {
+  _set?: InputMaybe<MuscleGroupsSetInput>;
+  where: MuscleGroupsBoolExp;
+};
+
+
+/** mutation root */
+export type MutationRootUpdateMuscleGroupsByPkArgs = {
+  _set?: InputMaybe<MuscleGroupsSetInput>;
+  pk_columns: MuscleGroupsPkColumnsInput;
+};
+
+
+/** mutation root */
+export type MutationRootUpdateMuscleGroupsManyArgs = {
+  updates: Array<MuscleGroupsUpdates>;
 };
 
 
@@ -2940,6 +3170,12 @@ export type QueryRoot = {
   integrations: Array<Integrations>;
   /** fetch aggregated fields from the table: "integrations" */
   integrations_aggregate: IntegrationsAggregate;
+  /** fetch data from the table: "muscle_groups" */
+  muscle_groups: Array<MuscleGroups>;
+  /** fetch aggregated fields from the table: "muscle_groups" */
+  muscle_groups_aggregate: MuscleGroupsAggregate;
+  /** fetch data from the table: "muscle_groups" using primary key columns */
+  muscle_groups_by_pk: Maybe<MuscleGroups>;
   /** fetch data from the table: "programs" */
   programs: Array<Programs>;
   /** fetch aggregated fields from the table: "programs" */
@@ -3092,6 +3328,29 @@ export type QueryRootIntegrationsAggregateArgs = {
   offset?: InputMaybe<Scalars['Int']['input']>;
   order_by?: InputMaybe<Array<IntegrationsOrderBy>>;
   where?: InputMaybe<IntegrationsBoolExp>;
+};
+
+
+export type QueryRootMuscleGroupsArgs = {
+  distinct_on?: InputMaybe<Array<MuscleGroupsSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<MuscleGroupsOrderBy>>;
+  where?: InputMaybe<MuscleGroupsBoolExp>;
+};
+
+
+export type QueryRootMuscleGroupsAggregateArgs = {
+  distinct_on?: InputMaybe<Array<MuscleGroupsSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<MuscleGroupsOrderBy>>;
+  where?: InputMaybe<MuscleGroupsBoolExp>;
+};
+
+
+export type QueryRootMuscleGroupsByPkArgs = {
+  id: Scalars['uuid']['input'];
 };
 
 
@@ -3597,6 +3856,14 @@ export type SubscriptionRoot = {
   integrations_aggregate: IntegrationsAggregate;
   /** fetch data from the table in a streaming manner: "integrations" */
   integrations_stream: Array<Integrations>;
+  /** fetch data from the table: "muscle_groups" */
+  muscle_groups: Array<MuscleGroups>;
+  /** fetch aggregated fields from the table: "muscle_groups" */
+  muscle_groups_aggregate: MuscleGroupsAggregate;
+  /** fetch data from the table: "muscle_groups" using primary key columns */
+  muscle_groups_by_pk: Maybe<MuscleGroups>;
+  /** fetch data from the table in a streaming manner: "muscle_groups" */
+  muscle_groups_stream: Array<MuscleGroups>;
   /** fetch data from the table: "programs" */
   programs: Array<Programs>;
   /** fetch aggregated fields from the table: "programs" */
@@ -3797,6 +4064,36 @@ export type SubscriptionRootIntegrationsStreamArgs = {
   batch_size: Scalars['Int']['input'];
   cursor: Array<InputMaybe<IntegrationsStreamCursorInput>>;
   where?: InputMaybe<IntegrationsBoolExp>;
+};
+
+
+export type SubscriptionRootMuscleGroupsArgs = {
+  distinct_on?: InputMaybe<Array<MuscleGroupsSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<MuscleGroupsOrderBy>>;
+  where?: InputMaybe<MuscleGroupsBoolExp>;
+};
+
+
+export type SubscriptionRootMuscleGroupsAggregateArgs = {
+  distinct_on?: InputMaybe<Array<MuscleGroupsSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<MuscleGroupsOrderBy>>;
+  where?: InputMaybe<MuscleGroupsBoolExp>;
+};
+
+
+export type SubscriptionRootMuscleGroupsByPkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
+export type SubscriptionRootMuscleGroupsStreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<MuscleGroupsStreamCursorInput>>;
+  where?: InputMaybe<MuscleGroupsBoolExp>;
 };
 
 
@@ -7028,8 +7325,6 @@ export type WorkoutsVarianceOrderBy = {
   id?: InputMaybe<OrderBy>;
 };
 
-export type ExerciseFragment = { __typename?: 'exercises', id: string, base_url: string, demo_video_url: string | null | undefined, demo_video_title: string, demo_video_poster: string, demo_video_id: string };
-
 export type ProgramDetailsFragment = { __typename?: 'cycles', program: { __typename?: 'programs', id: string, name: string, image: string | null | undefined } };
 
 export type ProgramsFragment = { __typename?: 'programs', id: string, name: string, image: string | null | undefined };
@@ -7039,6 +7334,18 @@ export type UserFragment = { __typename?: 'user_cycles', user: { __typename?: 'u
 export type WorkoutFragment = { __typename?: 'user_cycles', workout: { __typename?: 'workouts', id: string, title: string, isActiveRecovery: boolean, isRestDay: boolean, first: Array<{ __typename?: 'workout_items', id: string, header: string | null | undefined, notes: string | null | undefined }>, rest: Array<{ __typename?: 'workout_items', id: string, header: string | null | undefined }>, titles: Array<{ __typename?: 'workout_items', id: string, title: string | null | undefined }> } };
 
 export type WorkoutIdsFragment = { __typename?: 'cycles', workouts: Array<{ __typename?: 'workouts', id: string }> };
+
+export type WorkoutPageFragment = { __typename?: 'workouts', id: string, title: string, subtitle: string, poster: string | null | undefined, isRestDay: boolean, isActiveRecovery: boolean, description: string | null | undefined, date: string | null | undefined, cycle: number | null | undefined, workout_items: Array<{ __typename?: 'workout_items', id: string, title: string | null | undefined, notes: string | null | undefined, header: string | null | undefined, scores: Array<{ __typename?: 'workout_item_scores', id: string, value: string, created_at: string }>, exercise_details: Array<{ __typename?: 'exercise_details', id: string, title: string | null | undefined, subtitle: string | null | undefined, levels: any | null | undefined, exercise: { __typename?: 'exercises', id: string, base_url: string, demo_video_url: string | null | undefined, demo_video_title: string, demo_video_poster: string, demo_video_id: string, muscle_group: { __typename?: 'muscle_groups', id: string, type: string } | null | undefined } | null | undefined }> }> };
+
+export type WorkoutItemFragment = { __typename?: 'workout_items', id: string, title: string | null | undefined, notes: string | null | undefined, header: string | null | undefined, scores: Array<{ __typename?: 'workout_item_scores', id: string, value: string, created_at: string }>, exercise_details: Array<{ __typename?: 'exercise_details', id: string, title: string | null | undefined, subtitle: string | null | undefined, levels: any | null | undefined, exercise: { __typename?: 'exercises', id: string, base_url: string, demo_video_url: string | null | undefined, demo_video_title: string, demo_video_poster: string, demo_video_id: string, muscle_group: { __typename?: 'muscle_groups', id: string, type: string } | null | undefined } | null | undefined }> };
+
+export type WorkoutItemScoresFragment = { __typename?: 'workout_item_scores', id: string, value: string, created_at: string };
+
+export type ExerciseDetailsFragment = { __typename?: 'exercise_details', id: string, title: string | null | undefined, subtitle: string | null | undefined, levels: any | null | undefined, exercise: { __typename?: 'exercises', id: string, base_url: string, demo_video_url: string | null | undefined, demo_video_title: string, demo_video_poster: string, demo_video_id: string, muscle_group: { __typename?: 'muscle_groups', id: string, type: string } | null | undefined } | null | undefined };
+
+export type ExerciseFragment = { __typename?: 'exercises', id: string, base_url: string, demo_video_url: string | null | undefined, demo_video_title: string, demo_video_poster: string, demo_video_id: string, muscle_group: { __typename?: 'muscle_groups', id: string, type: string } | null | undefined };
+
+export type MuscleGroupFragment = { __typename?: 'muscle_groups', id: string, type: string };
 
 export type CompleteWorkoutMutationVariables = Exact<{
   completedWorkout: Scalars['bigint']['input'];
@@ -7101,7 +7408,7 @@ export type GetDashboardDataForUserQuery = { __typename?: 'query_root', user_cyc
 export type GetExercisesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetExercisesQuery = { __typename?: 'query_root', exercises: Array<{ __typename?: 'exercises', id: string, base_url: string, demo_video_url: string | null | undefined, demo_video_title: string, demo_video_poster: string, demo_video_id: string }> };
+export type GetExercisesQuery = { __typename?: 'query_root', exercises: Array<{ __typename?: 'exercises', id: string, base_url: string, demo_video_url: string | null | undefined, demo_video_title: string, demo_video_poster: string, demo_video_id: string, muscle_group: { __typename?: 'muscle_groups', id: string, type: string } | null | undefined }> };
 
 export type GetIntegrationsQueryVariables = Exact<{
   id?: Scalars['uuid']['input'];
@@ -7141,18 +7448,8 @@ export type WorkoutByIdQueryVariables = Exact<{
 }>;
 
 
-export type WorkoutByIdQuery = { __typename?: 'query_root', workout: { __typename?: 'workouts', id: string, title: string, subtitle: string, poster: string | null | undefined, isRestDay: boolean, isActiveRecovery: boolean, description: string | null | undefined, date: string | null | undefined, cycle: number | null | undefined, workout_items: Array<{ __typename?: 'workout_items', id: string, title: string | null | undefined, notes: string | null | undefined, header: string | null | undefined, scores: Array<{ __typename?: 'workout_item_scores', id: string, value: string, created_at: string }>, exercise_details: Array<{ __typename?: 'exercise_details', id: string, title: string | null | undefined, subtitle: string | null | undefined, levels: any | null | undefined, exercise: { __typename?: 'exercises', id: string, base_url: string, demo_video_url: string | null | undefined, demo_video_title: string, demo_video_poster: string, demo_video_id: string } | null | undefined }> }> } | null | undefined, user_workouts: Array<{ __typename?: 'user_workouts', status: WorkoutStatusEnumEnum | null | undefined, id: string, cycleId: string }>, next_workout: Array<{ __typename?: 'user_workouts', id: string }> };
+export type WorkoutByIdQuery = { __typename?: 'query_root', workout: { __typename?: 'workouts', id: string, title: string, subtitle: string, poster: string | null | undefined, isRestDay: boolean, isActiveRecovery: boolean, description: string | null | undefined, date: string | null | undefined, cycle: number | null | undefined, workout_items: Array<{ __typename?: 'workout_items', id: string, title: string | null | undefined, notes: string | null | undefined, header: string | null | undefined, scores: Array<{ __typename?: 'workout_item_scores', id: string, value: string, created_at: string }>, exercise_details: Array<{ __typename?: 'exercise_details', id: string, title: string | null | undefined, subtitle: string | null | undefined, levels: any | null | undefined, exercise: { __typename?: 'exercises', id: string, base_url: string, demo_video_url: string | null | undefined, demo_video_title: string, demo_video_poster: string, demo_video_id: string, muscle_group: { __typename?: 'muscle_groups', id: string, type: string } | null | undefined } | null | undefined }> }> } | null | undefined, user_workouts: Array<{ __typename?: 'user_workouts', status: WorkoutStatusEnumEnum | null | undefined, id: string, cycleId: string }>, next_workout: Array<{ __typename?: 'user_workouts', id: string }> };
 
-export const ExerciseFragmentDoc = gql`
-    fragment Exercise on exercises {
-  id
-  base_url
-  demo_video_url
-  demo_video_title
-  demo_video_poster
-  demo_video_id
-}
-    `;
 export const ProgramDetailsFragmentDoc = gql`
     fragment ProgramDetails on cycles {
   program {
@@ -7209,6 +7506,74 @@ export const WorkoutIdsFragmentDoc = gql`
   }
 }
     `;
+export const WorkoutItemScoresFragmentDoc = gql`
+    fragment WorkoutItemScores on workout_item_scores {
+  id
+  value
+  created_at
+}
+    `;
+export const MuscleGroupFragmentDoc = gql`
+    fragment MuscleGroup on muscle_groups {
+  id
+  type
+}
+    `;
+export const ExerciseFragmentDoc = gql`
+    fragment Exercise on exercises {
+  id
+  base_url
+  demo_video_url
+  demo_video_title
+  demo_video_poster
+  demo_video_id
+  muscle_group {
+    ...MuscleGroup
+  }
+}
+    ${MuscleGroupFragmentDoc}`;
+export const ExerciseDetailsFragmentDoc = gql`
+    fragment ExerciseDetails on exercise_details {
+  id
+  title
+  subtitle
+  levels
+  exercise {
+    ...Exercise
+  }
+}
+    ${ExerciseFragmentDoc}`;
+export const WorkoutItemFragmentDoc = gql`
+    fragment WorkoutItem on workout_items {
+  id
+  title
+  notes
+  header
+  scores(order_by: {created_at: desc}) {
+    ...WorkoutItemScores
+  }
+  exercise_details {
+    ...ExerciseDetails
+  }
+}
+    ${WorkoutItemScoresFragmentDoc}
+${ExerciseDetailsFragmentDoc}`;
+export const WorkoutPageFragmentDoc = gql`
+    fragment WorkoutPage on workouts {
+  id
+  title
+  subtitle
+  poster
+  isRestDay
+  isActiveRecovery
+  description
+  date
+  cycle
+  workout_items(order_by: {id: asc}) {
+    ...WorkoutItem
+  }
+}
+    ${WorkoutItemFragmentDoc}`;
 export const CompleteWorkout = gql`
     mutation CompleteWorkout($completedWorkout: bigint!, $cycleId: bigint!, $nextWorkoutId: Int!, $status: workout_status_enum_enum!) {
   update_user_workouts(
@@ -7904,13 +8269,7 @@ export const WorkoutById = gql`
         created_at
       }
       exercise_details {
-        id
-        title
-        subtitle
-        levels
-        exercise {
-          ...Exercise
-        }
+        ...ExerciseDetails
       }
     }
   }
@@ -7928,7 +8287,7 @@ export const WorkoutById = gql`
     id: workout_id
   }
 }
-    ${ExerciseFragmentDoc}`;
+    ${ExerciseDetailsFragmentDoc}`;
 
 /**
  * __useWorkoutByIdQuery__

@@ -1,11 +1,12 @@
 import { marked } from 'marked'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { DashboardContent, useDashboard } from '../hooks/useDashboard'
 import { ProgressBar } from '../components'
 import { Loading } from './Loading'
 import { DailyOverview } from '../components/Whoop'
 import { useAuth } from '../hooks/useAuth'
 import { useEffect } from 'react'
+
 const CurrentProgramCard = ({ currentProgram, cycleProgression, loading, userCycle }: {
   currentProgram: DashboardContent['currentProgram'],
   cycleProgression: DashboardContent['cycleProgression'],
@@ -187,7 +188,7 @@ export const Dashboard = () => {
 
   useEffect(() => {
     if (!user?.is_guest) return;
-    navigate('/workouts/106')
+    navigate('/workouts/107')
   }, [user])
 
   const { currentProgram, currentWorkout, cycleProgression, programs, userCycle, loading } = useDashboard()

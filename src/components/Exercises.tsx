@@ -1,13 +1,13 @@
 import { useState, useMemo } from 'react'
 import { marked } from 'marked'
-import { ExerciseDetailsEntity as ExerciseDetails } from '../types'
 import { PlayCircleIcon } from '@heroicons/react/24/solid'
 import { ChevronDownIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
+import { ExerciseDetailsFragment } from '../generated/graphql'
 
 interface ExerciseGroup {
-  recommended: ExerciseDetails
-  alternative?: ExerciseDetails
-  followUps: ExerciseDetails[]
+  recommended: ExerciseDetailsFragment
+  alternative?: ExerciseDetailsFragment
+  followUps: ExerciseDetailsFragment[]
 }
 
 interface ExerciseSelectionState {
@@ -15,24 +15,26 @@ interface ExerciseSelectionState {
 }
 
 const ExerciseTitle: React.FC<{
-  exercise: ExerciseDetails
+  exercise: ExerciseDetailsFragment
   onClick?: () => void
-}> = ({ exercise, onClick }) => (
-  <div onClick={onClick} className="cursor-pointer rounded flex-grow">
-    <h4
-      className="text-base lg:text-lg text-gray-900 font-light cursor-pointer rounded flex-grow"
-      dangerouslySetInnerHTML={{
-        __html: exercise.title.includes('fa-hand') ? marked(exercise.title) : exercise.title
-      }}
-    />
-    {exercise.subtitle && (
-      <em
-        className="text-base lg:text-lg text-gray-900 font-light"
-        dangerouslySetInnerHTML={{ __html: marked(exercise.subtitle) }}
-      />
-    )}
-  </div>
-)
+}> = ({ exercise, onClick }) => {
+  if (!exercise.title) return null
+
+  return (
+    <div onClick={onClick} className="cursor-pointer rounded flex-grow">
+      <h4
+        className="text-base lg:text-lg text-gray-900 font-light cursor-pointer rounded flex-grow"
+        dangerouslySetInnerHTML={{
+          __html: exercise.title.includes('fa-hand') ? marked(exercise.title) : exercise.title
+        }} />
+      {exercise.subtitle && (
+        <em
+          className="text-base lg:text-lg text-gray-900 font-light"
+          dangerouslySetInnerHTML={{ __html: marked(exercise.subtitle) }} />
+      )}
+    </div>
+  )
+}
 
 const ExerciseGroup: React.FC<{
   group: ExerciseGroup
@@ -78,7 +80,7 @@ const VideoSection: React.FC<{
   groupedExercises: ExerciseGroup[]
   selectedExercises: ExerciseSelectionState
 }> = ({ groupedExercises, selectedExercises }) => {
-  const navigateToVideo = (url: string | null) => {
+  const navigateToVideo = (url: string | null | undefined) => {
     if (!url) return
     window.open(url, 'newWindow', 'noopener,noreferrer,scrollbars=yes,resizable=yes')
   }
@@ -91,22 +93,22 @@ const VideoSection: React.FC<{
         const selectedExercise = selectedType === 'recommended' ? group.recommended : group.alternative
 
         // Include follow-ups after the selected exercise
-        const visibleExercises = [selectedExercise, ...group.followUps].filter(Boolean)
+        const visibleExercises = [selectedExercise, ...group.followUps].filter(Boolean) as ExerciseDetailsFragment[]
 
-        return visibleExercises.map((exercise) => {
-          if (!exercise?.exercise?.demo_video_poster) return null
+        return visibleExercises.map(({ exercise }) => {
+          if (!exercise?.demo_video_poster) return null
 
-          const videoUrl = `${exercise.exercise.base_url}${exercise.exercise.demo_video_poster}`
+          const videoUrl = `${exercise.base_url}${exercise.demo_video_poster}`
 
           return (
             <div className="min-w-[300px] snap-start relative" key={`video-${exercise.id}`}>
-              {exercise.exercise.demo_video_url ? (
+              {exercise.demo_video_url ? (
                 <button
-                  onClick={() => navigateToVideo(exercise.exercise.demo_video_url)}
+                  onClick={() => navigateToVideo(exercise.demo_video_url)}
                   className="block w-full h-full relative"
                 >
                   <img
-                    alt={exercise.exercise.demo_video_title || 'Exercise Thumbnail'}
+                    alt={exercise.demo_video_title || 'Exercise Thumbnail'}
                     src={videoUrl}
                     className="h-auto object-contain rounded-lg bg-white max-h-[165px]"
                   />
@@ -114,7 +116,7 @@ const VideoSection: React.FC<{
                 </button>
               ) : (
                 <img
-                  alt={exercise.exercise.demo_video_title || 'Exercise Thumbnail'}
+                  alt={exercise.demo_video_title || 'Exercise Thumbnail'}
                   src={videoUrl}
                   className="h-auto object-contain rounded-lg bg-white max-h-[165px]"
                 />
@@ -126,13 +128,14 @@ const VideoSection: React.FC<{
     </section>
   )
 }
-export const Exercises: React.FC<{ exercise_details: ExerciseDetails[] }> = ({ exercise_details }) => {
+
+export const Exercises: React.FC<{ details: ExerciseDetailsFragment[] }> = ({ details }) => {
   const [selectedExercises, setSelectedExercises] = useState<ExerciseSelectionState>({})
 
   const groupedExercises = useMemo(() => {
-    if (!exercise_details) return []
+    if (!details) return []
 
-    return exercise_details.reduce<ExerciseGroup[]>((groups, exercise) => {
+    return details.reduce<ExerciseGroup[]>((groups, exercise) => {
       const { levels } = exercise
 
       if (levels.includes('l1')) {
@@ -149,7 +152,7 @@ export const Exercises: React.FC<{ exercise_details: ExerciseDetails[] }> = ({ e
 
       return groups
     }, [])
-  }, [exercise_details])
+  }, [details])
 
   const handleSelectExercise = (groupIndex: number, type: 'recommended' | 'alternative') => {
     setSelectedExercises((prev) => ({
@@ -158,7 +161,7 @@ export const Exercises: React.FC<{ exercise_details: ExerciseDetails[] }> = ({ e
     }))
   }
 
-  if (exercise_details.length === 0) return
+  if (details.length === 0) return
 
   return (
     <>

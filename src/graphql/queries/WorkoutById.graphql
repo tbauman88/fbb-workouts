@@ -20,13 +20,7 @@ query WorkoutById($id: bigint!) {
         created_at
       }
       exercise_details {
-        id
-        title
-        subtitle
-        levels
-        exercise {
-          ...Exercise
-        }
+        ...ExerciseDetails
       }
     }
   }

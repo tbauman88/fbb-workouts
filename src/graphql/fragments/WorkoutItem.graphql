@@ -1,0 +1,61 @@
+fragment WorkoutPage on workouts {
+  id
+  title
+  subtitle
+  poster
+  isRestDay
+  isActiveRecovery
+  description
+  date
+  cycle
+  workout_items(order_by: { id: asc }) {
+    ...WorkoutItem
+  }
+}
+
+fragment WorkoutItem on workout_items {
+  id
+  title
+  notes
+  header
+  scores(order_by: { created_at: desc }) {
+    ...WorkoutItemScores
+  }
+  exercise_details {
+    ...ExerciseDetails
+  }
+}
+
+fragment WorkoutItemScores on workout_item_scores {
+  id
+  value
+  created_at
+}
+
+fragment ExerciseDetails on exercise_details {
+  id
+  title
+  subtitle
+  levels
+  exercise {
+    ...Exercise
+  }
+}
+
+
+fragment Exercise on exercises {
+  id
+  base_url
+  demo_video_url
+  demo_video_title
+  demo_video_poster
+  demo_video_id
+  muscle_group {
+    ...MuscleGroup
+  }
+}
+
+fragment MuscleGroup on muscle_groups {
+  id
+  type
+}

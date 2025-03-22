@@ -20,6 +20,9 @@ export interface ExerciseDetailsEntity {
   subtitle?: string
   levels: string
   exercise: ExerciseEntity
+  muscle_group: {
+    type: string
+  }
 }
 
 export type PartialExerciseDetails = Pick<ExerciseDetailsEntity, 'id' | 'title' | 'subtitle' | 'exercise'>

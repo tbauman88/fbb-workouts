@@ -2,18 +2,16 @@ import { useState, useRef, useCallback, useEffect } from 'react'
 import { useWorkout } from '../hooks/useWorkout'
 import { ArchiveBoxArrowDownIcon } from '@heroicons/react/24/outline'
 import { isToday } from 'date-fns'
-import { WorkoutItem } from '../types/component'
 import { WorkoutStatus } from '../types'
+import { WorkoutItemScoresFragment } from '../generated/graphql'
 
 const PLACEHOLDER = 'Add score'
 const KEY_HINT = 'done'
 
-type Score = WorkoutItem[number]['scores'][number] | null
-
 export const Score: React.FC<{
   workoutItemId: string
   showInput: boolean
-  values?: Score[]
+  values?: WorkoutItemScoresFragment[]
 }> = ({ workoutItemId, showInput, values = [] }) => {
   const { status, upsertWorkoutItemScore } = useWorkout()
 

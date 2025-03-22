@@ -27,11 +27,7 @@ export interface WorkoutCardProps {
 }
 
 type Workout = NonNullable<WorkoutByIdQuery['workout']>
-export type WorkoutItem = NonNullable<Workout>['workout_items']
 
-export interface WorkoutItemProps {
-  item: WorkoutItem[number]
-}
 
 export interface NavigationProps {
   name: string
