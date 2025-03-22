@@ -23,11 +23,8 @@ export interface ProgramCardProps {
 }
 
 export interface WorkoutCardProps {
-  workout: Workout
+  workout: NonNullable<WorkoutByIdQuery['workout']>
 }
-
-type Workout = NonNullable<WorkoutByIdQuery['workout']>
-
 
 export interface NavigationProps {
   name: string
