@@ -1,15 +1,15 @@
 import { QueryResult } from '@apollo/client';
-import { GetUserCycleProgressQuery, useGetUserCycleProgressQuery } from '../generated/graphql';
+import { GetUserCycleProgressQuery, MuscleGroupFragment, useGetUserCycleProgressQuery } from '../generated/graphql';
 import { formatProgramName } from './usePrograms';
 import { WorkoutStatus } from '../types';
 import { useAuth } from './useAuth';
-
+import { filterMuscleGroups } from './utils';
 type Workout = GetUserCycleProgressQuery['userCycle'][0]['workout']
 type Program = GetUserCycleProgressQuery['userCycle'][0]['cycle']['program']
 type CurrentWorkoutItems = Array<Workout['first'][0] | Workout['rest'][0] | Workout['titles'][0]>
 
 type UserCycle = GetUserCycleProgressQuery['userCycle'][0]
-type CurrentWorkout = Workout & { items: CurrentWorkoutItems }
+type CurrentWorkout = Workout & { items: CurrentWorkoutItems, muscleGroups: MuscleGroupFragment[] }
 export type CurrentProgram = Omit<Program, 'name'> & { cycleId: string, name: string | null }
 type Programs = GetUserCycleProgressQuery['programs'][0]
 
@@ -40,6 +40,7 @@ const getDashboardData = (data: GetUserCycleProgressQuery | undefined): Dashboar
   const userCycle = data.userCycle[0] || null;
   const { cycle, workout } = userCycle || {};
 
+
   const currentProgram = {
     ...cycle.program,
     cycleId: cycle.id,
@@ -47,10 +48,14 @@ const getDashboardData = (data: GetUserCycleProgressQuery | undefined): Dashboar
   }
 
   const items = workout ? [...workout.first, ...workout.rest, ...workout.titles] : []
+  const filteredMuscleGroups = workout?.muscleGroup
+    .flatMap((i) => i.exercise_details.map((m) => m.exercise?.muscle_group))
+    .filter((muscleGroup): muscleGroup is MuscleGroupFragment => !!muscleGroup)
 
   const currentWorkout = {
     ...workout,
-    items: items.sort((a, b) => parseInt(a.id) - parseInt(b.id))
+    items: items.sort((a, b) => parseInt(a.id) - parseInt(b.id)),
+    muscleGroups: filterMuscleGroups(filteredMuscleGroups) ?? []
   }
 
   const userWorkouts = cycle?.user_workouts

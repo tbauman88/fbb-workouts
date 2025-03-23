@@ -16,7 +16,7 @@ export const Badge = ({ status, muscleGroup }: BadgeProps) => {
   const classNames = `${padding} ${variant[status ?? 'muscleGroup']}`
 
   return (
-    <p className={`rounded-md text-xs font-medium ring-1 ring-inset uppercase mb-2 ${classNames}`}>
+    <p className={`rounded-md text-xs font-medium ring-1 ring-inset uppercase ${classNames}`}>
       {status ? `Workout ${status}` : muscleGroup}
     </p>
   )

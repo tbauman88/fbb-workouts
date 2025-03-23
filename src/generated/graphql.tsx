@@ -7331,7 +7331,7 @@ export type ProgramsFragment = { __typename?: 'programs', id: string, name: stri
 
 export type UserFragment = { __typename?: 'user_cycles', user: { __typename?: 'users', id: string, name: string, email: string, image_url: string | null | undefined } };
 
-export type WorkoutFragment = { __typename?: 'user_cycles', workout: { __typename?: 'workouts', id: string, title: string, isActiveRecovery: boolean, isRestDay: boolean, first: Array<{ __typename?: 'workout_items', id: string, header: string | null | undefined, notes: string | null | undefined }>, rest: Array<{ __typename?: 'workout_items', id: string, header: string | null | undefined }>, titles: Array<{ __typename?: 'workout_items', id: string, title: string | null | undefined }> } };
+export type WorkoutFragment = { __typename?: 'user_cycles', workout: { __typename?: 'workouts', id: string, title: string, isActiveRecovery: boolean, isRestDay: boolean, first: Array<{ __typename?: 'workout_items', id: string, header: string | null | undefined, notes: string | null | undefined }>, rest: Array<{ __typename?: 'workout_items', id: string, header: string | null | undefined }>, titles: Array<{ __typename?: 'workout_items', id: string, title: string | null | undefined }>, muscleGroup: Array<{ __typename?: 'workout_items', exercise_details: Array<{ __typename?: 'exercise_details', exercise: { __typename?: 'exercises', muscle_group: { __typename?: 'muscle_groups', id: string, type: string } | null | undefined } | null | undefined }> }> } };
 
 export type WorkoutIdsFragment = { __typename?: 'cycles', workouts: Array<{ __typename?: 'workouts', id: string }> };
 
@@ -7434,7 +7434,7 @@ export type GetUserCycleProgressQueryVariables = Exact<{
 }>;
 
 
-export type GetUserCycleProgressQuery = { __typename?: 'query_root', userCycle: Array<{ __typename?: 'user_cycles', id: string, start_date: string, completed: boolean, current_workout: number, cycle: { __typename?: 'cycles', id: string, total: number, user_workouts: Array<{ __typename?: 'user_workouts', status: WorkoutStatusEnumEnum | null | undefined }>, program: { __typename?: 'programs', id: string, name: string, image: string | null | undefined } }, workout: { __typename?: 'workouts', id: string, title: string, isActiveRecovery: boolean, isRestDay: boolean, first: Array<{ __typename?: 'workout_items', id: string, header: string | null | undefined, notes: string | null | undefined }>, rest: Array<{ __typename?: 'workout_items', id: string, header: string | null | undefined }>, titles: Array<{ __typename?: 'workout_items', id: string, title: string | null | undefined }> } }>, programs: Array<{ __typename?: 'programs', id: string, name: string, image: string | null | undefined }> };
+export type GetUserCycleProgressQuery = { __typename?: 'query_root', userCycle: Array<{ __typename?: 'user_cycles', id: string, start_date: string, completed: boolean, current_workout: number, cycle: { __typename?: 'cycles', id: string, total: number, user_workouts: Array<{ __typename?: 'user_workouts', status: WorkoutStatusEnumEnum | null | undefined }>, program: { __typename?: 'programs', id: string, name: string, image: string | null | undefined } }, workout: { __typename?: 'workouts', id: string, title: string, isActiveRecovery: boolean, isRestDay: boolean, first: Array<{ __typename?: 'workout_items', id: string, header: string | null | undefined, notes: string | null | undefined }>, rest: Array<{ __typename?: 'workout_items', id: string, header: string | null | undefined }>, titles: Array<{ __typename?: 'workout_items', id: string, title: string | null | undefined }>, muscleGroup: Array<{ __typename?: 'workout_items', exercise_details: Array<{ __typename?: 'exercise_details', exercise: { __typename?: 'exercises', muscle_group: { __typename?: 'muscle_groups', id: string, type: string } | null | undefined } | null | undefined }> }> } }>, programs: Array<{ __typename?: 'programs', id: string, name: string, image: string | null | undefined }> };
 
 export type GetWorkoutsQueryVariables = Exact<{
   cycleId: Scalars['Int']['input'];
@@ -7476,6 +7476,12 @@ export const UserFragmentDoc = gql`
   }
 }
     `;
+export const MuscleGroupFragmentDoc = gql`
+    fragment MuscleGroup on muscle_groups {
+  id
+  type
+}
+    `;
 export const WorkoutFragmentDoc = gql`
     fragment Workout on user_cycles {
   workout {
@@ -7496,9 +7502,22 @@ export const WorkoutFragmentDoc = gql`
       id
       title
     }
+    muscleGroup: workout_items(
+      where: {exercise_details_aggregate: {count: {predicate: {_gt: 0}}}}
+    ) {
+      exercise_details(
+        where: {exercise_id: {_is_null: false}, exercise: {muscle_group: {type: {_is_null: false}}}}
+      ) {
+        exercise {
+          muscle_group {
+            ...MuscleGroup
+          }
+        }
+      }
+    }
   }
 }
-    `;
+    ${MuscleGroupFragmentDoc}`;
 export const WorkoutIdsFragmentDoc = gql`
     fragment WorkoutIds on cycles {
   workouts(order_by: {id: asc}) {
@@ -7511,12 +7530,6 @@ export const WorkoutItemScoresFragmentDoc = gql`
   id
   value
   created_at
-}
-    `;
-export const MuscleGroupFragmentDoc = gql`
-    fragment MuscleGroup on muscle_groups {
-  id
-  type
 }
     `;
 export const ExerciseFragmentDoc = gql`
@@ -8268,7 +8281,9 @@ export const WorkoutById = gql`
         value
         created_at
       }
-      exercise_details {
+      exercise_details(
+        where: {exercise_id: {_is_null: false}, exercise: {muscle_group: {type: {_is_null: false}}}}
+      ) {
         ...ExerciseDetails
       }
     }

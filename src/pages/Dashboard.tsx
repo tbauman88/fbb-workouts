@@ -1,7 +1,7 @@
 import { marked } from 'marked'
 import { useNavigate } from 'react-router-dom'
 import { DashboardContent, useDashboard } from '../hooks/useDashboard'
-import { ProgressBar } from '../components'
+import { Badge, ProgressBar } from '../components'
 import { Loading } from './Loading'
 import { DailyOverview } from '../components/Whoop'
 import { useAuth } from '../hooks/useAuth'
@@ -123,6 +123,12 @@ const CurrentWorkoutCard = ({ currentWorkout, onClick, loading }: {
           <div className="flex-auto pl-6 pb-6 mt-6 border-b border-gray-900/5">
             <dt className="text-sm font-semibold leading-6 text-gray-900 uppercase">Daily Training:</dt>
             <dd className="mt-1 text-base font-semibold leading-6 text-gray-900">{currentWorkout?.title}</dd>
+
+            <div className="flex flex-wrap gap-1 mt-2">
+              {currentWorkout.muscleGroups.map((muscleGroup) => (
+                <Badge key={muscleGroup.id} muscleGroup={muscleGroup.type} />
+              ))}
+            </div>
           </div>
 
           <div className="flex-none self-end px-6 pt-4 pb-6 mt-6 border-b border-gray-900/5">

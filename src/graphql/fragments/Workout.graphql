@@ -17,5 +17,23 @@ fragment Workout on user_cycles {
       id
       title
     }
+    muscleGroup: workout_items(
+      where: {
+        exercise_details_aggregate: {count: {predicate: {_gt: 0}}}
+      }
+    ) {
+      exercise_details(
+        where: {
+          exercise_id: {_is_null: false}
+          exercise: {muscle_group: {type: {_is_null: false}}}
+        }
+      ) {
+        exercise {
+          muscle_group {
+            ...MuscleGroup
+          }
+        }
+      }
+    }
   }
 }

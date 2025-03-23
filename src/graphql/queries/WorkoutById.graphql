@@ -19,7 +19,12 @@ query WorkoutById($id: bigint!) {
         value
         created_at
       }
-      exercise_details {
+      exercise_details(
+        where: {
+          exercise_id: {_is_null: false}
+          exercise: {muscle_group: {type: {_is_null: false}}}
+        }
+      ) {
         ...ExerciseDetails
       }
     }
