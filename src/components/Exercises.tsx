@@ -30,7 +30,9 @@ const ExerciseTitle: React.FC<{
       {exercise.subtitle && (
         <em
           className="text-base lg:text-lg text-gray-900 font-light"
-          dangerouslySetInnerHTML={{ __html: marked(exercise.subtitle) }} />
+          dangerouslySetInnerHTML={{
+            __html: exercise.title.includes('fa-hand') ? marked(exercise.subtitle) : exercise.subtitle
+          }} />
       )}
     </div>
   )
@@ -86,7 +88,7 @@ const VideoSection: React.FC<{
   }
 
   return (
-    <section className="flex gap-x-2 overflow-x-scroll snap-x snap-mandatory pt-4">
+    <section className="flex gap-x-2 overflow-x-scroll snap-x snap-mandatory py-4">
       {groupedExercises.map((group, index) => {
         // Get the selected exercise for this group
         const selectedType = selectedExercises[index] || 'recommended'

@@ -1,8 +1,8 @@
-import { marked } from 'marked'
 import { Exercises } from './Exercises'
 import { Score } from './Score'
 import { useAuth } from '../hooks/useAuth'
 import { WorkoutItemFragment } from '../generated/graphql'
+import marked from '../../markedConfig'
 
 const Header = ({ header }: { header: string | null | undefined }) =>
   header && <h2 className="w-full text-xl text-gray-900 font-bold tracking-tight">{header}</h2>
@@ -10,7 +10,7 @@ const Header = ({ header }: { header: string | null | undefined }) =>
 const Title = ({ title }: { title: string | null | undefined }) =>
   title && (
     <h4
-      className="mb-4 w-full flex-none text-lg text-gray-900 font-light"
+      className="mb-2 w-full flex-none text-lg text-gray-900 font-light"
       dangerouslySetInnerHTML={{ __html: marked(title) }}
     />
   )
@@ -18,7 +18,7 @@ const Title = ({ title }: { title: string | null | undefined }) =>
 const Notes = ({ notes }: { notes: string | null | undefined }) =>
   notes && (
     <section
-      className="prose mt-4 text-base text-gray-600 font-light"
+      className="prose text-base text-gray-600 font-light"
       dangerouslySetInnerHTML={{ __html: marked(notes) }}
     />
   )

@@ -8281,9 +8281,7 @@ export const WorkoutById = gql`
         value
         created_at
       }
-      exercise_details(
-        where: {exercise_id: {_is_null: false}, exercise: {muscle_group: {type: {_is_null: false}}}}
-      ) {
+      exercise_details {
         ...ExerciseDetails
       }
     }

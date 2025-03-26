@@ -98,7 +98,7 @@ export const Score: React.FC<{
   }
 
   return (
-    <div className='flex flex-col gap-4 mt-4 w-full'>
+    <div className='flex flex-col gap-4 w-full'>
       <div className="isolate inline-flex rounded-md shadow-sm w-full">
         <form className="w-full" onSubmit={(e) => e.preventDefault()}>
           <label htmlFor="score" className="sr-only">
