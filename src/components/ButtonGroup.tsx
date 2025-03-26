@@ -50,7 +50,7 @@ export const ButtonGroup: React.FC<ButtonGroupProps> = ({
         type="button"
         onClick={onButtonClick}
         disabled={disabled}
-        className={`w-full rounded-l-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-gray-300 ring-inset hover:bg-gray-50 focus:z-10 ${disabledStyles}`}
+        className={`w-full capitalize rounded-l-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-gray-300 ring-inset hover:bg-gray-50 focus:z-10 ${disabledStyles}`}
       >
         {buttonText}
       </button>

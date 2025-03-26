@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { useWindowSize } from 'react-use'
 import { useWorkout } from '../hooks/useWorkout'
 import { ButtonGroup, WorkoutItem, Logo, Badge } from '../components'
-import { ChevronLeftIcon, ChevronRightIcon, ForwardIcon } from '@heroicons/react/24/solid'
+import { CheckCircleIcon, ChevronLeftIcon, ChevronRightIcon, ForwardIcon } from '@heroicons/react/24/solid'
 import { useNavigate } from 'react-router-dom'
 import { Loading } from './Loading'
 import { WorkoutStatus } from '../types'
@@ -154,14 +154,14 @@ export const Workout = () => {
                   {workout.title}
                 </h2>
                 <div className="flex flex-wrap gap-2 mt-2">
+                  {workoutStatus === WorkoutStatus.COMPLETED && <Badge status={workoutStatus} />}
+                  {workoutStatus === WorkoutStatus.SKIPPED && <Badge status={workoutStatus} />}
                   {muscleGroups && muscleGroups.map((muscleGroup) => (
                     <Badge key={muscleGroup.id} muscleGroup={muscleGroup.type} />
                   ))}
                 </div>
               </div>
 
-              {workoutStatus === WorkoutStatus.COMPLETED && <Badge status={workoutStatus} />}
-              {workoutStatus === WorkoutStatus.SKIPPED && <Badge status={workoutStatus} />}
 
             </div>
             <img
@@ -181,16 +181,23 @@ export const Workout = () => {
               ))}
             </section>
 
+
             <ButtonGroup
-              buttonText={isCompleted ? `Workout ${workoutStatus}` : 'Mark as Complete'}
               icon={ForwardIcon}
               onButtonClick={() => handleSubmit(WorkoutStatus.COMPLETED)}
               onIconClick={() => handleSubmit(WorkoutStatus.SKIPPED)}
               disabled={isCompleted}
-            />
+              status={workoutStatus}
+              showIconButton={workoutStatus === WorkoutStatus.PENDING}
+            >
+              <div className='flex items-center justify-center gap-2'>
+                {workoutStatus === WorkoutStatus.COMPLETED && <CheckCircleIcon className="h-5 w-5" aria-hidden="true" />}
+                {isCompleted ? `Workout ${workoutStatus}` : 'Mark as Complete'}
+              </div>
+            </ButtonGroup>
           </div>
         </>
       )}
-    </Wrapper>
+    </Wrapper >
   )
 }

@@ -3,9 +3,12 @@ import { Score } from './Score'
 import { useAuth } from '../hooks/useAuth'
 import { WorkoutItemFragment } from '../generated/graphql'
 import marked from '../../markedConfig'
+import { useCallback, useMemo, useState } from 'react'
 
 const Header = ({ header }: { header: string | null | undefined }) =>
-  header && <h2 className="w-full text-xl text-gray-900 font-bold tracking-tight">{header}</h2>
+  header && (
+    <h2 className="w-full text-xl text-gray-900 font-bold tracking-tight">{header}</h2>
+  )
 
 const Title = ({ title }: { title: string | null | undefined }) =>
   title && (
@@ -25,10 +28,20 @@ const Notes = ({ notes }: { notes: string | null | undefined }) =>
 
 export const WorkoutItem: React.FC<{ item: WorkoutItemFragment }> = ({ item }) => {
   const { user } = useAuth()
+  const [isCollapsed, setIsCollapsed] = useState(false)
 
-  const excludedHeaders = ['Coach Note', 'Short on Time', 'Warm-up', 'Cool Down']
-
+  const excludedHeaders = ['Coach Note', 'Short on Time', 'Warm-up', 'Cool Down', 'Recover']
   const needsScore = !excludedHeaders.some((header) => item.header?.toLowerCase().includes(header.toLowerCase()))
+
+  const handleCollapse = useCallback(() => {
+    const canCollapse = item.exercise_details.length > 0
+
+    if (!canCollapse || item.header === 'Recover') {
+      return
+    }
+
+    setIsCollapsed(prev => !prev)
+  }, [item.exercise_details])
 
   if (user?.is_guest) {
     return (
@@ -43,15 +56,24 @@ export const WorkoutItem: React.FC<{ item: WorkoutItemFragment }> = ({ item }) =
 
   return (
     <article className="py-6 flex flex-wrap w-full">
-      <Header header={item.header} />
-      <Title title={item.title} />
-      <Exercises details={item.exercise_details} />
-      <Notes notes={item.notes} />
-      <Score
-        workoutItemId={item.id}
-        values={item.scores}
-        showInput={needsScore}
-      />
+      <div className="w-full flex flex-start justify-between mb-1" onClick={handleCollapse}>
+        <div className='block'>
+          <Header header={item.header} />
+          <Title title={item.title} />
+        </div>
+      </div>
+
+      {!isCollapsed && (
+        <>
+          <Exercises details={item.exercise_details} />
+          <Notes notes={item.notes} />
+          <Score
+            workoutItemId={item.id}
+            values={item.scores}
+            showInput={needsScore}
+          />
+        </>
+      )}
     </article>
   )
 }
