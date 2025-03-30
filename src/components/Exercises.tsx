@@ -23,7 +23,7 @@ const ExerciseTitle: React.FC<{
   return (
     <div onClick={onClick} className="cursor-pointer rounded flex-grow">
       <h4
-        className="text-base lg:text-lg text-gray-900 font-light cursor-pointer rounded flex-grow"
+        className="text-base lg:text-lg text-gray-900 font-light cursor-pointer rounded flex-grow mb-2"
         dangerouslySetInnerHTML={{
           __html: exercise.title.includes('fa-hand') ? marked(exercise.title) : exercise.title
         }} />
