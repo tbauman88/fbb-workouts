@@ -1,4 +1,4 @@
-import { TimelineItem } from '../pages/Dashboard'
+import { TimelineItem } from './'
 import { PastWorkout, UpcomingWorkout } from '../hooks/useWorkouts'
 
 export const WorkoutOverviewCard = ({

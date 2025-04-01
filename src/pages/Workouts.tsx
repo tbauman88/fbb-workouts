@@ -1,8 +1,7 @@
 import { Loading } from './Loading'
-import { WorkoutStatusBadge } from './Dashboard'
 import { useState } from 'react'
 import { WorkoutStatus } from '../types'
-import { Badge, WorkoutOverviewCard } from '../components'
+import { Badge, WorkoutOverviewCard, WorkoutStatusBadge } from '../components'
 import { useWorkouts } from '../hooks/useWorkouts'
 
 enum WorkoutType {
