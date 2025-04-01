@@ -8,7 +8,6 @@ import { Role } from './types'
 import { Login } from './pages/Login'
 import { Workout } from './pages/Workout'
 import { Dashboard } from './pages/Dashboard'
-import { Programs } from './pages/Programs'
 import { Program } from './pages/Program'
 import { Workouts } from './pages/Workouts'
 import { Exercises } from './pages/Exercises'
@@ -36,7 +35,7 @@ const App = () => {
                 <Route element={<Layout role={Role.ADMIN} />}>
                   <Route index element={<Dashboard />} />
                   <Route path="programs" element={<Program />} />
-                  <Route path="programs/:id" element={<Programs />} />
+                  <Route path="programs/:id" element={<Program />} />
                   <Route path="workouts" element={<Workouts />} />
                   <Route path="exercises" element={<Exercises />} />
                   <Route path="settings" element={<Settings />} />
