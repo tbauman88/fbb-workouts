@@ -1,0 +1,44 @@
+query GetUserWorkouts($userId: bigint!, $cycle: bigint!) {
+  upcoming_workouts: user_workouts
+    (where: {
+      user_id: {_eq: $userId},
+      cycle_id: {_eq: $cycle},
+      status: {_eq: pending}
+    }
+  ) {
+    ...Workout
+  }
+  past_workouts: user_workouts(
+    where: {
+      user_id: {_eq: $userId},
+      cycle_id: {_eq: $cycle} 
+      status: {_nin: pending}
+    },
+    order_by: {workout_id: asc}
+  ) {
+    status,
+    ...Workout
+  }
+}
+
+fragment Workout on user_workouts {
+  workout {
+    id
+    title
+    isActiveRecovery
+    isRestDay
+    first: workout_items(limit: 1, order_by: { id: asc }) {
+      id
+      header
+      notes
+    }
+    rest: workout_items(offset: 1, order_by: { id: asc }, where: { header: { _neq: "" } }) {
+      id
+      header
+    }
+    titles: workout_items(order_by: {id: asc}, where: {title: {_ilike: "Part%"}}) {
+      id
+      title
+    }
+  }
+}
