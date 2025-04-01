@@ -1,4 +1,4 @@
-fragment Workout on user_cycles {
+fragment CurrentUserWorkout on user_workouts {
   workout {
     id
     title

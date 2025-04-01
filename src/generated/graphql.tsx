@@ -1090,6 +1090,288 @@ export type ExerciseDetailsVarianceOrderBy = {
   workout_item_id?: InputMaybe<OrderBy>;
 };
 
+/** columns and relationships of "exercise_library" */
+export type ExerciseLibrary = {
+  __typename?: 'exercise_library';
+  description: Maybe<Scalars['String']['output']>;
+  id: Scalars['uuid']['output'];
+  level: Maybe<Scalars['json']['output']>;
+  name: Scalars['String']['output'];
+  pattern: Maybe<Scalars['json']['output']>;
+  plane: Maybe<Scalars['json']['output']>;
+  primary_muscles: Maybe<Scalars['json']['output']>;
+  /** An array relationship */
+  related_exercise: Array<Exercises>;
+  /** An aggregate relationship */
+  related_exercise_aggregate: ExercisesAggregate;
+  secondary_muscles: Maybe<Scalars['json']['output']>;
+  type: Maybe<Scalars['json']['output']>;
+  url: Maybe<Scalars['String']['output']>;
+};
+
+
+/** columns and relationships of "exercise_library" */
+export type ExerciseLibraryLevelArgs = {
+  path?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** columns and relationships of "exercise_library" */
+export type ExerciseLibraryPatternArgs = {
+  path?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** columns and relationships of "exercise_library" */
+export type ExerciseLibraryPlaneArgs = {
+  path?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** columns and relationships of "exercise_library" */
+export type ExerciseLibraryPrimaryMusclesArgs = {
+  path?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** columns and relationships of "exercise_library" */
+export type ExerciseLibraryRelatedExerciseArgs = {
+  distinct_on?: InputMaybe<Array<ExercisesSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<ExercisesOrderBy>>;
+  where?: InputMaybe<ExercisesBoolExp>;
+};
+
+
+/** columns and relationships of "exercise_library" */
+export type ExerciseLibraryRelatedExerciseAggregateArgs = {
+  distinct_on?: InputMaybe<Array<ExercisesSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<ExercisesOrderBy>>;
+  where?: InputMaybe<ExercisesBoolExp>;
+};
+
+
+/** columns and relationships of "exercise_library" */
+export type ExerciseLibrarySecondaryMusclesArgs = {
+  path?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** columns and relationships of "exercise_library" */
+export type ExerciseLibraryTypeArgs = {
+  path?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** aggregated selection of "exercise_library" */
+export type ExerciseLibraryAggregate = {
+  __typename?: 'exercise_library_aggregate';
+  aggregate: Maybe<ExerciseLibraryAggregateFields>;
+  nodes: Array<ExerciseLibrary>;
+};
+
+/** aggregate fields of "exercise_library" */
+export type ExerciseLibraryAggregateFields = {
+  __typename?: 'exercise_library_aggregate_fields';
+  count: Scalars['Int']['output'];
+  max: Maybe<ExerciseLibraryMaxFields>;
+  min: Maybe<ExerciseLibraryMinFields>;
+};
+
+
+/** aggregate fields of "exercise_library" */
+export type ExerciseLibraryAggregateFieldsCountArgs = {
+  columns?: InputMaybe<Array<ExerciseLibrarySelectColumn>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** Boolean expression to filter rows from the table "exercise_library". All fields are combined with a logical 'AND'. */
+export type ExerciseLibraryBoolExp = {
+  _and?: InputMaybe<Array<ExerciseLibraryBoolExp>>;
+  _not?: InputMaybe<ExerciseLibraryBoolExp>;
+  _or?: InputMaybe<Array<ExerciseLibraryBoolExp>>;
+  description?: InputMaybe<StringComparisonExp>;
+  id?: InputMaybe<UuidComparisonExp>;
+  level?: InputMaybe<JsonComparisonExp>;
+  name?: InputMaybe<StringComparisonExp>;
+  pattern?: InputMaybe<JsonComparisonExp>;
+  plane?: InputMaybe<JsonComparisonExp>;
+  primary_muscles?: InputMaybe<JsonComparisonExp>;
+  related_exercise?: InputMaybe<ExercisesBoolExp>;
+  related_exercise_aggregate?: InputMaybe<ExercisesAggregateBoolExp>;
+  secondary_muscles?: InputMaybe<JsonComparisonExp>;
+  type?: InputMaybe<JsonComparisonExp>;
+  url?: InputMaybe<StringComparisonExp>;
+};
+
+/** unique or primary key constraints on table "exercise_library" */
+export enum ExerciseLibraryConstraint {
+  /** unique or primary key constraint on columns "id" */
+  EXERCISE_LIBRARY_PKEY = 'exercise_library_pkey'
+}
+
+/** input type for inserting data into table "exercise_library" */
+export type ExerciseLibraryInsertInput = {
+  description?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  level?: InputMaybe<Scalars['json']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  pattern?: InputMaybe<Scalars['json']['input']>;
+  plane?: InputMaybe<Scalars['json']['input']>;
+  primary_muscles?: InputMaybe<Scalars['json']['input']>;
+  related_exercise?: InputMaybe<ExercisesArrRelInsertInput>;
+  secondary_muscles?: InputMaybe<Scalars['json']['input']>;
+  type?: InputMaybe<Scalars['json']['input']>;
+  url?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** aggregate max on columns */
+export type ExerciseLibraryMaxFields = {
+  __typename?: 'exercise_library_max_fields';
+  description: Maybe<Scalars['String']['output']>;
+  id: Maybe<Scalars['uuid']['output']>;
+  name: Maybe<Scalars['String']['output']>;
+  url: Maybe<Scalars['String']['output']>;
+};
+
+/** aggregate min on columns */
+export type ExerciseLibraryMinFields = {
+  __typename?: 'exercise_library_min_fields';
+  description: Maybe<Scalars['String']['output']>;
+  id: Maybe<Scalars['uuid']['output']>;
+  name: Maybe<Scalars['String']['output']>;
+  url: Maybe<Scalars['String']['output']>;
+};
+
+/** response of any mutation on the table "exercise_library" */
+export type ExerciseLibraryMutationResponse = {
+  __typename?: 'exercise_library_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']['output'];
+  /** data from the rows affected by the mutation */
+  returning: Array<ExerciseLibrary>;
+};
+
+/** on_conflict condition type for table "exercise_library" */
+export type ExerciseLibraryOnConflict = {
+  constraint: ExerciseLibraryConstraint;
+  update_columns?: Array<ExerciseLibraryUpdateColumn>;
+  where?: InputMaybe<ExerciseLibraryBoolExp>;
+};
+
+/** Ordering options when selecting data from "exercise_library". */
+export type ExerciseLibraryOrderBy = {
+  description?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  level?: InputMaybe<OrderBy>;
+  name?: InputMaybe<OrderBy>;
+  pattern?: InputMaybe<OrderBy>;
+  plane?: InputMaybe<OrderBy>;
+  primary_muscles?: InputMaybe<OrderBy>;
+  related_exercise_aggregate?: InputMaybe<ExercisesAggregateOrderBy>;
+  secondary_muscles?: InputMaybe<OrderBy>;
+  type?: InputMaybe<OrderBy>;
+  url?: InputMaybe<OrderBy>;
+};
+
+/** primary key columns input for table: exercise_library */
+export type ExerciseLibraryPkColumnsInput = {
+  id: Scalars['uuid']['input'];
+};
+
+/** select columns of table "exercise_library" */
+export enum ExerciseLibrarySelectColumn {
+  /** column name */
+  DESCRIPTION = 'description',
+  /** column name */
+  ID = 'id',
+  /** column name */
+  LEVEL = 'level',
+  /** column name */
+  NAME = 'name',
+  /** column name */
+  PATTERN = 'pattern',
+  /** column name */
+  PLANE = 'plane',
+  /** column name */
+  PRIMARY_MUSCLES = 'primary_muscles',
+  /** column name */
+  SECONDARY_MUSCLES = 'secondary_muscles',
+  /** column name */
+  TYPE = 'type',
+  /** column name */
+  URL = 'url'
+}
+
+/** input type for updating data in table "exercise_library" */
+export type ExerciseLibrarySetInput = {
+  description?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  level?: InputMaybe<Scalars['json']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  pattern?: InputMaybe<Scalars['json']['input']>;
+  plane?: InputMaybe<Scalars['json']['input']>;
+  primary_muscles?: InputMaybe<Scalars['json']['input']>;
+  secondary_muscles?: InputMaybe<Scalars['json']['input']>;
+  type?: InputMaybe<Scalars['json']['input']>;
+  url?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** Streaming cursor of the table "exercise_library" */
+export type ExerciseLibraryStreamCursorInput = {
+  /** Stream column input with initial value */
+  initial_value: ExerciseLibraryStreamCursorValueInput;
+  /** cursor ordering */
+  ordering?: InputMaybe<CursorOrdering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type ExerciseLibraryStreamCursorValueInput = {
+  description?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  level?: InputMaybe<Scalars['json']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  pattern?: InputMaybe<Scalars['json']['input']>;
+  plane?: InputMaybe<Scalars['json']['input']>;
+  primary_muscles?: InputMaybe<Scalars['json']['input']>;
+  secondary_muscles?: InputMaybe<Scalars['json']['input']>;
+  type?: InputMaybe<Scalars['json']['input']>;
+  url?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** update columns of table "exercise_library" */
+export enum ExerciseLibraryUpdateColumn {
+  /** column name */
+  DESCRIPTION = 'description',
+  /** column name */
+  ID = 'id',
+  /** column name */
+  LEVEL = 'level',
+  /** column name */
+  NAME = 'name',
+  /** column name */
+  PATTERN = 'pattern',
+  /** column name */
+  PLANE = 'plane',
+  /** column name */
+  PRIMARY_MUSCLES = 'primary_muscles',
+  /** column name */
+  SECONDARY_MUSCLES = 'secondary_muscles',
+  /** column name */
+  TYPE = 'type',
+  /** column name */
+  URL = 'url'
+}
+
+export type ExerciseLibraryUpdates = {
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<ExerciseLibrarySetInput>;
+  /** filter the rows which have to be updated */
+  where: ExerciseLibraryBoolExp;
+};
+
 /** columns and relationships of "exercises" */
 export type Exercises = {
   __typename?: 'exercises';
@@ -1138,6 +1420,17 @@ export type ExercisesAggregate = {
   nodes: Array<Exercises>;
 };
 
+export type ExercisesAggregateBoolExp = {
+  count?: InputMaybe<ExercisesAggregateBoolExpCount>;
+};
+
+export type ExercisesAggregateBoolExpCount = {
+  arguments?: InputMaybe<Array<ExercisesSelectColumn>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+  filter?: InputMaybe<ExercisesBoolExp>;
+  predicate: IntComparisonExp;
+};
+
 /** aggregate fields of "exercises" */
 export type ExercisesAggregateFields = {
   __typename?: 'exercises_aggregate_fields';
@@ -1161,10 +1454,37 @@ export type ExercisesAggregateFieldsCountArgs = {
   distinct?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
+/** order by aggregate values of table "exercises" */
+export type ExercisesAggregateOrderBy = {
+  avg?: InputMaybe<ExercisesAvgOrderBy>;
+  count?: InputMaybe<OrderBy>;
+  max?: InputMaybe<ExercisesMaxOrderBy>;
+  min?: InputMaybe<ExercisesMinOrderBy>;
+  stddev?: InputMaybe<ExercisesStddevOrderBy>;
+  stddev_pop?: InputMaybe<ExercisesStddevPopOrderBy>;
+  stddev_samp?: InputMaybe<ExercisesStddevSampOrderBy>;
+  sum?: InputMaybe<ExercisesSumOrderBy>;
+  var_pop?: InputMaybe<ExercisesVarPopOrderBy>;
+  var_samp?: InputMaybe<ExercisesVarSampOrderBy>;
+  variance?: InputMaybe<ExercisesVarianceOrderBy>;
+};
+
+/** input type for inserting array relation for remote table "exercises" */
+export type ExercisesArrRelInsertInput = {
+  data: Array<ExercisesInsertInput>;
+  /** upsert condition */
+  on_conflict?: InputMaybe<ExercisesOnConflict>;
+};
+
 /** aggregate avg on columns */
 export type ExercisesAvgFields = {
   __typename?: 'exercises_avg_fields';
   id: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by avg() on columns of table "exercises" */
+export type ExercisesAvgOrderBy = {
+  id?: InputMaybe<OrderBy>;
 };
 
 /** Boolean expression to filter rows from the table "exercises". All fields are combined with a logical 'AND'. */
@@ -1231,6 +1551,20 @@ export type ExercisesMaxFields = {
   updated_at: Maybe<Scalars['timestamp']['output']>;
 };
 
+/** order by max() on columns of table "exercises" */
+export type ExercisesMaxOrderBy = {
+  base_url?: InputMaybe<OrderBy>;
+  created_at?: InputMaybe<OrderBy>;
+  demo_video_id?: InputMaybe<OrderBy>;
+  demo_video_poster?: InputMaybe<OrderBy>;
+  demo_video_thumb?: InputMaybe<OrderBy>;
+  demo_video_title?: InputMaybe<OrderBy>;
+  demo_video_url?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  muscle_group_id?: InputMaybe<OrderBy>;
+  updated_at?: InputMaybe<OrderBy>;
+};
+
 /** aggregate min on columns */
 export type ExercisesMinFields = {
   __typename?: 'exercises_min_fields';
@@ -1244,6 +1578,20 @@ export type ExercisesMinFields = {
   id: Maybe<Scalars['bigint']['output']>;
   muscle_group_id: Maybe<Scalars['uuid']['output']>;
   updated_at: Maybe<Scalars['timestamp']['output']>;
+};
+
+/** order by min() on columns of table "exercises" */
+export type ExercisesMinOrderBy = {
+  base_url?: InputMaybe<OrderBy>;
+  created_at?: InputMaybe<OrderBy>;
+  demo_video_id?: InputMaybe<OrderBy>;
+  demo_video_poster?: InputMaybe<OrderBy>;
+  demo_video_thumb?: InputMaybe<OrderBy>;
+  demo_video_title?: InputMaybe<OrderBy>;
+  demo_video_url?: InputMaybe<OrderBy>;
+  id?: InputMaybe<OrderBy>;
+  muscle_group_id?: InputMaybe<OrderBy>;
+  updated_at?: InputMaybe<OrderBy>;
 };
 
 /** response of any mutation on the table "exercises" */
@@ -1334,16 +1682,31 @@ export type ExercisesStddevFields = {
   id: Maybe<Scalars['Float']['output']>;
 };
 
+/** order by stddev() on columns of table "exercises" */
+export type ExercisesStddevOrderBy = {
+  id?: InputMaybe<OrderBy>;
+};
+
 /** aggregate stddev_pop on columns */
 export type ExercisesStddevPopFields = {
   __typename?: 'exercises_stddev_pop_fields';
   id: Maybe<Scalars['Float']['output']>;
 };
 
+/** order by stddev_pop() on columns of table "exercises" */
+export type ExercisesStddevPopOrderBy = {
+  id?: InputMaybe<OrderBy>;
+};
+
 /** aggregate stddev_samp on columns */
 export type ExercisesStddevSampFields = {
   __typename?: 'exercises_stddev_samp_fields';
   id: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev_samp() on columns of table "exercises" */
+export type ExercisesStddevSampOrderBy = {
+  id?: InputMaybe<OrderBy>;
 };
 
 /** Streaming cursor of the table "exercises" */
@@ -1372,6 +1735,11 @@ export type ExercisesStreamCursorValueInput = {
 export type ExercisesSumFields = {
   __typename?: 'exercises_sum_fields';
   id: Maybe<Scalars['bigint']['output']>;
+};
+
+/** order by sum() on columns of table "exercises" */
+export type ExercisesSumOrderBy = {
+  id?: InputMaybe<OrderBy>;
 };
 
 /** update columns of table "exercises" */
@@ -1413,16 +1781,31 @@ export type ExercisesVarPopFields = {
   id: Maybe<Scalars['Float']['output']>;
 };
 
+/** order by var_pop() on columns of table "exercises" */
+export type ExercisesVarPopOrderBy = {
+  id?: InputMaybe<OrderBy>;
+};
+
 /** aggregate var_samp on columns */
 export type ExercisesVarSampFields = {
   __typename?: 'exercises_var_samp_fields';
   id: Maybe<Scalars['Float']['output']>;
 };
 
+/** order by var_samp() on columns of table "exercises" */
+export type ExercisesVarSampOrderBy = {
+  id?: InputMaybe<OrderBy>;
+};
+
 /** aggregate variance on columns */
 export type ExercisesVarianceFields = {
   __typename?: 'exercises_variance_fields';
   id: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by variance() on columns of table "exercises" */
+export type ExercisesVarianceOrderBy = {
+  id?: InputMaybe<OrderBy>;
 };
 
 /** columns and relationships of "integrations" */
@@ -1920,6 +2303,10 @@ export type MutationRoot = {
   delete_exercise_details: Maybe<ExerciseDetailsMutationResponse>;
   /** delete single row from the table: "exercise_details" */
   delete_exercise_details_by_pk: Maybe<ExerciseDetails>;
+  /** delete data from the table: "exercise_library" */
+  delete_exercise_library: Maybe<ExerciseLibraryMutationResponse>;
+  /** delete single row from the table: "exercise_library" */
+  delete_exercise_library_by_pk: Maybe<ExerciseLibrary>;
   /** delete data from the table: "exercises" */
   delete_exercises: Maybe<ExercisesMutationResponse>;
   /** delete single row from the table: "exercises" */
@@ -1980,6 +2367,10 @@ export type MutationRoot = {
   insert_exercise_details: Maybe<ExerciseDetailsMutationResponse>;
   /** insert a single row into the table: "exercise_details" */
   insert_exercise_details_one: Maybe<ExerciseDetails>;
+  /** insert data into the table: "exercise_library" */
+  insert_exercise_library: Maybe<ExerciseLibraryMutationResponse>;
+  /** insert a single row into the table: "exercise_library" */
+  insert_exercise_library_one: Maybe<ExerciseLibrary>;
   /** insert data into the table: "exercises" */
   insert_exercises: Maybe<ExercisesMutationResponse>;
   /** insert a single row into the table: "exercises" */
@@ -2044,6 +2435,12 @@ export type MutationRoot = {
   update_exercise_details_by_pk: Maybe<ExerciseDetails>;
   /** update multiples rows of table: "exercise_details" */
   update_exercise_details_many: Maybe<Array<Maybe<ExerciseDetailsMutationResponse>>>;
+  /** update data of the table: "exercise_library" */
+  update_exercise_library: Maybe<ExerciseLibraryMutationResponse>;
+  /** update single row of the table: "exercise_library" */
+  update_exercise_library_by_pk: Maybe<ExerciseLibrary>;
+  /** update multiples rows of table: "exercise_library" */
+  update_exercise_library_many: Maybe<Array<Maybe<ExerciseLibraryMutationResponse>>>;
   /** update data of the table: "exercises" */
   update_exercises: Maybe<ExercisesMutationResponse>;
   /** update single row of the table: "exercises" */
@@ -2146,6 +2543,18 @@ export type MutationRootDeleteExerciseDetailsArgs = {
 /** mutation root */
 export type MutationRootDeleteExerciseDetailsByPkArgs = {
   id: Scalars['bigint']['input'];
+};
+
+
+/** mutation root */
+export type MutationRootDeleteExerciseLibraryArgs = {
+  where: ExerciseLibraryBoolExp;
+};
+
+
+/** mutation root */
+export type MutationRootDeleteExerciseLibraryByPkArgs = {
+  id: Scalars['uuid']['input'];
 };
 
 
@@ -2330,6 +2739,20 @@ export type MutationRootInsertExerciseDetailsArgs = {
 export type MutationRootInsertExerciseDetailsOneArgs = {
   object: ExerciseDetailsInsertInput;
   on_conflict?: InputMaybe<ExerciseDetailsOnConflict>;
+};
+
+
+/** mutation root */
+export type MutationRootInsertExerciseLibraryArgs = {
+  objects: Array<ExerciseLibraryInsertInput>;
+  on_conflict?: InputMaybe<ExerciseLibraryOnConflict>;
+};
+
+
+/** mutation root */
+export type MutationRootInsertExerciseLibraryOneArgs = {
+  object: ExerciseLibraryInsertInput;
+  on_conflict?: InputMaybe<ExerciseLibraryOnConflict>;
 };
 
 
@@ -2556,6 +2979,26 @@ export type MutationRootUpdateExerciseDetailsByPkArgs = {
 /** mutation root */
 export type MutationRootUpdateExerciseDetailsManyArgs = {
   updates: Array<ExerciseDetailsUpdates>;
+};
+
+
+/** mutation root */
+export type MutationRootUpdateExerciseLibraryArgs = {
+  _set?: InputMaybe<ExerciseLibrarySetInput>;
+  where: ExerciseLibraryBoolExp;
+};
+
+
+/** mutation root */
+export type MutationRootUpdateExerciseLibraryByPkArgs = {
+  _set?: InputMaybe<ExerciseLibrarySetInput>;
+  pk_columns: ExerciseLibraryPkColumnsInput;
+};
+
+
+/** mutation root */
+export type MutationRootUpdateExerciseLibraryManyArgs = {
+  updates: Array<ExerciseLibraryUpdates>;
 };
 
 
@@ -3158,6 +3601,12 @@ export type QueryRoot = {
   exercise_details_aggregate: ExerciseDetailsAggregate;
   /** fetch data from the table: "exercise_details" using primary key columns */
   exercise_details_by_pk: Maybe<ExerciseDetails>;
+  /** fetch data from the table: "exercise_library" */
+  exercise_library: Array<ExerciseLibrary>;
+  /** fetch aggregated fields from the table: "exercise_library" */
+  exercise_library_aggregate: ExerciseLibraryAggregate;
+  /** fetch data from the table: "exercise_library" using primary key columns */
+  exercise_library_by_pk: Maybe<ExerciseLibrary>;
   /** fetch data from the table: "exercises" */
   exercises: Array<Exercises>;
   /** fetch aggregated fields from the table: "exercises" */
@@ -3282,6 +3731,29 @@ export type QueryRootExerciseDetailsAggregateArgs = {
 
 export type QueryRootExerciseDetailsByPkArgs = {
   id: Scalars['bigint']['input'];
+};
+
+
+export type QueryRootExerciseLibraryArgs = {
+  distinct_on?: InputMaybe<Array<ExerciseLibrarySelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<ExerciseLibraryOrderBy>>;
+  where?: InputMaybe<ExerciseLibraryBoolExp>;
+};
+
+
+export type QueryRootExerciseLibraryAggregateArgs = {
+  distinct_on?: InputMaybe<Array<ExerciseLibrarySelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<ExerciseLibraryOrderBy>>;
+  where?: InputMaybe<ExerciseLibraryBoolExp>;
+};
+
+
+export type QueryRootExerciseLibraryByPkArgs = {
+  id: Scalars['uuid']['input'];
 };
 
 
@@ -3840,6 +4312,14 @@ export type SubscriptionRoot = {
   exercise_details_by_pk: Maybe<ExerciseDetails>;
   /** fetch data from the table in a streaming manner: "exercise_details" */
   exercise_details_stream: Array<ExerciseDetails>;
+  /** fetch data from the table: "exercise_library" */
+  exercise_library: Array<ExerciseLibrary>;
+  /** fetch aggregated fields from the table: "exercise_library" */
+  exercise_library_aggregate: ExerciseLibraryAggregate;
+  /** fetch data from the table: "exercise_library" using primary key columns */
+  exercise_library_by_pk: Maybe<ExerciseLibrary>;
+  /** fetch data from the table in a streaming manner: "exercise_library" */
+  exercise_library_stream: Array<ExerciseLibrary>;
   /** fetch data from the table: "exercises" */
   exercises: Array<Exercises>;
   /** fetch aggregated fields from the table: "exercises" */
@@ -4004,6 +4484,36 @@ export type SubscriptionRootExerciseDetailsStreamArgs = {
   batch_size: Scalars['Int']['input'];
   cursor: Array<InputMaybe<ExerciseDetailsStreamCursorInput>>;
   where?: InputMaybe<ExerciseDetailsBoolExp>;
+};
+
+
+export type SubscriptionRootExerciseLibraryArgs = {
+  distinct_on?: InputMaybe<Array<ExerciseLibrarySelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<ExerciseLibraryOrderBy>>;
+  where?: InputMaybe<ExerciseLibraryBoolExp>;
+};
+
+
+export type SubscriptionRootExerciseLibraryAggregateArgs = {
+  distinct_on?: InputMaybe<Array<ExerciseLibrarySelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<ExerciseLibraryOrderBy>>;
+  where?: InputMaybe<ExerciseLibraryBoolExp>;
+};
+
+
+export type SubscriptionRootExerciseLibraryByPkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
+export type SubscriptionRootExerciseLibraryStreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<ExerciseLibraryStreamCursorInput>>;
+  where?: InputMaybe<ExerciseLibraryBoolExp>;
 };
 
 
@@ -4905,8 +5415,35 @@ export type UserWorkouts = {
   status: Maybe<WorkoutStatusEnumEnum>;
   updated_at: Scalars['timestamptz']['output'];
   /** An object relationship */
+  user: Maybe<Users>;
+  user_id: Scalars['bigint']['output'];
+  /** An object relationship */
   workout: Workouts;
   workout_id: Scalars['bigint']['output'];
+  /** An array relationship */
+  workouts: Array<Workouts>;
+  /** An aggregate relationship */
+  workouts_aggregate: WorkoutsAggregate;
+};
+
+
+/** columns and relationships of "user_workouts" */
+export type UserWorkoutsWorkoutsArgs = {
+  distinct_on?: InputMaybe<Array<WorkoutsSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<WorkoutsOrderBy>>;
+  where?: InputMaybe<WorkoutsBoolExp>;
+};
+
+
+/** columns and relationships of "user_workouts" */
+export type UserWorkoutsWorkoutsAggregateArgs = {
+  distinct_on?: InputMaybe<Array<WorkoutsSelectColumn>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<WorkoutsOrderBy>>;
+  where?: InputMaybe<WorkoutsBoolExp>;
 };
 
 /** aggregated selection of "user_workouts" */
@@ -4976,12 +5513,14 @@ export type UserWorkoutsArrRelInsertInput = {
 export type UserWorkoutsAvgFields = {
   __typename?: 'user_workouts_avg_fields';
   cycle_id: Maybe<Scalars['Float']['output']>;
+  user_id: Maybe<Scalars['Float']['output']>;
   workout_id: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by avg() on columns of table "user_workouts" */
 export type UserWorkoutsAvgOrderBy = {
   cycle_id?: InputMaybe<OrderBy>;
+  user_id?: InputMaybe<OrderBy>;
   workout_id?: InputMaybe<OrderBy>;
 };
 
@@ -4998,8 +5537,12 @@ export type UserWorkoutsBoolExp = {
   notes?: InputMaybe<StringComparisonExp>;
   status?: InputMaybe<WorkoutStatusEnumEnumComparisonExp>;
   updated_at?: InputMaybe<TimestamptzComparisonExp>;
+  user?: InputMaybe<UsersBoolExp>;
+  user_id?: InputMaybe<BigintComparisonExp>;
   workout?: InputMaybe<WorkoutsBoolExp>;
   workout_id?: InputMaybe<BigintComparisonExp>;
+  workouts?: InputMaybe<WorkoutsBoolExp>;
+  workouts_aggregate?: InputMaybe<WorkoutsAggregateBoolExp>;
 };
 
 /** unique or primary key constraints on table "user_workouts" */
@@ -5011,6 +5554,7 @@ export enum UserWorkoutsConstraint {
 /** input type for incrementing numeric columns in table "user_workouts" */
 export type UserWorkoutsIncInput = {
   cycle_id?: InputMaybe<Scalars['bigint']['input']>;
+  user_id?: InputMaybe<Scalars['bigint']['input']>;
   workout_id?: InputMaybe<Scalars['bigint']['input']>;
 };
 
@@ -5024,8 +5568,11 @@ export type UserWorkoutsInsertInput = {
   notes?: InputMaybe<Scalars['String']['input']>;
   status?: InputMaybe<WorkoutStatusEnumEnum>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  user?: InputMaybe<UsersObjRelInsertInput>;
+  user_id?: InputMaybe<Scalars['bigint']['input']>;
   workout?: InputMaybe<WorkoutsObjRelInsertInput>;
   workout_id?: InputMaybe<Scalars['bigint']['input']>;
+  workouts?: InputMaybe<WorkoutsArrRelInsertInput>;
 };
 
 /** aggregate max on columns */
@@ -5037,6 +5584,7 @@ export type UserWorkoutsMaxFields = {
   id: Maybe<Scalars['uuid']['output']>;
   notes: Maybe<Scalars['String']['output']>;
   updated_at: Maybe<Scalars['timestamptz']['output']>;
+  user_id: Maybe<Scalars['bigint']['output']>;
   workout_id: Maybe<Scalars['bigint']['output']>;
 };
 
@@ -5048,6 +5596,7 @@ export type UserWorkoutsMaxOrderBy = {
   id?: InputMaybe<OrderBy>;
   notes?: InputMaybe<OrderBy>;
   updated_at?: InputMaybe<OrderBy>;
+  user_id?: InputMaybe<OrderBy>;
   workout_id?: InputMaybe<OrderBy>;
 };
 
@@ -5060,6 +5609,7 @@ export type UserWorkoutsMinFields = {
   id: Maybe<Scalars['uuid']['output']>;
   notes: Maybe<Scalars['String']['output']>;
   updated_at: Maybe<Scalars['timestamptz']['output']>;
+  user_id: Maybe<Scalars['bigint']['output']>;
   workout_id: Maybe<Scalars['bigint']['output']>;
 };
 
@@ -5071,6 +5621,7 @@ export type UserWorkoutsMinOrderBy = {
   id?: InputMaybe<OrderBy>;
   notes?: InputMaybe<OrderBy>;
   updated_at?: InputMaybe<OrderBy>;
+  user_id?: InputMaybe<OrderBy>;
   workout_id?: InputMaybe<OrderBy>;
 };
 
@@ -5100,8 +5651,11 @@ export type UserWorkoutsOrderBy = {
   notes?: InputMaybe<OrderBy>;
   status?: InputMaybe<OrderBy>;
   updated_at?: InputMaybe<OrderBy>;
+  user?: InputMaybe<UsersOrderBy>;
+  user_id?: InputMaybe<OrderBy>;
   workout?: InputMaybe<WorkoutsOrderBy>;
   workout_id?: InputMaybe<OrderBy>;
+  workouts_aggregate?: InputMaybe<WorkoutsAggregateOrderBy>;
 };
 
 /** primary key columns input for table: user_workouts */
@@ -5126,6 +5680,8 @@ export enum UserWorkoutsSelectColumn {
   /** column name */
   UPDATED_AT = 'updated_at',
   /** column name */
+  USER_ID = 'user_id',
+  /** column name */
   WORKOUT_ID = 'workout_id'
 }
 
@@ -5138,6 +5694,7 @@ export type UserWorkoutsSetInput = {
   notes?: InputMaybe<Scalars['String']['input']>;
   status?: InputMaybe<WorkoutStatusEnumEnum>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  user_id?: InputMaybe<Scalars['bigint']['input']>;
   workout_id?: InputMaybe<Scalars['bigint']['input']>;
 };
 
@@ -5145,12 +5702,14 @@ export type UserWorkoutsSetInput = {
 export type UserWorkoutsStddevFields = {
   __typename?: 'user_workouts_stddev_fields';
   cycle_id: Maybe<Scalars['Float']['output']>;
+  user_id: Maybe<Scalars['Float']['output']>;
   workout_id: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev() on columns of table "user_workouts" */
 export type UserWorkoutsStddevOrderBy = {
   cycle_id?: InputMaybe<OrderBy>;
+  user_id?: InputMaybe<OrderBy>;
   workout_id?: InputMaybe<OrderBy>;
 };
 
@@ -5158,12 +5717,14 @@ export type UserWorkoutsStddevOrderBy = {
 export type UserWorkoutsStddevPopFields = {
   __typename?: 'user_workouts_stddev_pop_fields';
   cycle_id: Maybe<Scalars['Float']['output']>;
+  user_id: Maybe<Scalars['Float']['output']>;
   workout_id: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev_pop() on columns of table "user_workouts" */
 export type UserWorkoutsStddevPopOrderBy = {
   cycle_id?: InputMaybe<OrderBy>;
+  user_id?: InputMaybe<OrderBy>;
   workout_id?: InputMaybe<OrderBy>;
 };
 
@@ -5171,12 +5732,14 @@ export type UserWorkoutsStddevPopOrderBy = {
 export type UserWorkoutsStddevSampFields = {
   __typename?: 'user_workouts_stddev_samp_fields';
   cycle_id: Maybe<Scalars['Float']['output']>;
+  user_id: Maybe<Scalars['Float']['output']>;
   workout_id: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by stddev_samp() on columns of table "user_workouts" */
 export type UserWorkoutsStddevSampOrderBy = {
   cycle_id?: InputMaybe<OrderBy>;
+  user_id?: InputMaybe<OrderBy>;
   workout_id?: InputMaybe<OrderBy>;
 };
 
@@ -5197,6 +5760,7 @@ export type UserWorkoutsStreamCursorValueInput = {
   notes?: InputMaybe<Scalars['String']['input']>;
   status?: InputMaybe<WorkoutStatusEnumEnum>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  user_id?: InputMaybe<Scalars['bigint']['input']>;
   workout_id?: InputMaybe<Scalars['bigint']['input']>;
 };
 
@@ -5204,12 +5768,14 @@ export type UserWorkoutsStreamCursorValueInput = {
 export type UserWorkoutsSumFields = {
   __typename?: 'user_workouts_sum_fields';
   cycle_id: Maybe<Scalars['bigint']['output']>;
+  user_id: Maybe<Scalars['bigint']['output']>;
   workout_id: Maybe<Scalars['bigint']['output']>;
 };
 
 /** order by sum() on columns of table "user_workouts" */
 export type UserWorkoutsSumOrderBy = {
   cycle_id?: InputMaybe<OrderBy>;
+  user_id?: InputMaybe<OrderBy>;
   workout_id?: InputMaybe<OrderBy>;
 };
 
@@ -5230,6 +5796,8 @@ export enum UserWorkoutsUpdateColumn {
   /** column name */
   UPDATED_AT = 'updated_at',
   /** column name */
+  USER_ID = 'user_id',
+  /** column name */
   WORKOUT_ID = 'workout_id'
 }
 
@@ -5246,12 +5814,14 @@ export type UserWorkoutsUpdates = {
 export type UserWorkoutsVarPopFields = {
   __typename?: 'user_workouts_var_pop_fields';
   cycle_id: Maybe<Scalars['Float']['output']>;
+  user_id: Maybe<Scalars['Float']['output']>;
   workout_id: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by var_pop() on columns of table "user_workouts" */
 export type UserWorkoutsVarPopOrderBy = {
   cycle_id?: InputMaybe<OrderBy>;
+  user_id?: InputMaybe<OrderBy>;
   workout_id?: InputMaybe<OrderBy>;
 };
 
@@ -5259,12 +5829,14 @@ export type UserWorkoutsVarPopOrderBy = {
 export type UserWorkoutsVarSampFields = {
   __typename?: 'user_workouts_var_samp_fields';
   cycle_id: Maybe<Scalars['Float']['output']>;
+  user_id: Maybe<Scalars['Float']['output']>;
   workout_id: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by var_samp() on columns of table "user_workouts" */
 export type UserWorkoutsVarSampOrderBy = {
   cycle_id?: InputMaybe<OrderBy>;
+  user_id?: InputMaybe<OrderBy>;
   workout_id?: InputMaybe<OrderBy>;
 };
 
@@ -5272,12 +5844,14 @@ export type UserWorkoutsVarSampOrderBy = {
 export type UserWorkoutsVarianceFields = {
   __typename?: 'user_workouts_variance_fields';
   cycle_id: Maybe<Scalars['Float']['output']>;
+  user_id: Maybe<Scalars['Float']['output']>;
   workout_id: Maybe<Scalars['Float']['output']>;
 };
 
 /** order by variance() on columns of table "user_workouts" */
 export type UserWorkoutsVarianceOrderBy = {
   cycle_id?: InputMaybe<OrderBy>;
+  user_id?: InputMaybe<OrderBy>;
   workout_id?: InputMaybe<OrderBy>;
 };
 
@@ -7331,7 +7905,9 @@ export type ProgramsFragment = { __typename?: 'programs', id: string, name: stri
 
 export type UserFragment = { __typename?: 'user_cycles', user: { __typename?: 'users', id: string, name: string, email: string, image_url: string | null | undefined } };
 
-export type WorkoutFragment = { __typename?: 'user_cycles', workout: { __typename?: 'workouts', id: string, title: string, isActiveRecovery: boolean, isRestDay: boolean, first: Array<{ __typename?: 'workout_items', id: string, header: string | null | undefined, notes: string | null | undefined }>, rest: Array<{ __typename?: 'workout_items', id: string, header: string | null | undefined }>, titles: Array<{ __typename?: 'workout_items', id: string, title: string | null | undefined }>, muscleGroup: Array<{ __typename?: 'workout_items', exercise_details: Array<{ __typename?: 'exercise_details', exercise: { __typename?: 'exercises', muscle_group: { __typename?: 'muscle_groups', id: string, type: string } | null | undefined } | null | undefined }> }> } };
+export type UserWorkoutFragment = { __typename?: 'user_workouts', workout: { __typename?: 'workouts', id: string, title: string, isActiveRecovery: boolean, isRestDay: boolean, items: Array<{ __typename?: 'workout_items', id: string, header: string | null | undefined }>, titles: Array<{ __typename?: 'workout_items', id: string, title: string | null | undefined }> } };
+
+export type CurrentUserWorkoutFragment = { __typename?: 'user_workouts', workout: { __typename?: 'workouts', id: string, title: string, isActiveRecovery: boolean, isRestDay: boolean, first: Array<{ __typename?: 'workout_items', id: string, header: string | null | undefined, notes: string | null | undefined }>, rest: Array<{ __typename?: 'workout_items', id: string, header: string | null | undefined }>, titles: Array<{ __typename?: 'workout_items', id: string, title: string | null | undefined }>, muscleGroup: Array<{ __typename?: 'workout_items', exercise_details: Array<{ __typename?: 'exercise_details', exercise: { __typename?: 'exercises', muscle_group: { __typename?: 'muscle_groups', id: string, type: string } | null | undefined } | null | undefined }> }> } };
 
 export type WorkoutIdsFragment = { __typename?: 'cycles', workouts: Array<{ __typename?: 'workouts', id: string }> };
 
@@ -7434,7 +8010,17 @@ export type GetUserCycleProgressQueryVariables = Exact<{
 }>;
 
 
-export type GetUserCycleProgressQuery = { __typename?: 'query_root', userCycle: Array<{ __typename?: 'user_cycles', id: string, start_date: string, completed: boolean, current_workout: number, cycle: { __typename?: 'cycles', id: string, total: number, user_workouts: Array<{ __typename?: 'user_workouts', status: WorkoutStatusEnumEnum | null | undefined }>, program: { __typename?: 'programs', id: string, name: string, image: string | null | undefined } }, workout: { __typename?: 'workouts', id: string, title: string, isActiveRecovery: boolean, isRestDay: boolean, first: Array<{ __typename?: 'workout_items', id: string, header: string | null | undefined, notes: string | null | undefined }>, rest: Array<{ __typename?: 'workout_items', id: string, header: string | null | undefined }>, titles: Array<{ __typename?: 'workout_items', id: string, title: string | null | undefined }>, muscleGroup: Array<{ __typename?: 'workout_items', exercise_details: Array<{ __typename?: 'exercise_details', exercise: { __typename?: 'exercises', muscle_group: { __typename?: 'muscle_groups', id: string, type: string } | null | undefined } | null | undefined }> }> } }>, programs: Array<{ __typename?: 'programs', id: string, name: string, image: string | null | undefined }> };
+export type GetUserCycleProgressQuery = { __typename?: 'query_root', userCycle: Array<{ __typename?: 'user_cycles', id: string, start_date: string, completed: boolean, current_workout: number, cycle: { __typename?: 'cycles', id: string, total: number, user_workouts: Array<{ __typename?: 'user_workouts', status: WorkoutStatusEnumEnum | null | undefined }>, program: { __typename?: 'programs', id: string, name: string, image: string | null | undefined } } }>, programs: Array<{ __typename?: 'programs', id: string, name: string, image: string | null | undefined }>, current: Array<{ __typename?: 'user_workouts', workout: { __typename?: 'workouts', id: string, title: string, isActiveRecovery: boolean, isRestDay: boolean, first: Array<{ __typename?: 'workout_items', id: string, header: string | null | undefined, notes: string | null | undefined }>, rest: Array<{ __typename?: 'workout_items', id: string, header: string | null | undefined }>, titles: Array<{ __typename?: 'workout_items', id: string, title: string | null | undefined }>, muscleGroup: Array<{ __typename?: 'workout_items', exercise_details: Array<{ __typename?: 'exercise_details', exercise: { __typename?: 'exercises', muscle_group: { __typename?: 'muscle_groups', id: string, type: string } | null | undefined } | null | undefined }> }> } }>, workouts: Array<{ __typename?: 'user_workouts', workout: { __typename?: 'workouts', id: string, title: string, isActiveRecovery: boolean, isRestDay: boolean, items: Array<{ __typename?: 'workout_items', id: string, header: string | null | undefined }>, titles: Array<{ __typename?: 'workout_items', id: string, title: string | null | undefined }> } }> };
+
+export type GetUserWorkoutsQueryVariables = Exact<{
+  userId: Scalars['bigint']['input'];
+  cycle: Scalars['bigint']['input'];
+}>;
+
+
+export type GetUserWorkoutsQuery = { __typename?: 'query_root', upcoming_workouts: Array<{ __typename?: 'user_workouts', workout: { __typename?: 'workouts', id: string, title: string, isActiveRecovery: boolean, isRestDay: boolean, first: Array<{ __typename?: 'workout_items', id: string, header: string | null | undefined, notes: string | null | undefined }>, rest: Array<{ __typename?: 'workout_items', id: string, header: string | null | undefined }>, titles: Array<{ __typename?: 'workout_items', id: string, title: string | null | undefined }> } }>, past_workouts: Array<{ __typename?: 'user_workouts', status: WorkoutStatusEnumEnum | null | undefined, workout: { __typename?: 'workouts', id: string, title: string, isActiveRecovery: boolean, isRestDay: boolean, first: Array<{ __typename?: 'workout_items', id: string, header: string | null | undefined, notes: string | null | undefined }>, rest: Array<{ __typename?: 'workout_items', id: string, header: string | null | undefined }>, titles: Array<{ __typename?: 'workout_items', id: string, title: string | null | undefined }> } }> };
+
+export type WorkoutFragment = { __typename?: 'user_workouts', workout: { __typename?: 'workouts', id: string, title: string, isActiveRecovery: boolean, isRestDay: boolean, first: Array<{ __typename?: 'workout_items', id: string, header: string | null | undefined, notes: string | null | undefined }>, rest: Array<{ __typename?: 'workout_items', id: string, header: string | null | undefined }>, titles: Array<{ __typename?: 'workout_items', id: string, title: string | null | undefined }> } };
 
 export type GetWorkoutsQueryVariables = Exact<{
   cycleId: Scalars['Int']['input'];
@@ -7476,14 +8062,32 @@ export const UserFragmentDoc = gql`
   }
 }
     `;
+export const UserWorkoutFragmentDoc = gql`
+    fragment UserWorkout on user_workouts {
+  workout {
+    id
+    title
+    isActiveRecovery
+    isRestDay
+    items: workout_items(order_by: {id: asc}, where: {header: {_neq: ""}}) {
+      id
+      header
+    }
+    titles: workout_items(order_by: {id: asc}, where: {title: {_ilike: "Part%"}}) {
+      id
+      title
+    }
+  }
+}
+    `;
 export const MuscleGroupFragmentDoc = gql`
     fragment MuscleGroup on muscle_groups {
   id
   type
 }
     `;
-export const WorkoutFragmentDoc = gql`
-    fragment Workout on user_cycles {
+export const CurrentUserWorkoutFragmentDoc = gql`
+    fragment CurrentUserWorkout on user_workouts {
   workout {
     id
     title
@@ -7587,6 +8191,29 @@ export const WorkoutPageFragmentDoc = gql`
   }
 }
     ${WorkoutItemFragmentDoc}`;
+export const WorkoutFragmentDoc = gql`
+    fragment Workout on user_workouts {
+  workout {
+    id
+    title
+    isActiveRecovery
+    isRestDay
+    first: workout_items(limit: 1, order_by: {id: asc}) {
+      id
+      header
+      notes
+    }
+    rest: workout_items(offset: 1, order_by: {id: asc}, where: {header: {_neq: ""}}) {
+      id
+      header
+    }
+    titles: workout_items(order_by: {id: asc}, where: {title: {_ilike: "Part%"}}) {
+      id
+      title
+    }
+  }
+}
+    `;
 export const CompleteWorkout = gql`
     mutation CompleteWorkout($completedWorkout: bigint!, $cycleId: bigint!, $nextWorkoutId: Int!, $status: workout_status_enum_enum!) {
   update_user_workouts(
@@ -8158,7 +8785,6 @@ export const GetUserCycleProgress = gql`
     start_date
     completed
     current_workout
-    ...Workout
     cycle {
       id
       total: workout_count
@@ -8171,10 +8797,20 @@ export const GetUserCycleProgress = gql`
   programs {
     ...Programs
   }
+  current: user_workouts(where: {user_id: {_eq: $userId}, status: {_eq: pending}}) {
+    ...CurrentUserWorkout
+  }
+  workouts: user_workouts(
+    offset: 1
+    where: {user_id: {_eq: $userId}, status: {_eq: pending}}
+  ) {
+    ...UserWorkout
+  }
 }
-    ${WorkoutFragmentDoc}
-${ProgramDetailsFragmentDoc}
-${ProgramsFragmentDoc}`;
+    ${ProgramDetailsFragmentDoc}
+${ProgramsFragmentDoc}
+${CurrentUserWorkoutFragmentDoc}
+${UserWorkoutFragmentDoc}`;
 
 /**
  * __useGetUserCycleProgressQuery__
@@ -8208,6 +8844,56 @@ export type GetUserCycleProgressQueryHookResult = ReturnType<typeof useGetUserCy
 export type GetUserCycleProgressLazyQueryHookResult = ReturnType<typeof useGetUserCycleProgressLazyQuery>;
 export type GetUserCycleProgressSuspenseQueryHookResult = ReturnType<typeof useGetUserCycleProgressSuspenseQuery>;
 export type GetUserCycleProgressQueryResult = Apollo.QueryResult<GetUserCycleProgressQuery, GetUserCycleProgressQueryVariables>;
+export const GetUserWorkouts = gql`
+    query GetUserWorkouts($userId: bigint!, $cycle: bigint!) {
+  upcoming_workouts: user_workouts(
+    where: {user_id: {_eq: $userId}, cycle_id: {_eq: $cycle}, status: {_eq: pending}}
+  ) {
+    ...Workout
+  }
+  past_workouts: user_workouts(
+    where: {user_id: {_eq: $userId}, cycle_id: {_eq: $cycle}, status: {_nin: pending}}
+    order_by: {workout_id: asc}
+  ) {
+    status
+    ...Workout
+  }
+}
+    ${WorkoutFragmentDoc}`;
+
+/**
+ * __useGetUserWorkoutsQuery__
+ *
+ * To run a query within a React component, call `useGetUserWorkoutsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetUserWorkoutsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetUserWorkoutsQuery({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *      cycle: // value for 'cycle'
+ *   },
+ * });
+ */
+export function useGetUserWorkoutsQuery(baseOptions: Apollo.QueryHookOptions<GetUserWorkoutsQuery, GetUserWorkoutsQueryVariables> & ({ variables: GetUserWorkoutsQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetUserWorkoutsQuery, GetUserWorkoutsQueryVariables>(GetUserWorkouts, options);
+      }
+export function useGetUserWorkoutsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetUserWorkoutsQuery, GetUserWorkoutsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetUserWorkoutsQuery, GetUserWorkoutsQueryVariables>(GetUserWorkouts, options);
+        }
+export function useGetUserWorkoutsSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetUserWorkoutsQuery, GetUserWorkoutsQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetUserWorkoutsQuery, GetUserWorkoutsQueryVariables>(GetUserWorkouts, options);
+        }
+export type GetUserWorkoutsQueryHookResult = ReturnType<typeof useGetUserWorkoutsQuery>;
+export type GetUserWorkoutsLazyQueryHookResult = ReturnType<typeof useGetUserWorkoutsLazyQuery>;
+export type GetUserWorkoutsSuspenseQueryHookResult = ReturnType<typeof useGetUserWorkoutsSuspenseQuery>;
+export type GetUserWorkoutsQueryResult = Apollo.QueryResult<GetUserWorkoutsQuery, GetUserWorkoutsQueryVariables>;
 export const GetWorkouts = gql`
     query GetWorkouts($cycleId: Int!) {
   workouts(where: {cycle: {_eq: $cycleId}}, order_by: {subtitle: asc}) {

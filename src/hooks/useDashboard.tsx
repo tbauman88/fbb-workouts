@@ -1,25 +1,20 @@
 import { QueryResult } from '@apollo/client';
-import { GetUserCycleProgressQuery, MuscleGroupFragment, useGetUserCycleProgressQuery } from '../generated/graphql';
+import { CurrentUserWorkoutFragment, GetUserCycleProgressQuery, MuscleGroupFragment, useGetUserCycleProgressQuery } from '../generated/graphql';
 import { formatProgramName } from './usePrograms';
 import { WorkoutStatus } from '../types';
 import { useAuth } from './useAuth';
 import { filterMuscleGroups } from './utils';
-type Workout = GetUserCycleProgressQuery['userCycle'][0]['workout']
-type Program = GetUserCycleProgressQuery['userCycle'][0]['cycle']['program']
-type CurrentWorkoutItems = Array<Workout['first'][0] | Workout['rest'][0] | Workout['titles'][0]>
 
-type UserCycle = GetUserCycleProgressQuery['userCycle'][0]
-type CurrentWorkout = Workout & { items: CurrentWorkoutItems, muscleGroups: MuscleGroupFragment[] }
+type Program = GetUserCycleProgressQuery['programs'][0]
 export type CurrentProgram = Omit<Program, 'name'> & { cycleId: string, name: string | null }
-type Programs = GetUserCycleProgressQuery['programs'][0]
 
 export type DashboardContent = {
-  userCycle: UserCycle | null
+  userCycle: GetUserCycleProgressQuery['userCycle'][0] | null
   currentProgram: CurrentProgram | null
-  currentWorkout: CurrentWorkout | null
+  currentWorkout: CurrentUserWorkoutFragment["workout"] | null
   cycleProgression: number | null
   completedWorkouts: number | null
-  programs: Programs[] | null
+  programs: GetUserCycleProgressQuery['programs'][0][] | null
 };
 
 type UseUserContext = DashboardContent & {
@@ -34,12 +29,11 @@ const getDashboardData = (data: GetUserCycleProgressQuery | undefined): Dashboar
     currentWorkout: null,
     cycleProgression: null,
     completedWorkouts: null,
-    programs: null
+    programs: null,
   };
 
-  const userCycle = data.userCycle[0] || null;
-  const { cycle, workout } = userCycle || {};
-
+  const userCycle = data.userCycle[0];
+  const { cycle } = userCycle;
 
   const currentProgram = {
     ...cycle.program,
@@ -47,7 +41,9 @@ const getDashboardData = (data: GetUserCycleProgressQuery | undefined): Dashboar
     name: formatProgramName(cycle.program.name)
   }
 
+  const workout: CurrentUserWorkoutFragment["workout"] = data.current[0].workout;
   const items = workout ? [...workout.first, ...workout.rest, ...workout.titles] : []
+
   const filteredMuscleGroups = workout?.muscleGroup
     .flatMap((i) => i.exercise_details.map((m) => m.exercise?.muscle_group))
     .filter((muscleGroup): muscleGroup is MuscleGroupFragment => !!muscleGroup)
@@ -58,20 +54,16 @@ const getDashboardData = (data: GetUserCycleProgressQuery | undefined): Dashboar
     muscleGroups: filterMuscleGroups(filteredMuscleGroups) ?? []
   }
 
-  const userWorkouts = cycle?.user_workouts
-
-  const totalWorkouts = userWorkouts?.length ?? 0
-  const completedWorkouts = userWorkouts?.filter((w) => w.status !== WorkoutStatus.PENDING).length ?? 0
-
-  const cycleProgression = cycle?.total ? (completedWorkouts / totalWorkouts) * 100 : 0
+  const totalWorkouts = cycle?.user_workouts?.length ?? 0
+  const completedWorkouts = cycle?.user_workouts?.filter((w) => w.status !== WorkoutStatus.PENDING).length ?? 0
 
   return {
     userCycle,
     currentProgram,
     currentWorkout,
-    cycleProgression,
+    cycleProgression: cycle?.total ? (completedWorkouts / totalWorkouts) * 100 : 0,
     completedWorkouts,
-    programs: data.programs
+    programs: data.programs,
   }
 }
 

@@ -45,7 +45,7 @@ const CurrentProgramCard = ({ currentProgram, cycleProgression, loading, userCyc
   )
 }
 
-const WorkoutStatusBadge = ({ isActiveRecovery, isRestDay }: { isActiveRecovery: boolean, isRestDay: boolean }) => {
+export const WorkoutStatusBadge = ({ isActiveRecovery, isRestDay }: { isActiveRecovery: boolean, isRestDay: boolean }) => {
   if (isActiveRecovery) {
     return (
       <dd className="rounded-md bg-teal-50 px-2 py-1 text-xs font-medium text-teal-700 ring-1 ring-inset ring-teal-600/20">
@@ -64,7 +64,7 @@ const WorkoutStatusBadge = ({ isActiveRecovery, isRestDay }: { isActiveRecovery:
   return null
 }
 
-const TimelineItem = ({ item }: {
+export const TimelineItem = ({ item }: {
   item: {
     id: string,
     header?: string | null | undefined,
