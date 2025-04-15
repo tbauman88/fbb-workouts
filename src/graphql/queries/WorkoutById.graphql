@@ -25,11 +25,13 @@ query WorkoutById($id: bigint!) {
     }
   }
   user_workouts(where: { workout_id: { _eq: $id } }) {
-    id: workout_id,
+    id: workout_id
     cycleId: cycle_id
     status
   }
-  next_workout: user_workouts(where: { status: {_eq: pending}}, order_by: {workout_id: asc}, limit: 1, offset: 1) {
-    id: workout_id
+  user_workouts_aggregate(where: { status: { _eq: pending } }, order_by: { workout_id: asc }, offset: 1) {
+    aggregate {
+      count
+    }
   }
 }

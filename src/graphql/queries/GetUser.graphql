@@ -8,7 +8,6 @@ query GetUser($id: bigint!) {
     user_cycles(order_by: { created_at: desc }) {
       id
       cycle_id
-      current_workout
       start_date
       completed
       created_at

@@ -4,7 +4,6 @@ query GetCurrentUserCycle($userId: bigint!) {
     user_cycles(where: { completed: { _eq: false } }) {
       start_date
       end_date
-      current_workout
       completed
       cycle {
         id

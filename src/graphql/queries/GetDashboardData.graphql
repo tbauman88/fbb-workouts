@@ -2,7 +2,6 @@ query GetDashboardDataForUser($userId: bigint!) {
   user_cycles(where: { user_id: { _eq: $userId }, completed: { _eq: false } }) {
     id
     start_date
-    current_workout
     completed
     user {
       id

@@ -1,12 +1,8 @@
 query GetUserCycleProgress($userId: bigint!) {
-  userCycle: user_cycles(where: { 
-    user_id: { _eq: $userId }, 
-    completed: { _eq: false } 
-  }) {
+  userCycle: user_cycles(where: { user_id: { _eq: $userId }, completed: { _eq: false } }) {
     id
     start_date
     completed
-    current_workout
     cycle {
       id
       total: workout_count
@@ -20,13 +16,10 @@ query GetUserCycleProgress($userId: bigint!) {
     ...Programs
   }
   current: user_workouts(
-    limit: 1,
-    where: {
-      user_id: { _eq: $userId }, 
-      status: { _eq: pending }
-    }
+    limit: 1
+    order_by: { workout_id: asc }
+    where: { user_id: { _eq: $userId }, status: { _eq: pending } }
   ) {
     ...CurrentUserWorkout
   }
 }
-

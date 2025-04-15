@@ -66,7 +66,7 @@ const Wrapper = ({ children, loading, handleClick }: {
 export const Workout = () => {
   const {
     workout,
-    nextWorkoutId,
+    canFinishCycle,
     currentCycleId,
     muscleGroups,
     status,
@@ -123,16 +123,15 @@ export const Workout = () => {
         cycleId: currentCycleId
       }
 
-      if (nextWorkoutId) {
+      if (canFinishCycle) {
+        await finishCycle({ variables })
+      } else {
         await completeWorkout({
           variables: {
             ...variables,
             status,
-            nextWorkoutId: Number(nextWorkoutId)
           }
         })
-      } else {
-        await finishCycle({ variables })
       }
 
       setWorkoutStatus(status)

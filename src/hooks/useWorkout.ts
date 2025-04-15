@@ -5,15 +5,17 @@ import {
   useUpsertWorkoutItemScoreMutation,
   useWorkoutByIdQuery,
   WorkoutPageFragment,
-  MuscleGroupFragment
+  MuscleGroupFragment,
+  GetUserCycleProgress
 } from '../generated/graphql'
 import { WorkoutStatus } from '../types'
 import { useParams } from 'react-router-dom'
 import { useMemo } from 'react'
+import { useAuth } from './useAuth'
 
 export type UseWorkout = {
   workout: WorkoutPageFragment | null | undefined
-  nextWorkoutId: string | null | undefined
+  canFinishCycle: boolean
   status: WorkoutStatus
   currentCycleId: string | null | undefined
   muscleGroups: MuscleGroupFragment[] | null | undefined
@@ -26,6 +28,7 @@ export type UseWorkout = {
 
 export const useWorkout = (): UseWorkout => {
   const { id: workoutId } = useParams<{ id: string }>()
+  const { user } = useAuth()
 
   if (!workoutId) throw new Error('No workout id provided');
 
@@ -49,7 +52,13 @@ export const useWorkout = (): UseWorkout => {
     },
     onError: (error) => {
       console.error('Error completing workout:', error)
-    }
+    },
+    refetchQueries: [
+      {
+        query: GetUserCycleProgress,
+        variables: { userId: String(user?.id) }
+      }
+    ]
   })
 
   const [finishCycle] = useFinishCycleMutation({
@@ -77,7 +86,7 @@ export const useWorkout = (): UseWorkout => {
 
   return {
     workout: data?.workout,
-    nextWorkoutId: data?.next_workout[0]?.id,
+    canFinishCycle: data?.user_workouts_aggregate.aggregate?.count === 0,
     status: data?.user_workouts[0]?.status ?? WorkoutStatus.PENDING,
     currentCycleId: data?.user_workouts[0]?.cycleId,
     muscleGroups,
