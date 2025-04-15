@@ -50,7 +50,10 @@ export const Workouts = () => {
             <div className="lg:flex lg:h-full lg:flex-col">
               {workoutType === WorkoutType.UPCOMING && (
                 upcomingWorkouts?.map((workout, index) => (
-                  <WorkoutOverviewCard key={workout.id + index} workout={workout}>
+                  <WorkoutOverviewCard
+                    key={workout.id + index}
+                    workout={workout}
+                  >
                     <dt className="sr-only">Is Rest Day?</dt>
                     <WorkoutStatusBadge
                       isActiveRecovery={workout.isActiveRecovery}
@@ -61,7 +64,10 @@ export const Workouts = () => {
 
               {workoutType === WorkoutType.PAST && (
                 pastWorkouts?.map((workout, index) => (
-                  <WorkoutOverviewCard key={workout.id + index} workout={workout}>
+                  <WorkoutOverviewCard
+                    key={workout.id + index}
+                    workout={workout}
+                  >
                     {workout.status === WorkoutStatus.PENDING ? null : <Badge status={workout.status} />}
                   </WorkoutOverviewCard>
                 ))

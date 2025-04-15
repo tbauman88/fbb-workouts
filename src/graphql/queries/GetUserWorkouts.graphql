@@ -1,22 +1,15 @@
 query GetUserWorkouts($userId: bigint!, $cycle: bigint!) {
-  upcoming_workouts: user_workouts
-    (where: {
-      user_id: {_eq: $userId},
-      cycle_id: {_eq: $cycle},
-      status: {_eq: pending}
-    }
+  upcoming_workouts: user_workouts(
+    where: { user_id: { _eq: $userId }, cycle_id: { _eq: $cycle }, status: { _eq: pending } }
+    order_by: { workout_id: asc }
   ) {
     ...Workout
   }
   past_workouts: user_workouts(
-    where: {
-      user_id: {_eq: $userId},
-      cycle_id: {_eq: $cycle} 
-      status: {_nin: pending}
-    },
-    order_by: {workout_id: asc}
+    where: { user_id: { _eq: $userId }, cycle_id: { _eq: $cycle }, status: { _nin: pending } }
+    order_by: { workout_id: asc }
   ) {
-    status,
+    status
     ...Workout
   }
 }
@@ -36,7 +29,7 @@ fragment Workout on user_workouts {
       id
       header
     }
-    titles: workout_items(order_by: {id: asc}, where: {title: {_ilike: "Part%"}}) {
+    titles: workout_items(order_by: { id: asc }, where: { title: { _ilike: "Part%" } }) {
       id
       title
     }

@@ -8813,6 +8813,7 @@ export const GetUserWorkouts = gql`
     query GetUserWorkouts($userId: bigint!, $cycle: bigint!) {
   upcoming_workouts: user_workouts(
     where: {user_id: {_eq: $userId}, cycle_id: {_eq: $cycle}, status: {_eq: pending}}
+    order_by: {workout_id: asc}
   ) {
     ...Workout
   }
