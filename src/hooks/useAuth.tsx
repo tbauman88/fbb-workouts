@@ -37,34 +37,28 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User>(getStoredAuth())
   const isAuthenticated = !!user
 
-  const [checkCredentials] = useCheckUserCredentialsLazyQuery({
-    onCompleted: (data) => {
-      const user = data.users[0]
-
-      if (user) {
-        const authData = { expiry: Date.now() + ONE_WEEK, user }
-        localStorage.setItem('auth', JSON.stringify(authData))
-        setUser(user)
-      } else {
-        throw new Error('Invalid credentials')
-      }
-    },
-    onError: (error) => {
-      console.error('Login error:', error)
-      throw new Error('An error occurred during login')
-    }
-  })
+  const [checkCredentials] = useCheckUserCredentialsLazyQuery()
 
   const login = async (email: string, password: string) => {
     try {
-      await checkCredentials({
+      const result = await checkCredentials({
         variables: {
           email,
           password
         }
       })
 
-      return true
+      const user = result.data?.users[0]
+
+      if (user) {
+        const authData = { expiry: Date.now() + ONE_WEEK, user }
+        localStorage.setItem('auth', JSON.stringify(authData))
+        setUser(user)
+        return true
+      } else {
+        // Invalid credentials - no user found
+        return false
+      }
     } catch (error) {
       console.error('Login error:', error)
       return false
