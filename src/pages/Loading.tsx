@@ -125,7 +125,7 @@ const WorkoutLoading = () => {
 
 const LoadingCurrentProgramCard = () => (
   <div className="lg:col-start-3 lg:row-end-1 pb-6">
-    <div className="rounded-lg bg-gray-50 shadow-sm ring-1 ring-gray-900/5 space-y-6 pb-6">
+    <div className="rounded-lg bg-gray-50 shadow-xs ring-1 ring-gray-900/5 space-y-6 pb-6">
       <Skeleton width="100%" height="256px" /> {/* Program image */}
       <dl className="flex flex-wrap px-6">
         <div className="flex-auto">
@@ -144,8 +144,8 @@ const LoadingCurrentProgramCard = () => (
 )
 
 const LoadingCurrentWorkoutCard = () => (
-  <div className="-mx-4 shadow-sm ring-1 ring-gray-900/5 sm:mx-0 sm:rounded-lg lg:col-span-2 lg:row-span-2 lg:row-end-2">
-    <div className="rounded-lg bg-gray-50 shadow-sm ring-1 ring-gray-900/5">
+  <div className="-mx-4 shadow-xs ring-1 ring-gray-900/5 sm:mx-0 sm:rounded-lg lg:col-span-2 lg:row-span-2 lg:row-end-2">
+    <div className="rounded-lg bg-gray-50 shadow-xs ring-1 ring-gray-900/5">
       <dl className="flex flex-wrap">
         <div className="flex-auto pl-6 py-6 border-b border-gray-900/5">
           <Skeleton width="120px" height="20px" className="mb-2" /> {/* Daily Training label */}

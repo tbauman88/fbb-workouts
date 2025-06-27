@@ -49,7 +49,7 @@ export const Settings = () => {
 
                       <ListboxOptions
                         transition
-                        className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none data-[closed]:data-[leave]:opacity-0 data-[leave]:transition data-[leave]:duration-100 data-[leave]:ease-in sm:text-sm"
+                        className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-hidden data-[closed]:data-[leave]:opacity-0 data-[leave]:transition data-[leave]:duration-100 data-[leave]:ease-in sm:text-sm"
                       >
                         {people.map((person) => (
                           <ListboxOption
@@ -128,7 +128,7 @@ export const Settings = () => {
               <div className="mt-8 flex">
                 <button
                   type="submit"
-                  className="rounded-md bg-indigo-500 px-3 py-2 text-sm text-white font-semibold shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                  className="rounded-md bg-indigo-500 px-3 py-2 text-sm text-white font-semibold shadow-xs hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
                 >
                   Save
                 </button>
@@ -193,7 +193,7 @@ export const Settings = () => {
               <div className="mt-8 flex">
                 <button
                   type="submit"
-                  className="rounded-md bg-indigo-500 px-3 py-2 text-sm text-white font-semibold shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                  className="rounded-md bg-indigo-500 px-3 py-2 text-sm text-white font-semibold shadow-xs hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
                 >
                   Save
                 </button>
@@ -231,7 +231,7 @@ export const Settings = () => {
               <div className="mt-8 flex">
                 <button
                   type="submit"
-                  className="rounded-md bg-indigo-500 px-3 py-2 text-sm text-white font-semibold shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                  className="rounded-md bg-indigo-500 px-3 py-2 text-sm text-white font-semibold shadow-xs hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
                 >
                   Log out other sessions
                 </button>
@@ -251,7 +251,7 @@ export const Settings = () => {
             <form className="flex items-start md:col-span-2">
               <button
                 type="submit"
-                className="rounded-md bg-red-500 px-3 py-2 text-sm text-white font-semibold shadow-sm hover:bg-red-400"
+                className="rounded-md bg-red-500 px-3 py-2 text-sm text-white font-semibold shadow-xs hover:bg-red-400"
               >
                 Yes, delete my account
               </button>

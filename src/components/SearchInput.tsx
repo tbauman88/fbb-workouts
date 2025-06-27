@@ -33,7 +33,7 @@ export const SearchInput = ({
             name="search"
             placeholder={label}
             type="text"
-            className="col-start-1 row-start-1 block w-full rounded-l-md bg-white py-1.5 pr-3 pl-4 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6"
+            className="col-start-1 row-start-1 block w-full rounded-l-md bg-white py-1.5 pr-3 pl-4 text-base text-gray-900 placeholder:text-gray-400 focus:outline-hidden sm:text-sm/6"
             onChange={(e) => setInputValue(e.target.value)}
           />
           <div className="flex py-1.5 pr-1.5">

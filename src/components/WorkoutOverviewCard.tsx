@@ -15,7 +15,7 @@ export const WorkoutOverviewCard = ({
   const navigate = useNavigate()
 
   return (
-    <div className="rounded-lg bg-gray-50 shadow-sm ring-1 ring-gray-900/5 my-4">
+    <div className="rounded-lg bg-gray-50 shadow-xs ring-1 ring-gray-900/5 my-4">
       <dl className="flex flex-wrap">
         <div
           className={`flex-auto pl-6 pb-6 mt-6 border-b border-gray-900/5 ${clickable ? 'cursor-pointer' : ''}`}

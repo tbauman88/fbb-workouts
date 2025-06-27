@@ -73,7 +73,7 @@ export const Score: React.FC<{
   const focusClasses = 'focus:ring-2 focus:ring-inset focus:ring-indigo-600'
   const disabledClasses = isCompleted ? 'disabled:cursor-not-allowed disabled:opacity-75' : ''
 
-  const baseClasses = `block w-full border-0 py-4 pl-3 text-gray-900 shadow-sm ring-1 ring-inset`
+  const baseClasses = `block w-full border-0 py-4 pl-3 text-gray-900 shadow-xs ring-1 ring-inset`
 
   const classes = `
     ${baseClasses} 
@@ -90,7 +90,7 @@ export const Score: React.FC<{
     if (!score) return null
 
     return (
-      <div className="mt-4 w-full isolate inline-flex rounded-md shadow-sm w-full">
+      <div className="mt-4 w-full isolate inline-flex rounded-md shadow-xs w-full">
         <label htmlFor="score" className="sr-only">Score History</label>
         <input className={classes} disabled value={score} />
       </div>
@@ -99,7 +99,7 @@ export const Score: React.FC<{
 
   return (
     <div className='flex flex-col gap-4 w-full'>
-      <div className="isolate inline-flex rounded-md shadow-sm w-full">
+      <div className="isolate inline-flex rounded-md shadow-xs w-full">
         <form className="w-full" onSubmit={(e) => e.preventDefault()}>
           <label htmlFor="score" className="sr-only">
             Score

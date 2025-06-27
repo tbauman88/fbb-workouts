@@ -148,7 +148,7 @@ export const DailyOverview: React.FC<{ size?: number }> = ({ size = 200 }) => {
 
         <dl className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-3">
           {data.map((item) => (
-            <div key={item.name} className="overflow-hidden rounded-lg px-4 py-5 shadow-sm sm:p-6"
+            <div key={item.name} className="overflow-hidden rounded-lg px-4 py-5 shadow-xs sm:p-6"
               style={{
                 background: `linear-gradient(185deg, rgba(40,51,57,1) 20%, rgba(16,21,24,1) 100%)`,
               }}>

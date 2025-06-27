@@ -46,7 +46,7 @@ export const Workouts = () => {
           </div>
         </div>
         <section className="mx-auto grid max-w-2xl grid-cols-1 grid-rows-1 items-start gap-x-8 gap-y-8 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-          <div className="-mx-4 shadow-sm sm:mx-0 sm:rounded-lg lg:col-span-2 lg:row-span-2 lg:row-end-2">
+          <div className="-mx-4 shadow-xs sm:mx-0 sm:rounded-lg lg:col-span-2 lg:row-span-2 lg:row-end-2">
             <div className="lg:flex lg:h-full lg:flex-col">
               {workoutType === WorkoutType.UPCOMING && (
                 upcomingWorkouts?.map((workout, index) => (

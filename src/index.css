@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+@config '../tailwind.config.js';
 
 @layer base {
   * {
@@ -30,125 +29,6 @@
     font-family: 'Poppins', system-ui, sans-serif;
     font-weight: 600;
     line-height: 1.2;
-  }
-}
-
-@layer components {
-  /* Enhanced card styles */
-  .card {
-    @apply bg-white rounded-2xl shadow-medium ring-1 ring-neutral-200/50 transition-all duration-300;
-  }
-
-  .card:hover {
-    @apply shadow-large;
-  }
-
-  /* Enhanced workout list grid */
-  .workouts-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 2rem;
-    padding: 2rem;
-  }
-
-  /* Modern workout card */
-  .workout-card {
-    @apply bg-white rounded-2xl shadow-medium ring-1 ring-neutral-200/50 overflow-hidden transition-all duration-300 hover:shadow-large hover:-translate-y-1;
-  }
-
-  .workout-header {
-    @apply bg-gradient-to-r from-primary-500 to-primary-600 p-6 text-white;
-  }
-
-  .workout-header h2 {
-    @apply text-xl font-bold mb-2;
-  }
-
-  .cycle {
-    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-white/20 text-white;
-  }
-
-  .workout-content {
-    @apply p-6;
-  }
-
-  .workout-content h3 {
-    @apply text-lg font-semibold text-neutral-800 mb-3;
-  }
-
-  .date {
-    @apply text-sm text-neutral-500 font-medium;
-  }
-
-  /* Loading states */
-  .loading-shimmer {
-    @apply animate-pulse bg-gradient-to-r from-neutral-200 via-neutral-100 to-neutral-200 bg-[length:400%_100%];
-    animation: loading-shimmer 1.5s ease-in-out infinite;
-  }
-
-  /* Focus styles */
-  .focus-ring {
-    @apply focus:outline-none focus:ring-4 focus:ring-primary-300 focus:ring-offset-2;
-  }
-
-  /* Typography utilities */
-  .text-balance {
-    text-wrap: balance;
-  }
-
-  .text-pretty {
-    text-wrap: pretty;
-  }
-}
-
-@layer utilities {
-  /* Glassmorphism utilities */
-  .glass {
-    @apply bg-white/10 backdrop-blur-xl border border-white/20;
-  }
-
-  .glass-dark {
-    @apply bg-black/10 backdrop-blur-xl border border-black/20;
-  }
-
-  /* Animation utilities */
-  .animate-fade-in {
-    animation: fadeIn 0.5s ease-in-out;
-  }
-
-  .animate-slide-up {
-    animation: slideUp 0.3s ease-out;
-  }
-
-  .animate-bounce-subtle {
-    animation: bounceSubtle 0.6s ease-in-out;
-  }
-
-  /* Custom transforms */
-  .hover\:scale-102:hover {
-    transform: scale(1.02);
-  }
-
-  .hover\:scale-105:hover {
-    transform: scale(1.05);
-  }
-
-  /* Text gradients */
-  .text-gradient-primary {
-    @apply bg-gradient-to-r from-primary-500 to-primary-600 bg-clip-text text-transparent;
-  }
-
-  .text-gradient-secondary {
-    @apply bg-gradient-to-r from-secondary-500 to-secondary-600 bg-clip-text text-transparent;
-  }
-
-  /* Shadow utilities */
-  .shadow-glow-primary {
-    box-shadow: 0 0 20px rgba(234, 109, 28, 0.3);
-  }
-
-  .shadow-glow-secondary {
-    box-shadow: 0 0 20px rgba(59, 156, 246, 0.3);
   }
 }
 

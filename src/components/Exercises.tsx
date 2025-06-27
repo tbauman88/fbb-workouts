@@ -21,9 +21,9 @@ const ExerciseTitle: React.FC<{
   if (!exercise.title) return null
 
   return (
-    <div onClick={onClick} className="cursor-pointer rounded flex-grow">
+    <div onClick={onClick} className="cursor-pointer rounded-sm flex-grow">
       <h4
-        className="text-base lg:text-lg text-gray-900 font-light cursor-pointer rounded flex-grow mb-2"
+        className="text-base lg:text-lg text-gray-900 font-light cursor-pointer rounded-sm flex-grow mb-2"
         dangerouslySetInnerHTML={{
           __html: exercise.title.includes('fa-hand') ? marked(exercise.title) : exercise.title
         }} />

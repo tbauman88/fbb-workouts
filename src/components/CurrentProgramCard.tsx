@@ -22,7 +22,7 @@ export const CurrentProgramCard = ({ currentProgram, cycleProgression, loading, 
     <div className="lg:col-start-3 lg:row-end-1 pb-6">
       <h2 className="sr-only">Current Program</h2>
 
-      <div className="rounded-lg bg-gray-50 shadow-sm ring-1 ring-gray-900/5 space-y-6 pb-6">
+      <div className="rounded-lg bg-gray-50 shadow-xs ring-1 ring-gray-900/5 space-y-6 pb-6">
         <img src={currentProgram.image ?? ''} alt="" />
         <dl className="flex flex-wrap px-6">
           <div className="flex-auto">
