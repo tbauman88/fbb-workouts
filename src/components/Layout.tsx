@@ -6,6 +6,9 @@ import { Logo } from './'
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Role } from '../types'
+import { CheckUserCredentialsQuery } from '../generated/graphql'
+
+type User = CheckUserCredentialsQuery['users'][number] | null
 
 interface NavigationProps {
   name: string
@@ -44,7 +47,7 @@ const Navigation = ({ navigation }: { navigation: NavigationProps[] }) => {
           to={item.href}
           aria-current={item.current ? 'page' : undefined}
           className={classNames(
-            item.current ? 'text-white border-b-2 border-indigo-400' : 'text-gray-300 hover:text-indigo-400',
+            item.current ? 'text-white border-b-2 border-primary-400' : 'text-neutral-300 hover:text-primary-400',
             'px-3 py-2 text-sm font-medium transition-colors duration-200 ease-in-out'
           )}
         >
@@ -68,12 +71,12 @@ const Header = ({ user, onClick, isAdmin }: { user: User; onClick: () => void; i
   }, [location.pathname, isAdmin])
 
   return (
-    <div className="bg-gray-800 pb-32">
-      <Disclosure as="nav" className="bg-gray-800 py-10">
+    <div className="bg-neutral-800 pb-32">
+      <Disclosure as="nav" className="bg-neutral-800 py-10">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 justify-between">
             <div className="flex items-center">
-              <Logo />
+              <Logo onClick={() => { }} />
             </div>
 
             <Navigation navigation={updatedNavigation} />
@@ -82,7 +85,7 @@ const Header = ({ user, onClick, isAdmin }: { user: User; onClick: () => void; i
               <div className="flex md:ml-4 md:shrink-0 md:items-center gap-x-4">
                 <button
                   type="button"
-                  className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-hidden focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                  className="relative rounded-full bg-neutral-800 p-1 text-neutral-400 hover:text-white focus:outline-hidden focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-neutral-800"
                 >
                   <span className="absolute -inset-1.5" />
                   <span className="sr-only">View notifications</span>
@@ -91,7 +94,7 @@ const Header = ({ user, onClick, isAdmin }: { user: User; onClick: () => void; i
 
                 <button
                   type="button"
-                  className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-hidden focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                  className="relative rounded-full bg-neutral-800 p-1 text-neutral-400 hover:text-white focus:outline-hidden focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-neutral-800"
                   onClick={onClick}
                 >
                   <span className="absolute -inset-1.5" />
@@ -115,14 +118,14 @@ const Header = ({ user, onClick, isAdmin }: { user: User; onClick: () => void; i
                 {isAdmin && (
                   <Link key="settings" to="/settings" aria-current={false} className="relative ml-3">
                     <span className="sr-only">Open user menu</span>
-                    <img alt="" src={user?.image_url} className="size-8 rounded-full" />
+                    <img alt="" src={user?.image_url || ''} className="size-8 rounded-full" />
                   </Link>
                 )}
               </div>
             </div>
 
             <div className="-ml-2 mr-2 flex items-center md:hidden">
-              <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-hidden focus:ring-2 focus:ring-inset focus:ring-white">
+              <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md p-2 text-neutral-400 hover:bg-neutral-700 hover:text-white focus:outline-hidden focus:ring-2 focus:ring-inset focus:ring-white">
                 <span className="absolute -inset-0.5" />
                 <span className="sr-only">Open main menu</span>
                 <Bars3Icon aria-hidden="true" className="block size-6 group-data-[open]:hidden" />
@@ -140,7 +143,7 @@ const Header = ({ user, onClick, isAdmin }: { user: User; onClick: () => void; i
                 to={item.href}
                 aria-current={item.current ? 'page' : undefined}
                 className={classNames(
-                  item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                  item.current ? 'bg-neutral-900 text-white' : 'text-neutral-300 hover:bg-neutral-700 hover:text-white',
                   'block rounded-md px-3 py-2 text-base font-medium group-data-[open]:hidden'
                 )}
               >
@@ -148,18 +151,18 @@ const Header = ({ user, onClick, isAdmin }: { user: User; onClick: () => void; i
               </Link>
             ))}
           </div>
-          <div className="border-t border-gray-700 pb-3 pt-4">
+          <div className="border-t border-neutral-700 pb-3 pt-4">
             <div className="flex items-center px-5 sm:px-6">
               <div className="shrink-0">
-                <img alt="" src={user?.image_url} className="size-10 rounded-full" />
+                <img alt="" src={user?.image_url || ''} className="size-10 rounded-full" />
               </div>
               <div className="ml-3">
                 <div className="text-base font-medium text-white">{user?.name}</div>
-                <div className="text-sm font-medium text-gray-400">{user?.email}</div>
+                <div className="text-sm font-medium text-neutral-400">{user?.email}</div>
               </div>
               <button
                 type="button"
-                className="relative ml-auto shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-hidden focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                className="relative ml-auto shrink-0 rounded-full bg-neutral-800 p-1 text-neutral-400 hover:text-white focus:outline-hidden focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-neutral-800"
               >
                 <span className="absolute -inset-1.5" />
                 <span className="sr-only">View notifications</span>
@@ -171,7 +174,7 @@ const Header = ({ user, onClick, isAdmin }: { user: User; onClick: () => void; i
                 <Link
                   key={item.name}
                   to={item.href}
-                  className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
+                  className="block rounded-md px-3 py-2 text-base font-medium text-neutral-400 hover:bg-neutral-700 hover:text-white"
                   onClick={item.action ? onClick : undefined}
                 >
                   {item.name}
@@ -194,7 +197,7 @@ export const Layout: React.FC<{ role: Role }> = ({ role }) => {
 
       <main className="-mt-32">
         <div className="mx-auto max-w-full lg:px-16">
-          <div className="rounded-lg bg-white py-6 sm:px-6">
+          <div className="rounded-lg bg-neutral-50 py-6 sm:px-6">
             <Outlet />
           </div>
         </div>

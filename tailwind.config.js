@@ -4,89 +4,102 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Modern fitness-focused color palette
+        // Refined triadic harmony palette - beautiful nature-inspired colors
         primary: {
-          50: '#eff8ff',
-          100: '#dbeffe',
-          200: '#bfe3fe',
-          300: '#93d2fd',
-          400: '#60b8fa',
-          500: '#3b9cf6', // Vibrant blue
-          600: '#2681eb',
-          700: '#1e6ad8',
-          800: '#1f56af',
-          900: '#1e4a8a',
-          950: '#172f54',
+          50: '#f0fdfa',
+          100: '#ccfbf1',
+          200: '#99f6e4',
+          300: '#5eead4',
+          400: '#2dd4bf',
+          500: '#7ebfae', // Main teal
+          600: '#14b8a6',
+          700: '#0f766e',
+          800: '#115e59',
+          900: '#134e4a',
+          950: '#042f2e'
         },
         secondary: {
-          50: '#fef7ee',
-          100: '#fdead6',
-          200: '#f9d1ad',
-          300: '#f5b378',
-          400: '#ef8a41',
-          500: '#ea6d1c', // Main brand orange
-          600: '#dc5212',
-          700: '#b73f11',
-          800: '#933316',
-          900: '#772d15',
-          950: '#401408',
+          50: '#f0f4ff',
+          100: '#e0eaff',
+          200: '#c7d8ff',
+          300: '#a5bdff',
+          400: '#8497ff',
+          500: '#7e8fbf', // Main periwinkle blue
+          600: '#6366f1',
+          700: '#5145cd',
+          800: '#4338ca',
+          900: '#3730a3',
+          950: '#1e1b4b'
         },
         accent: {
-          50: '#f0fdf4',
-          100: '#dcfce7',
-          200: '#bbf7d0',
-          300: '#86efac',
-          400: '#4ade80', // Success green
-          500: '#22c55e',
-          600: '#16a34a',
-          700: '#15803d',
-          800: '#166534',
-          900: '#14532d',
-          950: '#052e16',
+          50: '#f6fdf4',
+          100: '#e8fce4',
+          200: '#d2f8ca',
+          300: '#adf0a1',
+          400: '#7ee370',
+          500: '#87bf7e', // Main sage green
+          600: '#4ade80',
+          700: '#22c55e',
+          800: '#16a34a',
+          900: '#15803d',
+          950: '#052e16'
+        },
+        tertiary: {
+          50: '#f8f6f4',
+          100: '#f0ebe6',
+          200: '#e0d5ca',
+          300: '#cdb8a8',
+          400: '#b59688',
+          500: '#8e5546', // Main brown - less muddy
+          600: '#7a4737',
+          700: '#653a2e',
+          800: '#54312a',
+          900: '#472a25',
+          950: '#251512'
         },
         neutral: {
-          50: '#f8fafc',
-          100: '#f1f5f9',
-          200: '#e2e8f0',
-          300: '#cbd5e1',
-          400: '#94a3b8',
-          500: '#64748b',
-          600: '#475569',
-          700: '#334155',
-          800: '#1e293b',
-          900: '#0f172a',
-          950: '#020617',
+          50: '#ffffff',
+          100: '#fafafa',
+          200: '#f5f5f5',
+          300: '#eeeeee',
+          400: '#d1d5db',
+          500: '#9ca3af',
+          600: '#6b7280',
+          700: '#374151',
+          800: '#1f2937',
+          900: '#111827',
+          950: '#030712'
         }
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
-        display: ['Poppins', 'system-ui', 'sans-serif'],
+        display: ['Poppins', 'system-ui', 'sans-serif']
       },
       boxShadow: {
-        'soft': '0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04)',
-        'medium': '0 4px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
-        'large': '0 10px 40px -12px rgba(0, 0, 0, 0.25)',
-        'glow': '0 0 20px rgba(59, 156, 246, 0.15)',
+        soft: '0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04)',
+        medium: '0 4px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+        large: '0 10px 40px -12px rgba(0, 0, 0, 0.25)',
+        glow: '0 0 20px rgba(59, 156, 246, 0.15)'
       },
       animation: {
         'fade-in': 'fadeIn 0.5s ease-in-out',
         'slide-up': 'slideUp 0.3s ease-out',
-        'bounce-subtle': 'bounceSubtle 0.6s ease-in-out',
+        'bounce-subtle': 'bounceSubtle 0.6s ease-in-out'
       },
       keyframes: {
         fadeIn: {
           '0%': { opacity: '0' },
-          '100%': { opacity: '1' },
+          '100%': { opacity: '1' }
         },
         slideUp: {
           '0%': { transform: 'translateY(10px)', opacity: '0' },
-          '100%': { transform: 'translateY(0)', opacity: '1' },
+          '100%': { transform: 'translateY(0)', opacity: '1' }
         },
         bounceSubtle: {
           '0%, 20%, 50%, 80%, 100%': { transform: 'translateY(0)' },
           '40%': { transform: 'translateY(-2px)' },
-          '60%': { transform: 'translateY(-1px)' },
-        },
+          '60%': { transform: 'translateY(-1px)' }
+        }
       },
       gridTemplateColumns: {
         8: 'repeat(8, minmax(0, 1fr))'
@@ -96,27 +109,28 @@ export default {
           css: {
             ul: {
               margin: '0',
-              padding: '0',
+              padding: '0'
             },
             'ul > li': {
-              marginBottom: '0.5rem',
+              marginBottom: '0.5rem'
             },
             '.spaced-list-item': {
               marginTop: '0',
               marginBottom: '1rem',
               paddingInlineStart: '0',
-              listStyleType: 'none',
-            },
-          },
-        },
-      },
+              listStyleType: 'none'
+            }
+          }
+        }
+      }
     },
     screens: {
       sm: '640px',
       md: '768px',
       lg: '1024px',
-      xl: '1440px', 
+      xl: '1440px',
       '2xl': '2200px'
     }
   },
-  plugins: [require('@tailwindcss/typography')]}
+  plugins: [require('@tailwindcss/typography')]
+}

@@ -21,19 +21,19 @@ interface FieldError {
 
 const validate = (values: FormValues): FieldError => {
   const errors: FieldError = {}
-  
+
   if (!values.email) {
     errors.email = 'Email is required'
-  } 
-  
+  }
+
   if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
     errors.email = 'Invalid email address'
   }
-  
+
   if (!values.password) {
     errors.password = 'Password is required'
   }
-  
+
   return errors
 }
 
@@ -63,7 +63,7 @@ export const Login = () => {
   )
 
   return (
-          <div className="min-h-screen bg-linear-to-br from-neutral-900 via-neutral-800 to-neutral-900 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-neutral-900 via-neutral-800 to-neutral-900 flex items-center justify-center p-4">
       {/* Background Pattern */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary-500/10 rounded-full blur-3xl"></div>
@@ -76,7 +76,7 @@ export const Login = () => {
           {/* Logo Section */}
           <div className="text-center mb-8">
             <div className="flex justify-center mb-6">
-              <Logo onClick={() => {}} />
+              <Logo onClick={() => { }} />
             </div>
             <p className="text-white/70 text-sm">
               Sign in to your account to continue your fitness journey
@@ -109,9 +109,8 @@ export const Login = () => {
                             {...input}
                             id="email"
                             type="email"
-                            className={`w-full pl-10 pr-4 py-3 bg-white/10 border rounded-xl text-white placeholder-white/50 focus:outline-hidden focus:ring-4 focus:ring-primary-500/30 focus:border-primary-400 transition-all duration-200 ${
-                              meta.error && meta.touched ? 'border-red-400' : 'border-white/20'
-                            }`}
+                            className={`w-full pl-10 pr-4 py-3 bg-white/10 border rounded-xl text-white placeholder-white/50 focus:outline-hidden focus:ring-4 focus:ring-primary-500/30 focus:border-primary-400 transition-all duration-200 ${meta.error && meta.touched ? 'border-red-400' : 'border-white/20'
+                              }`}
                             placeholder="Enter your email"
                           />
                         </div>
@@ -139,9 +138,8 @@ export const Login = () => {
                             {...input}
                             id="password"
                             type="password"
-                            className={`w-full pl-10 pr-4 py-3 bg-white/10 border rounded-xl text-white placeholder-white/50 focus:outline-hidden focus:ring-4 focus:ring-primary-500/30 focus:border-primary-400 transition-all duration-200 ${
-                              meta.error && meta.touched ? 'border-red-400' : 'border-white/20'
-                            }`}
+                            className={`w-full pl-10 pr-4 py-3 bg-white/10 border rounded-xl text-white placeholder-white/50 focus:outline-hidden focus:ring-4 focus:ring-primary-500/30 focus:border-primary-400 transition-all duration-200 ${meta.error && meta.touched ? 'border-red-400' : 'border-white/20'
+                              }`}
                             placeholder="Enter your password"
                           />
                         </div>
@@ -159,7 +157,7 @@ export const Login = () => {
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="w-full bg-linear-to-r from-primary-500 to-primary-600 text-white font-semibold py-3 px-6 rounded-xl shadow-medium hover:from-primary-600 hover:to-primary-700 hover:shadow-large hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 focus:outline-hidden focus:ring-4 focus:ring-primary-300 focus:ring-offset-2 focus:ring-offset-transparent disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+                  className="w-full bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold py-3 px-6 rounded-xl shadow-medium hover:from-primary-600 hover:to-primary-700 hover:shadow-large hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 focus:outline-hidden focus:ring-4 focus:ring-primary-300 focus:ring-offset-2 focus:ring-offset-transparent disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
                 >
                   {submitting ? (
                     <div className="flex items-center justify-center">
