@@ -17,7 +17,10 @@ export const exchangeWhoopAuthCode = async (authCode: string): Promise<WhoopToke
     const params = new URLSearchParams();
     params.append('grant_type', 'authorization_code');
     params.append('code', authCode);
-    params.append('redirect_uri', 'http://localhost:3007/auth/whoop/callback');
+    params.append('redirect_uri', config.isDevelopment
+      ? 'http://localhost:3007/auth/whoop/callback'
+      : 'https://bauman-lift.vercel.app/auth/whoop/callback'
+    );
     params.append('client_id', config.clientId);
     params.append('client_secret', config.clientSecret);
 

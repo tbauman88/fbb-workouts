@@ -3,14 +3,17 @@ import { useGetIntegrationsQuery } from '../generated/graphql'
 import { INTEGRATION_ID } from '../consts'
 import { config } from '../../environment'
 
-// Updated to use localhost callback instead of Postman
-const REDIRECT_URI = 'http://localhost:3007/auth/whoop/callback'
+// Dynamic redirect URI based on environment
+const REDIRECT_URI = config.isDevelopment
+  ? 'http://localhost:3007/auth/whoop/callback'
+  : 'https://bauman-lift.vercel.app/auth/whoop/callback'
+
 const SCOPES = 'read:recovery read:cycles read:sleep read:workout read:profile read:body_measurement offline'
 const RESPONSE_TYPE = 'code'
 const STATE = 'whoop_auth'
 const CLIENT_ID = config.clientId
 
-const WHOOP_AUTH_URL = `https://api.prod.whoop.com/oauth/oauth2/auth?response_type=${RESPONSE_TYPE}&client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&scope=${SCOPES}&state=${STATE}`
+const WHOOP_AUTH_URL = `https://api.prod.whoop.com/oauth/oauth2/auth?response_type=${RESPONSE_TYPE}&client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&scope=${encodeURIComponent(SCOPES)}&state=${STATE}`
 
 export const Settings = () => {
   const { user } = useAuth()
@@ -101,6 +104,11 @@ export const Settings = () => {
                           : 'Connect your WHOOP device to sync recovery, sleep, and strain data'
                         }
                       </p>
+                      {!isWhoopConnected && (
+                        <p className="text-xs text-blue-600 mt-1">
+                          💡 Make sure your WHOOP app redirect URL is set to: {REDIRECT_URI}
+                        </p>
+                      )}
                     </div>
                   </div>
                   <div>

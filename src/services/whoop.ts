@@ -73,6 +73,13 @@ export const WhoopService = () => {
       });
 
       console.log(`✅ Successfully fetched ${action} data`);
+
+      // Safely access the first record
+      if (!response.data || !response.data.records || response.data.records.length === 0) {
+        console.warn(`⚠️ No ${action} data found in response`);
+        return null;
+      }
+
       return response.data.records[0];
     } catch (error) {
       console.error(`❌ Error fetching ${action} data:`, error);

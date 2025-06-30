@@ -122,6 +122,23 @@ export const useWhoop = () => {
           fetchWithAuth('workout', currentAccessToken, refreshToken),
         ]);
 
+        // Check if we have all required data
+        if (!cycle || !recovery || !sleep || !workout) {
+          console.warn('⚠️ Some Whoop data is missing:', {
+            cycle: !!cycle,
+            recovery: !!recovery,
+            sleep: !!sleep,
+            workout: !!workout,
+          });
+
+          setState(prev => ({
+            ...prev,
+            loading: false,
+            error: new Error('Incomplete Whoop data. You may need to use your Whoop device to generate recent activity data.'),
+          }));
+          return;
+        }
+
         setState(prev => ({
           ...prev,
           stats: { cycle, sleep, recovery, workout },
