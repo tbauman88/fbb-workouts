@@ -97,9 +97,9 @@ export const DailyOverview: React.FC<{ size?: number }> = ({ size = 200 }) => {
 
   return (
     <>
-      <div className="bg-gray-900 text-white p-6">
-        <section className="w-full flex justify-center items-center">
-          <div className="flex items-center space-x-10">
+      <div className="bg-neutral-900 text-white p-6">
+        <section className="w-full flex-center">
+          <div className="flex-center space-x-10">
             <div className="flex flex-col space-y-2 text-right">
               <div style={{ color: recoveryColor }}>
                 <span className="font-bold text-lg">{recovery.score}%</span>
@@ -107,7 +107,7 @@ export const DailyOverview: React.FC<{ size?: number }> = ({ size = 200 }) => {
               </div>
               <div className="text-white">
                 <span className="font-bold text-lg">{recovery.hrv.toFixed(0)}</span>
-                <p className="uppercase text-sm text-gray-300">HRV</p>
+                <p className="uppercase text-sm text-neutral-300">HRV</p>
               </div>
             </div>
 
@@ -118,15 +118,15 @@ export const DailyOverview: React.FC<{ size?: number }> = ({ size = 200 }) => {
                   background: `conic-gradient(${workoutColor} 0% ${strainPercentage}%, #374151 ${strainPercentage}% 100%)`,
                 }}
               />
-              <div className="absolute inset-2 rounded-full bg-gray-900" />
+              <div className="absolute inset-2 rounded-full bg-neutral-900" />
               <div
                 className="absolute inset-4 rounded-full"
                 style={{
                   background: `conic-gradient(${recoveryColor} 0% ${recoveryPercentage}%, #374151 ${recoveryPercentage}% 100%)`,
                 }}
               />
-              <div className="absolute inset-6 bg-gray-900 rounded-full flex flex-col items-center justify-center">
-                <div className="text-sm text-gray-400">{getLabel(dailyStrain.score)}</div>
+              <div className="absolute inset-6 bg-neutral-900 rounded-full flex-center flex-col">
+                <div className="text-sm text-neutral-400">{getLabel(dailyStrain.score)}</div>
                 <div className="text-3xl font-bold">{dailyStrain.score.toFixed(1)}</div>
               </div>
             </div>
@@ -139,8 +139,8 @@ export const DailyOverview: React.FC<{ size?: number }> = ({ size = 200 }) => {
 
               <div className="text-white">
                 <span className="font-bold text-lg">{sleep.score}%</span>
-                <p className="uppercase text-sm text-gray-300">Sleep</p>
-                <p className="uppercase text-sm text-gray-300">Performance</p>
+                <p className="uppercase text-sm text-neutral-300">Sleep</p>
+                <p className="uppercase text-sm text-neutral-300">Performance</p>
               </div>
             </div>
           </div>
@@ -148,12 +148,9 @@ export const DailyOverview: React.FC<{ size?: number }> = ({ size = 200 }) => {
 
         <dl className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-3">
           {data.map((item) => (
-            <div key={item.name} className="overflow-hidden rounded-lg px-4 py-5 shadow-xs sm:p-6"
-              style={{
-                background: `linear-gradient(185deg, rgba(40,51,57,1) 20%, rgba(16,21,24,1) 100%)`,
-              }}>
+            <div key={item.name} className="glass-dark overflow-hidden rounded-lg px-4 py-5 shadow-soft sm:p-6">
               <dt className="truncate text-sm font-medium text-white uppercase">{item.name}</dt>
-              <dd className="mt-1 text-3xl font-semibold tracking-tight textwhite">{item.value}</dd>
+              <dd className="mt-1 text-3xl font-semibold tracking-tight text-white">{item.value}</dd>
             </div>
           ))}
         </dl>

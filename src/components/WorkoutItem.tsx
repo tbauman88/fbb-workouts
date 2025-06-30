@@ -7,13 +7,13 @@ import { useCallback, useMemo, useState } from 'react'
 
 const Header = ({ header }: { header: string | null | undefined }) =>
   header && (
-    <h2 className="w-full text-xl text-gray-900 font-bold tracking-tight">{header}</h2>
+    <h2 className="w-full text-xl text-neutral-900 font-bold tracking-tight">{header}</h2>
   )
 
 const Title = ({ title }: { title: string | null | undefined }) =>
   title && (
     <h4
-      className="mb-2 w-full flex-none text-lg text-gray-900 font-light"
+      className="mb-2 w-full flex-none text-lg text-neutral-900 font-light"
       dangerouslySetInnerHTML={{ __html: marked(title) }}
     />
   )
@@ -21,7 +21,7 @@ const Title = ({ title }: { title: string | null | undefined }) =>
 const Notes = ({ notes }: { notes: string | null | undefined }) =>
   notes && (
     <section
-      className="prose text-base text-gray-600 font-light"
+      className="prose text-base text-neutral-600 font-light"
       dangerouslySetInnerHTML={{ __html: marked(notes) }}
     />
   )
@@ -56,11 +56,16 @@ export const WorkoutItem: React.FC<{ item: WorkoutItemFragment }> = ({ item }) =
 
   return (
     <article className="py-6 flex flex-wrap w-full">
-      <div className="w-full flex flex-start justify-between mb-1" onClick={handleCollapse}>
+      <div className="w-full flex-between mb-1 cursor-pointer interactive" onClick={handleCollapse}>
         <div className='block'>
           <Header header={item.header} />
           <Title title={item.title} />
         </div>
+        {item.exercise_details.length > 0 && item.header !== 'Recover' && (
+          <span className="text-neutral-400 text-sm">
+            {isCollapsed ? '↓' : '↑'}
+          </span>
+        )}
       </div>
 
       {!isCollapsed && (

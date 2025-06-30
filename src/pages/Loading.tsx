@@ -189,7 +189,7 @@ const LoadingCurrentWorkoutCard = () => (
 const LoadingProgramsList = () => (
   <section className="hidden md:block flex flex-col bg-white m-auto p-auto">
     <Skeleton width="180px" height="32px" className="mb-5" /> {/* Programs header */}
-    <div className="flex overflow-x-scroll pb-10 hide-scroll-bar">
+    <div className="flex overflow-x-scroll pb-10 hide-scrollbar">
       <div className="flex flex-nowrap">
         {Array.from({ length: 6 }).map((_, index) => (
           <div key={index} className="inline-block pr-6">

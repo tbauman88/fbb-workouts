@@ -1,5 +1,5 @@
 import { QueryResult } from '@apollo/client';
-import { CurrentUserWorkoutFragment, GetUserCycleProgressQuery, MuscleGroupFragment, useGetUserCycleProgressQuery } from '../generated/graphql';
+import { CurrentUserWorkoutFragment, GetUserCycleProgressQuery, MuscleGroupFragment, useGetUserCycleProgressQuery, WorkoutItemFragment } from '../generated/graphql';
 import { formatProgramName } from './usePrograms';
 import { WorkoutStatus } from '../types';
 import { useAuth } from './useAuth';
@@ -8,10 +8,15 @@ import { filterMuscleGroups } from './utils';
 type Program = GetUserCycleProgressQuery['programs'][0]
 export type CurrentProgram = Omit<Program, 'name'> & { cycleId: string, name: string | null }
 
+export type CurrentWorkout = CurrentUserWorkoutFragment["workout"] & {
+  items: unknown[]
+  muscleGroups: MuscleGroupFragment[]
+}
+
 export type DashboardContent = {
   userCycle: GetUserCycleProgressQuery['userCycle'][0] | null
   currentProgram: CurrentProgram | null
-  currentWorkout: CurrentUserWorkoutFragment["workout"] | null
+  currentWorkout: CurrentWorkout | null
   cycleProgression: number | null
   completedWorkouts: number | null
   programs: GetUserCycleProgressQuery['programs'][0][] | null

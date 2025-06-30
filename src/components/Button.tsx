@@ -7,12 +7,12 @@ interface ButtonProps {
 }
 
 export const Button: React.FC<ButtonProps> = ({ text, onClick, disabled, variant = 'primary', width = 'full' }) => {
-  const baseStyles = 'px-4 py-2 rounded-lg font-semibold transition duration-200'
+  const baseStyles = 'px-4 py-2 rounded-lg font-semibold focus-ring'
 
   const variantStyles = {
-    primary: 'bg-blue-600 text-white hover:bg-blue-700',
-    secondary: 'bg-gray-600 text-white hover:bg-gray-700',
-    tertiary: 'bg-green-600 text-white hover:bg-green-700',
+    primary: 'gradient-primary text-white hover:shadow-medium',
+    secondary: 'gradient-secondary text-white hover:shadow-medium',
+    tertiary: 'gradient-accent text-white hover:shadow-medium',
     error: 'bg-red-600 text-white hover:bg-red-700'
   }
 
@@ -23,14 +23,16 @@ export const Button: React.FC<ButtonProps> = ({ text, onClick, disabled, variant
     full: 'w-full'
   }
 
-  const disabledStyles = disabled ? 'bg-gray-400 text-white cursor-not-allowed hover:bg-gray-400' : ''
+  const interactiveStyles = disabled ? '' : 'interactive'
+  const disabledStyles = disabled ? 'opacity-50 cursor-not-allowed' : ''
 
   const classNames = `
     ${baseStyles}
     ${widthStyles[width]}
     ${variantStyles[variant]}
+    ${interactiveStyles}
     ${disabledStyles}
-  `
+  `.trim().replace(/\s+/g, ' ')
 
   return (
     <button onClick={onClick} disabled={disabled} className={classNames}>

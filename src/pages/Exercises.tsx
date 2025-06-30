@@ -154,7 +154,7 @@ export const Exercises = () => {
 
   return (
     <>
-      <div className={`sticky top-0 z-10 bg-white flex lg:justify-between ${isDesktop ? 'overflow-x-auto' : 'overflow-x-visible'} whitespace-nowrap px-4 gap-x-8 lg:gap-x-16`}>
+      <div className={`sticky top-0 z-10 bg-white flex lg:justify-between ${isDesktop ? 'overflow-x-auto hide-scrollbar' : 'overflow-x-visible'} whitespace-nowrap px-4 gap-x-8 lg:gap-x-16`}>
         <LetterFilter
           letters={LETTERS}
           selectedLetter={selectedLetter}

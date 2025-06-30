@@ -14,7 +14,7 @@ export const ProgramsList = ({ programs, loading }: ProgramsListProps) => {
   return (
     <section className="hidden md:block flex flex-col bg-white m-auto p-auto">
       <h2 className="flex pb-5 font-medium text-2xl text-gray-900 uppercase">Programs</h2>
-      <div className="flex overflow-x-scroll pb-10 hide-scroll-bar">
+      <div className="flex overflow-x-scroll pb-10 hide-scrollbar">
         <div className="flex flex-nowrap">
           {programs.map((program, index) => (
             <div key={program.name} className={`inline-block ${index === programs.length - 1 ? 'pr-0' : 'pr-6'}`}>

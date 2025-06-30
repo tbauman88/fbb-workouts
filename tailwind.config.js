@@ -84,7 +84,8 @@ export default {
       animation: {
         'fade-in': 'fadeIn 0.5s ease-in-out',
         'slide-up': 'slideUp 0.3s ease-out',
-        'bounce-subtle': 'bounceSubtle 0.6s ease-in-out'
+        'bounce-subtle': 'bounceSubtle 0.6s ease-in-out',
+        'loading-shimmer': 'loading-shimmer 1.5s infinite'
       },
       keyframes: {
         fadeIn: {
@@ -99,6 +100,10 @@ export default {
           '0%, 20%, 50%, 80%, 100%': { transform: 'translateY(0)' },
           '40%': { transform: 'translateY(-2px)' },
           '60%': { transform: 'translateY(-1px)' }
+        },
+        'loading-shimmer': {
+          '0%': { backgroundPosition: '-400% 0' },
+          '100%': { backgroundPosition: '400% 0' }
         }
       },
       gridTemplateColumns: {
@@ -132,5 +137,64 @@ export default {
       '2xl': '2200px'
     }
   },
-  plugins: [require('@tailwindcss/typography')]
+  plugins: [
+    require('@tailwindcss/typography'),
+    function ({ addUtilities, theme }) {
+      addUtilities({
+        // Workout progress utilities
+        '.progress-ring': {
+          fill: 'none',
+          stroke: theme('colors.neutral.300'),
+          strokeWidth: '8',
+          strokeLinecap: 'round',
+          strokeDasharray: '283',
+          strokeDashoffset: '283',
+          transition: 'stroke-dashoffset 0.5s ease-in-out'
+        },
+        '.progress-ring-value': {
+          stroke: theme('colors.primary.500')
+        },
+
+        // Flex utilities for common patterns
+        '.flex-center': {
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        },
+        '.flex-between': {
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between'
+        },
+        '.flex-around': {
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-around'
+        },
+
+        // Interaction states
+        '.interactive': {
+          transition: 'all 0.2s ease-in-out',
+          '&:hover': {
+            transform: 'translateY(-2px)',
+            boxShadow: theme('boxShadow.medium')
+          },
+          '&:active': {
+            transform: 'translateY(0)'
+          }
+        },
+
+        // Gradient backgrounds
+        '.gradient-primary': {
+          background: `linear-gradient(135deg, ${theme('colors.primary.500')}, ${theme('colors.primary.600')})`
+        },
+        '.gradient-secondary': {
+          background: `linear-gradient(135deg, ${theme('colors.secondary.500')}, ${theme('colors.secondary.600')})`
+        },
+        '.gradient-accent': {
+          background: `linear-gradient(135deg, ${theme('colors.accent.500')}, ${theme('colors.accent.600')})`
+        }
+      })
+    }
+  ]
 }

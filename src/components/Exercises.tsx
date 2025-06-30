@@ -88,7 +88,7 @@ const VideoSection: React.FC<{
   }
 
   return (
-    <section className="flex gap-x-2 overflow-x-scroll snap-x snap-mandatory py-4">
+    <section className="flex gap-x-2 overflow-x-scroll hide-scrollbar snap-x snap-mandatory py-4">
       {groupedExercises.map((group, index) => {
         // Get the selected exercise for this group
         const selectedType = selectedExercises[index] || 'recommended'

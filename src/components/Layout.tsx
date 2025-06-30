@@ -74,7 +74,7 @@ const Header = ({ user, onClick, isAdmin }: { user: User; onClick: () => void; i
     <div className="bg-neutral-800 pb-32">
       <Disclosure as="nav" className="bg-neutral-800 py-10">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 justify-between">
+          <div className="flex-between h-16">
             <div className="flex items-center">
               <Logo onClick={() => { }} />
             </div>
@@ -82,10 +82,10 @@ const Header = ({ user, onClick, isAdmin }: { user: User; onClick: () => void; i
             <Navigation navigation={updatedNavigation} />
 
             <div className="hidden md:flex items-center">
-              <div className="flex md:ml-4 md:shrink-0 md:items-center gap-x-4">
+              <div className="flex-center md:ml-4 md:shrink-0 gap-x-4">
                 <button
                   type="button"
-                  className="relative rounded-full bg-neutral-800 p-1 text-neutral-400 hover:text-white focus:outline-hidden focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-neutral-800"
+                  className="relative rounded-full bg-neutral-800 p-1 text-neutral-400 hover:text-white focus-ring interactive"
                 >
                   <span className="absolute -inset-1.5" />
                   <span className="sr-only">View notifications</span>
@@ -94,7 +94,7 @@ const Header = ({ user, onClick, isAdmin }: { user: User; onClick: () => void; i
 
                 <button
                   type="button"
-                  className="relative rounded-full bg-neutral-800 p-1 text-neutral-400 hover:text-white focus:outline-hidden focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-neutral-800"
+                  className="relative rounded-full bg-neutral-800 p-1 text-neutral-400 hover:text-white focus-ring interactive"
                   onClick={onClick}
                 >
                   <span className="absolute -inset-1.5" />
@@ -125,7 +125,7 @@ const Header = ({ user, onClick, isAdmin }: { user: User; onClick: () => void; i
             </div>
 
             <div className="-ml-2 mr-2 flex items-center md:hidden">
-              <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md p-2 text-neutral-400 hover:bg-neutral-700 hover:text-white focus:outline-hidden focus:ring-2 focus:ring-inset focus:ring-white">
+              <DisclosureButton className="group relative flex-center rounded-md p-2 text-neutral-400 hover:bg-neutral-700 hover:text-white focus-ring-inset interactive">
                 <span className="absolute -inset-0.5" />
                 <span className="sr-only">Open main menu</span>
                 <Bars3Icon aria-hidden="true" className="block size-6 group-data-[open]:hidden" />
@@ -162,7 +162,7 @@ const Header = ({ user, onClick, isAdmin }: { user: User; onClick: () => void; i
               </div>
               <button
                 type="button"
-                className="relative ml-auto shrink-0 rounded-full bg-neutral-800 p-1 text-neutral-400 hover:text-white focus:outline-hidden focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-neutral-800"
+                className="relative ml-auto shrink-0 rounded-full bg-neutral-800 p-1 text-neutral-400 hover:text-white focus-ring interactive"
               >
                 <span className="absolute -inset-1.5" />
                 <span className="sr-only">View notifications</span>
