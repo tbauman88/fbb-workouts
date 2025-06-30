@@ -39,11 +39,57 @@ const getRecoveryColor = (value: number): string => {
 };
 
 export const DailyOverview: React.FC<{ size?: number }> = ({ size = 200 }) => {
-  const { stats } = useWhoop();
+  const { stats, loading, error, hasTokens } = useWhoop();
 
-  if (!stats) return null;
+  if (loading) {
+    return (
+      <div className="bg-neutral-900 text-white p-6">
+        <div className="flex-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white"></div>
+        </div>
+        <p className="text-center mt-4 text-neutral-400">Loading Whoop data...</p>
+      </div>
+    );
+  }
 
-  // const workoutScore = stats.workout.score.strain;
+  if (error) {
+    return (
+      <div className="bg-neutral-900 text-white p-6">
+        <div className="text-center">
+          <div className="text-red-400 text-lg font-semibold mb-2">
+            ⚠️ Whoop Connection Error
+          </div>
+          <p className="text-neutral-400 text-sm">
+            {!hasTokens
+              ? "No Whoop integration found. Please connect your Whoop account."
+              : error.message
+            }
+          </p>
+          <button
+            onClick={() => window.location.reload()}
+            className="mt-4 px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded text-white text-sm"
+          >
+            Retry
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  if (!stats) {
+    return (
+      <div className="bg-neutral-900 text-white p-6">
+        <div className="text-center">
+          <div className="text-neutral-400 text-lg font-semibold mb-2">
+            No Whoop Data Available
+          </div>
+          <p className="text-neutral-500 text-sm">
+            Whoop data will appear here once available.
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   const cycle = {
     score: stats.cycle.score.strain,
@@ -155,16 +201,6 @@ export const DailyOverview: React.FC<{ size?: number }> = ({ size = 200 }) => {
           ))}
         </dl>
       </div >
-      {/* 
-      <section className="p-6">
-        {stats && (
-          <pre>
-            <code>
-              {JSON.stringify(stats, null, 2)}
-            </code>
-          </pre>
-        )}
-      </section> */}
     </>
   );
 };

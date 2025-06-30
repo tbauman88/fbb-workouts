@@ -13,6 +13,7 @@ import { Workouts } from './pages/Workouts'
 import { Exercises } from './pages/Exercises'
 import { NotFound } from './pages/NotFound'
 import { Settings } from './pages/Settings'
+import { WhoopCallback } from './pages/WhoopCallback'
 
 const App = () => {
   const { isAuthenticated, user } = useAuth()
@@ -28,6 +29,8 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/auth/whoop/callback" element={<WhoopCallback />} />
+
         {isAuthenticated ? (
           <>
             {role === Role.ADMIN && (

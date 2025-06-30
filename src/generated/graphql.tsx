@@ -7939,7 +7939,6 @@ export type FinishCycleMutationVariables = Exact<{
 export type FinishCycleMutation = { __typename?: 'mutation_root', insert_user_workouts_one: { __typename?: 'user_workouts', id: string, workout_id: string } | null | undefined, update_user_cycles: { __typename?: 'user_cycles_mutation_response', affected_rows: number } | null | undefined };
 
 export type UpsertWhoopIntegrationMutationVariables = Exact<{
-  id?: Scalars['uuid']['input'];
   accessToken: Scalars['String']['input'];
   refreshToken: Scalars['String']['input'];
   expiresAt: Scalars['Int']['input'];
@@ -8272,9 +8271,9 @@ export type FinishCycleMutationHookResult = ReturnType<typeof useFinishCycleMuta
 export type FinishCycleMutationResult = Apollo.MutationResult<FinishCycleMutation>;
 export type FinishCycleMutationOptions = Apollo.BaseMutationOptions<FinishCycleMutation, FinishCycleMutationVariables>;
 export const UpsertWhoopIntegration = gql`
-    mutation UpsertWhoopIntegration($id: uuid! = "72ff3642-bbd5-48f9-951e-8fe2a0e4b43f", $accessToken: String!, $refreshToken: String!, $expiresAt: Int!) {
+    mutation UpsertWhoopIntegration($accessToken: String!, $refreshToken: String!, $expiresAt: Int!) {
   insert_integrations_one(
-    object: {id: $id, access_token: $accessToken, refresh_token: $refreshToken, expires_at: $expiresAt}
+    object: {access_token: $accessToken, refresh_token: $refreshToken, expires_at: $expiresAt}
     on_conflict: {constraint: integrations_pkey, update_columns: [access_token, refresh_token, expires_at, updated_at]}
   ) {
     id
@@ -8302,7 +8301,6 @@ export type UpsertWhoopIntegrationMutationFn = Apollo.MutationFunction<UpsertWho
  * @example
  * const [upsertWhoopIntegrationMutation, { data, loading, error }] = useUpsertWhoopIntegrationMutation({
  *   variables: {
- *      id: // value for 'id'
  *      accessToken: // value for 'accessToken'
  *      refreshToken: // value for 'refreshToken'
  *      expiresAt: // value for 'expiresAt'

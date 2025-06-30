@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { config } from '../../environment';
-import { endpoints, OAUTH_URL, INTEGRATION_ID } from '../consts';
+import { endpoints, OAUTH_URL } from '../consts';
 import { useUpsertWhoopIntegrationMutation } from '../generated/graphql';
 
 export const WhoopService = () => {
@@ -8,27 +8,51 @@ export const WhoopService = () => {
 
   const refreshAccessToken = async (refreshToken: string) => {
     try {
-      const response = await axios.post(
-        OAUTH_URL,
-        {
-          grant_type: 'refresh_token',
-          refresh_token: refreshToken,
-          client_id: config.clientId,
-          client_secret: config.clientSecret,
-          scope: 'offline',
+      console.log('Refreshing Whoop access token...');
+
+      // Create URLSearchParams for proper form encoding
+      const params = new URLSearchParams();
+      params.append('grant_type', 'refresh_token');
+      params.append('refresh_token', refreshToken);
+      params.append('client_id', config.clientId);
+      params.append('client_secret', config.clientSecret);
+      params.append('scope', 'offline');
+
+      const response = await axios.post(OAUTH_URL, params, {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Accept': 'application/json',
         },
-        { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
-      );
+      });
 
       const { access_token, refresh_token, expires_in } = response.data;
+      console.log('✅ Token refreshed successfully');
+
+      // Calculate expiration timestamp (current time + expires_in seconds)
+      const expiresAt = Math.floor(Date.now() / 1000) + expires_in;
 
       await upsertWhoopIntegration({
-        variables: { id: INTEGRATION_ID, accessToken: access_token, refreshToken: refresh_token, expiresAt: expires_in },
+        variables: {
+          accessToken: access_token,
+          refreshToken: refresh_token,
+          expiresAt
+        },
       });
 
       return access_token;
     } catch (err) {
-      throw new Error('Failed to refresh access token');
+      console.error('❌ Failed to refresh access token:', err);
+      if (axios.isAxiosError(err)) {
+        console.error('Response data:', err.response?.data);
+        console.error('Response status:', err.response?.status);
+        console.error('Request config:', {
+          url: err.config?.url,
+          method: err.config?.method,
+          headers: err.config?.headers,
+          data: err.config?.data,
+        });
+      }
+      throw new Error(`Failed to refresh access token: ${err instanceof Error ? err.message : 'Unknown error'}`);
     }
   };
 
@@ -38,17 +62,40 @@ export const WhoopService = () => {
     refreshToken: string,
   ): Promise<any> => {
     try {
+      console.log(`Fetching Whoop ${action} data...`);
+
       const response = await axios.get(endpoints[action], {
         params: { limit: 1 },
-        headers: { Authorization: `Bearer ${accessToken}` },
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+          'Accept': 'application/json',
+        },
       });
 
+      console.log(`✅ Successfully fetched ${action} data`);
       return response.data.records[0];
     } catch (error) {
-      if (axios.isAxiosError(error) && error.response?.data === 'Authorization was not valid') {
-        const newAccessToken = await refreshAccessToken(refreshToken);
+      console.error(`❌ Error fetching ${action} data:`, error);
 
-        return fetchWithAuth(action, newAccessToken, refreshToken);
+      if (axios.isAxiosError(error)) {
+        console.error('Response status:', error.response?.status);
+        console.error('Response data:', error.response?.data);
+
+        // Check for authorization errors (401 or specific message)
+        if (
+          error.response?.status === 401 ||
+          error.response?.data === 'Authorization was not valid' ||
+          error.response?.data?.error === 'invalid_token'
+        ) {
+          console.log('Authorization error detected, attempting to refresh token...');
+          try {
+            const newAccessToken = await refreshAccessToken(refreshToken);
+            return fetchWithAuth(action, newAccessToken, refreshToken);
+          } catch (refreshError) {
+            console.error('❌ Token refresh failed during retry:', refreshError);
+            throw new Error('Failed to refresh expired token');
+          }
+        }
       }
 
       throw error;

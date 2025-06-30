@@ -8,7 +8,7 @@ import path from "path";
 dotenv.config({ path: path.resolve(__dirname, "../.env") });
 
 const app = express();
-const PORT = process.env.API_PORT || '9999';
+const PORT = process.env.API_PORT || '3012';
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

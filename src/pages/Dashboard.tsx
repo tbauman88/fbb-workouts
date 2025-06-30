@@ -3,6 +3,7 @@ import { useDashboard } from '../hooks/useDashboard'
 import { useAuth } from '../hooks/useAuth'
 import { useEffect } from 'react'
 import { CurrentProgramCard, CurrentWorkoutCard, Divider, ProgramsList } from '../components'
+import { DailyOverview } from '../components/Whoop'
 
 export const Dashboard = () => {
   const navigate = useNavigate()
@@ -37,7 +38,7 @@ export const Dashboard = () => {
 
         <ProgramsList loading={loading} programs={programs} />
 
-        {/* <DailyOverview /> */}
+        <DailyOverview />
       </div>
     </main>
   )

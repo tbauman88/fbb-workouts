@@ -1,5 +1,5 @@
 
-const API_URL = 'api/whoop';
+const API_URL = '/api/whoop';
 export const BASE_API_URL = `${API_URL}/developer/v1`;
 export const OAUTH_URL = `${API_URL}/oauth/oauth2/token`;
 
@@ -10,4 +10,4 @@ export const endpoints = {
   workout: `${BASE_API_URL}/activity/workout`,
 };
 
-export const INTEGRATION_ID = '72ff3642-bbd5-48f9-951e-8fe2a0e4b43f';
+export const INTEGRATION_ID = '53824468-eb4d-4d09-af10-4aa706e93290';

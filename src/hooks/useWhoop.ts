@@ -3,7 +3,7 @@ import { Cycle, Recovery, Sleep, Workout } from '../types/';
 import { INTEGRATION_ID } from '../consts';
 import { useGetIntegrationsQuery } from '../generated/graphql';
 import { WhoopService } from '../services';
-import { fromUnixTime, isAfter } from 'date-fns';
+import { fromUnixTime, isBefore } from 'date-fns';
 
 interface WhoopOverview {
   cycle: Cycle;
@@ -21,6 +21,7 @@ interface WhoopState {
   stats: WhoopOverview | null;
   loading: boolean;
   error?: Error;
+  hasTokens: boolean;
 }
 
 interface WhoopExpiresData {
@@ -32,6 +33,7 @@ export const useWhoop = () => {
   const [state, setState] = useState<WhoopState>({
     stats: null,
     loading: true,
+    hasTokens: false,
   });
 
   const [tokens, setTokens] = useState<WhoopTokens>({
@@ -44,11 +46,26 @@ export const useWhoop = () => {
     updatedAt: null,
   });
 
-  const { data } = useGetIntegrationsQuery({ variables: { id: INTEGRATION_ID } });
+  const [refreshAttempted, setRefreshAttempted] = useState(false);
+
+  const { data, loading: queryLoading, error: queryError } = useGetIntegrationsQuery({
+    variables: { id: INTEGRATION_ID },
+    errorPolicy: 'all'
+  });
   const { fetchWithAuth, refreshAccessToken } = WhoopService();
 
   useEffect(() => {
-    if (!data?.integration?.access_token) return;
+    if (queryLoading) return;
+
+    if (queryError || !data?.integration?.access_token) {
+      setState(prev => ({
+        ...prev,
+        loading: false,
+        error: queryError ? new Error(`Failed to load integration: ${queryError.message}`) : new Error('No Whoop integration found'),
+        hasTokens: false,
+      }));
+      return;
+    }
 
     setExpiresData({
       expiresAt: fromUnixTime(data.integration.expires_at),
@@ -59,39 +76,86 @@ export const useWhoop = () => {
       accessToken: data.integration.access_token,
       refreshToken: data.integration.refresh_token,
     });
-  }, [data?.integration]);
+
+    setState(prev => ({
+      ...prev,
+      hasTokens: true,
+      error: undefined,
+    }));
+  }, [data?.integration, queryLoading, queryError]);
 
   useEffect(() => {
     if (!tokens.accessToken || !tokens.refreshToken) return;
 
     const { accessToken, refreshToken } = tokens;
-    const { expiresAt, updatedAt } = expiresData;
+    const { expiresAt } = expiresData;
 
     const fetchData = async () => {
-      if (expiresAt && updatedAt && isAfter(expiresAt, updatedAt)) {
-        await refreshAccessToken(refreshToken);
-      }
+      setState(prev => ({ ...prev, loading: true }));
 
       try {
+        let currentAccessToken = accessToken;
+
+        // Check if token is expired and we haven't already tried refreshing
+        if (expiresAt && isBefore(expiresAt, new Date()) && !refreshAttempted) {
+          console.log('Token expired, attempting refresh...');
+          setRefreshAttempted(true);
+          try {
+            currentAccessToken = await refreshAccessToken(refreshToken);
+            console.log('✅ Token refresh successful');
+          } catch (refreshError) {
+            console.error('❌ Token refresh failed:', refreshError);
+            setState(prev => ({
+              ...prev,
+              loading: false,
+              error: new Error('Whoop tokens have expired. Please reconnect your account.'),
+              hasTokens: false,
+            }));
+            return;
+          }
+        }
+
         const [cycle, recovery, sleep, workout] = await Promise.all([
-          fetchWithAuth('cycle', accessToken, refreshToken),
-          fetchWithAuth('recovery', accessToken, refreshToken),
-          fetchWithAuth('sleep', accessToken, refreshToken),
-          fetchWithAuth('workout', accessToken, refreshToken),
+          fetchWithAuth('cycle', currentAccessToken, refreshToken),
+          fetchWithAuth('recovery', currentAccessToken, refreshToken),
+          fetchWithAuth('sleep', currentAccessToken, refreshToken),
+          fetchWithAuth('workout', currentAccessToken, refreshToken),
         ]);
 
-        setState((prev) => ({
+        setState(prev => ({
           ...prev,
           stats: { cycle, sleep, recovery, workout },
           loading: false,
+          error: undefined,
         }));
       } catch (err) {
-        setState((prev) => ({ ...prev, loading: false, error: err as Error }));
+        console.error('Error fetching Whoop data:', err);
+
+        // If this is an auth error, suggest reconnection
+        const isAuthError = err instanceof Error && (
+          err.message.includes('Authorization') ||
+          err.message.includes('invalid_token') ||
+          err.message.includes('401')
+        );
+
+        setState(prev => ({
+          ...prev,
+          loading: false,
+          error: isAuthError
+            ? new Error('Whoop authorization expired. Please reconnect your account.')
+            : err instanceof Error ? err : new Error('Failed to fetch Whoop data'),
+          hasTokens: !isAuthError,
+        }));
       }
     };
 
     fetchData();
-  }, [tokens]);
+  }, [tokens, expiresData, refreshAttempted]);
+
+  // Reset refresh attempt when tokens change (e.g., after manual reconnection)
+  useEffect(() => {
+    setRefreshAttempted(false);
+  }, [tokens.accessToken]);
 
   return state;
 };

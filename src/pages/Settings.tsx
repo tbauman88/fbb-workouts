@@ -1,264 +1,169 @@
-import { useState } from 'react'
-import { Listbox, ListboxButton, ListboxOption, ListboxOptions, Label } from '@headlessui/react'
-import { ChevronDownIcon } from '@heroicons/react/16/solid'
-import { CheckIcon } from '@heroicons/react/20/solid'
 import { useAuth } from '../hooks/useAuth'
-import { ChevronUpDownIcon } from '@heroicons/react/24/outline'
+import { useGetIntegrationsQuery } from '../generated/graphql'
+import { INTEGRATION_ID } from '../consts'
+import { config } from '../../environment'
 
-const people = [
-  { id: 1, name: 'Wade Cooper' },
-  { id: 2, name: 'Arlene Mccoy' }
-]
+// Updated to use localhost callback instead of Postman
+const REDIRECT_URI = 'http://localhost:3007/auth/whoop/callback'
+const SCOPES = 'read:recovery read:cycles read:sleep read:workout read:profile read:body_measurement offline'
+const RESPONSE_TYPE = 'code'
+const STATE = 'whoop_auth'
+const CLIENT_ID = config.clientId
+
+const WHOOP_AUTH_URL = `https://api.prod.whoop.com/oauth/oauth2/auth?response_type=${RESPONSE_TYPE}&client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&scope=${SCOPES}&state=${STATE}`
 
 export const Settings = () => {
-  const [selected, setSelected] = useState(people[1])
-
   const { user } = useAuth()
+  const { data: integrationData, refetch } = useGetIntegrationsQuery({
+    variables: { id: INTEGRATION_ID },
+    errorPolicy: 'all'
+  })
+
+  const handleWhoopConnect = () => {
+    window.open(WHOOP_AUTH_URL, '_window')
+  }
+
+  const handleWhoopDisconnect = async () => {
+    // In a real app, you'd want to call a mutation to remove the integration
+    console.log('Disconnect Whoop integration')
+  }
+
+  const isWhoopConnected = !!integrationData?.integration?.access_token
+
+  const formatDate = (timestamp: number | string | undefined): string => {
+    if (!timestamp) return 'Unknown'
+    const date = typeof timestamp === 'string' ? new Date(timestamp) : new Date(timestamp * 1000)
+    return date.toLocaleString()
+  }
 
   return (
-    <div className="mx-auto max-w-7xl py-16 lg:flex lg:gap-x-16 lg:px-8">
-      <h1 className="sr-only">General Settings</h1>
+    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
+      <div className="space-y-10 divide-gray-900/10">
+        {/* Profile Section */}
+        <div className="grid grid-cols-1 gap-x-8 gap-y-8 md:grid-cols-3">
+          <div className="px-4 sm:px-0">
+            <h2 className="text-base font-semibold leading-7 text-gray-900">Profile</h2>
+            <p className="mt-1 text-sm leading-6 text-gray-600">
+              Your account information.
+            </p>
+          </div>
 
-      <section className="px-4 sm:px-6 lg:flex-auto lg:px-0">
-        <div className="divide-y divide-white/5">
-          {/* <pre>{JSON.stringify(user, null, 2)}</pre> */}
-          {/* <pre>{JSON.stringify(userCycle, null, 2)}</pre> */}
-          <div className="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8">
-            <div>
-              <h2 className="text-base/7 font-semibold">Personal Information</h2>
-              <p className="mt-1 text-sm/6 text-gray-400">Use a permanent address where you can receive mail.</p>
-            </div>
-
-            <form className="md:col-span-2">
-              <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:max-w-xl sm:grid-cols-6">
-                <div className="col-span-full flex items-center gap-x-8">
-                  <img alt="" src={user?.image_url} className="size-24 flex-none rounded-lg bg-gray-800 object-cover" />
-                </div>
-
-                <div className="col-span-full">
-                  <Listbox value={selected} onChange={setSelected}>
-                    <Label className="block text-sm/6 font-medium text-gray-900">Current Program</Label>
-                    <div className="relative mt-2">
-                      <ListboxButton className="grid w-full cursor-default grid-cols-1 rounded-md bg-white py-1.5 pl-3 pr-2 text-left text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
-                        <span className="col-start-1 row-start-1 truncate pr-6">{selected.name}</span>
-                        <ChevronUpDownIcon
-                          aria-hidden="true"
-                          className="col-start-1 row-start-1 size-5 self-center justify-self-end text-gray-500 sm:size-4"
-                        />
-                      </ListboxButton>
-
-                      <ListboxOptions
-                        transition
-                        className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-hidden data-[closed]:data-[leave]:opacity-0 data-[leave]:transition data-[leave]:duration-100 data-[leave]:ease-in sm:text-sm"
-                      >
-                        {people.map((person) => (
-                          <ListboxOption
-                            key={person.id}
-                            value={person}
-                            className="group relative cursor-default select-none py-2 pl-3 pr-9 text-gray-900 data-[focus]:bg-indigo-600 data-[focus]:text-white data-[focus]:outline-none"
-                          >
-                            <span className="block truncate font-normal group-data-[selected]:font-semibold">
-                              {person.name}
-                            </span>
-
-                            <span className="absolute inset-y-0 right-0 flex items-center pr-4 text-indigo-600 group-[&:not([data-selected])]:hidden group-data-[focus]:text-white">
-                              <CheckIcon aria-hidden="true" className="size-5" />
-                            </span>
-                          </ListboxOption>
-                        ))}
-                      </ListboxOptions>
-                    </div>
-                  </Listbox>
-                </div>
-
-                <div className="col-span-full">
-                  <label htmlFor="name" className="block text-sm/6 font-medium">
-                    Name
-                  </label>
-                  <div className="mt-2">
-                    <input
-                      id="name"
-                      name="name"
-                      type="text"
-                      defaultValue={user?.name}
-                      autoComplete="name"
-                      className="block w-full rounded-md px-3 py-1.5 text-base outline outline-1 -outline-offset-1 placeholder:text-gray-500 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"
-                    />
-                  </div>
-                </div>
-
-                <div className="col-span-full">
-                  <label htmlFor="email" className="block text-sm/6 font-medium">
+          <div className="bg-white shadow-sm ring-1 ring-gray-900/5 rounded-xl md:col-span-2">
+            <div className="px-4 py-6 sm:p-8">
+              <div className="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                <div className="sm:col-span-4">
+                  <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
                     Email address
                   </label>
                   <div className="mt-2">
-                    <input
-                      id="email"
-                      name="email"
-                      type="email"
-                      defaultValue={user?.email}
-                      autoComplete="email"
-                      className="block w-full rounded-md px-3 py-1.5 text-base outline outline-1 -outline-offset-1 placeholder:text-gray-500 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"
-                    />
-                  </div>
-                </div>
-
-                <div className="col-span-full">
-                  <label htmlFor="timezone" className="block text-sm/6 font-medium">
-                    Timezone
-                  </label>
-                  <div className="mt-2 grid grid-cols-1">
-                    <select
-                      id="timezone"
-                      name="timezone"
-                      className="col-start-1 row-start-1 w-full appearance-none rounded-md py-1.5 pl-3 pr-8 text-base outline outline-1 -outline-offset-1 *:bg-gray-800 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"
-                    >
-                      <option>Pacific Standard Time</option>
-                      <option>Eastern Standard Time</option>
-                      <option>Greenwich Mean Time</option>
-                    </select>
-                    <ChevronDownIcon
-                      aria-hidden="true"
-                      className="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-400 sm:size-4"
-                    />
+                    <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300">
+                      <input
+                        type="email"
+                        name="email"
+                        id="email"
+                        className="block flex-1 border-0 bg-transparent py-1.5 pl-3 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                        value={user?.email || ''}
+                        readOnly
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
-
-              <div className="mt-8 flex">
-                <button
-                  type="submit"
-                  className="rounded-md bg-indigo-500 px-3 py-2 text-sm text-white font-semibold shadow-xs hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
-                >
-                  Save
-                </button>
-              </div>
-            </form>
-          </div>
-
-          <div className="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8">
-            <div>
-              <h2 className="text-base/7 font-semibold">Change password</h2>
-              <p className="mt-1 text-sm/6 text-gray-400">Update your password associated with your account.</p>
             </div>
-
-            <form className="md:col-span-2">
-              <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:max-w-xl sm:grid-cols-6">
-                <div className="col-span-full">
-                  <label htmlFor="current-password" className="block text-sm/6 font-medium">
-                    Current password
-                  </label>
-                  <div className="mt-2">
-                    <input
-                      id="current-password"
-                      name="current_password"
-                      type="password"
-                      autoComplete="current-password"
-                      className="block w-full rounded-md px-3 py-1.5 text-base outline outline-1 -outline-offset-1 placeholder:text-gray-500 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"
-                    />
-                  </div>
-                </div>
-
-                <div className="col-span-full">
-                  <label htmlFor="new-password" className="block text-sm/6 font-medium">
-                    New password
-                  </label>
-                  <div className="mt-2">
-                    <input
-                      id="new-password"
-                      name="new_password"
-                      type="password"
-                      autoComplete="new-password"
-                      className="block w-full rounded-md px-3 py-1.5 text-base outline outline-1 -outline-offset-1 placeholder:text-gray-500 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"
-                    />
-                  </div>
-                </div>
-
-                <div className="col-span-full">
-                  <label htmlFor="confirm-password" className="block text-sm/6 font-medium">
-                    Confirm password
-                  </label>
-                  <div className="mt-2">
-                    <input
-                      id="confirm-password"
-                      name="confirm_password"
-                      type="password"
-                      autoComplete="new-password"
-                      className="block w-full rounded-md px-3 py-1.5 text-base outline outline-1 -outline-offset-1 placeholder:text-gray-500 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-8 flex">
-                <button
-                  type="submit"
-                  className="rounded-md bg-indigo-500 px-3 py-2 text-sm text-white font-semibold shadow-xs hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
-                >
-                  Save
-                </button>
-              </div>
-            </form>
-          </div>
-
-          <div className="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8">
-            <div>
-              <h2 className="text-base/7 font-semibold">Log out other sessions</h2>
-              <p className="mt-1 text-sm/6 text-gray-400">
-                Please enter your password to confirm you would like to log out of your other sessions across all of
-                your devices.
-              </p>
-            </div>
-
-            <form className="md:col-span-2">
-              <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:max-w-xl sm:grid-cols-6">
-                <div className="col-span-full">
-                  <label htmlFor="logout-password" className="block text-sm/6 font-medium">
-                    Your password
-                  </label>
-                  <div className="mt-2">
-                    <input
-                      id="logout-password"
-                      name="password"
-                      type="password"
-                      autoComplete="current-password"
-                      className="block w-full rounded-md px-3 py-1.5 text-base outline outline-1 -outline-offset-1 placeholder:text-gray-500 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-8 flex">
-                <button
-                  type="submit"
-                  className="rounded-md bg-indigo-500 px-3 py-2 text-sm text-white font-semibold shadow-xs hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
-                >
-                  Log out other sessions
-                </button>
-              </div>
-            </form>
-          </div>
-
-          <div className="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8">
-            <div>
-              <h2 className="text-base/7 font-semibold">Delete account</h2>
-              <p className="mt-1 text-sm/6 text-gray-400">
-                No longer want to use our service? You can delete your account here. This action is not reversible. All
-                information related to this account will be deleted permanently.
-              </p>
-            </div>
-
-            <form className="flex items-start md:col-span-2">
-              <button
-                type="submit"
-                className="rounded-md bg-red-500 px-3 py-2 text-sm text-white font-semibold shadow-xs hover:bg-red-400"
-              >
-                Yes, delete my account
-              </button>
-            </form>
           </div>
         </div>
-      </section>
+
+        {/* Integrations Section */}
+        <div className="grid grid-cols-1 gap-x-8 gap-y-8 pt-10 md:grid-cols-3">
+          <div className="px-4 sm:px-0">
+            <h2 className="text-base font-semibold leading-7 text-gray-900">Integrations</h2>
+            <p className="mt-1 text-sm leading-6 text-gray-600">
+              Connect your fitness devices and apps to sync your data.
+            </p>
+          </div>
+
+          <div className="bg-white shadow-sm ring-1 ring-gray-900/5 rounded-xl md:col-span-2">
+            <div className="px-4 py-6 sm:p-8">
+              <div className="space-y-6">
+                {/* Whoop Integration */}
+                <div className="flex items-center justify-between py-4 border-b border-gray-200">
+                  <div className="flex items-center space-x-4">
+                    <div className="flex-shrink-0">
+                      <div className="w-10 h-10 bg-black rounded-lg flex items-center justify-center">
+                        <span className="text-white font-bold text-sm">W</span>
+                      </div>
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-medium text-gray-900">WHOOP</h3>
+                      <p className="text-sm text-gray-500">
+                        {isWhoopConnected
+                          ? `Connected • Last updated: ${formatDate(integrationData?.integration?.updated_at)}`
+                          : 'Connect your WHOOP device to sync recovery, sleep, and strain data'
+                        }
+                      </p>
+                    </div>
+                  </div>
+                  <div>
+                    {isWhoopConnected ? (
+                      <div className="flex space-x-2">
+                        <button
+                          type="button"
+                          onClick={() => refetch()}
+                          className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        >
+                          Refresh
+                        </button>
+                        <button
+                          type="button"
+                          onClick={handleWhoopConnect}
+                          className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        >
+                          Reconnect
+                        </button>
+                        <button
+                          type="button"
+                          onClick={handleWhoopDisconnect}
+                          className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-red-700 bg-red-100 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                        >
+                          Disconnect
+                        </button>
+                      </div>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={handleWhoopConnect}
+                        className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                      >
+                        Connect WHOOP
+                      </button>
+                    )}
+                  </div>
+                </div>
+
+                {/* Debug Information */}
+                {process.env.NODE_ENV === 'development' && (
+                  <details className="mt-4">
+                    <summary className="cursor-pointer text-sm text-gray-500">Debug Info</summary>
+                    <div className="mt-2 p-3 bg-gray-50 rounded text-xs font-mono">
+                      <div><strong>Integration ID:</strong> {INTEGRATION_ID}</div>
+                      <div><strong>Client ID:</strong> {config.clientId}</div>
+                      <div><strong>Has Access Token:</strong> {isWhoopConnected ? '✅' : '❌'}</div>
+                      <div><strong>OAuth URL:</strong> {WHOOP_AUTH_URL}</div>
+                      {integrationData?.integration && (
+                        <>
+                          <div><strong>Token Expires:</strong> {formatDate(integrationData.integration.expires_at)}</div>
+                          <div><strong>Updated At:</strong> {formatDate(integrationData.integration.updated_at)}</div>
+                          <div><strong>Access Token (last 10):</strong> ...{integrationData.integration.access_token?.slice(-10)}</div>
+                        </>
+                      )}
+                    </div>
+                  </details>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
