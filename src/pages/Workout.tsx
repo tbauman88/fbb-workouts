@@ -6,6 +6,7 @@ import { CheckCircleIcon, ChevronLeftIcon, ChevronRightIcon, ForwardIcon } from 
 import { useNavigate } from 'react-router-dom'
 import { Loading } from './Loading'
 import { WorkoutStatus } from '../types'
+import { getProxiedImageUrl } from '../utils/imageProxy'
 
 type Direction = 'next' | 'prev' | 'home'
 
@@ -165,7 +166,7 @@ export const Workout = () => {
             </div>
             <img
               alt="Workout main image"
-              src={workout.poster ?? ''}
+              src={getProxiedImageUrl(workout.poster)}
               className="hidden sm:block mt-8 aspect-[4/3] w-full rounded-2xl bg-gray-50 object-cover lg:aspect-auto lg:h-[34.5rem]"
             />
             {coachingItems.map((item) => (

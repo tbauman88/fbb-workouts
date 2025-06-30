@@ -7,6 +7,7 @@ import { useMedia } from 'react-use'
 import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/react'
 import { ChevronUpDownIcon } from '@heroicons/react/16/solid'
 import { SearchInput } from '../components'
+import { buildAndProxyImageUrl } from '../utils/imageProxy'
 
 interface LetterFilterProps {
   letters: string[]
@@ -97,7 +98,7 @@ const ExerciseCard = ({ exercise, onPlay }: ExerciseCardProps) => (
 
         <img
           alt=""
-          src={`${exercise.base_url}${exercise.demo_video_poster}`}
+          src={buildAndProxyImageUrl(exercise.base_url, exercise.demo_video_poster)}
           className="w-full aspect-[10/7] object-cover transition-transform group-hover:scale-125 group-hover:opacity-80"
         />
 
