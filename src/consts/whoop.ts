@@ -11,5 +11,3 @@ export const endpoints = {
   recovery: `${BASE_API_URL}/recovery`,
   workout: `${BASE_API_URL}/activity/workout`,
 };
-
-export const INTEGRATION_ID = '53824468-eb4d-4d09-af10-4aa706e93290';

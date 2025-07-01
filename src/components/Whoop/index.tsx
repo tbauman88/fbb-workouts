@@ -1,5 +1,5 @@
 import React from "react";
-import { useWhoop } from "../../hooks/useWhoop";
+import { useWhoop, WhoopOverview } from "../../hooks/useWhoop";
 import { differenceInSeconds, isSameDay } from "date-fns";
 
 
@@ -38,8 +38,13 @@ const getRecoveryColor = (value: number): string => {
   return thresholds.find(({ threshold }) => value >= threshold)?.color || "#f87171";
 };
 
-export const DailyOverview: React.FC<{ size?: number }> = ({ size = 200 }) => {
-  const { stats, loading, error, hasTokens } = useWhoop();
+export const DailyOverview: React.FC<{
+  stats: WhoopOverview
+  loading: boolean
+  error: Error | null | undefined
+  hasTokens: boolean
+}> = ({ stats, loading, error, hasTokens }) => {
+  const size = 200;
 
   if (loading) {
     return (

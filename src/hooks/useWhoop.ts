@@ -1,35 +1,34 @@
 import { useState, useEffect } from 'react';
 import { Cycle, Recovery, Sleep, Workout } from '../types/';
-import { INTEGRATION_ID } from '../consts';
 import { useGetIntegrationsQuery } from '../generated/graphql';
 import { WhoopService } from '../services';
 import { fromUnixTime, isBefore } from 'date-fns';
 
-interface WhoopOverview {
+export interface WhoopOverview {
   cycle: Cycle;
   sleep: Sleep;
   recovery: Recovery;
   workout: Workout;
 }
 
-interface WhoopTokens {
+export interface WhoopTokens {
   accessToken: string | null;
   refreshToken: string | null;
 }
 
-interface WhoopState {
+export interface WhoopState {
   stats: WhoopOverview | null;
   loading: boolean;
   error?: Error;
   hasTokens: boolean;
 }
 
-interface WhoopExpiresData {
+export interface WhoopExpiresData {
   expiresAt: Date | null;
   updatedAt: Date | null;
 }
 
-export const useWhoop = () => {
+export const useWhoop = (integrationId?: string) => {
   const [state, setState] = useState<WhoopState>({
     stats: null,
     loading: true,
@@ -49,7 +48,8 @@ export const useWhoop = () => {
   const [refreshAttempted, setRefreshAttempted] = useState(false);
 
   const { data, loading: queryLoading, error: queryError } = useGetIntegrationsQuery({
-    variables: { id: INTEGRATION_ID },
+    skip: !integrationId,
+    variables: { id: integrationId },
     errorPolicy: 'all'
   });
   const { fetchWithAuth, refreshAccessToken } = WhoopService();
@@ -176,3 +176,4 @@ export const useWhoop = () => {
 
   return state;
 };
+

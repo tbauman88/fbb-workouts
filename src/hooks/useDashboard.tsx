@@ -1,5 +1,5 @@
 import { QueryResult } from '@apollo/client';
-import { CurrentUserWorkoutFragment, GetUserCycleProgressQuery, MuscleGroupFragment, useGetUserCycleProgressQuery, WorkoutItemFragment } from '../generated/graphql';
+import { CurrentUserWorkoutFragment, GetUserCycleProgressQuery, GetWhoopDataQuery, MuscleGroupFragment, useGetUserCycleProgressQuery, useGetWhoopDataQuery, WorkoutItemFragment } from '../generated/graphql';
 import { formatProgramName } from './usePrograms';
 import { WorkoutStatus } from '../types';
 import { useAuth } from './useAuth';
@@ -20,6 +20,7 @@ export type DashboardContent = {
   cycleProgression: number | null
   completedWorkouts: number | null
   programs: GetUserCycleProgressQuery['programs'][0][] | null
+  integrations: GetWhoopDataQuery['integrations'] | null
 };
 
 type UseUserContext = DashboardContent & {
@@ -27,7 +28,10 @@ type UseUserContext = DashboardContent & {
   error: QueryResult['error']
 }
 
-const getDashboardData = (data: GetUserCycleProgressQuery | undefined): DashboardContent => {
+const getDashboardData = (
+  data: GetUserCycleProgressQuery | undefined,
+  whoopData: GetWhoopDataQuery | undefined
+): DashboardContent => {
   if (!data) return {
     userCycle: null,
     currentProgram: null,
@@ -35,6 +39,7 @@ const getDashboardData = (data: GetUserCycleProgressQuery | undefined): Dashboar
     cycleProgression: null,
     completedWorkouts: null,
     programs: null,
+    integrations: null,
   };
 
   const userCycle = data.userCycle[0];
@@ -69,6 +74,7 @@ const getDashboardData = (data: GetUserCycleProgressQuery | undefined): Dashboar
     cycleProgression: cycle?.total ? (completedWorkouts / totalWorkouts) * 100 : 0,
     completedWorkouts,
     programs: data.programs,
+    integrations: whoopData?.integrations ?? null
   }
 }
 
@@ -80,8 +86,12 @@ export const useDashboard = (): UseUserContext => {
     variables: { userId: String(user?.id) }
   })
 
+  const { data: whoopData } = useGetWhoopDataQuery({
+    variables: { userId: String(user?.id) }
+  })
+
   return ({
-    ...getDashboardData(data),
+    ...getDashboardData(data, whoopData),
     loading,
     error
   })

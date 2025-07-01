@@ -3,7 +3,7 @@ import { useDashboard } from '../hooks/useDashboard'
 import { useAuth } from '../hooks/useAuth'
 import { useEffect } from 'react'
 import { CurrentProgramCard, CurrentWorkoutCard, Divider, ProgramsList } from '../components'
-import { DailyOverview } from '../components/Whoop'
+import { WhoopCards } from '../components/Whoop/Cards'
 
 export const Dashboard = () => {
   const navigate = useNavigate()
@@ -14,7 +14,7 @@ export const Dashboard = () => {
     navigate('/workouts/107')
   }, [user])
 
-  const { currentProgram, currentWorkout, cycleProgression, programs, userCycle, loading } = useDashboard()
+  const { currentProgram, currentWorkout, cycleProgression, programs, userCycle, loading, integrations } = useDashboard()
 
   const navigateToWorkout = (id: string | undefined) => {
     if (!id) return
@@ -34,11 +34,11 @@ export const Dashboard = () => {
           />
         </section>
 
+        <WhoopCards integrationId={integrations?.[0]?.id} />
+
         <Divider />
 
         <ProgramsList loading={loading} programs={programs} />
-
-        <DailyOverview />
       </div>
     </main>
   )

@@ -1,6 +1,5 @@
 import { useAuth } from '../hooks/useAuth'
-import { useGetIntegrationsQuery } from '../generated/graphql'
-import { INTEGRATION_ID } from '../consts'
+import { useGetIntegrationsQuery, useGetWhoopDataQuery } from '../generated/graphql'
 import { config } from '../../environment'
 
 // Dynamic redirect URI based on environment
@@ -17,7 +16,15 @@ const WHOOP_AUTH_URL = `https://api.prod.whoop.com/oauth/oauth2/auth?response_ty
 
 export const Settings = () => {
   const { user } = useAuth()
+
+  const { data } = useGetWhoopDataQuery({
+    variables: { userId: String(user?.id) }
+  })
+
+  const INTEGRATION_ID = data?.integrations?.[0]?.id
+
   const { data: integrationData, refetch } = useGetIntegrationsQuery({
+    skip: !INTEGRATION_ID,
     variables: { id: INTEGRATION_ID },
     errorPolicy: 'all'
   })

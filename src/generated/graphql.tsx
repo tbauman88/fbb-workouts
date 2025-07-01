@@ -5863,6 +5863,8 @@ export type Users = {
   email_verified_at: Maybe<Scalars['timestamp']['output']>;
   id: Scalars['bigint']['output'];
   image_url: Maybe<Scalars['String']['output']>;
+  /** An object relationship */
+  integration: Maybe<Integrations>;
   is_guest: Scalars['Boolean']['output'];
   name: Scalars['String']['output'];
   password: Scalars['String']['output'];
@@ -5940,6 +5942,7 @@ export type UsersBoolExp = {
   email_verified_at?: InputMaybe<TimestampComparisonExp>;
   id?: InputMaybe<BigintComparisonExp>;
   image_url?: InputMaybe<StringComparisonExp>;
+  integration?: InputMaybe<IntegrationsBoolExp>;
   is_guest?: InputMaybe<BooleanComparisonExp>;
   name?: InputMaybe<StringComparisonExp>;
   password?: InputMaybe<StringComparisonExp>;
@@ -5969,6 +5972,7 @@ export type UsersInsertInput = {
   email_verified_at?: InputMaybe<Scalars['timestamp']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
   image_url?: InputMaybe<Scalars['String']['input']>;
+  integration?: InputMaybe<IntegrationsObjRelInsertInput>;
   is_guest?: InputMaybe<Scalars['Boolean']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   password?: InputMaybe<Scalars['String']['input']>;
@@ -6035,6 +6039,7 @@ export type UsersOrderBy = {
   email_verified_at?: InputMaybe<OrderBy>;
   id?: InputMaybe<OrderBy>;
   image_url?: InputMaybe<OrderBy>;
+  integration?: InputMaybe<IntegrationsOrderBy>;
   is_guest?: InputMaybe<OrderBy>;
   name?: InputMaybe<OrderBy>;
   password?: InputMaybe<OrderBy>;
@@ -8018,6 +8023,13 @@ export type GetUserWorkoutsQuery = { __typename?: 'query_root', upcoming_workout
 
 export type WorkoutFragment = { __typename?: 'user_workouts', workout: { __typename?: 'workouts', id: string, title: string, isActiveRecovery: boolean, isRestDay: boolean, first: Array<{ __typename?: 'workout_items', id: string, header: string | null | undefined, notes: string | null | undefined }>, rest: Array<{ __typename?: 'workout_items', id: string, header: string | null | undefined }>, titles: Array<{ __typename?: 'workout_items', id: string, title: string | null | undefined }> } };
 
+export type GetWhoopDataQueryVariables = Exact<{
+  userId: Scalars['bigint']['input'];
+}>;
+
+
+export type GetWhoopDataQuery = { __typename?: 'query_root', integrations: Array<{ __typename?: 'integrations', id: string, name: string, user_id: string, access_token: string, refresh_token: string, expires_at: number, updated_at: string }> };
+
 export type GetWorkoutsQueryVariables = Exact<{
   cycleId: Scalars['Int']['input'];
 }>;
@@ -8858,6 +8870,52 @@ export type GetUserWorkoutsQueryHookResult = ReturnType<typeof useGetUserWorkout
 export type GetUserWorkoutsLazyQueryHookResult = ReturnType<typeof useGetUserWorkoutsLazyQuery>;
 export type GetUserWorkoutsSuspenseQueryHookResult = ReturnType<typeof useGetUserWorkoutsSuspenseQuery>;
 export type GetUserWorkoutsQueryResult = Apollo.QueryResult<GetUserWorkoutsQuery, GetUserWorkoutsQueryVariables>;
+export const GetWhoopData = gql`
+    query GetWhoopData($userId: bigint!) {
+  integrations(where: {user_id: {_eq: $userId}, name: {_eq: "whoop"}}) {
+    id
+    name
+    user_id
+    access_token
+    refresh_token
+    expires_at
+    updated_at
+  }
+}
+    `;
+
+/**
+ * __useGetWhoopDataQuery__
+ *
+ * To run a query within a React component, call `useGetWhoopDataQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetWhoopDataQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetWhoopDataQuery({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useGetWhoopDataQuery(baseOptions: Apollo.QueryHookOptions<GetWhoopDataQuery, GetWhoopDataQueryVariables> & ({ variables: GetWhoopDataQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetWhoopDataQuery, GetWhoopDataQueryVariables>(GetWhoopData, options);
+      }
+export function useGetWhoopDataLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetWhoopDataQuery, GetWhoopDataQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetWhoopDataQuery, GetWhoopDataQueryVariables>(GetWhoopData, options);
+        }
+export function useGetWhoopDataSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<GetWhoopDataQuery, GetWhoopDataQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetWhoopDataQuery, GetWhoopDataQueryVariables>(GetWhoopData, options);
+        }
+export type GetWhoopDataQueryHookResult = ReturnType<typeof useGetWhoopDataQuery>;
+export type GetWhoopDataLazyQueryHookResult = ReturnType<typeof useGetWhoopDataLazyQuery>;
+export type GetWhoopDataSuspenseQueryHookResult = ReturnType<typeof useGetWhoopDataSuspenseQuery>;
+export type GetWhoopDataQueryResult = Apollo.QueryResult<GetWhoopDataQuery, GetWhoopDataQueryVariables>;
 export const GetWorkouts = gql`
     query GetWorkouts($cycleId: Int!) {
   workouts(where: {cycle: {_eq: $cycleId}}, order_by: {subtitle: asc}) {

@@ -1,0 +1,11 @@
+query GetWhoopData($userId: bigint!) {
+  integrations(where: { user_id: { _eq: $userId }, name: { _eq: "whoop" } }) {
+    id
+    name
+    user_id
+    access_token
+    refresh_token
+    expires_at
+    updated_at
+  }
+}
