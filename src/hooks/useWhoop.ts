@@ -101,7 +101,7 @@ export const useWhoop = (integrationId?: string) => {
           console.log('Token expired, attempting refresh...');
           setRefreshAttempted(true);
           try {
-            currentAccessToken = await refreshAccessToken(refreshToken);
+            currentAccessToken = await refreshAccessToken(refreshToken, integrationId);
             console.log('✅ Token refresh successful');
           } catch (refreshError) {
             console.error('❌ Token refresh failed:', refreshError);
@@ -116,10 +116,10 @@ export const useWhoop = (integrationId?: string) => {
         }
 
         const [cycle, recovery, sleep, workout] = await Promise.all([
-          fetchWithAuth('cycle', currentAccessToken, refreshToken),
-          fetchWithAuth('recovery', currentAccessToken, refreshToken),
-          fetchWithAuth('sleep', currentAccessToken, refreshToken),
-          fetchWithAuth('workout', currentAccessToken, refreshToken),
+          fetchWithAuth('cycle', currentAccessToken, refreshToken, integrationId),
+          fetchWithAuth('recovery', currentAccessToken, refreshToken, integrationId),
+          fetchWithAuth('sleep', currentAccessToken, refreshToken, integrationId),
+          fetchWithAuth('workout', currentAccessToken, refreshToken, integrationId),
         ]);
 
         // Check if we have all required data

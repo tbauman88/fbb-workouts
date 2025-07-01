@@ -6,9 +6,16 @@ import { useUpsertWhoopIntegrationMutation } from '../generated/graphql';
 export const WhoopService = () => {
   const [upsertWhoopIntegration] = useUpsertWhoopIntegrationMutation();
 
-  const refreshAccessToken = async (refreshToken: string) => {
+  const refreshAccessToken = async (
+    refreshToken: string,
+    integrationId: string | undefined
+  ) => {
     try {
       console.log('Refreshing Whoop access token...');
+
+      if (!integrationId) {
+        throw new Error('Integration ID is required');
+      }
 
       // Create URLSearchParams for proper form encoding
       const params = new URLSearchParams();
@@ -33,6 +40,7 @@ export const WhoopService = () => {
 
       await upsertWhoopIntegration({
         variables: {
+          id: integrationId,
           accessToken: access_token,
           refreshToken: refresh_token,
           expiresAt
@@ -60,6 +68,7 @@ export const WhoopService = () => {
     action: keyof typeof endpoints,
     accessToken: string,
     refreshToken: string,
+    integrationId: string | undefined,
   ): Promise<any> => {
     try {
       console.log(`Fetching Whoop ${action} data...`);
@@ -96,8 +105,8 @@ export const WhoopService = () => {
         ) {
           console.log('Authorization error detected, attempting to refresh token...');
           try {
-            const newAccessToken = await refreshAccessToken(refreshToken);
-            return fetchWithAuth(action, newAccessToken, refreshToken);
+            const newAccessToken = await refreshAccessToken(refreshToken, integrationId);
+            return fetchWithAuth(action, newAccessToken, refreshToken, integrationId);
           } catch (refreshError) {
             console.error('❌ Token refresh failed during retry:', refreshError);
             throw new Error('Failed to refresh expired token');
