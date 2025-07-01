@@ -36,14 +36,9 @@ const getSleepLabel = (value: number): string => {
 export const SleepCard: React.FC<{
   sleep: WhoopOverview["sleep"]
 }> = ({ sleep }) => {
-  const data = {
-    score: sleep.score.sleep_performance_percentage,
-    hours: sleep.score.stage_summary.total_in_bed_time_milli,
-    needed: sleep.score.sleep_needed.need_from_sleep_debt_milli,
-  };
-
-  const sleepColor = getSleepColor(data.score);
-  const sleepLabel = getSleepLabel(data.score);
+  const sleepScore = sleep.score.sleep_performance_percentage;
+  const sleepColor = getSleepColor(sleepScore);
+  const sleepLabel = getSleepLabel(sleepScore);
 
   return (
     <div className="rounded-lg bg-gray-50 shadow-xs ring-1 ring-gray-900/5 p-6">
@@ -63,11 +58,8 @@ export const SleepCard: React.FC<{
       </div>
 
       <div className="mb-6">
-        <div
-          className="text-4xl font-bold mb-1"
-          style={{ color: sleepColor }}
-        >
-          {data.score}%
+        <div className="text-4xl font-bold mb-1" style={{ color: sleepColor }}>
+          {sleepScore}%
         </div>
       </div>
 
@@ -75,13 +67,25 @@ export const SleepCard: React.FC<{
         <div className="flex justify-between">
           <dt className="text-sm font-medium text-gray-600">Time in Bed</dt>
           <dd className="text-sm font-semibold text-gray-900">
-            {formatMillisecondsToHours(data.hours)}
+            {formatMillisecondsToHours(sleep.score.stage_summary.total_in_bed_time_milli)}
           </dd>
         </div>
         <div className="flex justify-between">
-          <dt className="text-sm font-medium text-gray-600">Sleep Needed</dt>
+          <dt className="text-sm font-medium text-gray-600">Respiratory Rate</dt>
           <dd className="text-sm font-semibold text-gray-900">
-            {formatMillisecondsToHours(data.needed)}
+            {sleep.score.respiratory_rate.toFixed(1)}
+          </dd>
+        </div>
+        <div className="flex justify-between">
+          <dt className="text-sm font-medium text-gray-600">Sleep Efficiency</dt>
+          <dd className="text-sm font-semibold text-gray-900">
+            {sleep.score.sleep_efficiency_percentage.toFixed(1)}%
+          </dd>
+        </div>
+        <div className="flex justify-between">
+          <dt className="text-sm font-medium text-gray-600">Sleep Consistency</dt>
+          <dd className="text-sm font-semibold text-gray-900">
+            {sleep.score.sleep_consistency_percentage.toFixed(1)}%
           </dd>
         </div>
       </dl>
