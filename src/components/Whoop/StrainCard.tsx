@@ -2,6 +2,20 @@ import React from "react";
 import { WhoopOverview } from "../../hooks/useWhoop";
 import { differenceInSeconds, isSameDay } from "date-fns";
 
+enum StrainLabel {
+  AllOut = "All Out",
+  High = "High",
+  Moderate = "Moderate",
+  Light = "Light",
+}
+
+enum StrainColor {
+  AllOut = "#FF0026",
+  High = "#FF7F00",
+  Moderate = "#FFDE00",
+  Light = "#0093E7",
+}
+
 const formatSecondsToHMS = (totalSeconds: number): string => {
   const hours = Math.floor(totalSeconds / 3600);
   const remainder = totalSeconds % 3600;
@@ -18,24 +32,24 @@ const formatDuration = (start: string, end: string): string => {
 
 const getStrainLabel = (value: number): string => {
   const thresholds = [
-    { threshold: 18, label: "All Out" },
-    { threshold: 14, label: "High" },
-    { threshold: 10, label: "Moderate" },
-    { threshold: 0, label: "Light" },
+    { threshold: 18, label: StrainLabel.AllOut },
+    { threshold: 14, label: StrainLabel.High },
+    { threshold: 10, label: StrainLabel.Moderate },
+    { threshold: 0, label: StrainLabel.Light },
   ];
 
-  return thresholds.find(({ threshold }) => value >= threshold)?.label || "Light";
+  return thresholds.find(({ threshold }) => value >= threshold)?.label || StrainLabel.Light;
 };
 
 const getStrainColor = (value: number): string => {
   const thresholds = [
-    { threshold: 18, color: "#FF0026" },
-    { threshold: 14, color: "#FF7F00" },
-    { threshold: 10, color: "#FFDE00" },
-    { threshold: 0, color: "#0093E7" },
+    { threshold: 18, color: StrainColor.AllOut },
+    { threshold: 14, color: StrainColor.High },
+    { threshold: 10, color: StrainColor.Moderate },
+    { threshold: 0, color: StrainColor.Light },
   ];
 
-  return thresholds.find(({ threshold }) => value >= threshold)?.color || "#0093E7";
+  return thresholds.find(({ threshold }) => value >= threshold)?.color || StrainColor.Light;
 };
 
 export const StrainCard: React.FC<{

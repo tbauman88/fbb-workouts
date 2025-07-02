@@ -1,6 +1,19 @@
 import React from "react";
-import { useWhoop, WhoopOverview } from "../../hooks/useWhoop";
-import { Skeleton } from "../Skeleton";
+import { WhoopOverview } from "../../hooks/useWhoop";
+
+enum SleepLabel {
+  Excellent = "Excellent",
+  Good = "Good",
+  Fair = "Fair",
+  Poor = "Poor",
+}
+
+enum SleepColor {
+  Excellent = "#16EC06",
+  Good = "#FFDE00",
+  Fair = "#FF0026",
+  Default = "#f87171",
+}
 
 const formatMillisecondsToHours = (milliseconds: number): string => {
   const hours = milliseconds / (1000 * 60 * 60);
@@ -18,19 +31,19 @@ const formatMillisecondsToHours = (milliseconds: number): string => {
 
 const getSleepColor = (value: number): string => {
   const thresholds = [
-    { threshold: 85, color: "#16EC06" },
-    { threshold: 70, color: "#FFDE00" },
-    { threshold: 0, color: "#FF0026" },
+    { threshold: 85, color: SleepColor.Excellent },
+    { threshold: 70, color: SleepColor.Good },
+    { threshold: 0, color: SleepColor.Fair },
   ];
 
-  return thresholds.find(({ threshold }) => value >= threshold)?.color || "#f87171";
+  return thresholds.find(({ threshold }) => value >= threshold)?.color || SleepColor.Default;
 };
 
 const getSleepLabel = (value: number): string => {
-  if (value >= 85) return "Excellent";
-  if (value >= 70) return "Good";
-  if (value >= 50) return "Fair";
-  return "Poor";
+  if (value >= 85) return SleepLabel.Excellent;
+  if (value >= 70) return SleepLabel.Good;
+  if (value >= 50) return SleepLabel.Fair;
+  return SleepLabel.Poor;
 };
 
 export const SleepCard: React.FC<{

@@ -1,20 +1,33 @@
 import React from "react";
 import { WhoopOverview } from "../../hooks/useWhoop";
 
+enum RecoveryLabel {
+  High = "High",
+  Moderate = "Moderate",
+  Low = "Low",
+}
+
+enum RecoveryColor {
+  High = "#16EC06",
+  Moderate = "#FFDE00",
+  Low = "#FF0026",
+  Default = "#f87171",
+}
+
 const getRecoveryColor = (value: number): string => {
   const thresholds = [
-    { threshold: 67, color: "#16EC06" },
-    { threshold: 34, color: "#FFDE00" },
-    { threshold: 0, color: "#FF0026" },
+    { threshold: 67, color: RecoveryColor.High },
+    { threshold: 34, color: RecoveryColor.Moderate },
+    { threshold: 0, color: RecoveryColor.Low },
   ];
 
-  return thresholds.find(({ threshold }) => value >= threshold)?.color || "#f87171";
+  return thresholds.find(({ threshold }) => value >= threshold)?.color || RecoveryColor.Default;
 };
 
 const getRecoveryLabel = (value: number): string => {
-  if (value >= 67) return "High";
-  if (value >= 34) return "Moderate";
-  return "Low";
+  if (value >= 67) return RecoveryLabel.High;
+  if (value >= 34) return RecoveryLabel.Moderate;
+  return RecoveryLabel.Low;
 };
 
 export const RecoveryCard: React.FC<{
