@@ -3,6 +3,8 @@ import { config } from '../../environment';
 import { endpoints, OAUTH_URL } from '../consts';
 import { useUpsertWhoopIntegrationMutation } from '../generated/graphql';
 
+const isDevelopment = import.meta.env.DEV;
+
 export const WhoopService = () => {
   const [upsertWhoopIntegration] = useUpsertWhoopIntegrationMutation();
 
@@ -17,20 +19,42 @@ export const WhoopService = () => {
         throw new Error('Integration ID is required');
       }
 
-      // Create URLSearchParams for proper form encoding
-      const params = new URLSearchParams();
-      params.append('grant_type', 'refresh_token');
-      params.append('refresh_token', refreshToken);
-      params.append('client_id', config.clientId);
-      params.append('client_secret', config.clientSecret);
-      params.append('scope', 'offline');
+      if (!integrationId) {
+        throw new Error('Integration ID is required');
+      }
 
-      const response = await axios.post(OAUTH_URL, params, {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'Accept': 'application/json',
-        },
-      });
+      let response;
+
+      if (isDevelopment) {
+        // Development: Use form-encoded data (traditional OAuth)
+        const params = new URLSearchParams();
+        params.append('grant_type', 'refresh_token');
+        params.append('refresh_token', refreshToken);
+        params.append('client_id', config.clientId);
+        params.append('client_secret', config.clientSecret);
+        params.append('scope', 'offline');
+
+        response = await axios.post(OAUTH_URL, params, {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Accept': 'application/json',
+          },
+        });
+      } else {
+        // Production: Use serverless function with JSON body
+        response = await axios.post(OAUTH_URL, {
+          grant_type: 'refresh_token',
+          refresh_token: refreshToken,
+          client_id: config.clientId,
+          client_secret: config.clientSecret,
+          scope: 'offline'
+        }, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          },
+        });
+      }
 
       const { access_token, refresh_token, expires_in } = response.data;
       console.log('✅ Token refreshed successfully');
@@ -73,13 +97,26 @@ export const WhoopService = () => {
     try {
       console.log(`Fetching Whoop ${action} data...`);
 
-      const response = await axios.get(endpoints[action], {
-        params: { limit: 1 },
-        headers: {
-          'Authorization': `Bearer ${accessToken}`,
-          'Accept': 'application/json',
-        },
-      });
+      let response;
+
+      if (isDevelopment) {
+        // Development: Traditional API call with limit parameter
+        response = await axios.get(endpoints[action], {
+          params: { limit: 1 },
+          headers: {
+            'Authorization': `Bearer ${accessToken}`,
+            'Accept': 'application/json',
+          },
+        });
+      } else {
+        // Production: Serverless function call (limit is handled server-side)
+        response = await axios.get(endpoints[action], {
+          headers: {
+            'Authorization': `Bearer ${accessToken}`,
+            'Accept': 'application/json',
+          },
+        });
+      }
 
       console.log(`✅ Successfully fetched ${action} data`);
 

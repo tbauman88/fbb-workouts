@@ -1,7 +1,9 @@
 import { useEffect, useState, useRef } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { whoopOAuthHelper } from '../utils/whoopOAuth';
-import { useUpsertWhoopIntegrationMutation } from '../generated/graphql';
+import { exchangeCodeForTokens } from '../utils/whoopOAuth';
+import { useGetWhoopDataQuery, useUpsertWhoopIntegrationMutation } from '../generated/graphql';
+import { config } from '../../environment';
+import { useAuth } from '../hooks/useAuth';
 
 export const WhoopCallback = () => {
   const [searchParams] = useSearchParams();
@@ -9,7 +11,13 @@ export const WhoopCallback = () => {
   const [status, setStatus] = useState<'processing' | 'success' | 'error'>('processing');
   const [message, setMessage] = useState('Processing Whoop authorization...');
   const hasProcessedRef = useRef(false);
+
+  const { user } = useAuth();
   const [upsertWhoopIntegration] = useUpsertWhoopIntegrationMutation();
+  const { data: whoop } = useGetWhoopDataQuery({
+    variables: { userId: String(user?.id) },
+    skip: !user?.id
+  });
 
   useEffect(() => {
     const handleCallback = async () => {
@@ -41,8 +49,12 @@ export const WhoopCallback = () => {
         console.log('🔄 Processing Whoop OAuth callback with code:', code.substring(0, 20) + '...');
         setMessage('Exchanging authorization code for tokens...');
 
-        // Get tokens from WHOOP
-        const tokens = await whoopOAuthHelper.exchangeTokensOnly(code);
+        // Get tokens from WHOOP using the new function
+        const redirectUri = config.isDevelopment
+          ? 'http://localhost:3007/auth/whoop/callback'
+          : 'https://bauman-lift.vercel.app/auth/whoop/callback';
+
+        const tokens = await exchangeCodeForTokens(code, redirectUri);
         console.log('✅ Token exchange completed successfully');
 
         setMessage('Storing tokens in database...');
@@ -50,8 +62,11 @@ export const WhoopCallback = () => {
         // Store tokens using GraphQL mutation
         const expiresAt = Math.floor(Date.now() / 1000) + tokens.expires_in;
 
+        const integrationId = whoop?.integrations[0]?.id ?? '730c8932-acbe-4360-b6d7-997983b7374c';
+
         await upsertWhoopIntegration({
           variables: {
+            id: integrationId,
             accessToken: tokens.access_token,
             refreshToken: tokens.refresh_token,
             expiresAt: expiresAt

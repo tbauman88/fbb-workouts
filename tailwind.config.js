@@ -71,6 +71,20 @@ export default {
           950: '#030712'
         }
       },
+      whoop: {
+        recovery: {
+          main: '#67AEE6',
+          high: '#16EC06',
+          moderate: '#FFDE00',
+          low: '#FF0026'
+        },
+        sleep: {
+          main: '#7BA1BB'
+        },
+        background: {
+          gradient: 'linear-gradient(135deg, #283339, #101518)'
+        }
+      },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
         display: ['Poppins', 'system-ui', 'sans-serif']
