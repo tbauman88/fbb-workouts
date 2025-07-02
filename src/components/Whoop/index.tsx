@@ -44,7 +44,7 @@ export const DailyOverview: React.FC<{
   error: Error | null | undefined
   hasTokens: boolean
 }> = ({ stats, loading, error, hasTokens }) => {
-  const size = 200;
+  const size = 50;
 
   if (loading) {
     return (
@@ -162,7 +162,7 @@ export const DailyOverview: React.FC<{
               </div>
             </div>
 
-            <div className="relative" style={{ width: size, height: size }}>
+            <div className="relative" style={{ width: 200, height: 200 }}>
               <div
                 className="absolute inset-0 rounded-full"
                 style={{
@@ -196,15 +196,6 @@ export const DailyOverview: React.FC<{
             </div>
           </div>
         </section>
-
-        <dl className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-3">
-          {data.map((item) => (
-            <div key={item.name} className="glass-dark overflow-hidden rounded-lg px-4 py-5 shadow-soft sm:p-6">
-              <dt className="truncate text-sm font-medium text-white uppercase">{item.name}</dt>
-              <dd className="mt-1 text-3xl font-semibold tracking-tight text-white">{item.value}</dd>
-            </div>
-          ))}
-        </dl>
       </div >
     </>
   );

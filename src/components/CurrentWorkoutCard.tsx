@@ -42,7 +42,7 @@ export const CurrentWorkoutCard = ({ currentWorkout, onClick, loading }: Current
         </ul>
       </dl>
 
-      <div className="mt-6 border-t border-neutral-200 px-6 py-6">
+      <div className="mt-6 border-t border-neutral-200 px-6 pt-6">
         <a
           onClick={() => onClick(currentWorkout.id)}
           className="text-sm font-semibold leading-6 text-neutral-900 cursor-pointer hover:text-primary-600 transition-colors focus-ring interactive"

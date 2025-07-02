@@ -53,32 +53,35 @@ const getStrainColor = (value: number): string => {
 };
 
 export const StrainCard: React.FC<{
-  cycleData: WhoopOverview['cycle']
-  workoutData: WhoopOverview['workout']
-}> = ({ cycleData, workoutData }) => {
-  const cycle = {
-    score: cycleData.score.strain,
-    average_heart_rate: cycleData.score.average_heart_rate,
-    max_heart_rate: cycleData.score.max_heart_rate,
-  };
+  cycle: WhoopOverview['cycle']
+  workout: WhoopOverview['workout']
+}> = ({ cycle, workout: workout }) => {
+  const isToday = isSameDay(new Date(workout.created_at), new Date());
 
-  const workout = {
-    score: workoutData.score.strain,
-    average_heart_rate: workoutData.score.average_heart_rate,
-    max_heart_rate: workoutData.score.max_heart_rate,
-    duration: formatDuration(workoutData.start, workoutData.end),
-  };
-
-  const dailyStrain = {
-    type: isSameDay(new Date(workoutData.created_at), new Date()) ? 'Workout' : 'Cycle',
-    score: isSameDay(new Date(workoutData.created_at), new Date()) ? workout.score : cycle.score,
-    average_heart_rate: isSameDay(new Date(workoutData.created_at), new Date()) ? workout.average_heart_rate : cycle.average_heart_rate,
-    max_heart_rate: isSameDay(new Date(workoutData.created_at), new Date()) ? workout.max_heart_rate : cycle.max_heart_rate,
-    duration: isSameDay(new Date(workoutData.created_at), new Date()) ? workout.duration : '00:00:00',
-  };
+  const dailyStrain = isToday
+    ? {
+      type: "Workout",
+      score: workout.score.strain,
+      average_heart_rate: workout.score.average_heart_rate,
+      max_heart_rate: workout.score.max_heart_rate,
+      duration: formatDuration(workout.start, workout.end),
+    }
+    : {
+      type: "Cycle",
+      score: cycle.score.strain,
+      average_heart_rate: cycle.score.average_heart_rate,
+      max_heart_rate: cycle.score.max_heart_rate,
+      duration: "00:00:00",
+    };
 
   const strainColor = getStrainColor(dailyStrain.score);
   const strainLabel = getStrainLabel(dailyStrain.score);
+
+  const data: Record<string, string | boolean>[] = [
+    { name: "Avg HR", value: `${dailyStrain.average_heart_rate} bpm`, show: true },
+    { name: "Max HR", value: `${dailyStrain.max_heart_rate} bpm`, show: true },
+    { name: "Duration", value: `${dailyStrain.duration}`, show: dailyStrain.type === 'Workout' },
+  ];
 
   return (
     <div className="rounded-lg bg-gray-50 shadow-xs ring-1 ring-gray-900/5 p-6">
@@ -88,45 +91,31 @@ export const StrainCard: React.FC<{
         </h3>
         <span
           className="text-xs font-medium px-2 py-1 rounded"
-          style={{
-            backgroundColor: `${strainColor}20`,
-            color: strainColor
-          }}
+          style={{ backgroundColor: `${strainColor}20`, color: strainColor }}
         >
           {strainLabel}
         </span>
       </div>
 
       <div className="mb-6">
-        <div
-          className="text-4xl font-bold mb-1"
-          style={{ color: strainColor }}
-        >
+        <div className="text-4xl font-bold mb-1" style={{ color: strainColor }}>
           {dailyStrain.score.toFixed(1)}
         </div>
       </div>
 
       <dl className="space-y-3">
-        <div className="flex justify-between">
-          <dt className="text-sm font-medium text-gray-600">Avg HR</dt>
-          <dd className="text-sm font-semibold text-gray-900">
-            {dailyStrain.average_heart_rate} bpm
-          </dd>
-        </div>
-        <div className="flex justify-between">
-          <dt className="text-sm font-medium text-gray-600">Max HR</dt>
-          <dd className="text-sm font-semibold text-gray-900">
-            {dailyStrain.max_heart_rate} bpm
-          </dd>
-        </div>
-        {dailyStrain.type === 'Workout' && (
-          <div className="flex justify-between">
-            <dt className="text-sm font-medium text-gray-600">Duration</dt>
-            <dd className="text-sm font-semibold text-gray-900">
-              {dailyStrain.duration}
-            </dd>
-          </div>
-        )}
+        {data.map((item) => {
+          if (!item.show) return null;
+
+          return (
+            <div className="flex justify-between">
+              <dt className="text-sm font-medium text-gray-600">{item.name}</dt>
+              <dd className="text-sm font-semibold text-gray-900">
+                {item.value}
+              </dd>
+            </div>
+          );
+        })}
       </dl>
     </div>
   );

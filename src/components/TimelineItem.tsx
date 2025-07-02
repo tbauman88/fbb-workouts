@@ -1,4 +1,4 @@
-import { marked } from 'marked'
+import marked from '../../markedConfig'
 
 type TimelineItemProps = {
   item: {
@@ -35,7 +35,10 @@ export const TimelineItem = ({ item }: TimelineItemProps) => {
 
         {item.notes && (
           <div className="text-sm text-gray-600">
-            <div className="[&>p]:mb-4 last:[&>p]:mb-0" dangerouslySetInnerHTML={{ __html: marked(item.notes) }} />
+            <div
+              className="prose prose-sm max-w-none [&>p]:mb-4 [&>p:last-child]:mb-0 [&>*]:text-gray-600"
+              dangerouslySetInnerHTML={{ __html: marked(item.notes) }}
+            />
           </div>
         )}
       </div>

@@ -8,8 +8,13 @@ import { filterMuscleGroups } from './utils';
 type Program = GetUserCycleProgressQuery['programs'][0]
 export type CurrentProgram = Omit<Program, 'name'> & { cycleId: string, name: string | null }
 
+export type TimelineItem =
+  | CurrentUserWorkoutFragment["workout"]["first"][0]
+  | CurrentUserWorkoutFragment["workout"]["rest"][0]
+  | CurrentUserWorkoutFragment["workout"]["titles"][0]
+
 export type CurrentWorkout = CurrentUserWorkoutFragment["workout"] & {
-  items: unknown[]
+  items: TimelineItem[]
   muscleGroups: MuscleGroupFragment[]
 }
 
