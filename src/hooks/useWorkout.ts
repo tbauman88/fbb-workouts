@@ -7,11 +7,11 @@ import {
   WorkoutPageFragment,
   MuscleGroupFragment,
   GetUserCycleProgress
-} from '../generated/graphql'
-import { WorkoutStatus } from '../types'
-import { useParams } from 'react-router-dom'
+} from 'generated/graphql'
 import { useMemo } from 'react'
+import { useParams } from 'react-router-dom'
 import { useAuth } from './useAuth'
+import { WorkoutStatus } from 'types'
 
 export type UseWorkout = {
   workout: WorkoutPageFragment | null | undefined

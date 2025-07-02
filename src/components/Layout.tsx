@@ -1,12 +1,11 @@
-import React, { useMemo } from 'react'
-import { Outlet } from 'react-router-dom'
-import { Link, useLocation } from 'react-router-dom'
-import { useAuth } from '../hooks/useAuth'
-import { Logo } from './'
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import { Role } from '../types'
-import { CheckUserCredentialsQuery } from '../generated/graphql'
+import { CheckUserCredentialsQuery } from 'generated/graphql'
+import { useAuth } from 'hooks/useAuth'
+import React, { useMemo } from 'react'
+import { Link, Outlet, useLocation } from 'react-router-dom'
+import { Role } from 'types'
+import { Logo } from './'
 
 type User = CheckUserCredentialsQuery['users'][number] | null
 

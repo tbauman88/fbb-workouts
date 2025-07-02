@@ -1,8 +1,8 @@
-import { RecoveryCard } from "./RecoveryCard"
-import { StrainCard } from "./StrainCard"
-import { SleepCard } from "./SleepCard"
-import { DailyOverview } from ".";
-import { useWhoop } from "../../hooks/useWhoop";
+import { useWhoop } from "hooks/useWhoop";
+import { DailyOverview } from "./";
+import { RecoveryCard } from "./RecoveryCard";
+import { SleepCard } from "./SleepCard";
+import { StrainCard } from "./StrainCard";
 
 const Skeleton = ({ rows }: { rows: number }) => {
   return (

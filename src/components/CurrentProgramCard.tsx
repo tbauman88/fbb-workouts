@@ -1,6 +1,6 @@
-import { Loading } from '../pages/Loading'
+import { DashboardContent } from 'hooks/useDashboard'
+import { Loading } from 'pages/Loading'
 import { ProgressBar } from './ProgressBar'
-import { DashboardContent } from '../hooks/useDashboard'
 
 type CurrentProgramCardProps = {
   currentProgram: DashboardContent['currentProgram']

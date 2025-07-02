@@ -84,7 +84,15 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@': '/src'
+      '@': '/src',
+      'components': '/src/components',
+      'consts': '/src/consts',
+      'hooks': '/src/hooks',
+      'utils': '/src/utils',
+      'types': '/src/types',
+      'pages': '/src/pages',
+      'generated': '/src/generated',
+      'services': '/src/services'
     }
   }
 })

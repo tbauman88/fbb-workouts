@@ -1,5 +1,4 @@
-import React from "react";
-import { WhoopOverview } from "../../hooks/useWhoop";
+import { WhoopOverview } from "hooks/useWhoop";
 
 enum RecoveryLabel {
   High = "High",

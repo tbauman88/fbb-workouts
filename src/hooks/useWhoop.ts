@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
-import { Cycle, Recovery, Sleep, Workout } from '../types/';
-import { useGetIntegrationsQuery } from '../generated/graphql';
-import { WhoopService } from '../services';
 import { fromUnixTime, isBefore } from 'date-fns';
+import { useGetIntegrationsQuery } from 'generated/graphql';
+import { useEffect, useState } from 'react';
+import { WhoopService } from 'services';
+import { Cycle, Recovery, Sleep, Workout } from 'types';
 
 export interface WhoopOverview {
   cycle: Cycle;

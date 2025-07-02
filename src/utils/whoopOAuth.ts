@@ -1,6 +1,6 @@
 import axios from 'axios';
+import { OAUTH_URL } from 'consts';
 import { config } from '../../environment';
-import { OAUTH_URL } from '../consts';
 
 const isDevelopment = import.meta.env.DEV;
 

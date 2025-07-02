@@ -1,9 +1,9 @@
+import { useCallback, useState } from 'react'
+import { WorkoutItemFragment } from 'generated/graphql'
+import marked from '../../markedConfig'
+import { useAuth } from 'hooks/useAuth'
 import { Exercises } from './Exercises'
 import { Score } from './Score'
-import { useAuth } from '../hooks/useAuth'
-import { WorkoutItemFragment } from '../generated/graphql'
-import marked from '../../markedConfig'
-import { useCallback, useMemo, useState } from 'react'
 
 const Header = ({ header }: { header: string | null | undefined }) =>
   header && (

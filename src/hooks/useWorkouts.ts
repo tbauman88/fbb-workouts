@@ -1,6 +1,6 @@
-import { GetUserWorkoutsQueryVariables, useGetUserWorkoutsQuery, WorkoutFragment } from '../generated/graphql'
 import { QueryResult } from '@apollo/client'
-import { WorkoutStatus } from '../types'
+import { GetUserWorkoutsQueryVariables, useGetUserWorkoutsQuery, WorkoutFragment } from 'generated/graphql'
+import { WorkoutStatus } from 'types'
 
 type WorkoutItem =
   | WorkoutFragment["workout"]["first"][number]

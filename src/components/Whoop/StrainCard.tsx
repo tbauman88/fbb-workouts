@@ -1,5 +1,4 @@
-import React from "react";
-import { WhoopOverview } from "../../hooks/useWhoop";
+import { WhoopOverview } from "hooks/useWhoop";
 import { differenceInSeconds, isSameDay } from "date-fns";
 
 enum StrainLabel {

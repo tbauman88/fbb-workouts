@@ -1,5 +1,5 @@
-import { Loading } from '../pages/Loading'
-import { DashboardContent } from '../hooks/useDashboard'
+import { DashboardContent } from 'hooks/useDashboard'
+import { Loading } from 'pages/Loading'
 
 type ProgramsListProps = {
   programs: DashboardContent['programs']

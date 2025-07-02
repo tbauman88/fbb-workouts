@@ -1,9 +1,9 @@
-import { useState, useMemo } from 'react'
-import { marked } from 'marked'
-import { PlayCircleIcon } from '@heroicons/react/24/solid'
 import { ChevronDownIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
-import { ExerciseDetailsFragment } from '../generated/graphql'
-import { buildAndProxyImageUrl } from '../utils/imageProxy'
+import { PlayCircleIcon } from '@heroicons/react/24/solid'
+import { ExerciseDetailsFragment } from 'generated/graphql'
+import { marked } from 'marked'
+import { useMemo, useState } from 'react'
+import { buildAndProxyImageUrl } from 'utils/imageProxy'
 
 interface ExerciseGroup {
   recommended: ExerciseDetailsFragment

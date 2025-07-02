@@ -1,4 +1,4 @@
-import { WorkoutStatus } from '../types'
+import { WorkoutStatus } from 'types'
 
 interface BadgeProps {
   status?: WorkoutStatus.COMPLETED | WorkoutStatus.SKIPPED

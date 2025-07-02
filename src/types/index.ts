@@ -1,4 +1,4 @@
-import { WorkoutStatusEnumEnum as WorkoutStatus } from '../generated/graphql'
+import { WorkoutStatusEnumEnum as WorkoutStatus } from 'generated/graphql'
 
 export * from './whoop'
 export { WorkoutStatus }

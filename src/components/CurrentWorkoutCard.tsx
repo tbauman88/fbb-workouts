@@ -1,8 +1,8 @@
-import { Loading } from '../pages/Loading'
+import { CurrentWorkout } from 'hooks/useDashboard'
+import { Loading } from 'pages/Loading'
 import { Badge } from './Badge'
-import { WorkoutStatusBadge } from './WorkoutStatusBadge'
 import { TimelineItem } from './TimelineItem'
-import { CurrentWorkout } from '../hooks/useDashboard'
+import { WorkoutStatusBadge } from './WorkoutStatusBadge'
 
 type CurrentWorkoutCardProps = {
   currentWorkout: CurrentWorkout | null

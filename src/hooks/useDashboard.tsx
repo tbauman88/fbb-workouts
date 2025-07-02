@@ -1,8 +1,8 @@
 import { QueryResult } from '@apollo/client';
-import { CurrentUserWorkoutFragment, GetUserCycleProgressQuery, GetWhoopDataQuery, MuscleGroupFragment, useGetUserCycleProgressQuery, useGetWhoopDataQuery, WorkoutItemFragment } from '../generated/graphql';
-import { formatProgramName } from './usePrograms';
-import { WorkoutStatus } from '../types';
+import { CurrentUserWorkoutFragment, GetUserCycleProgressQuery, GetWhoopDataQuery, MuscleGroupFragment, useGetUserCycleProgressQuery, useGetWhoopDataQuery } from 'generated/graphql';
+import { WorkoutStatus } from 'types';
 import { useAuth } from './useAuth';
+import { formatProgramName } from './usePrograms';
 import { filterMuscleGroups } from './utils';
 
 type Program = GetUserCycleProgressQuery['programs'][0]

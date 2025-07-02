@@ -1,7 +1,7 @@
 import axios from 'axios';
+import { endpoints, OAUTH_URL } from 'consts';
+import { useUpsertWhoopIntegrationMutation } from 'generated/graphql';
 import { config } from '../../environment';
-import { endpoints, OAUTH_URL } from '../consts';
-import { useUpsertWhoopIntegrationMutation } from '../generated/graphql';
 
 const isDevelopment = import.meta.env.DEV;
 

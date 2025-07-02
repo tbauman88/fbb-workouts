@@ -1,5 +1,5 @@
 import { QueryResult } from '@apollo/client'
-import { GetProgramsQuery, useGetProgramsQuery } from '../generated/graphql'
+import { GetProgramsQuery, useGetProgramsQuery } from 'generated/graphql'
 
 
 type Programs = GetProgramsQuery['programs']

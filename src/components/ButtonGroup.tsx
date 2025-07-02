@@ -1,5 +1,5 @@
 import { useMemo } from "react"
-import { WorkoutStatus } from "../types"
+import { WorkoutStatus } from "types"
 
 enum ButtonVariant {
   PRIMARY = 'primary',

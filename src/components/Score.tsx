@@ -1,9 +1,9 @@
 import { useState, useRef, useCallback, useEffect } from 'react'
-import { useWorkout } from '../hooks/useWorkout'
-import { ArchiveBoxArrowDownIcon } from '@heroicons/react/24/outline'
+import { useWorkout } from 'hooks/useWorkout'
+import { WorkoutItemScoresFragment } from 'generated/graphql'
 import { isToday } from 'date-fns'
-import { WorkoutStatus } from '../types'
-import { WorkoutItemScoresFragment } from '../generated/graphql'
+import { ArchiveBoxArrowDownIcon } from '@heroicons/react/24/outline'
+import { WorkoutStatus } from 'types'
 
 const PLACEHOLDER = 'Add score'
 const KEY_HINT = 'done'
