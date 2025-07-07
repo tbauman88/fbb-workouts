@@ -55,11 +55,11 @@ export const ButtonGroup: React.FC<ButtonGroupProps> = ({
   }
 
   const variantStyles: Record<ButtonVariant, string> = {
-    [ButtonVariant.PRIMARY]: 'bg-indigo-600 text-white hover:bg-indigo-700 active:bg-indigo-800 focus:ring-indigo-500',
+    [ButtonVariant.PRIMARY]: 'bg-primary-600 text-white hover:bg-primary-700 active:bg-primary-800 focus:ring-primary-500',
     [ButtonVariant.SECONDARY]: 'bg-gray-600 text-white hover:bg-gray-700 active:bg-gray-800 focus:ring-gray-500',
-    [ButtonVariant.TERTIARY]: 'bg-green-600 text-white hover:bg-green-700 active:bg-green-800 focus:ring-green-500',
+    [ButtonVariant.TERTIARY]: 'bg-accent-600 text-white hover:bg-accent-700 active:bg-accent-800 focus:ring-accent-500',
     [ButtonVariant.ERROR]: 'bg-red-600 text-white hover:bg-red-700 active:bg-red-800 focus:ring-red-500',
-    [ButtonVariant.SUCCESS]: 'bg-green-600 text-white hover:bg-green-700 active:bg-green-800 focus:ring-green-500 shadow-lg shadow-green-500/25',
+    [ButtonVariant.SUCCESS]: 'bg-accent-600 text-white hover:bg-accent-700 active:bg-accent-800 focus:ring-accent-500 shadow-lg shadow-accent-500/25',
     [ButtonVariant.DISABLED]: 'bg-gray-100 text-gray-500 cursor-not-allowed',
   }
 

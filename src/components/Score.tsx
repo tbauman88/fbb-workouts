@@ -111,9 +111,9 @@ export const Score: React.FC<{
   // Dynamic styling based on state
   let stateClasses = ''
   if (isSubmitting) {
-    stateClasses = 'bg-blue-50 ring-blue-200 text-blue-900'
+    stateClasses = 'bg-secondary-50 ring-secondary-200 text-secondary-900'
   } else if (isCompleted && score) {
-    stateClasses = 'bg-green-50 ring-green-300 text-green-900'
+    stateClasses = 'bg-accent-50 ring-accent-300 text-accent-900'
   } else {
     stateClasses = 'bg-white ring-gray-300 hover:ring-gray-400 focus:ring-2 focus:ring-indigo-600'
   }
@@ -140,14 +140,14 @@ export const Score: React.FC<{
               aria-label="Completed score"
             />
             <div className="absolute inset-y-0 right-0 flex items-center pr-3">
-              <CheckCircleIcon className="h-5 w-5 text-green-500" />
+              <CheckCircleIcon className="h-5 w-5 text-accent-500" />
             </div>
           </div>
           {hasScoreHistory && (
             <button
               type="button"
               onClick={() => setIsScoreHistoryVisible(!isScoreHistoryVisible)}
-              className="relative -ml-px rounded-r-md bg-green-50 px-3 py-2 text-sm font-semibold text-green-700 ring-1 ring-green-300 ring-inset hover:bg-green-100 focus:z-10 transition-colors duration-200"
+              className="relative -ml-px rounded-r-md bg-accent-50 px-3 py-2 text-sm font-semibold text-accent-700 ring-1 ring-accent-300 ring-inset hover:bg-accent-100 focus:z-10 transition-colors duration-200"
               aria-label="View score history"
             >
               <ArchiveBoxArrowDownIcon className='w-5 h-5' />
@@ -208,7 +208,7 @@ export const Score: React.FC<{
             {/* Loading indicator */}
             {isSubmitting && (
               <div className="absolute inset-y-0 right-0 flex items-center pr-3">
-                <ClockIcon className="h-5 w-5 text-blue-500 animate-spin" />
+                <ClockIcon className="h-5 w-5 text-secondary-500 animate-spin" />
               </div>
             )}
           </div>
@@ -218,7 +218,7 @@ export const Score: React.FC<{
           <button
             type="button"
             onClick={() => setIsScoreHistoryVisible(!isScoreHistoryVisible)}
-            className="relative -ml-px rounded-r-md bg-white px-3 py-2 text-sm font-semibold text-gray-700 ring-1 ring-gray-300 ring-inset hover:bg-gray-50 focus:z-10 transition-colors duration-200"
+            className="relative -ml-px rounded-r-md bg-accent-50 px-3 py-2 text-sm font-semibold text-accent-700 ring-1 ring-accent-300 ring-inset hover:bg-accent-100 focus:z-10 transition-colors duration-200"
             aria-label="Toggle score history"
           >
             <ArchiveBoxArrowDownIcon className={`w-5 h-5 transition-transform duration-200 ${isScoreHistoryVisible ? 'rotate-180' : ''

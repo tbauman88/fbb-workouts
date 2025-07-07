@@ -19,7 +19,7 @@ export const CurrentProgramCard = ({ currentProgram, cycleProgression, loading, 
   }
 
   return (
-    <div className="lg:col-start-3 lg:row-end-1 pb-6">
+    <div className="lg:col-start-3 lg:row-end-1">
       <h2 className="sr-only">Current Program</h2>
 
       <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">

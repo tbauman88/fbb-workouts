@@ -112,7 +112,7 @@ export const Settings = () => {
                         }
                       </p>
                       {!isWhoopConnected && (
-                        <p className="text-xs text-blue-600 mt-1">
+                        <p className="text-xs text-secondary-600 mt-1">
                           💡 Make sure your WHOOP app redirect URL is set to: {REDIRECT_URI}
                         </p>
                       )}
@@ -124,14 +124,14 @@ export const Settings = () => {
                         <button
                           type="button"
                           onClick={() => refetch()}
-                          className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                          className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
                         >
                           Refresh
                         </button>
                         <button
                           type="button"
                           onClick={handleWhoopConnect}
-                          className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                          className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
                         >
                           Reconnect
                         </button>
@@ -147,7 +147,7 @@ export const Settings = () => {
                       <button
                         type="button"
                         onClick={handleWhoopConnect}
-                        className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
                       >
                         Connect WHOOP
                       </button>
@@ -174,6 +174,298 @@ export const Settings = () => {
                     </div>
                   </details>
                 )}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Show Color Palette */}
+        <div className="grid grid-cols-1 gap-x-8 gap-y-8 pt-10 md:grid-cols-3">
+          <div className="px-4 sm:px-0">
+            <h2 className="text-base font-semibold leading-7 text-gray-900">Color Palette</h2>
+            <p className="mt-1 text-sm leading-6 text-gray-600">
+              The color system used throughout the application.
+            </p>
+          </div>
+          <div className="bg-white shadow-sm ring-1 ring-gray-900/5 rounded-xl md:col-span-2">
+            <div className="px-4 py-6 sm:p-8">
+              <div className="space-y-8">
+
+                {/* Primary Colors */}
+                <div>
+                  <h3 className="text-sm font-medium text-gray-900 mb-3">Primary (Teal)</h3>
+                  <div className="flex gap-2 overflow-x-auto">
+                    <div className="flex flex-col items-center min-w-0">
+                      <div className="w-12 h-12 bg-primary-50 rounded-lg border border-gray-200"></div>
+                      <span className="text-xs text-gray-500 mt-1">50</span>
+                    </div>
+                    <div className="flex flex-col items-center min-w-0">
+                      <div className="w-12 h-12 bg-primary-100 rounded-lg"></div>
+                      <span className="text-xs text-gray-500 mt-1">100</span>
+                    </div>
+                    <div className="flex flex-col items-center min-w-0">
+                      <div className="w-12 h-12 bg-primary-200 rounded-lg"></div>
+                      <span className="text-xs text-gray-500 mt-1">200</span>
+                    </div>
+                    <div className="flex flex-col items-center min-w-0">
+                      <div className="w-12 h-12 bg-primary-300 rounded-lg"></div>
+                      <span className="text-xs text-gray-500 mt-1">300</span>
+                    </div>
+                    <div className="flex flex-col items-center min-w-0">
+                      <div className="w-12 h-12 bg-primary-400 rounded-lg"></div>
+                      <span className="text-xs text-gray-500 mt-1">400</span>
+                    </div>
+                    <div className="flex flex-col items-center min-w-0">
+                      <div className="w-12 h-12 bg-primary-500 rounded-lg ring-2 ring-primary-500 ring-offset-2"></div>
+                      <span className="text-xs text-gray-900 font-medium mt-1">500</span>
+                    </div>
+                    <div className="flex flex-col items-center min-w-0">
+                      <div className="w-12 h-12 bg-primary-600 rounded-lg"></div>
+                      <span className="text-xs text-gray-500 mt-1">600</span>
+                    </div>
+                    <div className="flex flex-col items-center min-w-0">
+                      <div className="w-12 h-12 bg-primary-700 rounded-lg"></div>
+                      <span className="text-xs text-gray-500 mt-1">700</span>
+                    </div>
+                    <div className="flex flex-col items-center min-w-0">
+                      <div className="w-12 h-12 bg-primary-800 rounded-lg"></div>
+                      <span className="text-xs text-gray-500 mt-1">800</span>
+                    </div>
+                    <div className="flex flex-col items-center min-w-0">
+                      <div className="w-12 h-12 bg-primary-900 rounded-lg"></div>
+                      <span className="text-xs text-gray-500 mt-1">900</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Secondary Colors */}
+                <div>
+                  <h3 className="text-sm font-medium text-gray-900 mb-3">Secondary (Blue)</h3>
+                  <div className="flex gap-2 overflow-x-auto">
+                    <div className="flex flex-col items-center min-w-0">
+                      <div className="w-12 h-12 bg-secondary-50 rounded-lg border border-gray-200"></div>
+                      <span className="text-xs text-gray-500 mt-1">50</span>
+                    </div>
+                    <div className="flex flex-col items-center min-w-0">
+                      <div className="w-12 h-12 bg-secondary-100 rounded-lg"></div>
+                      <span className="text-xs text-gray-500 mt-1">100</span>
+                    </div>
+                    <div className="flex flex-col items-center min-w-0">
+                      <div className="w-12 h-12 bg-secondary-200 rounded-lg"></div>
+                      <span className="text-xs text-gray-500 mt-1">200</span>
+                    </div>
+                    <div className="flex flex-col items-center min-w-0">
+                      <div className="w-12 h-12 bg-secondary-300 rounded-lg"></div>
+                      <span className="text-xs text-gray-500 mt-1">300</span>
+                    </div>
+                    <div className="flex flex-col items-center min-w-0">
+                      <div className="w-12 h-12 bg-secondary-400 rounded-lg"></div>
+                      <span className="text-xs text-gray-500 mt-1">400</span>
+                    </div>
+                    <div className="flex flex-col items-center min-w-0">
+                      <div className="w-12 h-12 bg-secondary-500 rounded-lg ring-2 ring-secondary-500 ring-offset-2"></div>
+                      <span className="text-xs text-gray-900 font-medium mt-1">500</span>
+                    </div>
+                    <div className="flex flex-col items-center min-w-0">
+                      <div className="w-12 h-12 bg-secondary-600 rounded-lg"></div>
+                      <span className="text-xs text-gray-500 mt-1">600</span>
+                    </div>
+                    <div className="flex flex-col items-center min-w-0">
+                      <div className="w-12 h-12 bg-secondary-700 rounded-lg"></div>
+                      <span className="text-xs text-gray-500 mt-1">700</span>
+                    </div>
+                    <div className="flex flex-col items-center min-w-0">
+                      <div className="w-12 h-12 bg-secondary-800 rounded-lg"></div>
+                      <span className="text-xs text-gray-500 mt-1">800</span>
+                    </div>
+                    <div className="flex flex-col items-center min-w-0">
+                      <div className="w-12 h-12 bg-secondary-900 rounded-lg"></div>
+                      <span className="text-xs text-gray-500 mt-1">900</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Tertiary Colors */}
+                <div>
+                  <h3 className="text-sm font-medium text-gray-900 mb-3">Tertiary (Purple)</h3>
+                  <div className="flex gap-2 overflow-x-auto">
+                    <div className="flex flex-col items-center min-w-0">
+                      <div className="w-12 h-12 bg-tertiary-50 rounded-lg border border-gray-200"></div>
+                      <span className="text-xs text-gray-500 mt-1">50</span>
+                    </div>
+                    <div className="flex flex-col items-center min-w-0">
+                      <div className="w-12 h-12 bg-tertiary-100 rounded-lg"></div>
+                      <span className="text-xs text-gray-500 mt-1">100</span>
+                    </div>
+                    <div className="flex flex-col items-center min-w-0">
+                      <div className="w-12 h-12 bg-tertiary-200 rounded-lg"></div>
+                      <span className="text-xs text-gray-500 mt-1">200</span>
+                    </div>
+                    <div className="flex flex-col items-center min-w-0">
+                      <div className="w-12 h-12 bg-tertiary-300 rounded-lg"></div>
+                      <span className="text-xs text-gray-500 mt-1">300</span>
+                    </div>
+                    <div className="flex flex-col items-center min-w-0">
+                      <div className="w-12 h-12 bg-tertiary-400 rounded-lg"></div>
+                      <span className="text-xs text-gray-500 mt-1">400</span>
+                    </div>
+                    <div className="flex flex-col items-center min-w-0">
+                      <div className="w-12 h-12 bg-tertiary-500 rounded-lg ring-2 ring-tertiary-500 ring-offset-2"></div>
+                      <span className="text-xs text-gray-900 font-medium mt-1">500</span>
+                    </div>
+                    <div className="flex flex-col items-center min-w-0">
+                      <div className="w-12 h-12 bg-tertiary-600 rounded-lg"></div>
+                      <span className="text-xs text-gray-500 mt-1">600</span>
+                    </div>
+                    <div className="flex flex-col items-center min-w-0">
+                      <div className="w-12 h-12 bg-tertiary-700 rounded-lg"></div>
+                      <span className="text-xs text-gray-500 mt-1">700</span>
+                    </div>
+                    <div className="flex flex-col items-center min-w-0">
+                      <div className="w-12 h-12 bg-tertiary-800 rounded-lg"></div>
+                      <span className="text-xs text-gray-500 mt-1">800</span>
+                    </div>
+                    <div className="flex flex-col items-center min-w-0">
+                      <div className="w-12 h-12 bg-tertiary-900 rounded-lg"></div>
+                      <span className="text-xs text-gray-500 mt-1">900</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Accent Colors */}
+                <div>
+                  <h3 className="text-sm font-medium text-gray-900 mb-3">Accent (Teal)</h3>
+                  <div className="flex gap-2 overflow-x-auto">
+                    <div className="flex flex-col items-center min-w-0">
+                      <div className="w-12 h-12 bg-accent-50 rounded-lg border border-gray-200"></div>
+                      <span className="text-xs text-gray-500 mt-1">50</span>
+                    </div>
+                    <div className="flex flex-col items-center min-w-0">
+                      <div className="w-12 h-12 bg-accent-100 rounded-lg"></div>
+                      <span className="text-xs text-gray-500 mt-1">100</span>
+                    </div>
+                    <div className="flex flex-col items-center min-w-0">
+                      <div className="w-12 h-12 bg-accent-200 rounded-lg"></div>
+                      <span className="text-xs text-gray-500 mt-1">200</span>
+                    </div>
+                    <div className="flex flex-col items-center min-w-0">
+                      <div className="w-12 h-12 bg-accent-300 rounded-lg"></div>
+                      <span className="text-xs text-gray-500 mt-1">300</span>
+                    </div>
+                    <div className="flex flex-col items-center min-w-0">
+                      <div className="w-12 h-12 bg-accent-400 rounded-lg"></div>
+                      <span className="text-xs text-gray-500 mt-1">400</span>
+                    </div>
+                    <div className="flex flex-col items-center min-w-0">
+                      <div className="w-12 h-12 bg-accent-500 rounded-lg ring-2 ring-accent-500 ring-offset-2"></div>
+                      <span className="text-xs text-gray-500 mt-1">500</span>
+                    </div>
+                    <div className="flex flex-col items-center min-w-0">
+                      <div className="w-12 h-12 bg-accent-600 rounded-lg"></div>
+                      <span className="text-xs text-gray-500 mt-1">600</span>
+                    </div>
+                    <div className="flex flex-col items-center min-w-0">
+                      <div className="w-12 h-12 bg-accent-700 rounded-lg"></div>
+                      <span className="text-xs text-gray-500 mt-1">700</span>
+                    </div>
+                    <div className="flex flex-col items-center min-w-0">
+                      <div className="w-12 h-12 bg-accent-800 rounded-lg"></div>
+                      <span className="text-xs text-gray-500 mt-1">800</span>
+                    </div>
+                    <div className="flex flex-col items-center min-w-0">
+                      <div className="w-12 h-12 bg-accent-900 rounded-lg"></div>
+                      <span className="text-xs text-gray-500 mt-1">900</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Neutral Colors */}
+                <div>
+                  <h3 className="text-sm font-medium text-gray-900 mb-3">Neutral (Gray)</h3>
+                  <div className="flex gap-2 overflow-x-auto">
+                    <div className="flex flex-col items-center min-w-0">
+                      <div className="w-12 h-12 bg-neutral-50 rounded-lg border border-gray-200"></div>
+                      <span className="text-xs text-gray-500 mt-1">50</span>
+                    </div>
+                    <div className="flex flex-col items-center min-w-0">
+                      <div className="w-12 h-12 bg-neutral-100 rounded-lg"></div>
+                      <span className="text-xs text-gray-500 mt-1">100</span>
+                    </div>
+                    <div className="flex flex-col items-center min-w-0">
+                      <div className="w-12 h-12 bg-neutral-200 rounded-lg"></div>
+                      <span className="text-xs text-gray-500 mt-1">200</span>
+                    </div>
+                    <div className="flex flex-col items-center min-w-0">
+                      <div className="w-12 h-12 bg-neutral-300 rounded-lg"></div>
+                      <span className="text-xs text-gray-500 mt-1">300</span>
+                    </div>
+                    <div className="flex flex-col items-center min-w-0">
+                      <div className="w-12 h-12 bg-neutral-400 rounded-lg"></div>
+                      <span className="text-xs text-gray-500 mt-1">400</span>
+                    </div>
+                    <div className="flex flex-col items-center min-w-0">
+                      <div className="w-12 h-12 bg-neutral-500 rounded-lg ring-2 ring-neutral-500 ring-offset-2"></div>
+                      <span className="text-xs text-gray-500 mt-1">500</span>
+                    </div>
+                    <div className="flex flex-col items-center min-w-0">
+                      <div className="w-12 h-12 bg-neutral-600 rounded-lg"></div>
+                      <span className="text-xs text-gray-500 mt-1">600</span>
+                    </div>
+                    <div className="flex flex-col items-center min-w-0">
+                      <div className="w-12 h-12 bg-neutral-700 rounded-lg"></div>
+                      <span className="text-xs text-gray-500 mt-1">700</span>
+                    </div>
+                    <div className="flex flex-col items-center min-w-0">
+                      <div className="w-12 h-12 bg-neutral-800 rounded-lg"></div>
+                      <span className="text-xs text-gray-500 mt-1">800</span>
+                    </div>
+                    <div className="flex flex-col items-center min-w-0">
+                      <div className="w-12 h-12 bg-neutral-900 rounded-lg"></div>
+                      <span className="text-xs text-gray-500 mt-1">900</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Whoop Brand Colors - Recovery */}
+                <div>
+                  <h3 className="text-sm font-medium text-gray-900 mb-3">Whoop</h3>
+                  <div className="flex gap-4">
+                    <div className="flex flex-col items-center">
+                      <div className="w-12 h-12 rounded-lg flex items-center justify-center bg-whoop-recovery">
+                      </div>
+                      <span className="text-xs text-gray-500 mt-1">Recovery</span>
+                    </div>
+                    <div className="flex flex-col items-center">
+                      <div className="w-12 h-12 rounded-lg flex items-center justify-center bg-whoop-sleep">
+                      </div>
+                      <span className="text-xs text-gray-500 mt-1">Sleep</span>
+                    </div>
+                    <div className="flex flex-col items-center">
+                      <div className="w-12 h-12 rounded-lg flex items-center justify-center bg-whoop-high">
+                      </div>
+                      <span className="text-xs text-gray-500 mt-1">High</span>
+                    </div>
+                    <div className="flex flex-col items-center">
+                      <div className="w-12 h-12 rounded-lg flex items-center justify-center bg-whoop-moderate">
+                      </div>
+                      <span className="text-xs text-gray-500 mt-1">Moderate</span>
+                    </div>
+                    <div className="flex flex-col items-center">
+                      <div className="w-12 h-12 rounded-lg flex items-center justify-center bg-whoop-low">
+                      </div>
+                      <span className="text-xs text-gray-500 mt-1">Low</span>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div>
+                  <h3 className="text-sm font-medium text-gray-900 mb-3">Whoop Gradient</h3>
+                  <div className="flex flex-col">
+                    <div className="w-138 h-12 rounded-lg flex gradient-whoop">
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

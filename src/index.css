@@ -124,6 +124,11 @@
   .text-pretty {
     text-wrap: pretty;
   }
+
+  /* Layout utilities */
+  .flex-center {
+    @apply flex items-center justify-center;
+  }
 }
 
 /* Enhanced workout animations */

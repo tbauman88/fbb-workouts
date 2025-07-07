@@ -16,7 +16,7 @@ export const Program = () => {
   }, [navigate])
 
   const getCycleClasses = (cycleId: number) =>
-    cycleId === 13 ? 'bg-green-50 text-green-700 ring-green-600/20' : 'bg-gray-50 text-gray-600 ring-gray-500/10'
+    cycleId === 13 ? 'bg-accent-50 text-accent-700 ring-accent-600/20' : 'bg-gray-50 text-gray-600 ring-gray-500/10'
 
   if (error) return <div>Error: {error.message}</div>
 
@@ -56,7 +56,7 @@ export const Program = () => {
                     <use x={86} href="#b56e9dab-6ccb-4d32-ad02-6b4bb5d9bbeb" />
                   </svg>
                   <blockquote className="text-xl/8 font-semibold sm:text-2xl/9">
-                    <p className="group-hover:underline group-hover:text-indigo-500 transition-colors duration-300 ease-in-out">
+                    <p className="group-hover:underline group-hover:text-primary-500 transition-colors duration-300 ease-in-out">
                       {program.name}
                     </p>
                   </blockquote>
