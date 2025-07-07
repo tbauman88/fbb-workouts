@@ -3,5 +3,5 @@ export const Skeleton: React.FC<{ width?: string; height?: string; className?: s
   height = '20px',
   className = ''
 }) => {
-  return <div className={`bg-neutral-300 loading-shimmer rounded-sm ${className}`} style={{ width, height }} />
+  return <div className={`bg-gray-200 rounded-sm ${className}`} style={{ width, height }} />
 }

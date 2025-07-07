@@ -2,6 +2,7 @@ import axios from 'axios';
 import { endpoints, OAUTH_URL } from 'consts';
 import { useUpsertWhoopIntegrationMutation } from 'generated/graphql';
 import { config } from '../../environment';
+import { endOfDay, startOfDay } from 'date-fns';
 
 const isDevelopment = import.meta.env.DEV;
 
@@ -93,40 +94,41 @@ export const WhoopService = () => {
     accessToken: string,
     refreshToken: string,
     integrationId: string | undefined,
-  ): Promise<any> => {
+  ): Promise<any[] | any | null> => {
     try {
       console.log(`Fetching Whoop ${action} data...`);
 
-      let response;
+      const today = new Date()
+      const start = startOfDay(today).toISOString();
+      const end = endOfDay(today).toISOString();
 
-      if (isDevelopment) {
-        // Development: Traditional API call with limit parameter
-        response = await axios.get(endpoints[action], {
-          params: { limit: 1 },
-          headers: {
-            'Authorization': `Bearer ${accessToken}`,
-            'Accept': 'application/json',
-          },
-        });
-      } else {
-        // Production: Serverless function call (limit is handled server-side)
-        response = await axios.get(endpoints[action], {
-          headers: {
-            'Authorization': `Bearer ${accessToken}`,
-            'Accept': 'application/json',
-          },
-        });
+      const params = {
+        start,
+        end
       }
+
+      const response = await axios.get(endpoints[action], {
+        params,
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+          'Accept': 'application/json',
+        },
+      });
 
       console.log(`✅ Successfully fetched ${action} data`);
 
-      // Safely access the first record
+      // Safely access the records
       if (!response.data || !response.data.records || response.data.records.length === 0) {
         console.warn(`⚠️ No ${action} data found in response`);
         return null;
       }
 
-      return response.data.records[0];
+      // For workouts, return all records. For other actions, return the first record
+      if (action === "workout") {
+        return response.data.records;
+      } else {
+        return response.data.records[0];
+      }
     } catch (error) {
       console.error(`❌ Error fetching ${action} data:`, error);
 

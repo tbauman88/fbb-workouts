@@ -8,7 +8,7 @@ export interface WhoopOverview {
   cycle: Cycle;
   sleep: Sleep;
   recovery: Recovery;
-  workout: Workout;
+  workout: Workout[];
 }
 
 export interface WhoopTokens {
@@ -123,12 +123,11 @@ export const useWhoop = (integrationId?: string) => {
         ]);
 
         // Check if we have all required data
-        if (!cycle || !recovery || !sleep || !workout) {
+        if (!cycle || !recovery || !sleep) {
           console.warn('⚠️ Some Whoop data is missing:', {
             cycle: !!cycle,
             recovery: !!recovery,
             sleep: !!sleep,
-            workout: !!workout,
           });
 
           setState(prev => ({
@@ -141,7 +140,7 @@ export const useWhoop = (integrationId?: string) => {
 
         setState(prev => ({
           ...prev,
-          stats: { cycle, sleep, recovery, workout },
+          stats: { cycle, sleep, recovery, workout: workout ?? [] },
           loading: false,
           error: undefined,
         }));
@@ -167,6 +166,7 @@ export const useWhoop = (integrationId?: string) => {
     };
 
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tokens, expiresData, refreshAttempted]);
 
   // Reset refresh attempt when tokens change (e.g., after manual reconnection)

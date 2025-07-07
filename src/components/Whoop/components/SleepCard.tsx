@@ -1,41 +1,16 @@
 import { WhoopOverview } from "hooks/useWhoop";
-
-enum SleepLabel {
-  Excellent = "Excellent",
-  Good = "Good",
-  Fair = "Fair",
-  Poor = "Poor",
-}
-
-enum SleepColor {
-  Excellent = "#16EC06",
-  Good = "#FFDE00",
-  Fair = "#FF0026",
-  Default = "#f87171",
-}
+import { LineGraph } from "./";
+import { SleepLabel, WhoopColor } from "../types";
 
 const formatMillisecondsToHours = (milliseconds: number): string => {
   const hours = milliseconds / (1000 * 60 * 60);
   const wholeHours = Math.floor(hours);
   const minutes = Math.round((hours - wholeHours) * 60);
 
-  if (wholeHours === 0) {
-    return `${minutes}m`;
-  }
-  if (minutes === 0) {
-    return `${wholeHours}h`;
-  }
+  if (wholeHours === 0) return `${minutes}m`;
+  if (minutes === 0) return `${wholeHours}h`;
+
   return `${wholeHours}h ${minutes}m`;
-};
-
-const getSleepColor = (value: number): string => {
-  const thresholds = [
-    { threshold: 85, color: SleepColor.Excellent },
-    { threshold: 70, color: SleepColor.Good },
-    { threshold: 0, color: SleepColor.Fair },
-  ];
-
-  return thresholds.find(({ threshold }) => value >= threshold)?.color || SleepColor.Default;
 };
 
 const getSleepLabel = (value: number): string => {
@@ -46,14 +21,18 @@ const getSleepLabel = (value: number): string => {
 };
 
 export const SleepCard: React.FC<{
-  sleep: WhoopOverview["sleep"]
+  sleep: WhoopOverview["sleep"] | undefined
 }> = ({ sleep }) => {
+  if (!sleep) return null;
+
   const sleepScore = sleep.score.sleep_performance_percentage;
-  const sleepColor = getSleepColor(sleepScore);
+  const sleepColor = WhoopColor.Sleep;
   const sleepLabel = getSleepLabel(sleepScore);
 
+  const totalSleepTime = sleep.score.stage_summary.total_in_bed_time_milli - sleep.score.stage_summary.total_awake_time_milli;
+
   const data: Record<string, string | number>[] = [
-    { name: "Time in Bed", value: `${formatMillisecondsToHours(sleep.score.stage_summary.total_in_bed_time_milli)}` },
+    { name: "Hours of Sleep", value: `${formatMillisecondsToHours(totalSleepTime)}` },
     { name: "Respiratory Rate", value: `${sleep.score.respiratory_rate.toFixed(1)}` },
     { name: "Sleep Efficiency", value: `${sleep.score.sleep_efficiency_percentage.toFixed(1)}%` },
     { name: "Sleep Consistency", value: `${sleep.score.sleep_consistency_percentage.toFixed(1)}%` },
@@ -74,16 +53,19 @@ export const SleepCard: React.FC<{
       </div>
 
       <div className="mb-6">
-        <div className="text-4xl font-bold mb-1" style={{ color: sleepColor }}>
-          {sleepScore}%
-        </div>
+        <LineGraph
+          value={sleepScore}
+          maxValue={100}
+          color={sleepColor}
+          unit="%"
+        />
       </div>
 
-      <dl className="space-y-3">
-        {data.map((item) => (
-          <div className="flex justify-between">
-            <dt className="text-sm font-medium text-gray-600">{item.name}</dt>
-            <dd className="text-sm font-semibold text-gray-900">
+      <dl className="space-y-3 text-sm">
+        {data.map((item, index) => (
+          <div key={index} className="flex justify-between">
+            <dt className="font-medium text-gray-600">{item.name}</dt>
+            <dd className="font-semibold text-gray-900">
               {item.value}
             </dd>
           </div>

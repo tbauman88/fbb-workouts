@@ -1,8 +1,5 @@
 import { useWhoop } from "hooks/useWhoop";
-import { DailyOverview } from "./";
-import { RecoveryCard } from "./RecoveryCard";
-import { SleepCard } from "./SleepCard";
-import { StrainCard } from "./StrainCard";
+import { RecoveryCard, SleepCard, StrainCard, WorkoutActivityCard } from "./components";
 
 const Skeleton = ({ rows }: { rows: number }) => {
   return (
@@ -56,13 +53,13 @@ export const WhoopCards = ({ integrationId }: { integrationId?: string }) => {
 
   return (
     <>
-      <section className="mx-auto grid max-w-2xl grid-cols-1 grid-rows-1 items-start gap-x-8 gap-y-8 lg:mx-0 lg:max-w-none lg:grid-cols-3 mt-8">
+      <section className="lg:mx-auto grid lg:max-w-2xl grid-cols-1 grid-rows-1 items-start gap-x-8 gap-y-8 lg:mx-0 lg:max-w-none lg:grid-cols-3 my-8">
         <RecoveryCard recovery={stats.recovery} />
-        <StrainCard cycle={stats.cycle} workout={stats.workout} />
+        <StrainCard cycle={stats.cycle} />
         <SleepCard sleep={stats.sleep} />
       </section>
 
-      <DailyOverview stats={stats} loading={loading} error={error} hasTokens={hasTokens} />
+      <WorkoutActivityCard workouts={stats.workout} />
     </>
   )
 }

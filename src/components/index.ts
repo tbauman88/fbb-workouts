@@ -21,6 +21,6 @@ export * from './Skeleton'
 export * from './SearchInput'
 
 // Whoop Components
-export * from './Whoop/RecoveryCard'
-export * from './Whoop/StrainCard'
-export * from './Whoop/SleepCard'
+export * from './Whoop/components/RecoveryCard'
+export * from './Whoop/components/StrainCard'
+export * from './Whoop/components/SleepCard'

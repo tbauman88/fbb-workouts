@@ -1,5 +1,5 @@
 import React from "react";
-import { useWhoop, WhoopOverview } from "../../hooks/useWhoop";
+import { WhoopOverview } from "../../hooks/useWhoop";
 import { differenceInSeconds, isSameDay } from "date-fns";
 
 
@@ -44,8 +44,6 @@ export const DailyOverview: React.FC<{
   error: Error | null | undefined
   hasTokens: boolean
 }> = ({ stats, loading, error, hasTokens }) => {
-  const size = 50;
-
   if (loading) {
     return (
       <div className="bg-neutral-900 text-white p-6">
@@ -72,7 +70,7 @@ export const DailyOverview: React.FC<{
           </p>
           <button
             onClick={() => window.location.reload()}
-            className="mt-4 px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded text-white text-sm"
+            className="mt-4 px-4 py-2 bg-secondary-600 hover:bg-secondary-700 rounded text-white text-sm"
           >
             Retry
           </button>
@@ -130,15 +128,6 @@ export const DailyOverview: React.FC<{
     max_heart_rate: isSameDay(new Date(stats.workout.created_at), new Date()) ? workout.max_heart_rate : cycle.max_heart_rate,
     duration: isSameDay(new Date(stats.workout.created_at), new Date()) ? workout.duration : '00:00:00',
   }
-
-  const data: Record<string, string | number>[] = [
-    { name: "HRV", value: `${recovery.hrv.toFixed(0)}` },
-    { name: "RHR", value: `${recovery.resting_heart_rate}` },
-    { name: "Respiratory Rate", value: `${recovery.spo2_percentage.toFixed(1)}` },
-    { name: `Avg HR (${dailyStrain.type})`, value: `${dailyStrain.average_heart_rate} bpm` },
-    { name: `Max HR (${dailyStrain.type})`, value: `${dailyStrain.max_heart_rate} bpm` },
-    { name: "Workout Duration", value: `${dailyStrain.duration}` },
-  ];
 
   const workoutColor = "#0093E7";
   const recoveryColor = getRecoveryColor(recovery.score);

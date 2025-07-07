@@ -163,7 +163,7 @@ const LoadingCurrentWorkoutCard = () => (
                 )}
               </div>
               <div className="flex-1 space-y-4">
-                <div className="flex items-baseline gap-x-3">
+                <div className="flex items-baseline gap-x-3 bg-gray-200">
                   <Skeleton width="120px" height="21px" /> {/* Timeline header */}
                 </div>
                 {index === 0 && (

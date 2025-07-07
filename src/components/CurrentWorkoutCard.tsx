@@ -18,7 +18,7 @@ export const CurrentWorkoutCard = ({ currentWorkout, onClick, loading }: Current
   return (
     <div className="workout-card -mx-4 sm:mx-0 lg:col-span-2 lg:row-span-2 lg:row-end-2">
       <dl className="flex flex-wrap">
-        <div className="flex-auto pl-6 pb-6 mt-6 border-b border-neutral-200">
+        <div className="flex-auto pl-6 pb-8 mt-2 border-b border-neutral-200">
           <dt className="text-sm font-semibold leading-6 text-neutral-900 uppercase">Daily Training:</dt>
           <dd className="mt-1 text-base font-semibold leading-6 text-neutral-900">{currentWorkout?.title}</dd>
 

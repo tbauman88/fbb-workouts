@@ -109,7 +109,7 @@
 
   /* Workout-specific utilities */
   .workout-card {
-    @apply bg-white rounded-xl shadow-soft border border-neutral-200 p-6 transition-all duration-200 hover:shadow-medium;
+    @apply bg-white rounded-xl shadow-soft border border-neutral-200 py-6 transition-all duration-200 hover:shadow-medium;
   }
 
   .workout-card-dark {

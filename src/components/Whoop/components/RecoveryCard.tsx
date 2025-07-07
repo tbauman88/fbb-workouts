@@ -1,17 +1,6 @@
 import { WhoopOverview } from "hooks/useWhoop";
-
-enum RecoveryLabel {
-  High = "High",
-  Moderate = "Moderate",
-  Low = "Low",
-}
-
-enum RecoveryColor {
-  High = "#16EC06",
-  Moderate = "#FFDE00",
-  Low = "#FF0026",
-  Default = "#f87171",
-}
+import { LineGraph } from "./";
+import { RecoveryLabel, RecoveryColor, WhoopColor } from "../types";
 
 const getRecoveryColor = (value: number): string => {
   const thresholds = [
@@ -20,7 +9,7 @@ const getRecoveryColor = (value: number): string => {
     { threshold: 0, color: RecoveryColor.Low },
   ];
 
-  return thresholds.find(({ threshold }) => value >= threshold)?.color || RecoveryColor.Default;
+  return thresholds.find(({ threshold }) => value >= threshold)?.color || WhoopColor.Recovery;
 };
 
 const getRecoveryLabel = (value: number): string => {
@@ -30,8 +19,10 @@ const getRecoveryLabel = (value: number): string => {
 };
 
 export const RecoveryCard: React.FC<{
-  recovery: WhoopOverview["recovery"],
+  recovery: WhoopOverview["recovery"] | undefined
 }> = ({ recovery }) => {
+  if (!recovery) return null;
+
   const recoveryScore = recovery.score.recovery_score;
 
   const recoveryColor = getRecoveryColor(recoveryScore);
@@ -58,14 +49,17 @@ export const RecoveryCard: React.FC<{
       </div>
 
       <div className="mb-6">
-        <div className="text-4xl font-bold mb-1" style={{ color: recoveryColor }}>
-          {recoveryScore}%
-        </div>
+        <LineGraph
+          value={recoveryScore}
+          maxValue={100}
+          color={recoveryColor}
+          unit="%"
+        />
       </div>
 
       <dl className="space-y-3">
-        {data.map((item) => (
-          <div className="flex justify-between">
+        {data.map((item, index) => (
+          <div key={index} className="flex justify-between">
             <dt className="text-sm font-medium text-gray-600">{item.name}</dt>
             <dd className="text-sm font-semibold text-gray-900">
               {item.value}
