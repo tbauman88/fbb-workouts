@@ -2,8 +2,16 @@ import { useNavigate } from 'react-router-dom'
 import { useDashboard } from '../hooks/useDashboard'
 import { useAuth } from '../hooks/useAuth'
 import { useEffect } from 'react'
-import { CurrentProgramCard, CurrentWorkoutCard, Divider, ProgramsList } from '../components'
-import { WhoopCards } from '../components/Whoop/Cards'
+import {
+  CurrentProgramCard,
+  CurrentWorkoutCard,
+  Divider,
+  ProgramsList,
+  RecoveryCard,
+  SleepCard,
+  StrainCard,
+} from '../components'
+import { WorkoutActivityCard } from '../components/Whoop/components/WorkoutActivityCard'
 
 export const Dashboard = () => {
   const navigate = useNavigate()
@@ -14,7 +22,7 @@ export const Dashboard = () => {
     navigate('/workouts/107')
   }, [user])
 
-  const { currentProgram, currentWorkout, cycleProgression, programs, userCycle, loading, integrations } = useDashboard()
+  const { currentProgram, currentWorkout, cycleProgression, programs, userCycle, loading } = useDashboard()
 
   const navigateToWorkout = (id: string | undefined) => {
     if (!id) return
@@ -34,7 +42,13 @@ export const Dashboard = () => {
           />
         </section>
 
-        <WhoopCards integrationId={integrations?.[0]?.id} />
+        <section className="lg:mx-auto grid lg:max-w-2xl grid-cols-1 grid-rows-1 items-start gap-x-8 gap-y-8 lg:mx-0 lg:max-w-none lg:grid-cols-3 my-8">
+          <RecoveryCard />
+          <StrainCard />
+          <SleepCard />
+        </section>
+
+        <WorkoutActivityCard />
 
         <Divider />
 

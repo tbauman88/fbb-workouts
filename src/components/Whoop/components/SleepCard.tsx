@@ -1,6 +1,7 @@
-import { WhoopOverview } from "hooks/useWhoop";
-import { LineGraph } from "./";
+import { useWhoop } from "hooks/useWhoopContext";
+import { LineGraph } from ".";
 import { SleepLabel, WhoopColor } from "../types";
+import { Loading } from "pages/Loading";
 
 const formatMillisecondsToHours = (milliseconds: number): string => {
   const hours = milliseconds / (1000 * 60 * 60);
@@ -20,22 +21,24 @@ const getSleepLabel = (value: number): string => {
   return SleepLabel.Poor;
 };
 
-export const SleepCard: React.FC<{
-  sleep: WhoopOverview["sleep"] | undefined
-}> = ({ sleep }) => {
-  if (!sleep) return null;
+export const SleepCard = () => {
+  const { data, loading } = useWhoop();
 
-  const sleepScore = sleep.score.sleep_performance_percentage;
+  if (loading) return <Loading page="dashboard" component="whoop-card" rows={4} />
+
+  if (!data?.sleep) return null;
+
+  const sleepScore = data.sleep.score.sleep_performance_percentage;
   const sleepColor = WhoopColor.Sleep;
   const sleepLabel = getSleepLabel(sleepScore);
 
-  const totalSleepTime = sleep.score.stage_summary.total_in_bed_time_milli - sleep.score.stage_summary.total_awake_time_milli;
+  const totalSleepTime = data.sleep.score.stage_summary.total_in_bed_time_milli - data.sleep.score.stage_summary.total_awake_time_milli;
 
-  const data: Record<string, string | number>[] = [
+  const rows: Record<string, string | number>[] = [
     { name: "Hours of Sleep", value: `${formatMillisecondsToHours(totalSleepTime)}` },
-    { name: "Respiratory Rate", value: `${sleep.score.respiratory_rate.toFixed(1)}` },
-    { name: "Sleep Efficiency", value: `${sleep.score.sleep_efficiency_percentage.toFixed(1)}%` },
-    { name: "Sleep Consistency", value: `${sleep.score.sleep_consistency_percentage.toFixed(1)}%` },
+    { name: "Respiratory Rate", value: `${data.sleep.score.respiratory_rate.toFixed(1)}` },
+    { name: "Sleep Efficiency", value: `${data.sleep.score.sleep_efficiency_percentage.toFixed(1)}%` },
+    { name: "Sleep Consistency", value: `${data.sleep.score.sleep_consistency_percentage.toFixed(1)}%` },
   ];
 
   return (
@@ -62,7 +65,7 @@ export const SleepCard: React.FC<{
       </div>
 
       <dl className="space-y-3 text-sm">
-        {data.map((item, index) => (
+        {rows.map((item, index) => (
           <div key={index} className="flex justify-between">
             <dt className="font-medium text-gray-600">{item.name}</dt>
             <dd className="font-semibold text-gray-900">

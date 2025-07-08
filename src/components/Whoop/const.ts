@@ -10,9 +10,9 @@ export const formatMillisecondsToTime = (milliseconds: number): string => {
   const { hours = 0, minutes = 0, seconds = 0 } = duration;
 
   if (hours > 0) {
-    return `${hours}:${minutes}:${seconds}`;
+    return `${hours}h ${minutes}m ${seconds}s`;
   } else if (minutes > 0) {
-    return `${minutes}:${seconds}`;
+    return `${minutes}m ${seconds}s`;
   } else {
     return `${seconds}s`;
   }

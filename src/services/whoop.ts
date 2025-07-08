@@ -124,7 +124,7 @@ export const WhoopService = () => {
       }
 
       // For workouts, return all records. For other actions, return the first record
-      if (action === "workout") {
+      if (action === "workouts") {
         return response.data.records;
       } else {
         return response.data.records[0];

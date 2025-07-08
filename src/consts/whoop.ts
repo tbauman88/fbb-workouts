@@ -4,7 +4,7 @@ let endpoints: {
   cycle: string;
   sleep: string;
   recovery: string;
-  workout: string;
+  workouts: string;
 };
 
 const BASE_API_URL = isDevelopment ? '/api/whoop' : 'https://bauman-lift.vercel.app/api/whoop';
@@ -17,7 +17,7 @@ if (isDevelopment) {
     cycle: `${BASE_API_URL}/developer/v1/cycle`,
     sleep: `${BASE_API_URL}/developer/v1/activity/sleep`,
     recovery: `${BASE_API_URL}/developer/v1/recovery`,
-    workout: `${BASE_API_URL}/developer/v1/activity/workout`,
+    workouts: `${BASE_API_URL}/developer/v1/activity/workout`,
   };
 } else {
   // Production: Use serverless functions
@@ -25,7 +25,7 @@ if (isDevelopment) {
     cycle: `${BASE_API_URL}?endpoint=/cycle`,
     sleep: `${BASE_API_URL}?endpoint=/activity/sleep`,
     recovery: `${BASE_API_URL}?endpoint=/recovery`,
-    workout: `${BASE_API_URL}?endpoint=/activity/workout`,
+    workouts: `${BASE_API_URL}?endpoint=/activity/workout`,
   };
 }
 

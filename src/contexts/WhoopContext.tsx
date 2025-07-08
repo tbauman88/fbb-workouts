@@ -1,46 +1,38 @@
+import { WhoopState } from 'components/Whoop/types';
 import { fromUnixTime, isBefore } from 'date-fns';
 import { useGetIntegrationsQuery } from 'generated/graphql';
-import { useEffect, useState } from 'react';
+import { WhoopContext } from 'hooks/useWhoopContext';
+import React, { ReactNode, useEffect, useState } from 'react';
 import { WhoopService } from 'services';
-import { Cycle, Recovery, Sleep, Workout } from 'types';
 
-export interface WhoopOverview {
-  cycle: Cycle;
-  sleep: Sleep;
-  recovery: Recovery;
-  workout: Workout[];
+
+interface WhoopProviderProps {
+  children: ReactNode;
+  integrationId?: string;
 }
 
-export interface WhoopTokens {
-  accessToken: string | null;
-  refreshToken: string | null;
-}
-
-export interface WhoopState {
-  stats: WhoopOverview | null;
-  loading: boolean;
-  error?: Error;
-  hasTokens: boolean;
-}
-
-export interface WhoopExpiresData {
-  expiresAt: Date | null;
-  updatedAt: Date | null;
-}
-
-export const useWhoop = (integrationId?: string) => {
+export const WhoopProvider: React.FC<WhoopProviderProps> = ({
+  children,
+  integrationId
+}) => {
   const [state, setState] = useState<WhoopState>({
-    stats: null,
+    data: null,
     loading: true,
     hasTokens: false,
   });
 
-  const [tokens, setTokens] = useState<WhoopTokens>({
+  const [tokens, setTokens] = useState<{
+    accessToken: string | null;
+    refreshToken: string | null;
+  }>({
     accessToken: null,
     refreshToken: null,
   });
 
-  const [expiresData, setExpiresData] = useState<WhoopExpiresData>({
+  const [expiresData, setExpiresData] = useState<{
+    expiresAt: Date | null;
+    updatedAt: Date | null;
+  }>({
     expiresAt: null,
     updatedAt: null,
   });
@@ -115,11 +107,11 @@ export const useWhoop = (integrationId?: string) => {
           }
         }
 
-        const [cycle, recovery, sleep, workout] = await Promise.all([
+        const [cycle, recovery, sleep, workouts] = await Promise.all([
           fetchWithAuth('cycle', currentAccessToken, refreshToken, integrationId),
           fetchWithAuth('recovery', currentAccessToken, refreshToken, integrationId),
           fetchWithAuth('sleep', currentAccessToken, refreshToken, integrationId),
-          fetchWithAuth('workout', currentAccessToken, refreshToken, integrationId),
+          fetchWithAuth('workouts', currentAccessToken, refreshToken, integrationId),
         ]);
 
         // Check if we have all required data
@@ -140,7 +132,7 @@ export const useWhoop = (integrationId?: string) => {
 
         setState(prev => ({
           ...prev,
-          stats: { cycle, sleep, recovery, workout: workout ?? [] },
+          data: { cycle, sleep, recovery, workouts: workouts ?? [] },
           loading: false,
           error: undefined,
         }));
@@ -174,6 +166,9 @@ export const useWhoop = (integrationId?: string) => {
     setRefreshAttempted(false);
   }, [tokens.accessToken]);
 
-  return state;
-};
-
+  return (
+    <WhoopContext.Provider value={state}>
+      {children}
+    </WhoopContext.Provider>
+  );
+}; 

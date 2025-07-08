@@ -1,6 +1,7 @@
-import { WhoopOverview } from "hooks/useWhoop";
-import { LineGraph } from "./";
-import { RecoveryLabel, RecoveryColor, WhoopColor } from "../types";
+import { useWhoop } from "hooks/useWhoopContext";
+import { RecoveryColor, RecoveryLabel, WhoopColor } from "../types";
+import { LineGraph } from ".";
+import { Loading } from "pages/Loading";
 
 const getRecoveryColor = (value: number): string => {
   const thresholds = [
@@ -18,20 +19,22 @@ const getRecoveryLabel = (value: number): string => {
   return RecoveryLabel.Low;
 };
 
-export const RecoveryCard: React.FC<{
-  recovery: WhoopOverview["recovery"] | undefined
-}> = ({ recovery }) => {
-  if (!recovery) return null;
+export const RecoveryCard = () => {
+  const { data, loading } = useWhoop();
 
-  const recoveryScore = recovery.score.recovery_score;
+  if (loading) return <Loading page="dashboard" component="whoop-card" rows={3} />
+
+  if (!data?.recovery) return null;
+
+  const recoveryScore = data.recovery.score.recovery_score;
 
   const recoveryColor = getRecoveryColor(recoveryScore);
   const recoveryLabel = getRecoveryLabel(recoveryScore);
 
-  const data: Record<string, string | number>[] = [
-    { name: "HRV", value: `${recovery.score.hrv_rmssd_milli.toFixed(0)}` },
-    { name: "RHR", value: `${recovery.score.resting_heart_rate}` },
-    { name: "SpO2", value: `${recovery.score.spo2_percentage.toFixed(1)}` },
+  const rows: Record<string, string | number>[] = [
+    { name: "HRV", value: `${data.recovery.score.hrv_rmssd_milli.toFixed(0)}` },
+    { name: "RHR", value: `${data.recovery.score.resting_heart_rate}` },
+    { name: "SpO2", value: `${data.recovery.score.spo2_percentage.toFixed(1)}` },
   ];
 
   return (
@@ -58,7 +61,7 @@ export const RecoveryCard: React.FC<{
       </div>
 
       <dl className="space-y-3">
-        {data.map((item, index) => (
+        {rows.map((item, index) => (
           <div key={index} className="flex justify-between">
             <dt className="text-sm font-medium text-gray-600">{item.name}</dt>
             <dd className="text-sm font-semibold text-gray-900">

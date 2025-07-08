@@ -1,10 +1,10 @@
-import { WhoopOverview } from "hooks/useWhoop";
-import { intervalToDuration } from "date-fns";
-import { WorkoutMetric, ZoneChart, ZoneLegend } from "./";
-import { SportMap } from "../const";
-import { ClockIcon, HeartIcon, BoltIcon, FireIcon, InformationCircleIcon } from "@heroicons/react/24/outline";
+import { BoltIcon, ClockIcon, FireIcon, HeartIcon, InformationCircleIcon } from "@heroicons/react/24/outline";
+import { intervalToDuration, isSameDay } from "date-fns";
+import { useWhoop } from "hooks/useWhoopContext";
 import { useState } from "react";
+import { SportMap } from "../const";
 import { WhoopColor, WorkoutMetricColor } from "../types";
+import { WorkoutMetric, ZoneChart, ZoneLegend } from ".";
 
 const formatDuration = (start: string, end: string): string => {
   const duration = intervalToDuration({
@@ -14,19 +14,29 @@ const formatDuration = (start: string, end: string): string => {
 
   const { hours = 0, minutes = 0, seconds = 0 } = duration;
 
-  return hours > 0 ? `${hours}:${minutes}:${seconds}` : `${minutes}:${seconds}`;
+  if (hours > 0) {
+    return `${hours}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+  }
+
+  return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 };
 
-export const WorkoutActivityCard: React.FC<{
-  workouts: WhoopOverview['workout'] | undefined
-}> = ({ workouts }) => {
+export const WorkoutActivityCard = () => {
+  const { data } = useWhoop();
+
   const [showZoneLegend, setShowZoneLegend] = useState(false);
 
-  if (workouts?.length === 0) return null;
+  if (data?.workouts?.length === 0) return null;
 
-  const sortedWorkouts = workouts?.sort((a, b) =>
-    new Date(b.start).getTime() - new Date(a.start).getTime()
-  ) ?? [];
+  const today = new Date();
+
+  const sortedWorkouts = data?.workouts
+    ?.filter(workout => isSameDay(new Date(workout.start), today))
+    .sort((a, b) =>
+      new Date(b.start).getTime() - new Date(a.start).getTime()
+    ) ?? [];
+
+  if (sortedWorkouts.length === 0) return null;
 
   return (
     <div className="rounded-lg bg-white shadow-xs ring-1 ring-gray-900/5 p-4 sm:p-6">

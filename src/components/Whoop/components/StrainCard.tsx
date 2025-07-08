@@ -1,6 +1,7 @@
-import { WhoopOverview } from "hooks/useWhoop";
-import { LineGraph } from "./";
+import { useWhoop } from "hooks/useWhoopContext";
 import { StrainLabel, WhoopColor } from "../types";
+import { LineGraph } from ".";
+import { Loading } from "pages/Loading";
 
 const getStrainLabel = (value: number): string => {
   const thresholds = [
@@ -13,13 +14,15 @@ const getStrainLabel = (value: number): string => {
   return thresholds.find(({ threshold }) => value >= threshold)?.label || StrainLabel.Light;
 };
 
-export const StrainCard: React.FC<{
-  cycle: WhoopOverview['cycle'] | undefined
-}> = ({ cycle }) => {
-  if (!cycle) return null;
+export const StrainCard = () => {
+  const { data, loading } = useWhoop();
+
+  if (loading) return <Loading page="dashboard" component="whoop-card" rows={3} />
+
+  if (!data?.cycle) return null;
 
   const strainColor = WhoopColor.Strain;
-  const strainLabel = getStrainLabel(cycle.score.strain);
+  const strainLabel = getStrainLabel(data.cycle.score.strain);
 
   return (
     <div className="rounded-lg bg-gray-50 shadow-xs ring-1 ring-gray-900/5 p-6">
@@ -37,7 +40,7 @@ export const StrainCard: React.FC<{
 
       <div className="mb-6">
         <LineGraph
-          value={cycle.score.strain}
+          value={data.cycle.score.strain}
           maxValue={21}
           color={strainColor}
         />
@@ -47,13 +50,13 @@ export const StrainCard: React.FC<{
         <div className="flex justify-between">
           <dt className="text-sm font-medium text-gray-600">Avg HR</dt>
           <dd className="text-sm font-semibold text-gray-900">
-            {cycle.score.average_heart_rate} bpm
+            {data.cycle.score.average_heart_rate} bpm
           </dd>
         </div>
         <div className="flex justify-between">
           <dt className="text-sm font-medium text-gray-600">Max HR</dt>
           <dd className="text-sm font-semibold text-gray-900">
-            {cycle.score.max_heart_rate} bpm
+            {data.cycle.score.max_heart_rate} bpm
           </dd>
         </div>
       </dl>

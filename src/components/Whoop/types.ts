@@ -1,3 +1,5 @@
+import { Cycle, Recovery, Sleep, Workout } from "types";
+
 export enum WhoopColor {
   CTA = "#00F19F",
   Strain = "#0093E7",
@@ -48,11 +50,18 @@ export enum ZoneColor {
   Zone5 = RecoveryColor.Low,
 }
 
-export interface ZoneDuration {
-  zone_zero_milli: number;
-  zone_one_milli: number;
-  zone_two_milli: number;
-  zone_three_milli: number;
-  zone_four_milli: number;
-  zone_five_milli: number;
+export type ZoneDuration = Workout['score']['zone_duration']
+
+export interface WhoopState {
+  data: WhoopOverview | null;
+  loading: boolean;
+  error?: Error;
+  hasTokens: boolean;
+}
+
+export interface WhoopOverview {
+  cycle: Cycle;
+  sleep: Sleep;
+  recovery: Recovery;
+  workouts: Workout[];
 }
