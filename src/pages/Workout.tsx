@@ -223,8 +223,8 @@ export const Workout = () => {
           {/* Right Column - Exercise Items */}
           <div className="w-full lg:max-w-2xl lg:flex-auto lg:mt-16 lg:pb-20">
             <section className="space-y-6 divide-y divide-gray-300">
-              {workoutItems.map((item, index) => (
-                <WorkoutItem key={item.id} item={item} isFirst={index === 0} />
+              {workoutItems.map((item) => (
+                <WorkoutItem key={item.id} item={item} />
               ))}
             </section>
 
@@ -239,7 +239,8 @@ export const Workout = () => {
             >
               <div className='flex items-center justify-center gap-2'>
                 {workoutStatus === WorkoutStatus.COMPLETED && <CheckCircleIcon className="h-5 w-5" aria-hidden="true" />}
-                {isCompleted ? `Workout ${workoutStatus}` : canFinishCycle ? 'Finish Cycle' : 'Mark as Complete'}
+                {isCompleted ? `Workout ${workoutStatus}` : 'Mark as Complete'}
+                {!isCompleted && canFinishCycle && 'Finish Cycle'}
               </div>
             </ButtonGroup>
           </div>

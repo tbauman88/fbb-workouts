@@ -1,7 +1,5 @@
 import { useNavigate } from 'react-router-dom'
 import { useDashboard } from '../hooks/useDashboard'
-import { useAuth } from '../hooks/useAuth'
-import { useEffect } from 'react'
 import {
   CurrentProgramCard,
   CurrentWorkoutCard,
@@ -15,12 +13,6 @@ import { WorkoutActivityCard } from '../components/Whoop/components/WorkoutActiv
 
 export const Dashboard = () => {
   const navigate = useNavigate()
-  const { user } = useAuth()
-
-  useEffect(() => {
-    if (!user?.is_guest) return;
-    navigate('/workouts/107')
-  }, [user])
 
   const { currentProgram, currentWorkout, cycleProgression, programs, userCycle, loading } = useDashboard()
 

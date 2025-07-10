@@ -1,11 +1,9 @@
 import { useCallback, useState } from 'react'
 import { WorkoutItemFragment } from 'generated/graphql'
 import marked from '../../markedConfig'
-import { useAuth } from 'hooks/useAuth'
 import { Exercises } from './Exercises'
 import { Score } from './Score'
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline'
-import { CheckCircleIcon } from '@heroicons/react/24/solid'
 
 const Header = ({ header }: { header: string | null | undefined }) =>
   header && (
@@ -31,7 +29,6 @@ const Notes = ({ notes }: { notes: string | null | undefined }) =>
   )
 
 export const WorkoutItem: React.FC<{ item: WorkoutItemFragment }> = ({ item }) => {
-  const { user } = useAuth()
   const [isCollapsed, setIsCollapsed] = useState(false)
   const [isCompleted, setIsCompleted] = useState(false)
 
@@ -43,19 +40,6 @@ export const WorkoutItem: React.FC<{ item: WorkoutItemFragment }> = ({ item }) =
     if (!canCollapse) return
     setIsCollapsed(prev => !prev)
   }, [canCollapse])
-
-  if (user?.is_guest) {
-    return (
-      <article className="py-6 lg:py-8 transition-all duration-200">
-        <div className="space-y-3">
-          <Header header={item.header} />
-          <Title title={item.title} />
-          <Exercises details={item.exercise_details} />
-          <Notes notes={item.notes} />
-        </div>
-      </article>
-    )
-  }
 
   return (
     <article className="py-6 lg:py-8 transition-all duration-300 mb-0">
