@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "dev": "concurrently \"npm run start --prefix api\" \"vite\"",
+    "dev": "vite",
     "preview": "vite preview",
     "build": "tsc && vite build",
     "codegen": "graphql-codegen --config codegen.ts",
