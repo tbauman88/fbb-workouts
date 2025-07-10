@@ -14,8 +14,6 @@ export const postWebhook = async (req: Request, res: Response): Promise<any> => 
   const HASURA_WEBHOOK_URL = process.env.HASURA_WEBHOOK_URL;
   const HASURA_ADMIN_SECRET = process.env.HASURA_ADMIN_SECRET;
 
-  const WHOOP_INTEGRATION_ID = '72ff3642-bbd5-48f9-951e-8fe2a0e4b43f';
-
   if (!HASURA_WEBHOOK_URL || !HASURA_ADMIN_SECRET) {
     res.status(500).json({ error: "Hasura configuration missing" });
     return;
@@ -36,7 +34,6 @@ export const postWebhook = async (req: Request, res: Response): Promise<any> => 
       body: JSON.stringify({
         object: {
           event: req.body.type,
-          integration_id: WHOOP_INTEGRATION_ID,
           payload: req.body,
           processed: false,
         }

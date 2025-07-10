@@ -19,43 +19,43 @@ export default {
           950: '#042f2e'
         },
         secondary: {
-          50: '#f0f4ff',
-          100: '#e0eaff',
-          200: '#c7d8ff',
-          300: '#a5bdff',
-          400: '#8497ff',
-          500: '#7e8fbf', // Main periwinkle blue
-          600: '#6366f1',
-          700: '#5145cd',
-          800: '#4338ca',
-          900: '#3730a3',
-          950: '#1e1b4b'
+          50: '#f1f4fd',
+          100: '#e6ecfb',
+          200: '#d1dcf6',
+          300: '#b3c3ef',
+          400: '#8fa3e5',
+          500: '#536daa', // Main blue
+          600: '#485f96',
+          700: '#3e4e7a',
+          800: '#364166',
+          900: '#303754',
+          950: '#1f2135'
         },
         accent: {
-          50: '#f6fdf4',
-          100: '#e8fce4',
-          200: '#d2f8ca',
-          300: '#adf0a1',
-          400: '#7ee370',
-          500: '#87bf7e', // Main sage green
-          600: '#4ade80',
-          700: '#22c55e',
-          800: '#16a34a',
-          900: '#15803d',
-          950: '#052e16'
+          50: '#f0fdfd',
+          100: '#ccfbfb',
+          200: '#9af6f7',
+          300: '#5eeaec',
+          400: '#2dd4d7',
+          500: '#54aeb3', // Main teal
+          600: '#3d8c91',
+          700: '#337075',
+          800: '#2d5a5e',
+          900: '#294a4f',
+          950: '#162e30'
         },
         tertiary: {
-          50: '#f8f6f4',
-          100: '#f0ebe6',
-          200: '#e0d5ca',
-          300: '#cdb8a8',
-          400: '#b59688',
-          500: '#8e5546', // Main brown - less muddy
-          600: '#7a4737',
-          700: '#653a2e',
-          800: '#54312a',
-          900: '#472a25',
-          950: '#251512'
+          50: '#f6f5f9',
+          100: '#efecf4',
+          200: '#e1dcea',
+          300: '#cdc1db',
+          400: '#b49ec7',
+          500: '#6d5190', // Main purple
+          600: '#5e4678',
+          700: '#4f3a63',
+          800: '#433253',
+          900: '#3a2d46',
+          950: '#251a2e'
         },
         neutral: {
           50: '#ffffff',
@@ -69,6 +69,13 @@ export default {
           800: '#1f2937',
           900: '#111827',
           950: '#030712'
+        },
+        whoop: {
+          recovery: '#67AEE6',
+          high: '#16EC06',
+          moderate: '#FFDE00',
+          low: '#FF0026',
+          sleep: '#7BA1BB'
         }
       },
       fontFamily: {
@@ -193,6 +200,9 @@ export default {
         },
         '.gradient-accent': {
           background: `linear-gradient(135deg, ${theme('colors.accent.500')}, ${theme('colors.accent.600')})`
+        },
+        '.gradient-whoop': {
+          background: 'linear-gradient(135deg, #283339, #101518)'
         }
       })
     }

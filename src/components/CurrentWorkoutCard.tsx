@@ -1,8 +1,8 @@
-import { Loading } from '../pages/Loading'
+import { CurrentWorkout } from 'hooks/useDashboard'
+import { Loading } from 'pages/Loading'
 import { Badge } from './Badge'
-import { WorkoutStatusBadge } from './WorkoutStatusBadge'
 import { TimelineItem } from './TimelineItem'
-import { CurrentWorkout } from '../hooks/useDashboard'
+import { WorkoutStatusBadge } from './WorkoutStatusBadge'
 
 type CurrentWorkoutCardProps = {
   currentWorkout: CurrentWorkout | null
@@ -18,7 +18,7 @@ export const CurrentWorkoutCard = ({ currentWorkout, onClick, loading }: Current
   return (
     <div className="workout-card -mx-4 sm:mx-0 lg:col-span-2 lg:row-span-2 lg:row-end-2">
       <dl className="flex flex-wrap">
-        <div className="flex-auto pl-6 pb-6 mt-6 border-b border-neutral-200">
+        <div className="flex-auto pl-6 pb-8 mt-2 border-b border-neutral-200">
           <dt className="text-sm font-semibold leading-6 text-neutral-900 uppercase">Daily Training:</dt>
           <dd className="mt-1 text-base font-semibold leading-6 text-neutral-900">{currentWorkout?.title}</dd>
 
@@ -42,7 +42,7 @@ export const CurrentWorkoutCard = ({ currentWorkout, onClick, loading }: Current
         </ul>
       </dl>
 
-      <div className="mt-6 border-t border-neutral-200 px-6 py-6">
+      <div className="mt-6 border-t border-neutral-200 px-6 pt-6">
         <a
           onClick={() => onClick(currentWorkout.id)}
           className="text-sm font-semibold leading-6 text-neutral-900 cursor-pointer hover:text-primary-600 transition-colors focus-ring interactive"

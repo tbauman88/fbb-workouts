@@ -1,4 +1,4 @@
-import { useGetCurrentUserCycleQuery } from '../generated/graphql'
+import { useGetCurrentUserCycleQuery } from 'generated/graphql'
 
 export const useUserCycle = (userId: string) => {
   const { data, loading, error } = useGetCurrentUserCycleQuery({

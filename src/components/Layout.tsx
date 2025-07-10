@@ -1,12 +1,12 @@
-import React, { useMemo } from 'react'
-import { Outlet } from 'react-router-dom'
-import { Link, useLocation } from 'react-router-dom'
-import { useAuth } from '../hooks/useAuth'
-import { Logo } from './'
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import { Role } from '../types'
-import { CheckUserCredentialsQuery } from '../generated/graphql'
+import { CheckUserCredentialsQuery, useGetWhoopDataQuery } from 'generated/graphql'
+import { useAuth } from 'hooks/useAuth'
+import React, { useMemo } from 'react'
+import { Link, Outlet, useLocation } from 'react-router-dom'
+import { Role } from 'types'
+import { Logo } from './'
+import { WhoopProvider } from '../contexts/WhoopContext'
 
 type User = CheckUserCredentialsQuery['users'][number] | null
 
@@ -191,18 +191,25 @@ const Header = ({ user, onClick, isAdmin }: { user: User; onClick: () => void; i
 export const Layout: React.FC<{ role: Role }> = ({ role }) => {
   const { user, logout } = useAuth()
 
-  return (
-    <div className="min-h-full">
-      <Header user={user} onClick={logout} isAdmin={role === Role.ADMIN} />
+  const { data } = useGetWhoopDataQuery({
+    skip: !user?.id,
+    variables: { userId: String(user?.id) }
+  })
 
-      <main className="-mt-32">
-        <div className="mx-auto max-w-full lg:px-16">
-          <div className="rounded-lg bg-neutral-50 py-6 sm:px-6">
-            <Outlet />
+  return (
+    <WhoopProvider integrationId={data?.integrations?.[0]?.id}>
+      <div className="min-h-full">
+        <Header user={user} onClick={logout} isAdmin={role === Role.ADMIN} />
+
+        <main className="-mt-32">
+          <div className="mx-auto max-w-full lg:px-16">
+            <div className="rounded-lg bg-neutral-50 py-6 sm:px-6">
+              <Outlet />
+            </div>
           </div>
-        </div>
-      </main>
-    </div>
+        </main>
+      </div>
+    </WhoopProvider>
   )
 }
 

@@ -1,5 +1,5 @@
-import { createContext, useState, useContext } from 'react'
-import { useCheckUserCredentialsLazyQuery, CheckUserCredentialsQuery } from '../generated/graphql'
+import { createContext, useContext, useState } from 'react'
+import { CheckUserCredentialsQuery, useCheckUserCredentialsLazyQuery } from 'generated/graphql'
 
 type User = CheckUserCredentialsQuery['users'][number] | null
 

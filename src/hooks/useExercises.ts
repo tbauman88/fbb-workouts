@@ -1,5 +1,5 @@
 import { QueryResult } from "@apollo/client"
-import { GetExercisesQuery, useGetExercisesQuery } from "../generated/graphql"
+import { GetExercisesQuery, useGetExercisesQuery } from "generated/graphql"
 
 export type Exercise = GetExercisesQuery['exercises'][number]
 type ExerciseGroups = Record<string, Exercise[]>

@@ -1,7 +1,7 @@
-import { TimelineItem } from './'
-import { PastWorkout, UpcomingWorkout } from '../hooks/useWorkouts'
 import { ChevronDoubleRightIcon } from '@heroicons/react/16/solid'
 import { useNavigate } from 'react-router-dom'
+import { PastWorkout, UpcomingWorkout } from 'hooks/useWorkouts'
+import { TimelineItem } from './'
 
 export const WorkoutOverviewCard = ({
   workout,

@@ -1,8 +1,9 @@
-import { useState, useMemo } from 'react'
-import { marked } from 'marked'
-import { PlayCircleIcon } from '@heroicons/react/24/solid'
 import { ChevronDownIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
-import { ExerciseDetailsFragment } from '../generated/graphql'
+import { PlayCircleIcon } from '@heroicons/react/24/solid'
+import { ExerciseDetailsFragment } from 'generated/graphql'
+import { marked } from 'marked'
+import { useMemo, useState } from 'react'
+import { buildAndProxyImageUrl } from 'utils/imageProxy'
 
 interface ExerciseGroup {
   recommended: ExerciseDetailsFragment
@@ -82,9 +83,9 @@ const VideoSection: React.FC<{
   groupedExercises: ExerciseGroup[]
   selectedExercises: ExerciseSelectionState
 }> = ({ groupedExercises, selectedExercises }) => {
-  const navigateToVideo = (url: string | null | undefined) => {
+  const navigateToVideo = (url?: string | null) => {
     if (!url) return
-    window.open(url, 'newWindow', 'noopener,noreferrer,scrollbars=yes,resizable=yes')
+    window.open(url, '_blank')
   }
 
   return (
@@ -97,10 +98,13 @@ const VideoSection: React.FC<{
         // Include follow-ups after the selected exercise
         const visibleExercises = [selectedExercise, ...group.followUps].filter(Boolean) as ExerciseDetailsFragment[]
 
-        return visibleExercises.map(({ exercise }) => {
-          if (!exercise?.demo_video_poster) return null
+        return visibleExercises.map((exerciseDetail) => {
+          if (!exerciseDetail?.exercise?.demo_video_poster) return null
 
-          const videoUrl = `${exercise.base_url}${exercise.demo_video_poster}`
+          const exercise = exerciseDetail.exercise
+          if (!exercise) return null
+
+          const videoUrl = buildAndProxyImageUrl(exercise.base_url || '', exercise.demo_video_poster)
 
           return (
             <div className="min-w-[300px] snap-start relative" key={`video-${exercise.id}`}>

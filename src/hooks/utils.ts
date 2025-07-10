@@ -1,6 +1,4 @@
-import { MuscleGroupFragment } from "../generated/graphql"
-
-
+import { MuscleGroupFragment } from "generated/graphql"
 
 export const filterMuscleGroups = (muscleGroups: MuscleGroupFragment[] | null | undefined) => {
   if (!muscleGroups) return []

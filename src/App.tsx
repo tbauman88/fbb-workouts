@@ -13,6 +13,7 @@ import { Workouts } from './pages/Workouts'
 import { Exercises } from './pages/Exercises'
 import { NotFound } from './pages/NotFound'
 import { Settings } from './pages/Settings'
+import { WhoopCallback } from './pages/WhoopCallback'
 
 const App = () => {
   const { isAuthenticated, user } = useAuth()
@@ -28,11 +29,15 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
+        {/* OAuth callback route - available to all users */}
+        <Route path="/auth/whoop/callback" element={<WhoopCallback />} />
+
         {isAuthenticated ? (
           <>
             {role === Role.ADMIN && (
               <>
                 <Route element={<Layout role={Role.ADMIN} />}>
+                  <Route path="/" element={<Dashboard />} />
                   <Route index element={<Dashboard />} />
                   <Route path="programs" element={<Program />} />
                   <Route path="programs/:id" element={<Program />} />
@@ -54,11 +59,18 @@ const App = () => {
                 <Route path="*" element={<Navigate to="/workouts/107" replace />} />
               </>
             )}
+
+            {/* Fallback for authenticated users while role is loading */}
+            {role === null && (
+              <Route path="*" element={<div className="min-h-screen bg-gray-50 flex items-center justify-center">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
+              </div>} />
+            )}
           </>
         ) : (
           <>
-            <Route path="*" element={<Navigate to="/login" replace />} />
             <Route path="/login" element={<Login />} />
+            <Route path="*" element={<Navigate to="/login" replace />} />
           </>
         )}
       </Routes>

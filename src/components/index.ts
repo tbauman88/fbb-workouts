@@ -19,3 +19,8 @@ export * from './WorkoutOverviewCard'
 export * from './WorkoutStatusBadge'
 export * from './Skeleton'
 export * from './SearchInput'
+
+// Whoop Components
+export * from './Whoop/components/RecoveryCard'
+export * from './Whoop/components/StrainCard'
+export * from './Whoop/components/SleepCard'
