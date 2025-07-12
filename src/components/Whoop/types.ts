@@ -42,12 +42,12 @@ export enum WorkoutMetricColor {
 }
 
 export enum ZoneColor {
-  Zone0 = "#e7e5e4",
-  Zone1 = WhoopColor.Sleep,
-  Zone2 = WhoopColor.Strain,
-  Zone3 = WhoopColor.CTA,
-  Zone4 = RecoveryColor.Default,
-  Zone5 = RecoveryColor.Low,
+  Zone0 = "#E8EDF2",
+  Zone1 = "#B9CBD6",
+  Zone2 = "#4DA1BF",
+  Zone3 = "#5DBB9D",
+  Zone4 = "#F9A450",
+  Zone5 = "FF5A00",
 }
 
 export type ZoneDuration = Workout['score']['zone_duration']
