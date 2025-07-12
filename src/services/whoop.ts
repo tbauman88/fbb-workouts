@@ -2,7 +2,7 @@ import axios from 'axios';
 import { endpoints, OAUTH_URL } from 'consts';
 import { useUpsertWhoopIntegrationMutation } from 'generated/graphql';
 import { config } from '../../environment';
-import { endOfDay, startOfDay } from 'date-fns';
+import { startOfDay, subDays } from 'date-fns';
 
 const isDevelopment = import.meta.env.DEV;
 
@@ -98,17 +98,13 @@ export const WhoopService = () => {
     try {
       console.log(`Fetching Whoop ${action} data...`);
 
-      const today = new Date()
-      const start = startOfDay(today).toISOString();
-      const end = endOfDay(today).toISOString();
-
-      const params = {
-        start,
-        end
-      }
+      const date = new Date();
+      const today = action === "workouts" ? subDays(date, 7) : date;
 
       const response = await axios.get(endpoints[action], {
-        params,
+        params: {
+          start: startOfDay(today).toISOString(),
+        },
         headers: {
           'Authorization': `Bearer ${accessToken}`,
           'Accept': 'application/json',
