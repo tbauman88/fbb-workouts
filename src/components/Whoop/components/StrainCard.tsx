@@ -14,6 +14,13 @@ const getStrainLabel = (value: number): string => {
   return thresholds.find(({ threshold }) => value >= threshold)?.label || StrainLabel.Light;
 };
 
+function estimateStrainTarget(recovery: number, sleep: number): { min: number; max: number } {
+  if (recovery >= 80 && sleep >= 85) return { min: 14.0, max: 18.0 };
+  if (recovery >= 60 && sleep >= 75) return { min: 10.0, max: 14.0 };
+  if (recovery >= 40 && sleep >= 65) return { min: 7.0, max: 10.0 };
+  return { min: 4.0, max: 7.0 };
+}
+
 export const StrainCard = () => {
   const { data, loading } = useWhoop();
 
@@ -23,6 +30,14 @@ export const StrainCard = () => {
 
   const strainColor = WhoopColor.Strain;
   const strainLabel = getStrainLabel(data.cycle.score.strain);
+
+  const strainTarget = estimateStrainTarget(data.recovery.score.recovery_score, data.sleep.score.sleep_efficiency_percentage);
+
+  const rows: Record<string, string> = {
+    Target: `${strainTarget.min}-${strainTarget.max}`,
+    'Avg HR': `${data.cycle.score.average_heart_rate} bpm`,
+    'Max HR': `${data.cycle.score.max_heart_rate} bpm`,
+  };
 
   return (
     <div className="rounded-lg bg-gray-50 shadow-xs ring-1 ring-gray-900/5 p-6">
@@ -42,23 +57,18 @@ export const StrainCard = () => {
         <LineGraph
           value={data.cycle.score.strain}
           maxValue={21}
+          targetRange={strainTarget}
           color={strainColor}
         />
       </div>
 
       <dl className="space-y-3">
-        <div className="flex justify-between">
-          <dt className="text-sm font-medium text-gray-600">Avg HR</dt>
-          <dd className="text-sm font-semibold text-gray-900">
-            {data.cycle.score.average_heart_rate} bpm
-          </dd>
-        </div>
-        <div className="flex justify-between">
-          <dt className="text-sm font-medium text-gray-600">Max HR</dt>
-          <dd className="text-sm font-semibold text-gray-900">
-            {data.cycle.score.max_heart_rate} bpm
-          </dd>
-        </div>
+        {Object.entries(rows).map(([key, value]) => (
+          <div className="flex justify-between">
+            <dt className="text-sm font-medium text-gray-600">{key}</dt>
+            <dd className="text-sm font-semibold text-gray-900">{value}</dd>
+          </div>
+        ))}
       </dl>
     </div>
   );

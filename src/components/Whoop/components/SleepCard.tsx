@@ -2,16 +2,15 @@ import { useWhoop } from "hooks/useWhoopContext";
 import { LineGraph } from ".";
 import { SleepLabel, WhoopColor } from "../types";
 import { Loading } from "pages/Loading";
+import { intervalToDuration } from "date-fns";
 
 const formatMillisecondsToHours = (milliseconds: number): string => {
-  const hours = milliseconds / (1000 * 60 * 60);
-  const wholeHours = Math.floor(hours);
-  const minutes = Math.round((hours - wholeHours) * 60);
+  const duration = intervalToDuration({ start: 0, end: milliseconds });
 
-  if (wholeHours === 0) return `${minutes}m`;
-  if (minutes === 0) return `${wholeHours}h`;
+  const hours = duration.hours ?? 0;
+  const minutes = duration.minutes ?? 0;
 
-  return `${wholeHours}h ${minutes}m`;
+  return `${hours}:${minutes.toString().padStart(2, '0')}`;
 };
 
 const getSleepLabel = (value: number): string => {

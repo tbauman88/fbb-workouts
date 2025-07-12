@@ -1,5 +1,5 @@
 import { BoltIcon, ClockIcon, FireIcon, HeartIcon, InformationCircleIcon } from "@heroicons/react/24/outline";
-import { intervalToDuration, isSameDay } from "date-fns";
+import { format, intervalToDuration } from "date-fns";
 import { useWhoop } from "hooks/useWhoopContext";
 import { useState } from "react";
 import { SportMap } from "../const";
@@ -28,10 +28,7 @@ export const WorkoutActivityCard = () => {
 
   if (data?.workouts?.length === 0) return null;
 
-  const today = new Date();
-
   const sortedWorkouts = data?.workouts
-    ?.filter(workout => isSameDay(new Date(workout.start), today))
     .sort((a, b) =>
       new Date(b.start).getTime() - new Date(a.start).getTime()
     ) ?? [];
@@ -39,10 +36,10 @@ export const WorkoutActivityCard = () => {
   if (sortedWorkouts.length === 0) return null;
 
   return (
-    <div className="rounded-lg bg-white shadow-xs ring-1 ring-gray-900/5 p-4 sm:p-6">
+    <div className="rounded-lg bg-white shadow-xs ring-1 ring-gray-900/5 p-4 md:p-6">
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-sm font-semibold leading-6 text-gray-900 uppercase">
-          Today's Activities
+          Recent Activities
         </h3>
         <button
           onClick={() => setShowZoneLegend(prev => !prev)}
@@ -56,9 +53,8 @@ export const WorkoutActivityCard = () => {
         </button>
       </div>
 
-      <div className="space-y-4 sm:space-y-6">
+      <div className="space-y-4 md:space-y-6">
         {sortedWorkouts.map((workout) => {
-          const strainColor = WhoopColor.Strain;
           const duration = formatDuration(workout.start, workout.end);
           const activityName = SportMap[workout.sport_id] || "Activity";
 
@@ -69,12 +65,15 @@ export const WorkoutActivityCard = () => {
               <div className="flex items-start gap-3">
                 <div className="flex-1 min-w-0">
                   <div className="w-full">
-                    <div className="flex flex-col sm:flex-row sm:items-end gap-3 sm:gap-4 mb-4 sm:justify-between">
-                      <div className="flex flex-col" style={{ color: strainColor }}>
-                        <span className="text-3xl font-bold">{workout.score.strain.toFixed(1)}</span>
-                        <span className="text-sm sm:text-base font-medium uppercase">{activityName}</span>
-                      </div>
-                      <section className="grid grid-cols-2 sm:flex gap-2 sm:gap-6">
+                    <section className="flex flex-col md:flex-row md:items-end gap-3 md:gap-4 mb-4 md:justify-between">
+                      <section className="flex flex-col">
+                        <span className="text-3xl font-bold" style={{ color: WhoopColor.Strain }}>{workout.score.strain.toFixed(1)}</span>
+                        <span className="text-sm md:text-base font-medium uppercase" style={{ color: WhoopColor.Strain }}>{activityName}</span>
+                        <span className="text-sm font-base text-gray-500">
+                          {format(new Date(workout.start), 'EEE MMM. do • HH:mm')}
+                        </span>
+                      </section>
+                      <section className="grid grid-cols-2 md:flex gap-2 md:gap-6">
                         <WorkoutMetric
                           icon={ClockIcon}
                           color={WorkoutMetricColor.Duration}
@@ -99,7 +98,7 @@ export const WorkoutActivityCard = () => {
                           label="Calories"
                         />
                       </section>
-                    </div>
+                    </section>
 
                     <div className="space-y-3">
                       <ZoneChart zoneDurations={workout.score.zone_duration} />
@@ -112,6 +111,6 @@ export const WorkoutActivityCard = () => {
           );
         })}
       </div>
-    </div>
+    </div >
   );
 }; 
