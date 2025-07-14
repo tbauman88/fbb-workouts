@@ -15,6 +15,8 @@ export const CurrentWorkoutCard = ({ currentWorkout, onClick, loading }: Current
     return <Loading page="dashboard" component="current-workout-card" />
   }
 
+  const isRestDay = currentWorkout.isRestDay || currentWorkout.isActiveRecovery;
+
   return (
     <div className="workout-card -mx-4 sm:mx-0 lg:col-span-2 lg:row-span-2 lg:row-end-2">
       <dl className="flex flex-wrap">
@@ -29,13 +31,15 @@ export const CurrentWorkoutCard = ({ currentWorkout, onClick, loading }: Current
           </div>
         </div>
 
-        <div className="flex-none self-end px-6 pt-4 pb-6 mt-6 border-b border-neutral-200">
-          <dt className="sr-only">Is Rest Day?</dt>
-          <WorkoutStatusBadge
-            isActiveRecovery={currentWorkout.isActiveRecovery}
-            isRestDay={currentWorkout.isRestDay}
-          />
-        </div>
+        {isRestDay && (
+          <div className="flex-none self-end px-6 pt-4 pb-6 mt-6 border-b border-neutral-200">
+            <dt className="sr-only">Is Rest Day?</dt>
+            <WorkoutStatusBadge
+              isActiveRecovery={currentWorkout.isActiveRecovery}
+              isRestDay={currentWorkout.isRestDay}
+            />
+          </div>
+        )}
 
         <ul role="list" className="mt-6 space-y-4 px-6 w-full">
           {currentWorkout.items.map((item, index) => <TimelineItem key={`${item.id}-${index}`} item={item} />)}
