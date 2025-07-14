@@ -176,6 +176,10 @@ export const Workout = () => {
       }
 
       setWorkoutStatus(status)
+
+      if (status === WorkoutStatus.COMPLETED) {
+        navigate('/')
+      }
     } catch (err) {
       console.error('Error completing workout:', err)
     }

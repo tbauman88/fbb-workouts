@@ -1,23 +1,6 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
 import crypto from 'crypto';
 
-/**
- * IMPORTANT: Before this webhook can receive events, you must register it with Whoop:
- * 
- * 1. Go to https://developer.whoop.com
- * 2. Navigate to your app settings
- * 3. Add webhook URL: https://bauman-lift.vercel.app/api/webhook
- * 4. Subscribe to desired events (workout.updated, recovery.updated, etc.)
- * 
- * Or use the Whoop API to register programmatically:
- * POST https://api.prod.whoop.com/developer/v2/webhook
- * Headers: Authorization: Bearer YOUR_ACCESS_TOKEN
- * Body: {
- *   "url": "https://bauman-lift.vercel.app/api/webhook",
- *   "enabled": true
- * }
- */
-
 enum WHOOP_EVENT_TYPES {
   RECOVERY_UPDATED = 'recovery.updated',
   RECOVERY_DELETED = 'recovery.deleted',
