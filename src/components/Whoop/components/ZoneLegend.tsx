@@ -1,9 +1,9 @@
 import React from 'react';
 import { formatMillisecondsToTime, ZONE_DATA } from '../const';
-import { ZoneDuration } from '../types';
+import { ZoneDurations } from '../types';
 
 export const ZoneLegend: React.FC<{
-  zoneDurations: ZoneDuration
+  zoneDurations: ZoneDurations
 }> = ({ zoneDurations }) => {
   const zoneData = [
     { zone: 0, duration: zoneDurations.zone_zero_milli },

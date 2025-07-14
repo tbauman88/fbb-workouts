@@ -12,12 +12,11 @@ const OAUTH_URL = isDevelopment ? '/api/whoop-oauth' : 'https://bauman-lift.verc
 
 if (isDevelopment) {
   // Development: Use Vite proxy (same as before)
-
   endpoints = {
-    cycle: `${BASE_API_URL}/developer/v1/cycle`,
-    sleep: `${BASE_API_URL}/developer/v1/activity/sleep`,
-    recovery: `${BASE_API_URL}/developer/v1/recovery`,
-    workouts: `${BASE_API_URL}/developer/v1/activity/workout`,
+    cycle: `${BASE_API_URL}/developer/v2/cycle`,
+    sleep: `${BASE_API_URL}/developer/v2/activity/sleep`,
+    recovery: `${BASE_API_URL}/developer/v2/recovery`,
+    workouts: `${BASE_API_URL}/developer/v2/activity/workout`,
   };
 } else {
   // Production: Use serverless functions

@@ -10,7 +10,7 @@ import crypto from 'crypto';
  * 4. Subscribe to desired events (workout.updated, recovery.updated, etc.)
  * 
  * Or use the Whoop API to register programmatically:
- * POST https://api.prod.whoop.com/developer/v1/webhook
+ * POST https://api.prod.whoop.com/developer/v2/webhook
  * Headers: Authorization: Bearer YOUR_ACCESS_TOKEN
  * Body: {
  *   "url": "https://bauman-lift.vercel.app/api/webhook",

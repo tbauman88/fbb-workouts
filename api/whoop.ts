@@ -1,7 +1,7 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
 import axios from 'axios';
 
-const WHOOP_API_BASE = 'https://api.prod.whoop.com/developer/v1';
+const WHOOP_API_BASE = 'https://api.prod.whoop.com/developer/v2';
 
 // Helper function to handle WHOOP API requests
 async function handleWhoopRequest(endpoint: string, accessToken: string) {

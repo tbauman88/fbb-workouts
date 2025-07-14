@@ -1,7 +1,7 @@
 import { BoltIcon, ClockIcon, FireIcon, HeartIcon, InformationCircleIcon } from "@heroicons/react/24/outline";
 import { format, intervalToDuration } from "date-fns";
 import { useWhoop } from "hooks/useWhoopContext";
-import { useState } from "react";
+import { ComponentType, useState } from "react";
 import { SportMap } from "../const";
 import { WhoopColor, WorkoutMetricColor } from "../types";
 import { WorkoutMetric, ZoneChart, ZoneLegend } from ".";
@@ -55,10 +55,45 @@ export const WorkoutActivityCard = () => {
 
       <div className="space-y-4 md:space-y-6">
         {sortedWorkouts.map((workout) => {
-          const duration = formatDuration(workout.start, workout.end);
-          const activityName = SportMap[workout.sport_id] || "Activity";
+          if (!workout.score) return null;
 
+          const duration = formatDuration(workout.start, workout.end);
+          const activityName = SportMap[workout.sport_id ?? 0] || "Activity";
           const caloriesBurned = Math.round(workout.score.kilojoule / 4.184);
+
+          const rows: Record<string, {
+            icon: ComponentType;
+            value: string | number;
+            color: string;
+            label: string;
+          }> = {
+            'Duration': {
+              icon: ClockIcon,
+              value: duration,
+              color: WorkoutMetricColor.Duration,
+              label: 'Duration',
+            },
+            'Avg HR': {
+              icon: HeartIcon,
+              value: workout.score.average_heart_rate,
+              color: WorkoutMetricColor.HeartRate,
+              label: 'Avg HR',
+            },
+            'Max HR': {
+              icon: BoltIcon,
+              value: workout.score.max_heart_rate,
+              color: WorkoutMetricColor.MaxHeartRate,
+              label: 'Max HR',
+            },
+            'Calories': {
+              icon: FireIcon,
+              value: caloriesBurned,
+              color: WorkoutMetricColor.Calories,
+              label: 'Calories',
+            },
+          };
+
+          console.log(workout.score.zone_durations);
 
           return (
             <div key={workout.id} className="relative">
@@ -74,35 +109,21 @@ export const WorkoutActivityCard = () => {
                         </span>
                       </section>
                       <section className="grid grid-cols-2 md:flex gap-2 md:gap-6">
-                        <WorkoutMetric
-                          icon={ClockIcon}
-                          color={WorkoutMetricColor.Duration}
-                          value={duration}
-                        />
-                        <WorkoutMetric
-                          icon={HeartIcon}
-                          value={workout.score.average_heart_rate}
-                          color={WorkoutMetricColor.HeartRate}
-                          label="Avg HR"
-                        />
-                        <WorkoutMetric
-                          icon={BoltIcon}
-                          value={workout.score.max_heart_rate}
-                          color={WorkoutMetricColor.MaxHeartRate}
-                          label="Max HR"
-                        />
-                        <WorkoutMetric
-                          icon={FireIcon}
-                          value={caloriesBurned}
-                          color={WorkoutMetricColor.Calories}
-                          label="Calories"
-                        />
+                        {Object.entries(rows).map(([key, value]) => (
+                          <WorkoutMetric
+                            key={key}
+                            icon={value.icon}
+                            value={value.value}
+                            color={value.color}
+                            label={value.label}
+                          />
+                        ))}
                       </section>
                     </section>
 
                     <div className="space-y-3">
-                      <ZoneChart zoneDurations={workout.score.zone_duration} />
-                      {showZoneLegend && <ZoneLegend zoneDurations={workout.score.zone_duration} />}
+                      <ZoneChart zoneDurations={workout.score.zone_durations} />
+                      {showZoneLegend && <ZoneLegend zoneDurations={workout.score.zone_durations} />}
                     </div>
                   </div>
                 </div>
@@ -110,7 +131,7 @@ export const WorkoutActivityCard = () => {
             </div>
           );
         })}
-      </div>
+      </div >
     </div >
   );
 }; 
