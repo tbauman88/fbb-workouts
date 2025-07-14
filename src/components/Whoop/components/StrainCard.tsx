@@ -64,7 +64,7 @@ export const StrainCard = () => {
 
       <dl className="space-y-3">
         {Object.entries(rows).map(([key, value]) => (
-          <div className="flex justify-between">
+          <div className="flex justify-between" key={key}>
             <dt className="text-sm font-medium text-gray-600">{key}</dt>
             <dd className="text-sm font-semibold text-gray-900">{value}</dd>
           </div>
