@@ -32,7 +32,7 @@ export const RecoveryCard = () => {
   const recoveryLabel = getRecoveryLabel(recoveryScore);
 
   const rows: Record<string, string | number>[] = [
-    { name: "HRV", value: `${data.recovery.score.hrv_rmssd_milli.toFixed(0)}` },
+    { name: "HRV", value: `${Number(`${data.recovery.score.hrv_rmssd_milli}e+3`).toFixed(0)}` },
     { name: "RHR", value: `${data.recovery.score.resting_heart_rate}` },
     { name: "SpO2", value: `${data.recovery.score.spo2_percentage.toFixed(1)}` },
   ];
