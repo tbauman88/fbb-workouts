@@ -2,9 +2,9 @@ import { BoltIcon, ClockIcon, FireIcon, HeartIcon, InformationCircleIcon } from 
 import { format, intervalToDuration } from "date-fns";
 import { useWhoop } from "hooks/useWhoopContext";
 import { ComponentType, useState } from "react";
+import { WorkoutMetric, ZoneChart, ZoneLegend } from ".";
 import { SportMap } from "../const";
 import { WhoopColor, WorkoutMetricColor } from "../types";
-import { WorkoutMetric, ZoneChart, ZoneLegend } from ".";
 
 const formatDuration = (start: string, end: string): string => {
   const duration = intervalToDuration({
@@ -92,8 +92,6 @@ export const WorkoutActivityCard = () => {
               label: 'Calories',
             },
           };
-
-          console.log(workout.score.zone_durations);
 
           return (
             <div key={workout.id} className="relative">
