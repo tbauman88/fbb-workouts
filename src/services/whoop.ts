@@ -104,7 +104,7 @@ export const WhoopService = () => {
       const response = await axios.get(endpoints[action], {
         params: {
           start: startOfDay(today).toISOString(),
-          end: endOfDay(today).toISOString(),
+          end: endOfDay(date).toISOString(),
         },
         headers: {
           'Authorization': `Bearer ${accessToken}`,

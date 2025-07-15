@@ -81,7 +81,7 @@ export enum WorkoutMetricColor {
   /** Color for workout duration displays */
   Duration = WhoopColor.Strain,
   /** Color for calorie/energy expenditure (kilojoule) displays */
-  Calories = "FA8128",
+  Calories = "#FA8128",
   /** Color for average heart rate displays */
   HeartRate = RecoveryColor.Low,
   /** Color for maximum heart rate displays */
