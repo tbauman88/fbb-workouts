@@ -1,8 +1,13 @@
-import { Skeleton } from '../components'
+import { Skeleton } from 'components'
 
 interface LoadingProps {
   page: 'dashboard' | 'exercises' | 'programs' | 'workouts' | 'workout'
-  component?: 'current-program-card' | 'current-workout-card' | 'programs-list' | 'whoop-card'
+  component?:
+  | 'current-program-card'
+  | 'current-workout-card'
+  | 'programs-list'
+  | 'whoop-card'
+  | 'workout-activity-card'
   rows?: number
 }
 
@@ -19,6 +24,51 @@ const WhoopCardLoading = ({ rows }: { rows: number }) => {
         <div className="space-y-3">
           {Array.from({ length: rows }).map((_, index) => (
             <div key={`row-${index}`} className="h-4 bg-gray-200 rounded"></div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+const WorkoutActivityCardLoading = ({ rows = 2 }: { rows?: number } = {}) => {
+  return (
+    <div className="rounded-lg bg-white shadow-xs ring-1 ring-gray-900/5 p-4 md:p-6">
+      <div className="animate-pulse">
+        <div className="flex items-center justify-between mb-4">
+          <div className="h-4 bg-gray-200 rounded w-32"></div>
+        </div>
+
+        <div className="space-y-4 md:space-y-6">
+          {Array.from({ length: rows }).map((_, index) => (
+            <div key={`workout-${index}`} className="relative">
+              <div className="flex items-start gap-3">
+                <div className="flex-1 min-w-0">
+                  <div className="w-full">
+                    <section className="flex flex-col md:flex-row md:items-end gap-3 md:gap-4 mb-4 md:justify-between">
+                      <section className="flex flex-col">
+                        <div className="h-9 bg-gray-200 rounded w-16 mb-2"></div>
+                        <div className="h-4 bg-gray-200 rounded w-20 mb-2"></div>
+                        <div className="h-3 bg-gray-200 rounded w-32"></div>
+                      </section>
+
+                      <section className="grid grid-cols-2 md:flex gap-2 md:gap-6">
+                        {Array.from({ length: 4 }).map((_, metricIndex) => (
+                          <div key={`metric-${index}-${metricIndex}`} className="flex flex-row items-center gap-1">
+                            <div className="h-4 w-4 bg-gray-200 rounded"></div>
+                            <div className="h-4 w-24 bg-gray-200 rounded"></div>
+                          </div>
+                        ))}
+                      </section>
+                    </section>
+
+                    <div className="space-y-3">
+                      <div className="h-4 bg-gray-200 rounded w-full"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           ))}
         </div>
       </div>
@@ -236,7 +286,8 @@ export const Loading: React.FC<LoadingProps> = ({ page, component, rows }) => {
     'current-program-card': <LoadingCurrentProgramCard />,
     'current-workout-card': <LoadingCurrentWorkoutCard />,
     'programs-list': <LoadingProgramsList />,
-    'whoop-card': <WhoopCardLoading rows={rows ?? 3} />
+    'whoop-card': <WhoopCardLoading rows={rows ?? 3} />,
+    'workout-activity-card': <WorkoutActivityCardLoading rows={rows ?? 2} />
   }
 
   if (page === 'dashboard' && component) {
