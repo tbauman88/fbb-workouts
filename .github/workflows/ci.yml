@@ -1,0 +1,115 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [main, feat/*]
+  pull_request:
+    branches: [main]
+
+env:
+  NODE_VERSION: 20
+
+jobs:
+  lint-and-test:
+    name: Lint and Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ESLint
+        run: npm run lint
+
+      - name: Check Prettier formatting
+        run: npx prettier --check .
+
+      - name: Run TypeScript type checking
+        run: npx tsc --noEmit
+
+      - name: Run tests
+        run: npm run test:coverage
+        env:
+          # Test environment variables (from jest.setup.ts)
+          WHOOP_CLIENT_SECRET: 'test-secret-key-for-webhook-signing'
+          HASURA_WEBHOOK_URL: 'https://test-hasura.com/webhook'
+          HASURA_ADMIN_SECRET: 'test-hasura-admin-secret'
+          WHOOP_CLIENT_ID: 'test-client-id'
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          file: ./coverage/lcov.info
+          flags: unittests
+          name: codecov-umbrella
+          fail_ci_if_error: false
+
+  build:
+    name: Build Application
+    runs-on: ubuntu-latest
+    needs: lint-and-test
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build application
+        run: npm run build
+        env:
+          VITE_HASURA_GRAPHQL_URL: ${{ secrets.HASURA_WEBHOOK_URL }}
+          VITE_HASURA_ADMIN_SECRET: ${{ secrets.HASURA_ADMIN_SECRET }}
+          VITE_WHOOP_CLIENT_ID: ${{ secrets.WHOOP_CLIENT_ID }}
+          VITE_WHOOP_CLIENT_SECRET: ${{ secrets.WHOOP_CLIENT_SECRET }}
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-files
+          path: dist/
+          retention-days: 7
+
+  api-lint-and-test:
+    name: API Lint and Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install root dependencies
+        run: npm ci
+
+      - name: Run API tests
+        run: npm test -- --testPathPatterns=api
+        env:
+          WHOOP_CLIENT_SECRET: ${{ secrets.WHOOP_CLIENT_SECRET }}
+          HASURA_WEBHOOK_URL: ${{ secrets.HASURA_WEBHOOK_URL }}
+          HASURA_ADMIN_SECRET: ${{ secrets.HASURA_ADMIN_SECRET }}
+          WHOOP_CLIENT_ID: ${{ secrets.WHOOP_CLIENT_ID }}
+
+      - name: Lint API files
+        run: npx eslint api --ext ts --report-unused-disable-directives --max-warnings 0
