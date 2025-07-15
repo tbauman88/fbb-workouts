@@ -1,6 +1,8 @@
 import { intervalToDuration } from "date-fns";
 import { ZoneColor } from "./types";
 
+export const CALORIES_PER_KJ = 4.184;
+
 export const formatMillisecondsToTime = (milliseconds: number): string => {
   const duration = intervalToDuration({
     start: 0,

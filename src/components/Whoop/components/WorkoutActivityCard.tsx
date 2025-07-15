@@ -1,9 +1,10 @@
 import { BoltIcon, ClockIcon, FireIcon, HeartIcon, InformationCircleIcon } from "@heroicons/react/24/outline";
 import { format, intervalToDuration } from "date-fns";
 import { useWhoop } from "hooks/useWhoopContext";
+import { Loading } from "pages/Loading";
 import { ComponentType, useState } from "react";
 import { WorkoutMetric, ZoneChart, ZoneLegend } from ".";
-import { SportMap } from "../const";
+import { CALORIES_PER_KJ, SportMap } from "../const";
 import { WhoopColor, WorkoutMetricColor } from "../types";
 
 const formatDuration = (start: string, end: string): string => {
@@ -22,9 +23,11 @@ const formatDuration = (start: string, end: string): string => {
 };
 
 export const WorkoutActivityCard = () => {
-  const { data } = useWhoop();
+  const { data, loading } = useWhoop();
 
   const [showZoneLegend, setShowZoneLegend] = useState(false);
+
+  if (loading) return <Loading page="dashboard" component="workout-activity-card" rows={2} />
 
   if (data?.workouts?.length === 0) return null;
 
@@ -59,7 +62,7 @@ export const WorkoutActivityCard = () => {
 
           const duration = formatDuration(workout.start, workout.end);
           const activityName = SportMap[workout.sport_id ?? 0] || "Activity";
-          const caloriesBurned = Math.round(workout.score.kilojoule / 4.184);
+          const caloriesBurned = Math.round(workout.score.kilojoule / CALORIES_PER_KJ);
 
           const rows: Record<string, {
             icon: ComponentType;
@@ -129,7 +132,7 @@ export const WorkoutActivityCard = () => {
             </div>
           );
         })}
-      </div >
-    </div >
+      </div>
+    </div>
   );
 }; 

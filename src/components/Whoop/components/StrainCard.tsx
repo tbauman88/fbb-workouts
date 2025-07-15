@@ -1,7 +1,8 @@
 import { useWhoop } from "hooks/useWhoopContext";
-import { StrainLabel, WhoopColor } from "../types";
-import { LineGraph } from ".";
 import { Loading } from "pages/Loading";
+import { LineGraph } from ".";
+import { CALORIES_PER_KJ } from "../const";
+import { StrainLabel, WhoopColor } from "../types";
 
 const getStrainLabel = (value: number): string => {
   const thresholds = [
@@ -24,7 +25,7 @@ function estimateStrainTarget(recovery: number, sleep: number): { min: number; m
 export const StrainCard = () => {
   const { data, loading } = useWhoop();
 
-  if (loading) return <Loading page="dashboard" component="whoop-card" rows={3} />
+  if (loading) return <Loading page="dashboard" component="whoop-card" rows={4} />
 
   if (!data?.cycle) return null;
 
@@ -37,6 +38,7 @@ export const StrainCard = () => {
     Target: `${strainTarget.min}-${strainTarget.max}`,
     'Avg HR': `${data.cycle.score.average_heart_rate} bpm`,
     'Max HR': `${data.cycle.score.max_heart_rate} bpm`,
+    'Calories': `${Math.round(data.cycle.score.kilojoule / CALORIES_PER_KJ)} kcal`,
   };
 
   return (
