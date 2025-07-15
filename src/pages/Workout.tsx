@@ -1,4 +1,4 @@
-import { ArrowUpIcon, CheckCircleIcon, ChevronLeftIcon, ChevronRightIcon, ForwardIcon } from '@heroicons/react/24/solid'
+import { CheckCircleIcon, ChevronLeftIcon, ChevronRightIcon, ForwardIcon } from '@heroicons/react/24/solid'
 import React, { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useWindowSize } from 'react-use'
@@ -44,30 +44,30 @@ const Header: React.FC<{
   </div>
 )
 
-const ScrollToTopButton: React.FC<{ visible: boolean }> = ({ visible }) => {
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
+// const ScrollToTopButton: React.FC<{ visible: boolean }> = ({ visible }) => {
+//   const scrollToTop = () => {
+//     window.scrollTo({ top: 0, behavior: 'smooth' })
+//   }
 
-  if (!visible) return null
+//   if (!visible) return null
 
-  return (
-    <button
-      onClick={scrollToTop}
-      className="fixed bottom-28 right-4 z-40 lg:bottom-4 lg:right-4 p-3 bg-gray-900 text-white rounded-full shadow-lg hover:bg-gray-800 transition-all duration-200 transform hover:scale-105"
-      aria-label="Scroll to top"
-    >
-      <ArrowUpIcon className="h-5 w-5" />
-    </button >
-  )
-}
+//   return (
+//     <button
+//       onClick={scrollToTop}
+//       className="fixed bottom-28 right-4 z-40 lg:bottom-4 lg:right-4 p-3 bg-gray-900 text-white rounded-full shadow-lg hover:bg-gray-800 transition-all duration-200 transform hover:scale-105"
+//       aria-label="Scroll to top"
+//     >
+//       <ArrowUpIcon className="h-5 w-5" />
+//     </button >
+//   )
+// }
 
 const Wrapper = ({ children, loading, handleClick }: {
   children: React.ReactNode,
   loading: boolean,
   handleClick: (direction: Direction) => void
 }) => {
-  const [showScrollTop, setShowScrollTop] = useState(false)
+  const [, setShowScrollTop] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {

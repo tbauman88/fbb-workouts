@@ -4,15 +4,15 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "dev": "vite",
     "preview": "vite preview",
     "build": "tsc && vite build",
     "codegen": "graphql-codegen --config codegen.ts",
-    "prettier:fix": "prettier --write .",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --ignore-pattern 'src/generated/*'",
+    "lint:api": "eslint api --ext ts --report-unused-disable-directives"
   },
   "dependencies": {
     "@apollo/client": "^3.12.4",

@@ -94,7 +94,7 @@ export const WhoopService = () => {
     accessToken: string,
     refreshToken: string,
     integrationId: string | undefined,
-  ): Promise<any[] | any | null> => {
+  ): Promise<unknown[] | unknown | null> => {
     try {
       console.log(`Fetching Whoop ${action} data...`);
 

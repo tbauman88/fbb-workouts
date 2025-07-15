@@ -1,6 +1,6 @@
 import axios from 'axios';
-import handler from '../handlers/whoop-oauth';
 import { WHOOP_OAUTH_URL } from '../const';
+import handler from '../handlers/whoop-oauth';
 import { createMocks } from './helpers';
 
 jest.mock('axios');
@@ -278,7 +278,7 @@ describe('WHOOP OAuth Handler', () => {
       const timeoutError = new Error('timeout of 10000ms exceeded') as Error & { code: string };
       timeoutError.code = 'ECONNABORTED';
       mockedAxios.post.mockRejectedValueOnce(timeoutError);
-      mockedAxios.isAxiosError = jest.fn().mockReturnValue(true) as any;
+      mockedAxios.isAxiosError = jest.fn().mockReturnValue(true) as unknown as jest.MockedFunction<typeof axios.isAxiosError>;
 
       const { req, res } = createMocks({
         body: {

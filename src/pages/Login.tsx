@@ -1,8 +1,8 @@
-import { useState, useCallback } from 'react'
-import { Form, Field } from 'react-final-form'
-import { useAuth } from '../hooks/useAuth'
+import { useCallback, useState } from 'react'
+import { Field, Form } from 'react-final-form'
 import { useNavigate } from 'react-router-dom'
 import { Logo } from '../components'
+import { useAuth } from '../hooks/useAuth'
 
 const defaultAuth = {
   email: import.meta.env.VITE_AUTH_EMAIL || '',
@@ -88,7 +88,7 @@ export const Login = () => {
             onSubmit={onSubmit}
             validate={validate}
             initialValues={defaultAuth}
-            render={({ handleSubmit, submitting, pristine, values }) => (
+            render={({ handleSubmit, submitting }) => (
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="space-y-4">
                   {/* Email Field */}
