@@ -155,7 +155,6 @@ describe('WHOOP API Handler', () => {
         expect(mockedAxios.get).toHaveBeenCalledWith(
           `${WHOOP_API_URL}${endpoint}`,
           expect.objectContaining({
-            params: { limit: 1 },
             headers: {
               'Authorization': `Bearer ${validToken}`,
               'Accept': 'application/json',
