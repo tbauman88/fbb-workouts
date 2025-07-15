@@ -1,7 +1,7 @@
 import { useWhoop } from "hooks/useWhoopContext";
-import { RecoveryColor, RecoveryLabel, WhoopColor } from "../types";
-import { LineGraph } from ".";
 import { Loading } from "pages/Loading";
+import { LineGraph } from ".";
+import { RecoveryColor, RecoveryLabel, WhoopColor } from "../types";
 
 const getRecoveryColor = (value: number): string => {
   const thresholds = [
@@ -32,7 +32,7 @@ export const RecoveryCard = () => {
   const recoveryLabel = getRecoveryLabel(recoveryScore);
 
   const rows: Record<string, string | number>[] = [
-    { name: "HRV", value: `${Number(`${data.recovery.score.hrv_rmssd_milli}e+3`).toFixed(0)}` },
+    { name: "HRV", value: `${(data.recovery.score.hrv_rmssd_milli * 1000).toFixed(0)}` },
     { name: "RHR", value: `${data.recovery.score.resting_heart_rate}` },
     { name: "SpO2", value: `${data.recovery.score.spo2_percentage.toFixed(1)}` },
   ];

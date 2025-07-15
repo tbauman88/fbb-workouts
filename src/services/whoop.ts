@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { endpoints, OAUTH_URL } from 'consts';
+import { endOfDay, startOfDay, subDays } from 'date-fns';
 import { useUpsertWhoopIntegrationMutation } from 'generated/graphql';
 import { config } from '../../environment';
-import { startOfDay, subDays } from 'date-fns';
 
 const isDevelopment = import.meta.env.DEV;
 
@@ -104,6 +104,7 @@ export const WhoopService = () => {
       const response = await axios.get(endpoints[action], {
         params: {
           start: startOfDay(today).toISOString(),
+          end: endOfDay(today).toISOString(),
         },
         headers: {
           'Authorization': `Bearer ${accessToken}`,

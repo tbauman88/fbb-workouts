@@ -1,12 +1,12 @@
+import { ArrowUpIcon, CheckCircleIcon, ChevronLeftIcon, ChevronRightIcon, ForwardIcon } from '@heroicons/react/24/solid'
 import React, { useEffect, useMemo, useState } from 'react'
-import { useWindowSize } from 'react-use'
-import { useWorkout } from '../hooks/useWorkout'
-import { ButtonGroup, WorkoutItem, Logo, Badge } from '../components'
-import { CheckCircleIcon, ChevronLeftIcon, ChevronRightIcon, ForwardIcon, ArrowUpIcon } from '@heroicons/react/24/solid'
 import { useNavigate } from 'react-router-dom'
-import { Loading } from './Loading'
+import { useWindowSize } from 'react-use'
+import { Badge, ButtonGroup, Logo, WorkoutItem } from '../components'
+import { useWorkout } from '../hooks/useWorkout'
 import { WorkoutStatus } from '../types'
 import { getProxiedImageUrl } from '../utils/imageProxy'
+import { Loading } from './Loading'
 
 type Direction = 'next' | 'prev' | 'home'
 
@@ -232,7 +232,6 @@ export const Workout = () => {
               ))}
             </section>
 
-            {/* Completion Button */}
             <ButtonGroup
               icon={ForwardIcon}
               onButtonClick={() => handleSubmit(WorkoutStatus.COMPLETED)}
@@ -243,8 +242,9 @@ export const Workout = () => {
             >
               <div className='flex items-center justify-center gap-2'>
                 {workoutStatus === WorkoutStatus.COMPLETED && <CheckCircleIcon className="h-5 w-5" aria-hidden="true" />}
-                {isCompleted ? `Workout ${workoutStatus}` : 'Mark as Complete'}
-                {!isCompleted && canFinishCycle && 'Finish Cycle'}
+                {isCompleted
+                  ? `Workout ${workoutStatus}`
+                  : (canFinishCycle ? 'Finish Cycle' : 'Mark as Complete')}
               </div>
             </ButtonGroup>
           </div>
