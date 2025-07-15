@@ -104,7 +104,7 @@ export enum ZoneColor {
   /** Zone 4: Very hard activity (80-90% max HR) */
   Zone4 = "#F9A450",
   /** Zone 5: Maximum effort (90%+ max HR) */
-  Zone5 = "FF5A00",
+  Zone5 = "#FF5A00",
 }
 
 /**
