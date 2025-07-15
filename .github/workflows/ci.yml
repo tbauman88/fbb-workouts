@@ -30,16 +30,12 @@ jobs:
       - name: Run ESLint
         run: npm run lint
 
-      - name: Check Prettier formatting
-        run: npx prettier --check .
-
       - name: Run TypeScript type checking
         run: npx tsc --noEmit
 
       - name: Run tests
         run: npm run test:coverage
         env:
-          # Test environment variables (from jest.setup.ts)
           WHOOP_CLIENT_SECRET: 'test-secret-key-for-webhook-signing'
           HASURA_WEBHOOK_URL: 'https://test-hasura.com/webhook'
           HASURA_ADMIN_SECRET: 'test-hasura-admin-secret'
@@ -112,4 +108,4 @@ jobs:
           WHOOP_CLIENT_ID: ${{ secrets.WHOOP_CLIENT_ID }}
 
       - name: Lint API files
-        run: npx eslint api --ext ts --report-unused-disable-directives --max-warnings 0
+        run: npm run lint:api

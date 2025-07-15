@@ -226,7 +226,7 @@ describe('WHOOP API Handler', () => {
       const timeoutError = new Error('timeout of 10000ms exceeded') as Error & { code: string };
       timeoutError.code = 'ECONNABORTED';
       mockedAxios.get.mockRejectedValueOnce(timeoutError);
-      mockedAxios.isAxiosError = jest.fn().mockReturnValue(true) as any;
+      mockedAxios.isAxiosError = jest.fn().mockReturnValue(true) as unknown as jest.MockedFunction<typeof axios.isAxiosError>;
 
       const { req, res } = createMocks({
         headers: { authorization: `Bearer ${validToken}` },
@@ -275,7 +275,7 @@ describe('WHOOP API Handler', () => {
     it('should handle network errors', async () => {
       const networkError = new Error('Network Error');
       mockedAxios.get.mockRejectedValueOnce(networkError);
-      mockedAxios.isAxiosError = jest.fn().mockReturnValue(false) as any;
+      mockedAxios.isAxiosError = jest.fn().mockReturnValue(false) as unknown as jest.MockedFunction<typeof axios.isAxiosError>;
 
       const { req, res } = createMocks({
         headers: { authorization: `Bearer ${validToken}` },

@@ -1,9 +1,9 @@
-import { useCallback, useState } from 'react'
+import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline'
 import { WorkoutItemFragment } from 'generated/graphql'
+import { useCallback, useState } from 'react'
 import marked from '../../markedConfig'
 import { Exercises } from './Exercises'
 import { Score } from './Score'
-import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline'
 
 const Header = ({ header }: { header: string | null | undefined }) =>
   header && (
@@ -30,7 +30,7 @@ const Notes = ({ notes }: { notes: string | null | undefined }) =>
 
 export const WorkoutItem: React.FC<{ item: WorkoutItemFragment }> = ({ item }) => {
   const [isCollapsed, setIsCollapsed] = useState(false)
-  const [isCompleted, setIsCompleted] = useState(false)
+  const [, setIsCompleted] = useState(false)
 
   const excludedHeaders = ['Coach Note', 'Short on Time', 'Warm-up', 'Cool Down', 'Recover']
   const needsScore = !excludedHeaders.some((header) => item.header?.toLowerCase().includes(header.toLowerCase()))
