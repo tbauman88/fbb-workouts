@@ -1,6 +1,7 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
 import axios from 'axios';
-import { setCorsHeaders, validateMethod, createErrorResponse, logger, getErrorInfo } from '../_utils';
+import { endOfDay, startOfDay, subDays } from 'date-fns';
+import { createErrorResponse, getErrorInfo, logger, setCorsHeaders, validateMethod } from '../_utils';
 import { ALLOWED_ENDPOINTS, REQUEST_TIMEOUT, WHOOP_API_URL } from '../const';
 
 function validateAuthHeader(authHeader: string | undefined): { isValid: boolean; token?: string; error?: string } {
@@ -41,9 +42,17 @@ async function handleWhoopRequest(endpoint: string, accessToken: string) {
 
   logger.info(`Fetching WHOOP data from endpoint`, { endpoint });
 
+  const isWorkout = endpoint.includes("/workout");
+  const date = new Date();
+  const startDate = subDays(date, 7);
+
+  const params = isWorkout
+    ? { start: startOfDay(startDate).toISOString(), end: endOfDay(date).toISOString() }
+    : { limit: 1 };
+
   try {
     const response = await axios.get(url, {
-      params: { limit: 1 },
+      params,
       headers: {
         'Authorization': `Bearer ${accessToken}`,
         'Accept': 'application/json',
