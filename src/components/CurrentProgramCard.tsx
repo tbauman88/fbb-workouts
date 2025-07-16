@@ -1,5 +1,6 @@
 import { DashboardContent } from 'hooks/useDashboard'
 import { Loading } from 'pages/Loading'
+import { getProxiedImageUrl } from '../utils/imageProxy'
 import { ProgressBar } from './ProgressBar'
 
 type CurrentProgramCardProps = {
@@ -24,7 +25,7 @@ export const CurrentProgramCard = ({ currentProgram, cycleProgression, loading, 
 
       <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
         <img
-          src={currentProgram.image ?? ''}
+          src={getProxiedImageUrl(currentProgram.image)}
           alt=""
           className="w-full h-full object-cover"
         />
