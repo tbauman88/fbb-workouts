@@ -1,6 +1,7 @@
-import { usePrograms, Program as ProgramType } from '../hooks/usePrograms'
-import { useNavigate } from 'react-router-dom'
 import { useCallback } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { Program as ProgramType, usePrograms } from '../hooks/usePrograms'
+import { getProxiedImageUrl } from '../utils/imageProxy'
 import { Loading } from './Loading'
 
 export const Program = () => {
@@ -35,7 +36,7 @@ export const Program = () => {
                 >
                   <img
                     alt=""
-                    src={program.image ?? ''}
+                    src={getProxiedImageUrl(program.image)}
                     className="absolute inset-0 size-full rounded-2xl bg-gray-800 object-cover shadow-2xl transition-transform group-hover:scale-125 group-hover:opacity-80 cursor-pointer"
                   />
                 </div>

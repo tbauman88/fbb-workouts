@@ -1,5 +1,6 @@
 import { DashboardContent } from 'hooks/useDashboard'
 import { Loading } from 'pages/Loading'
+import { getProxiedImageUrl } from '../utils/imageProxy'
 
 type ProgramsListProps = {
   programs: DashboardContent['programs']
@@ -19,7 +20,7 @@ export const ProgramsList = ({ programs, loading }: ProgramsListProps) => {
           {programs.map((program, index) => (
             <div key={program.name} className={`inline-block ${index === programs.length - 1 ? 'pr-0' : 'pr-6'}`}>
               <div className="min-w-[300px] max-w-xs overflow-hidden rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out">
-                <img src={program.image ?? ''} alt="" />
+                <img src={getProxiedImageUrl(program.image)} alt="" />
               </div>
             </div>
           ))}
